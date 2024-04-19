@@ -10,7 +10,7 @@
     <UserControl.Resources>
         <!-- import converters here -->
     </UserControl.Resources>
-    <Grid>
+    <Grid Background="Gray">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" /> <!--fixed height-->
             <RowDefinition Height="50" MaxHeight="150" /> <!--restrict height to max 150px-->
@@ -23,8 +23,9 @@
         </Grid.ColumnDefinitions>
         <TextBlock Text="Text" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" FontSize="35"  Margin="55,0,0,0"/>
 
-        <TextBox Grid.Row="0" Grid.Column="1" Width="200" Height="30" VerticalContentAlignment="Center" Text="" Background="AliceBlue" />
-        <Button Grid.Row="3" Background="Black" BorderThickness="0" Width="100" Height="50" Command="{Binding OpenBrowserCommand}">
+        <TextBox Grid.Row="0" Grid.Column="1" Width="200" Height="30" VerticalContentAlignment="Center" Text="{Binding TextBoxInput, UpdateSourceTrigger=PropertyChanged}"  Background="AliceBlue" />
+        <TextBlock Grid.Row="1" Grid.Column="1" MinWidth="40" Text="{Binding TextBoxInput}" />
+        <Button Grid.Row="3" Background="Black" BorderThickness="0" Width="100" Height="50" >
             <TextBlock Foreground="Wheat">Button</TextBlock>
         </Button>
 
