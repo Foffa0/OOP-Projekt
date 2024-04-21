@@ -25,7 +25,7 @@
 
         <TextBox Grid.Row="0" Grid.Column="1" Width="200" Height="30" VerticalContentAlignment="Center" Text="{Binding TextBoxInput, UpdateSourceTrigger=PropertyChanged}"  Background="AliceBlue" />
         <TextBlock Grid.Row="1" Grid.Column="1" MinWidth="40" Text="{Binding TextBoxInput}" />
-        <Button Grid.Row="3" Background="Black" BorderThickness="0" Width="100" Height="50" >
+        <Button Grid.Row="3" Background="Black" BorderThickness="0" Width="100" Height="50" Style="{StaticResource RoundedButtonTheme}">
             <TextBlock Foreground="Wheat">Button</TextBlock>
         </Button>
 

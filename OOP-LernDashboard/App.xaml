@@ -6,6 +6,11 @@
              xmlns:views="clr-namespace:OOP_LernDashboard.Views">
     <Application.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/Colors.xaml" />
+                <ResourceDictionary Source="Themes/RoundedButtonTheme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
             <DataTemplate DataType="{x:Type vms:DemoViewModel}">
                 <views:DemoView />
             </DataTemplate>
