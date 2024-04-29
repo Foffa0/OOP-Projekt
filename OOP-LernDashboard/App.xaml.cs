@@ -21,7 +21,7 @@ namespace OOP_LernDashboard
         protected override void OnStartup(StartupEventArgs e)
         {
 
-            _navigationStore.CurrentViewModel = CreateDemoViewModel();
+            _navigationStore.CurrentViewModel = CreateDashboardViewModel();
 
             MainWindow = new MainWindow()
             {
@@ -40,6 +40,11 @@ namespace OOP_LernDashboard
         private DemoViewModel CreateDemoViewModel() 
         {
             return DemoViewModel.LoadViewModel();
+        }
+
+        private DashboardViewModel CreateDashboardViewModel()
+        {
+            return DashboardViewModel.LoadViewModel();
         }
     }
 

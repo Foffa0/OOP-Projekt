@@ -9,10 +9,14 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Themes/Colors.xaml" />
                 <ResourceDictionary Source="Themes/RoundedButtonTheme.xaml" />
+                <ResourceDictionary Source="Themes/Fonts.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type vms:DemoViewModel}">
                 <views:DemoView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:DashboardViewModel}">
+                <views:DashboardView />
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
