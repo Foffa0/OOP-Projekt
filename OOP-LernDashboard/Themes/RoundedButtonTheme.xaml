@@ -8,7 +8,7 @@
         </Style.Resources>
 
         <Style.Setters>
-            <Setter Property="Background" Value="{StaticResource SecondaryColor}"/>
+            <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
             <Setter Property="Foreground" Value="WhiteSmoke"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -35,7 +35,7 @@
                                 <Setter Property="Foreground" Value="White" />
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Background" Value="#353340" />
+                                <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
                                 <Setter Property="Foreground" Value="Gray" />
                             </Trigger>
                         </ControlTemplate.Triggers>
