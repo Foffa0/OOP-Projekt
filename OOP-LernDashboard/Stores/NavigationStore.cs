@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OOP_LernDashboard.Stores
 {
-    internal class NavigationStore
+    public class NavigationStore
     {
         private ViewModelBase _currentViewModel;
 

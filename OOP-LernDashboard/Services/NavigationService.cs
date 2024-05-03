@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace OOP_LernDashboard.Services
 {
-    internal class NavigationService
+    public class NavigationService
     {
+
         private readonly NavigationStore _navigationStore;
         private readonly Func<ViewModelBase> _createViewModel;
 

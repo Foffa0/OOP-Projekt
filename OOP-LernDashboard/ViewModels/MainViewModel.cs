@@ -1,4 +1,7 @@
-﻿using OOP_LernDashboard.Stores;
+﻿using OOP_LernDashboard.Commands;
+using OOP_LernDashboard.Services;
+using OOP_LernDashboard.Stores;
+using System.Windows.Input;
 
 namespace OOP_LernDashboard.ViewModels
 {
@@ -7,6 +10,7 @@ namespace OOP_LernDashboard.ViewModels
         private readonly NavigationStore _navigationStore;
 
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
+
 
         public MainViewModel(NavigationStore navigationStore) 
         {

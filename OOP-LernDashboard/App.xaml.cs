@@ -3,7 +3,7 @@ using OOP_LernDashboard.ViewModels;
 using System.Configuration;
 using System.Data;
 using System.Windows;
-using System.Windows.Navigation;
+using OOP_LernDashboard.Services;
 
 namespace OOP_LernDashboard
 {
@@ -39,7 +39,12 @@ namespace OOP_LernDashboard
 
         private DemoViewModel CreateDemoViewModel() 
         {
-            return DemoViewModel.LoadViewModel();
+            return DemoViewModel.LoadViewModel(new NavigationService(_navigationStore, CreateDemo2ViewModel));
+        }
+
+        private Demo2ViewModel CreateDemo2ViewModel()
+        {
+            return Demo2ViewModel.LoadViewModel();
         }
 
         private DashboardViewModel CreateDashboardViewModel()

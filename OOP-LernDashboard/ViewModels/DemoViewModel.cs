@@ -1,4 +1,8 @@
-﻿namespace OOP_LernDashboard.ViewModels
+﻿using OOP_LernDashboard.Commands;
+using OOP_LernDashboard.Services;
+using System.Windows.Input;
+
+namespace OOP_LernDashboard.ViewModels
 {
     internal class DemoViewModel : ViewModelBase
     {
@@ -14,14 +18,16 @@
 
         }
 
-        public DemoViewModel()
-        {
+        public ICommand NavigationTest { get; }
 
+        public DemoViewModel(NavigationService demoNavigationService)
+        {
+            NavigationTest = new NavigateCommand(demoNavigationService);
         }
 
-        public static DemoViewModel LoadViewModel()
+        public static DemoViewModel LoadViewModel(NavigationService demoNavigationService)
         {
-            DemoViewModel viewModel = new DemoViewModel();
+            DemoViewModel viewModel = new DemoViewModel(demoNavigationService);
             return viewModel;
         }
 
