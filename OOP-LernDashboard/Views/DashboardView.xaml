@@ -13,5 +13,65 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="{Binding WelcomeMessage}" Style="{StaticResource Title}"></TextBlock>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Padding="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Background="{StaticResource SecondaryColor}" CornerRadius="10" Padding="10">
+                        <StackPanel>
+                            <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Headline}" Margin="0,0,0,10">ToDos</TextBlock>
+                            <ListView Padding="0" Background="Transparent" BorderThickness="0">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                                        <Setter Property="Padding" Value="10"/>
+                                        <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+
+
+                                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10">
+                                    <Grid >
+                                        <Grid.Resources >
+                                            <Style TargetType="Border" >
+                                                <Setter Property="Padding" Value="10" />
+                                            </Style>
+                                        </Grid.Resources>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Column="0" Text="Mathe machen" Style="{StaticResource text}" VerticalAlignment="Center"></TextBlock>
+                                        <CheckBox Grid.Column="1">
+                                            <CheckBox.LayoutTransform>
+                                                <ScaleTransform ScaleX="2" ScaleY="2" />
+                                            </CheckBox.LayoutTransform>
+                                        </CheckBox>
+                                    </Grid>
+                                </ListViewItem>
+                                <ListViewItem IsSelected="True">with several</ListViewItem>
+                                <ListViewItem>items</ListViewItem>
+                            </ListView>
+                        </StackPanel>
+                    </Border>
+
+                    
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>
