@@ -1,4 +1,8 @@
-﻿namespace OOP_LernDashboard.ViewModels
+﻿using OOP_LernDashboard.Commands;
+using OOP_LernDashboard.Models;
+using System.Windows.Input;
+
+namespace OOP_LernDashboard.ViewModels
 {
     internal class DashboardViewModel : ViewModelBase
     {
@@ -15,14 +19,28 @@
             }
         }
 
-        public DashboardViewModel()
+        private string? _toDoDesc;
+        public string? ToDoDesc
         {
-            this.WelcomeMessage = $"Hallo {_firstName}!";
+            get { return _toDoDesc; }
+            set
+            {
+                _toDoDesc = value;
+                OnPropertyChanged(nameof(ToDoDesc));
+            }
         }
 
-        public static DashboardViewModel LoadViewModel()
+        public ICommand AddCommand { get; }
+
+        public DashboardViewModel(Dashboard dashboard)
         {
-            DashboardViewModel viewModel = new DashboardViewModel();
+            this.WelcomeMessage = $"Hallo {_firstName}!";
+            AddCommand = new AddToDoCommand(this, dashboard);
+        }
+
+        public static DashboardViewModel LoadViewModel(Dashboard dashboard)
+        {
+            DashboardViewModel viewModel = new DashboardViewModel(dashboard);
             return viewModel;
         }
     }

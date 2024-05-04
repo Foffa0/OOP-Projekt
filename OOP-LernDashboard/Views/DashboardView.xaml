@@ -68,8 +68,20 @@
                             </ListView>
                         </StackPanel>
                     </Border>
+                </Grid>
+            </Border>
+            
+            <Border Grid.Column="1" Padding="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                    
+                    <StackPanel>
+                        <TextBox Text="{Binding ToDoDesc, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        <Button Command="{Binding AddCommand}" Content="Add"></Button>
+                    </StackPanel>
                 </Grid>
             </Border>
         </Grid>

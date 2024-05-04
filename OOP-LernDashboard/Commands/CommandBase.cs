@@ -18,7 +18,7 @@ namespace OOP_LernDashboard.Commands
 
         public abstract void Execute(object? parameter);
 
-        protected void OnCanExecuteChanged()
+        protected void OnCanExecutedChanged()
         {
             CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }

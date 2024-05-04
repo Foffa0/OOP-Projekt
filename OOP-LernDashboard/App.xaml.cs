@@ -52,7 +52,7 @@ namespace OOP_LernDashboard
 
         private DashboardViewModel CreateDashboardViewModel()
         {
-            return DashboardViewModel.LoadViewModel();
+            return DashboardViewModel.LoadViewModel(_dashboard);
         }
     }
 
