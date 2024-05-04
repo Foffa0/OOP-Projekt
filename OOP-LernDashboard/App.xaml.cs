@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Windows;
 using OOP_LernDashboard.Services;
+using OOP_LernDashboard.Models;
 
 namespace OOP_LernDashboard
 {
@@ -13,10 +14,12 @@ namespace OOP_LernDashboard
     public partial class App : Application
     {
         private readonly NavigationStore _navigationStore;
+        private readonly Dashboard _dashboard;
 
         public App()
         {
             _navigationStore = new NavigationStore();
+            _dashboard = new Dashboard();
         }
         protected override void OnStartup(StartupEventArgs e)
         {

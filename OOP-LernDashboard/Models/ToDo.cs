@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OOP_LernDashboard.Models
+﻿namespace OOP_LernDashboard.Models
 {
     class ToDo
     {
+        public string? Description { get; set; }
+        public Boolean? IsChecked { get; set; }
+
+        public ToDo(string description, bool isChecked = false)
+        {
+            this.Description = description;
+            this.IsChecked = isChecked;
+        }
     }
 }
