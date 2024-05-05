@@ -28,7 +28,7 @@ namespace OOP_LernDashboard
 
             MainWindow = new MainWindow()
             {
-                DataContext = new MainViewModel(_navigationStore)
+                DataContext = new MainViewModel(_navigationStore, new NavigationService(_navigationStore, CreateSettingsViewModel))
             };
             MainWindow.Show();
 
@@ -53,6 +53,11 @@ namespace OOP_LernDashboard
         private DashboardViewModel CreateDashboardViewModel()
         {
             return DashboardViewModel.LoadViewModel(_dashboard);
+        }
+
+        private SettingsViewModel CreateSettingsViewModel()
+        {
+            return SettingsViewModel.LoadViewModel();
         }
     }
 

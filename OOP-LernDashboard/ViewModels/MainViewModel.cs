@@ -9,14 +9,18 @@ namespace OOP_LernDashboard.ViewModels
     {
         private readonly NavigationStore _navigationStore;
 
+        public ICommand SettingsCommand { get; }
+
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
 
 
-        public MainViewModel(NavigationStore navigationStore) 
+        public MainViewModel(NavigationStore navigationStore, NavigationService settingsNavigationService) 
         {
             _navigationStore = navigationStore;
 
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+
+            SettingsCommand = new NavigateCommand(settingsNavigationService);
         }
 
         private void OnCurrentViewModelChanged()
