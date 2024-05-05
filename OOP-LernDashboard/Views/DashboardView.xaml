@@ -32,7 +32,8 @@
                     <Border Background="{StaticResource SecondaryColor}" CornerRadius="10" Padding="10">
                         <StackPanel>
                             <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Headline}" Margin="0,0,0,10">ToDos</TextBlock>
-                            <ListView Padding="0" Background="Transparent" BorderThickness="0">
+
+                            <ListView Padding="0" Background="Transparent" BorderThickness="0" ItemsSource="{Binding ToDos}">
                                 <ListView.ItemContainerStyle>
                                     <Style TargetType="ListViewItem">
                                         <Setter Property="BorderThickness" Value="0"/>
@@ -42,29 +43,17 @@
                                     </Style>
                                 </ListView.ItemContainerStyle>
 
-
-                                <ListViewItem HorizontalContentAlignment="Stretch" Padding="10">
-                                    <Grid >
-                                        <Grid.Resources >
-                                            <Style TargetType="Border" >
-                                                <Setter Property="Padding" Value="10" />
-                                            </Style>
-                                        </Grid.Resources>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="auto"/>
-                                        </Grid.ColumnDefinitions>
-
-                                        <TextBlock Grid.Column="0" Text="Mathe machen" Style="{StaticResource text}" VerticalAlignment="Center"></TextBlock>
-                                        <CheckBox Grid.Column="1">
-                                            <CheckBox.LayoutTransform>
-                                                <ScaleTransform ScaleX="2" ScaleY="2" />
-                                            </CheckBox.LayoutTransform>
-                                        </CheckBox>
-                                    </Grid>
-                                </ListViewItem>
-                                <ListViewItem IsSelected="True">with several</ListViewItem>
-                                <ListViewItem>items</ListViewItem>
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Description}" Background="{StaticResource PrimaryColor}"></TextBlock>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
                             </ListView>
                         </StackPanel>
                     </Border>
