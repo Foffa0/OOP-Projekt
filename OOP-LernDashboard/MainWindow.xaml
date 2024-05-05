@@ -30,7 +30,19 @@
 
         <!--Side Nav-->
         <Grid Grid.Column="0" Background="{StaticResource SecondaryColor}">
-            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Margin="0, 40, 0, 0">
+                <Button>Home</Button>
+                <Button>ToDos</Button>
+            </StackPanel>
+
+            <Button Grid.Row="1"  BorderThickness="0" Width="50" Height="50" Style="{StaticResource RoundButtonTheme}" Margin="0, 0, 0, 40">
+                <TextBlock>Settings</TextBlock>
+            </Button>
         </Grid>
 
         <!--Main Content, variable-->

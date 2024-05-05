@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="Themes/Colors.xaml" />
                 <ResourceDictionary Source="Themes/RoundedButtonTheme.xaml" />
                 <ResourceDictionary Source="Themes/Fonts.xaml" />
+                <ResourceDictionary Source="Themes/RoundButtonTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type vms:DemoViewModel}">
