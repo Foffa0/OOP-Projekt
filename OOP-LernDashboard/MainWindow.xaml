@@ -20,6 +20,9 @@
             <DataTemplate DataType="{x:Type vms:Demo2ViewModel}">
                 <views:Demo2View />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:SettingsViewModel}">
+                <views:SettingsView />
+            </DataTemplate>
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
@@ -36,7 +39,13 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0" Margin="0, 40, 0, 0">
-                <Button>Home</Button>
+                <RadioButton Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding DashboardCommand}">
+                    <Image Width="30">
+                        <Image.Source>
+                            <BitmapImage DecodePixelWidth="40" UriSource="/Images/DashboardIcon.png" />
+                        </Image.Source>
+                    </Image>
+                </RadioButton>
                 <Button>ToDos</Button>
             </StackPanel>
 

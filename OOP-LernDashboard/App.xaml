@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="Themes/RoundedButtonTheme.xaml" />
                 <ResourceDictionary Source="Themes/Fonts.xaml" />
                 <ResourceDictionary Source="Themes/RoundButtonTheme.xaml" />
+                <ResourceDictionary Source="Themes/SideNavButtonTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type vms:DemoViewModel}">
@@ -21,6 +22,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type vms:Demo2ViewModel}">
                 <views:Demo2View />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:SettingsViewModel}">
+                <views:SettingsView />
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

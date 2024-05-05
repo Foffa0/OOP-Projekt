@@ -6,7 +6,16 @@
              xmlns:local="clr-namespace:OOP_LernDashboard.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid Background="{StaticResource WindowTheme}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Settings" Style="{StaticResource Title}"></TextBlock>
+
+        <Grid Grid.Row="1">
             
+        </Grid>
     </Grid>
 </UserControl>

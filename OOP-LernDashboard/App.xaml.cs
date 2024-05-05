@@ -1,10 +1,8 @@
-﻿using OOP_LernDashboard.Stores;
-using OOP_LernDashboard.ViewModels;
-using System.Configuration;
-using System.Data;
-using System.Windows;
+﻿using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Services;
-using OOP_LernDashboard.Models;
+using OOP_LernDashboard.Stores;
+using OOP_LernDashboard.ViewModels;
+using System.Windows;
 
 namespace OOP_LernDashboard
 {
@@ -28,7 +26,7 @@ namespace OOP_LernDashboard
 
             MainWindow = new MainWindow()
             {
-                DataContext = new MainViewModel(_navigationStore, new NavigationService(_navigationStore, CreateSettingsViewModel))
+                DataContext = new MainViewModel(_navigationStore, new NavigationService(_navigationStore, CreateDashboardViewModel), new NavigationService(_navigationStore, CreateSettingsViewModel))
             };
             MainWindow.Show();
 
@@ -40,7 +38,7 @@ namespace OOP_LernDashboard
             base.OnExit(e);
         }
 
-        private DemoViewModel CreateDemoViewModel() 
+        private DemoViewModel CreateDemoViewModel()
         {
             return DemoViewModel.LoadViewModel(new NavigationService(_navigationStore, CreateDemo2ViewModel));
         }
