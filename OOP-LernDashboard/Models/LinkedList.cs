@@ -71,7 +71,7 @@ namespace OOP_LernDashboard.Models
                 throw new ArgumentNullException("Data cannot be null");
             }
 
-            if (data.Equals(head.data))
+            if (head != null && data.Equals(head.data))
             {
                 head = head.next;
             }
@@ -84,17 +84,20 @@ namespace OOP_LernDashboard.Models
             }
             else
             {
-                previous.next = previous.next.next;
+                previous.next = previous.next!.next; // previous.next cannot be null, since this is the element to delete
             }
         }
 
-        public Element FindPrevious(T data)
+        public Element? FindPrevious(T data)
         {
-            Element previous = head;
+            if (data == null)
+                throw new ArgumentNullException("Previous cannot be found when data is null");
+
+            Element? previous = head;
 
             while (previous != null)
             {
-                if (previous.next.data.Equals(data))
+                if (previous.next != null && data.Equals(previous.next.data))
                 {
                     return previous;
                 }
@@ -102,7 +105,7 @@ namespace OOP_LernDashboard.Models
                 previous = previous.next;
             }
 
-            return null;    // Cannot be reached
+            return null;    // Not found in list
         }
 
         public void Clear()
