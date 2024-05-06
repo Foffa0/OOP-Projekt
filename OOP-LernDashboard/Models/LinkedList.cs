@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 
 namespace OOP_LernDashboard.Models
 {
@@ -63,6 +57,57 @@ namespace OOP_LernDashboard.Models
             T data = head.data;
             head = head.next;
             return data;
+        }
+
+
+        /// <summary>
+        /// Removes a given Element from List
+        /// </summary>
+        /// /// <param name="data">The data to remove</param>
+        public void Remove(T data)  // Returns the next list element
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException("Data cannot be null");
+            }
+
+            if (data.Equals(head.data))
+            {
+                head = head.next;
+            }
+
+            Element? previous = FindPrevious(data);
+
+            if (previous == null)
+            {
+                return;     // OR: throw new ArgumentNullException("Element not found in list!");
+            }
+            else
+            {
+                previous.next = previous.next.next;
+            }
+        }
+
+        public Element FindPrevious(T data)
+        {
+            Element previous = head;
+
+            while (previous != null)
+            {
+                if (previous.next.data.Equals(data))
+                {
+                    return previous;
+                }
+
+                previous = previous.next;
+            }
+
+            return null;    // Cannot be reached
+        }
+
+        public void Clear()
+        {
+            head = null;
         }
 
         public IEnumerator<T> GetEnumerator()

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OOP_LernDashboard.ViewModels
 {
-    internal class ToDoViewModel
+    internal class ToDoViewModel : ViewModelBase
     {
         private readonly ToDo _toDo;
 

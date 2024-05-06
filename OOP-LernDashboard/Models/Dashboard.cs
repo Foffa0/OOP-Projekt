@@ -1,22 +1,15 @@
-﻿namespace OOP_LernDashboard.Models
+﻿using OOP_LernDashboard.Stores;
+
+namespace OOP_LernDashboard.Models
 {
     class Dashboard
     {
-        public LinkedList<ToDo> ToDoList { get; set; }
+        private readonly DashboardStore _dashboardStore;
 
-        public Dashboard()
+
+        public Dashboard(DashboardStore dashboardStore)
         {
-            this.ToDoList = new LinkedList<ToDo>
-            {
-                new("Mathe"),
-                new("Backup"),
-                new("Memes")
-            };
-
-            foreach (ToDo todo in ToDoList)
-            {
-                Console.WriteLine(todo.ToString());
-            }
+            _dashboardStore = dashboardStore;
         }
     }
 }

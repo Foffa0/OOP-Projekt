@@ -11,7 +11,7 @@ namespace OOP_LernDashboard.DTOs
     {
         [Key]
         public Guid Id { get; set; }
-        public string? Description { get; set; }
-        public Boolean? IsChecked { get; set; }
+        public string Description { get; set; }
+        public Boolean IsChecked { get; set; }
     }
 }

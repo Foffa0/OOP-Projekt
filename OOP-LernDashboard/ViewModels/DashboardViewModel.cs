@@ -1,5 +1,7 @@
-﻿using OOP_LernDashboard.Commands;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using OOP_LernDashboard.Commands;
 using OOP_LernDashboard.Models;
+using OOP_LernDashboard.Stores;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -7,6 +9,9 @@ namespace OOP_LernDashboard.ViewModels
 {
     internal class DashboardViewModel : ViewModelBase
     {
+        private readonly DashboardStore _dashboardStore;
+
+
         private string? _firstName = "Studierende Person";
         private string? _welcomeMessage;
 
@@ -36,25 +41,56 @@ namespace OOP_LernDashboard.ViewModels
 
         public ICommand AddCommand { get; }
 
-        public DashboardViewModel(Dashboard dashboard)
+        public ICommand LoadDataAsyncCommand { get; }
+
+        public DashboardViewModel(Dashboard dashboard, DashboardStore dashboardStore)
         {
+            _dashboardStore = dashboardStore;
+
             this.WelcomeMessage = $"Hallo {_firstName}!";
-            AddCommand = new AddToDoCommand(this, dashboard);
 
-            _toDos = new ObservableCollection<ToDoViewModel>
-            {
-                new(new ToDo("1")),
-                new(new ToDo("2")),
-                new(new ToDo("3")),
-            };
+            AddCommand = new AddToDoCommand(this, dashboardStore);
+            LoadDataAsyncCommand = new LoadDashboardDataCommand(this, dashboardStore);
 
-            UpdateToDos(dashboard.ToDoList);
+            _toDos = new ObservableCollection<ToDoViewModel>();
+
+            // Listen for changes in the dashboardStore
+            _dashboardStore.ToDoCreated += OnToDoCreated;
+            _dashboardStore.ToDoDeleted += OnToDoDeleted;
         }
 
-        public static DashboardViewModel LoadViewModel(Dashboard dashboard)
+        public override void Dispose()
         {
-            DashboardViewModel viewModel = new DashboardViewModel(dashboard);
+            _dashboardStore.ToDoCreated -= OnToDoCreated;
+            _dashboardStore.ToDoDeleted -= OnToDoDeleted;
+            base.Dispose();
+        }
+
+        public static DashboardViewModel LoadViewModel(Dashboard dashboard, DashboardStore dashboardStore)
+        {
+            DashboardViewModel viewModel = new DashboardViewModel(dashboard, dashboardStore);
+            //Load data asynchronously
+            viewModel.LoadDataAsyncCommand.Execute(null);
             return viewModel;
+        }
+
+        /// <summary>
+        /// Adds the newly created ToDo to the ObservableCollection
+        /// </summary>
+        /// <param name="toDo"></param>
+        private void OnToDoCreated(ToDo toDo)
+        {
+            ToDoViewModel videoViewModel = new ToDoViewModel(toDo);
+            _toDos.Add(videoViewModel);
+        }
+        /// <summary>
+        /// Removes the deleted ToDo from the ObservableCollection
+        /// </summary>
+        /// <param name="toDo"></param>
+        private void OnToDoDeleted(ToDo toDo)
+        {
+            ToDoViewModel videoViewModel = new ToDoViewModel(toDo);
+            _toDos.Remove(videoViewModel);
         }
 
         public void UpdateToDos(IEnumerable<ToDo> todos)

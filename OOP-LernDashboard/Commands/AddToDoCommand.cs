@@ -1,4 +1,5 @@
 ﻿using OOP_LernDashboard.Models;
+using OOP_LernDashboard.Stores;
 using OOP_LernDashboard.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -13,24 +14,29 @@ namespace OOP_LernDashboard.Commands
     internal class AddToDoCommand : CommandBase
     {
         private readonly DashboardViewModel _dashboardViewModel;
-        private readonly Dashboard _dashboard;
+        private readonly DashboardStore _dashboardStore;
 
-        public AddToDoCommand(DashboardViewModel dashboardViewModel, Dashboard dashboard)
+        public AddToDoCommand(DashboardViewModel dashboardViewModel, DashboardStore dashboardStore)
         {
             _dashboardViewModel = dashboardViewModel;
-            _dashboard = dashboard;
+            _dashboardStore = dashboardStore;
 
             _dashboardViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
 
-        public override void Execute(object? parameter)
+        public override bool CanExecute(object? parameter)
         {
-            if (_dashboardViewModel.ToDoDesc == null)
-                throw new NullReferenceException("Cannot create ToDo with Null as description");
+            return _dashboardViewModel.ToDoDesc != null;
+        }
+
+        public override async void Execute(object? parameter)
+        {
+            //if (_dashboardViewModel.ToDoDesc == null)
+            //    throw new NullReferenceException("Cannot create ToDo with Null as description");
 
             ToDo toDo = new ToDo(_dashboardViewModel.ToDoDesc);
 
-            _dashboard.ToDoList.Add(toDo);
+            await _dashboardStore.AddToDo(toDo);
 
             MessageBox.Show($"Successfully created ToDo: {_dashboardViewModel.ToDoDesc}", "Success",
                     MessageBoxButton.OK, MessageBoxImage.Information);
