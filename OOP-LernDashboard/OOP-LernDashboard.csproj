@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\CalendarIcon.png" />
     <None Remove="Images\DashboardIcon.png" />
     <None Remove="Images\GoogleLogo.png" />
     <None Remove="Images\SettingsIcon.png" />
@@ -30,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\CalendarIcon.png" />
     <Resource Include="Images\DashboardIcon.png" />
     <Resource Include="Images\GoogleLogo.png" />
     <Resource Include="Images\SettingsIcon.png" />

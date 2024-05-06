@@ -45,7 +45,7 @@ namespace OOP_LernDashboard
 
             MainWindow = new MainWindow()
             {
-                DataContext = new MainViewModel(_navigationStore, new NavigationService(_navigationStore, CreateDashboardViewModel), new NavigationService(_navigationStore, CreateSettingsViewModel))
+                DataContext = new MainViewModel(_navigationStore, new NavigationService(_navigationStore, CreateDashboardViewModel), new NavigationService(_navigationStore, CreateCalendarViewModel), new NavigationService(_navigationStore, CreateSettingsViewModel))
             };
             MainWindow.Show();
 
@@ -70,6 +70,11 @@ namespace OOP_LernDashboard
         private DashboardViewModel CreateDashboardViewModel()
         {
             return DashboardViewModel.LoadViewModel(_dashboard, _dashboardStore);
+        }
+
+        private CalendarViewModel CreateCalendarViewModel()
+        {
+            return CalendarViewModel.LoadViewModel(_dashboard, _dashboardStore);
         }
 
         private SettingsViewModel CreateSettingsViewModel()

@@ -10,18 +10,20 @@ namespace OOP_LernDashboard.ViewModels
         private readonly NavigationStore _navigationStore;
 
         public ICommand DashboardCommand { get; }
+        public ICommand CalendarCommand { get; }
         public ICommand SettingsCommand { get; }
 
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
 
 
-        public MainViewModel(NavigationStore navigationStore, NavigationService dashboardNavigationService,NavigationService settingsNavigationService) 
+        public MainViewModel(NavigationStore navigationStore, NavigationService dashboardNavigationService, NavigationService calendarNavigationServie, NavigationService settingsNavigationService) 
         {
             _navigationStore = navigationStore;
 
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
 
             DashboardCommand = new NavigateCommand(dashboardNavigationService);
+            CalendarCommand = new NavigateCommand(calendarNavigationServie);
             SettingsCommand = new NavigateCommand(settingsNavigationService);
         }
 

@@ -8,6 +8,7 @@
             <Setter Property="BorderBrush" Value="{StaticResource PrimaryColor}" />
             <Setter Property="Foreground" Value="{StaticResource TextColor}" />
             <Setter Property="Padding" Value="4" />
+            <Setter Property="CaretBrush" Value="{StaticResource TextColor}" />
 
             <Setter Property="Template">
                 <Setter.Value>

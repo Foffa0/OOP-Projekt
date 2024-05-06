@@ -25,8 +25,8 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
-        private string? _toDoDesc;
-        public string? ToDoDesc
+        private string _toDoDesc = "";
+        public string ToDoDesc
         {
             get { return _toDoDesc; }
             set

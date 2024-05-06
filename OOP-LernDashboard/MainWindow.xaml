@@ -17,6 +17,9 @@
             <DataTemplate DataType="{x:Type vms:DashboardViewModel}">
                 <views:DashboardView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:CalendarViewModel}">
+                <views:CalendarView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type vms:Demo2ViewModel}">
                 <views:Demo2View />
             </DataTemplate>
@@ -47,6 +50,13 @@
                     </Image>
                 </RadioButton>
                 <Button>ToDos</Button>
+                <RadioButton Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding CalendarCommand}">
+                    <Image Width="30">
+                        <Image.Source>
+                            <BitmapImage DecodePixelWidth="40" UriSource="/Images/CalendarIcon.png" />
+                        </Image.Source>
+                    </Image>
+                </RadioButton>
             </StackPanel>
 
             <Button Grid.Row="1"  BorderThickness="0" Width="50" Height="50" Style="{StaticResource RoundButtonTheme}" Margin="0, 0, 0, 40" Command="{Binding SettingsCommand}">
