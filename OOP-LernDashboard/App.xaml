@@ -12,6 +12,8 @@
                 <ResourceDictionary Source="Themes/Fonts.xaml" />
                 <ResourceDictionary Source="Themes/RoundButtonTheme.xaml" />
                 <ResourceDictionary Source="Themes/SideNavButtonTheme.xaml" />
+                <ResourceDictionary Source="Themes/PrimaryButtonTheme.xaml" />
+                <ResourceDictionary Source="Themes/PrimaryTextInputTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type vms:DemoViewModel}">

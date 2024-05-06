@@ -7,6 +7,7 @@
     <Style x:Key="Headline" TargetType="TextBlock">
         <Setter Property="FontSize" Value="20" />
         <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Margin" Value="0, 20, 0, 10" />
     </Style>
 
     <Style x:Key="text" TargetType="TextBlock">
