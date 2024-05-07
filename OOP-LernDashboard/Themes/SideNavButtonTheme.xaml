@@ -8,7 +8,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type RadioButton}">
                         <!--Workaround für runde Ecken-->
-                        <Border Background="{TemplateBinding Background}" BorderThickness="0" x:Name="BtnBorder">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="1" x:Name="BtnBorder">
                             <Grid>
                                 <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
                             </Grid>
