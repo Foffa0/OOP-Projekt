@@ -51,28 +51,28 @@
                 <RadioButton Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding DashboardCommand}">
                     <Image Width="30">
                         <Image.Source>
-                            <BitmapImage DecodePixelWidth="40" UriSource="/Images/DashboardIcon.png" />
+                            <BitmapImage DecodePixelWidth="240" UriSource="/Images/DashboardIcon.png"/>
                         </Image.Source>
                     </Image>
                 </RadioButton>
                 <RadioButton Height="40" Style="{StaticResource SideNavButtonTheme}" >
-                    <Image Width="20">
+                    <Image Width="30">
                         <Image.Source>
-                            <BitmapImage DecodePixelWidth="40" UriSource="/Images/ToDoIcon.png" />
+                            <BitmapImage DecodePixelWidth="240" UriSource="/Images/ToDoIcon.png"/>
                         </Image.Source>
                     </Image>
                 </RadioButton>
                 <RadioButton Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding QuickNotesCommand}">
-                    <Image Width="20">
+                    <Image Width="30">
                         <Image.Source>
-                            <BitmapImage DecodePixelWidth="40" UriSource="/Images/QuickNotesIcon.png" />
+                            <BitmapImage DecodePixelWidth="240" UriSource="/Images/QuickNotesIcon.png" />
                         </Image.Source>
                     </Image>
                 </RadioButton>
                 <RadioButton Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding CalendarCommand}">
                     <Image Height="30">
                         <Image.Source>
-                            <BitmapImage DecodePixelWidth="40" UriSource="/Images/CalendarIcon.png" />
+                            <BitmapImage DecodePixelWidth="240" UriSource="/Images/CalendarIcon.png" />
                         </Image.Source>
                     </Image>
                 </RadioButton>
@@ -81,7 +81,7 @@
             <Button Grid.Row="1"  BorderThickness="0" Width="50" Height="50" Style="{StaticResource RoundButtonTheme}" Margin="0, 0, 0, 40" Command="{Binding SettingsCommand}">
                 <Image Width="30">
                     <Image.Source>
-                        <BitmapImage DecodePixelWidth="40" UriSource="/Images/SettingsIcon.png" />
+                        <BitmapImage DecodePixelWidth="160" UriSource="/Images/SettingsIcon.png" />
                     </Image.Source>
                 </Image>
             </Button>
