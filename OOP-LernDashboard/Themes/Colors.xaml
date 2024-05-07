@@ -5,4 +5,5 @@
     <SolidColorBrush x:Key="TextColor">#FFFFFF</SolidColorBrush>
     <SolidColorBrush x:Key="TextColorSecondary">#A1A1A1</SolidColorBrush>
     <SolidColorBrush x:Key="WindowTheme">#202020</SolidColorBrush>
+    <SolidColorBrush x:Key="PrimaryHoverColor">#202020</SolidColorBrush>
 </ResourceDictionary>

@@ -4,9 +4,23 @@
         <Style.Setters>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <!--Workaround für runde Ecken-->
+                        <Border Background="{TemplateBinding Background}" BorderThickness="1" x:Name="BtnBorder">
+                            <Grid>
+                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                            </Grid>
+                        </Border>
+                        
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style.Setters>
 
         <Style.Triggers>
+                    
             <Trigger Property="IsChecked" Value="True">
                 <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
             </Trigger>
@@ -17,7 +31,7 @@
                     <Condition Property="IsChecked" Value="False" />
                 </MultiTrigger.Conditions>
                 <MultiTrigger.Setters>
-                    <Setter Property="Background" Value="#1d2636"/>
+                    <Setter Property="Background" Value="{StaticResource PrimaryHoverColor}"/>
                 </MultiTrigger.Setters>
             </MultiTrigger>
         </Style.Triggers>
