@@ -15,7 +15,7 @@ namespace OOP_LernDashboard.ViewModels
 
         public CalendarViewModel(Dashboard dashboard, DashboardStore dashboardStore)
         {
-            
+
         }
 
         public static CalendarViewModel LoadViewModel(Dashboard dashboard, DashboardStore dashboardStore)

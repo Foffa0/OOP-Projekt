@@ -14,7 +14,9 @@
     <None Remove="Images\CalendarIcon.png" />
     <None Remove="Images\DashboardIcon.png" />
     <None Remove="Images\GoogleLogo.png" />
+    <None Remove="Images\QuickNotesIcon.png" />
     <None Remove="Images\SettingsIcon.png" />
+    <None Remove="Images\ToDoIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,7 +36,12 @@
     <Resource Include="Images\CalendarIcon.png" />
     <Resource Include="Images\DashboardIcon.png" />
     <Resource Include="Images\GoogleLogo.png" />
+    <Resource Include="Images\QuickNotesIcon.png" />
     <Resource Include="Images\SettingsIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\ToDoIcon.png" />
   </ItemGroup>
 
 </Project>
