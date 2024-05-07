@@ -15,5 +15,14 @@ namespace OOP_LernDashboard.Models
         {
             this.Interval = interval;
         }
+        //public void NextDate()
+        //{
+           
+        //}
+        //public override void check()
+        //{
+
+        //    this.IsChecked = true;
+        //}
     }
 }
