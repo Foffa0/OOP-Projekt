@@ -38,9 +38,6 @@
     <Resource Include="Images\GoogleLogo.png" />
     <Resource Include="Images\QuickNotesIcon.png" />
     <Resource Include="Images\SettingsIcon.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="Images\ToDoIcon.png" />
   </ItemGroup>
 
