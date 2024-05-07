@@ -48,7 +48,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0" Margin="0, 40, 0, 0">
-                <RadioButton Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding DashboardCommand}">
+                <RadioButton Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding DashboardCommand}" IsChecked="True">
                     <Image Width="30">
                         <Image.Source>
                             <BitmapImage DecodePixelWidth="240" UriSource="/Images/DashboardIcon.png"/>

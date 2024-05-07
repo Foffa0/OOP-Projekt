@@ -65,7 +65,7 @@
                             </ListView>
                             <StackPanel>
                                 <TextBox Text="{Binding ToDoDesc, UpdateSourceTrigger=PropertyChanged}" Margin="0,5,0,0"></TextBox>
-                                <Button Style="{StaticResource RoundedButtonTheme}"  Background="{StaticResource PrimaryColor}" Command="{Binding AddCommand}" Content="Add" Margin="0,5,0,0" Width="75" Height="35"></Button>
+                                <Button Style="{StaticResource PrimaryButton}"   Command="{Binding AddCommand}" Content="Add" Margin="0,5,0,0" Width="75" Height="35"></Button>
                             </StackPanel>
                         </StackPanel>
                     </Border>
