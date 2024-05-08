@@ -37,9 +37,7 @@ namespace OOP_LernDashboard.Commands
             ToDo toDo = new ToDo(_dashboardViewModel.ToDoDesc);
 
             await _dashboardStore.AddToDo(toDo);
-
-            MessageBox.Show($"Successfully created ToDo: {_dashboardViewModel.ToDoDesc}", "Success",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+            
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -1,16 +1,26 @@
-﻿using System;
+﻿using OOP_LernDashboard.Commands;
+using OOP_LernDashboard.Stores;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace OOP_LernDashboard.ViewModels
 {
     class SettingsViewModel : ViewModelBase
     {
-        public static SettingsViewModel LoadViewModel()
+        public ICommand LoginGoogleCommand { get; }
+
+        public SettingsViewModel(DashboardStore dashboardStore) 
         {
-            SettingsViewModel viewModel = new SettingsViewModel();
+            LoginGoogleCommand = new GoogleLoginCommand(dashboardStore);
+        }
+
+        public static SettingsViewModel LoadViewModel(DashboardStore dashboardStore)
+        {
+            SettingsViewModel viewModel = new SettingsViewModel(dashboardStore);
             return viewModel;
         }
     }

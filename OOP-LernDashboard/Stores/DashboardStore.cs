@@ -21,7 +21,7 @@ namespace OOP_LernDashboard.Stores
         public event Action<ToDo> ToDoCreated;
         public event Action<ToDo> ToDoDeleted;
 
-
+        public GoogleLogin GoogleLogin { set; get; }
 
         public DashboardStore(IDataCreator<ToDo> toDoDataCreator, IDataProvider<ToDo> toDoDataProvider)
         {
@@ -31,6 +31,8 @@ namespace OOP_LernDashboard.Stores
             _initializeLazy = new Lazy<Task>(Initialize);
 
             _toDos = new Models.LinkedList<ToDo>();
+
+            this.GoogleLogin = new GoogleLogin();
         }
 
         /// <summary>

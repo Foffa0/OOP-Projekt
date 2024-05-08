@@ -3,10 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:OOP_LernDashboard"
              xmlns:vms="clr-namespace:OOP_LernDashboard.ViewModels"
-             xmlns:views="clr-namespace:OOP_LernDashboard.Views">
+             xmlns:views="clr-namespace:OOP_LernDashboard.Views" xmlns:hc="https://handyorg.github.io/handycontrol">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <hc:ThemeResources/>
+                <hc:Theme/>
                 <ResourceDictionary Source="Themes/Colors.xaml" />
                 <ResourceDictionary Source="Themes/RoundedButtonTheme.xaml" />
                 <ResourceDictionary Source="Themes/Fonts.xaml" />

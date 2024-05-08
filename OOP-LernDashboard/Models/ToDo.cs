@@ -19,7 +19,7 @@
             this.IsChecked = isChecked;
         }
 
-        public void check()
+        public virtual void check()
         {
             if (IsChecked)
                 throw new InvalidOperationException("Cannot check already checked ToDo");

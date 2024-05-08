@@ -91,7 +91,7 @@ namespace OOP_LernDashboard
 
         private SettingsViewModel CreateSettingsViewModel()
         {
-            return SettingsViewModel.LoadViewModel();
+            return SettingsViewModel.LoadViewModel(_dashboardStore);
         }
 
         private TimerViewModel CreateTimerViewModel()
