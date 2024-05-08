@@ -22,6 +22,7 @@ namespace OOP_LernDashboard.Stores
         public event Action<ToDo> ToDoDeleted;
 
         public GoogleLogin GoogleLogin { set; get; }
+        public GoogleCalendar GoogleCalendar { set; get; }
 
         public DashboardStore(IDataCreator<ToDo> toDoDataCreator, IDataProvider<ToDo> toDoDataProvider)
         {
@@ -33,6 +34,8 @@ namespace OOP_LernDashboard.Stores
             _toDos = new Models.LinkedList<ToDo>();
 
             this.GoogleLogin = new GoogleLogin();
+
+            this.GoogleLogin.AuthTokenReceived += GoogleLoginAuthTokenReceived;
         }
 
         /// <summary>
@@ -89,6 +92,13 @@ namespace OOP_LernDashboard.Stores
                 _toDos.Add(toDo);
             }
         }
+
+        private void GoogleLoginAuthTokenReceived(object sender, string authToken)
+        {
+            // Initialize GoogleCalendar class using authToken
+            this.GoogleCalendar = new GoogleCalendar(authToken);
+        }
+
 
     }
 }

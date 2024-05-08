@@ -21,6 +21,7 @@ namespace OOP_LernDashboard.Models
     internal class GoogleLogin
     {
         public string? AuthToken {  get; set; }
+        public event EventHandler<string>? AuthTokenReceived;
 
         /// <summary>
         /// Authencitation data from https://console.cloud.google.com/apis/credentials?project=oop-lerndashboard
@@ -64,7 +65,7 @@ namespace OOP_LernDashboard.Models
             http.Start();
 
             // Creates the OAuth 2.0 authorization request.
-            string authorizationRequest = string.Format("{0}?response_type=code&scope=https://www.googleapis.com/auth/calendar.readonly%20openid%20profile&redirect_uri={1}&client_id={2}&state={3}&code_challenge={4}&code_challenge_method={5}",
+            string authorizationRequest = string.Format("{0}?response_type=code&scope=https://www.googleapis.com/auth/calendar%20openid%20profile&redirect_uri={1}&client_id={2}&state={3}&code_challenge={4}&code_challenge_method={5}",
                 AuthorizationEndpoint,
                 System.Uri.EscapeDataString(redirectURI),
                 ClientID,
@@ -162,6 +163,9 @@ namespace OOP_LernDashboard.Models
                     MessageBox.Show(accessToken + ":" + tokenType, "Info", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     this.AuthToken = accessToken;
+
+                    // Raise the event when the token is received
+                    AuthTokenReceived?.Invoke(this, accessToken);
                 }
             }
             catch (WebException ex)
