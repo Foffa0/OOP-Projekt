@@ -156,11 +156,12 @@ namespace OOP_LernDashboard.Models
                     // converts to dictionary
                     Dictionary<string, string> tokenEndpointDecoded = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseText);
 
-                    string access_token = tokenEndpointDecoded["access_token"];
-                    string token_type = tokenEndpointDecoded["token_type"];
+                    string accessToken = tokenEndpointDecoded["access_token"];
+                    string tokenType = tokenEndpointDecoded["token_type"];
 
-                    MessageBox.Show(access_token + ":" + token_type, "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(accessToken + ":" + tokenType, "Info", MessageBoxButton.OK, MessageBoxImage.Information);
 
+                    this.AuthToken = accessToken;
                 }
             }
             catch (WebException ex)

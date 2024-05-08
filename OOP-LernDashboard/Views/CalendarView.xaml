@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OOP_LernDashboard.Views"
              mc:Ignorable="d" 
+             xmlns:hc="https://handyorg.github.io/handycontrol"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="{StaticResource WindowTheme}">
         <Grid.RowDefinitions>
@@ -14,8 +15,42 @@
 
         <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Calendar Overview" Style="{StaticResource Title}"></TextBlock>
 
-        <StackPanel Grid.Row="1">
+        <hc:ScrollViewer Grid.Row="1">
             
-        </StackPanel>
+        
+        
+            <ItemsControl ItemsSource="{Binding Day}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="5" Columns="7" FirstColumn="3"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="{StaticResource PrimaryColor}" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                                      HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
+                                      Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}"
+                                      Height="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding DayDesc}" Style="{StaticResource text}"></TextBlock>
+                                    <ListBox ItemsSource="{Binding Dates}">
+
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <Button Content="{Binding DateDesc}"></Button>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                    
+                                </StackPanel>
+
+
+                            </ScrollViewer>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </hc:ScrollViewer>
     </Grid>
 </UserControl>

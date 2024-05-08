@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OOP_LernDashboard.Views"
              mc:Ignorable="d" 
+             xmlns:hc="https://handyorg.github.io/handycontrol"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="{StaticResource WindowTheme}">
         <Grid.RowDefinitions>
@@ -26,6 +27,7 @@
                     </Image>
                 </StackPanel>
             </Button>
+            <Button Content="This is a button" HorizontalAlignment="Left" hc:IconElement.Geometry="{StaticResource GithubGeometry}" />
             <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="First name" Style="{StaticResource Headline}"></TextBlock>
             <StackPanel Orientation="Horizontal">
                 <TextBox Text="Studierende Person" Width="300" VerticalContentAlignment="Center" Style="{StaticResource PrimaryTextInput}"></TextBox>
