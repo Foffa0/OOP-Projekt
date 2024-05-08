@@ -3,6 +3,7 @@ using OOP_LernDashboard.Commands;
 using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Stores;
 using System.Collections.ObjectModel;
+using System.Net.WebSockets;
 using System.Windows.Input;
 
 namespace OOP_LernDashboard.ViewModels
@@ -39,6 +40,9 @@ namespace OOP_LernDashboard.ViewModels
         private readonly ObservableCollection<ToDoViewModel> _toDos;
         public IEnumerable<ToDoViewModel> ToDos => _toDos;
 
+        private readonly ObservableCollection<CalendarEventViewModel> _calendarEvents;
+        public IEnumerable<CalendarEventViewModel> CalendarEvents => _calendarEvents;
+
         public ICommand AddCommand { get; }
 
         public ICommand LoadDataAsyncCommand { get; }
@@ -53,6 +57,7 @@ namespace OOP_LernDashboard.ViewModels
             LoadDataAsyncCommand = new LoadDashboardDataCommand(this, dashboardStore);
 
             _toDos = new ObservableCollection<ToDoViewModel>();
+            _calendarEvents = new ObservableCollection<CalendarEventViewModel>();
 
             // Listen for changes in the dashboardStore
             _dashboardStore.ToDoCreated += OnToDoCreated;
@@ -100,6 +105,16 @@ namespace OOP_LernDashboard.ViewModels
             foreach (var toDo in todos) 
             {
                 _toDos.Add(new ToDoViewModel(toDo));
+            }
+        }
+
+        public void UpdateCalendarEvents(IEnumerable<CalendarEvent> events)
+        {
+            _calendarEvents.Clear();
+
+            foreach(var calendarEvent in events)
+            {
+                _calendarEvents.Add(new CalendarEventViewModel(calendarEvent));
             }
         }
     }

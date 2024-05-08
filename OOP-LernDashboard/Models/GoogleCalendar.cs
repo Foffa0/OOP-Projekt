@@ -13,7 +13,10 @@ namespace OOP_LernDashboard.Models
         public string AuthToken { get; }
 
         private CalendarService _calendarService;
-        private string? _calendarId;
+
+        public LinkedList<CalendarEvent> Events { get; private set; }
+
+        private Calendar _calendar;
 
         public GoogleCalendar(string authToken)
         {
@@ -30,20 +33,27 @@ namespace OOP_LernDashboard.Models
             {
                 if (calendar.Summary.Equals(CalendarName))
                 {
-                    _calendarId = calendar.Id;
+                    _calendar = _calendarService.Calendars.Get(calendar.Id).Execute(); ;
                     MessageBox.Show(calendar.Summary, "Info", MessageBoxButton.OK, MessageBoxImage.Information);
                     break;
                 }
             }
 
             // no matching calendar is found so create one
-            if(_calendarId == null) {
+            if (_calendar == null)
+            {
                 MessageBox.Show("no calendar found.", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
                 Calendar calendar = new Calendar();
                 calendar.Summary = CalendarName;
-                _calendarId = _calendarService.Calendars.Insert(calendar).Execute().Id;
+                _calendar = _calendarService.Calendars.Insert(calendar).Execute();
             }
-            
+
+            Events = new LinkedList<CalendarEvent>();
+            Events events = _calendarService.Events.List(_calendar.Id).Execute();
+            foreach (var calendarEvent in events.Items)
+            {
+                Events.Add(new CalendarEvent(calendarEvent.Summary, calendarEvent.Start.DateTime, calendarEvent.End.DateTime));
+            }
         }
 
 
@@ -60,5 +70,6 @@ namespace OOP_LernDashboard.Models
                 ApplicationName = "OOP-Dashboard",
             });
         }
+
     }
 }

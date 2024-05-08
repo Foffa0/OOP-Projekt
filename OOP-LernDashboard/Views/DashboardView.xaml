@@ -72,12 +72,56 @@
                 </Grid>
             </Border>
             
-            <Border Grid.Column="0" Padding="10">
+            <Border Grid.Column="1" Padding="10">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="2" Padding="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Background="{StaticResource SecondaryColor}" CornerRadius="10" Padding="10">
+                        <StackPanel>
+                            <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Headline}" Margin="0,0,0,10">Upcoming Events</TextBlock>
+
+                            <ListView Padding="0" Background="Transparent" BorderThickness="0" ItemsSource="{Binding CalendarEvents}">
+                                <ListView.Resources>
+                                    <Style TargetType="GridViewColumnHeader">
+                                        <Setter Property="Template" Value="{x:Null}" />
+                                    </Style>
+                                </ListView.Resources>
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                                        <Setter Property="Padding" Value="10"/>
+                                        <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Title}"  Margin="0,-2,0,0"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </StackPanel>
+                    </Border>
                 </Grid>
             </Border>
         </Grid>
