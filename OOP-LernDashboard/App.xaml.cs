@@ -50,7 +50,9 @@ namespace OOP_LernDashboard
                     new NavigationService(_navigationStore, CreateDashboardViewModel), 
                     new NavigationService(_navigationStore, CreateCalendarViewModel), 
                     new NavigationService(_navigationStore, CreateQuickNotesViewModel),
-                    new NavigationService(_navigationStore, CreateSettingsViewModel))
+                    new NavigationService(_navigationStore, CreateSettingsViewModel),
+                    new NavigationService(_navigationStore, CreateTimerViewModel)
+                    )
             };
             MainWindow.Show();
 
@@ -90,6 +92,11 @@ namespace OOP_LernDashboard
         private SettingsViewModel CreateSettingsViewModel()
         {
             return SettingsViewModel.LoadViewModel();
+        }
+
+        private TimerViewModel CreateTimerViewModel()
+        {
+            return TimerViewModel.LoadViewModel();
         }
     }
 
