@@ -19,6 +19,20 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
+        private bool _isGoogleReady = false;
+        public bool IsGoogleReady
+        {
+            get { return _isGoogleReady; }
+            set
+            {
+                if (IsGoogleReady != value)
+                {
+                    _isGoogleReady = value;
+                    OnPropertyChanged(nameof(IsGoogleReady));
+                }
+            }
+        }
+
         public ObservableCollection<DayModel> Day
         {
             get;
@@ -41,12 +55,19 @@ namespace OOP_LernDashboard.ViewModels
             }
 
             AddCommand = new CreateCalendarEventCommand(this, dashboardStore);
+
+            UpdateGoogleReady(dashboardStore.GoogleCalendar != null);
         }
 
         public static CalendarViewModel LoadViewModel(Dashboard dashboard, DashboardStore dashboardStore)
         {
             CalendarViewModel viewModel = new CalendarViewModel(dashboard, dashboardStore);
             return viewModel;
+        }
+
+        public void UpdateGoogleReady(bool newState)
+        {
+            IsGoogleReady = newState;
         }
 
         internal class DayModel

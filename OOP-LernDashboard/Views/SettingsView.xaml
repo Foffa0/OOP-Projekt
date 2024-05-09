@@ -19,7 +19,7 @@
             <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Google" Style="{StaticResource Headline}"></TextBlock>
             <Button Style="{StaticResource PrimaryButton}" HorizontalAlignment="Left" Command="{Binding LoginGoogleCommand}">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock VerticalAlignment="Center" Style="{StaticResource text}">Mit Google anmelden</TextBlock>
+                    <TextBlock VerticalAlignment="Center" Style="{StaticResource Text}">Mit Google anmelden</TextBlock>
                     <Image Width="20" Margin="10, 0, 0, 0">
                         <Image.Source>
                             <BitmapImage DecodePixelWidth="40" UriSource="/Images/GoogleLogo.png" />

@@ -15,7 +15,9 @@
 
         <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Kalender Übersicht" Style="{StaticResource Title}"></TextBlock>
 
-        <Grid Grid.Row="1">
+        <TextBlock Grid.Row="1" Style="{StaticResource Text}" Text="Logge dich zuerst in den Einstellungen mit deinem Google account an bevor du den Kalender nutzen kannst." Visibility="{Binding IsGoogleReady, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"></TextBlock>
+
+        <Grid Grid.Row="1" Visibility="{Binding IsGoogleReady, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="300" />
@@ -49,7 +51,7 @@
                                       Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}"
                                       Height="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}">
                                         <StackPanel>
-                                            <TextBlock Text="{Binding DayDesc}" Style="{StaticResource text}"></TextBlock>
+                                            <TextBlock Text="{Binding DayDesc}" Style="{StaticResource Text}"></TextBlock>
                                             <ListBox ItemsSource="{Binding Dates}">
 
                                                 <ListBox.ItemTemplate>
@@ -77,7 +79,7 @@
                 <Border Background="{StaticResource SecondaryColor}" CornerRadius="10" Padding="10">
                     <StackPanel>
                         <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Headline}" Margin="0,0,0,10" Text="Eintrag hinzufügen"></TextBlock>
-                        <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource text}"  Text="Titel"></TextBlock>
+                        <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Text}"  Text="Titel"></TextBlock>
                         <TextBox Text="{Binding NewEventTitle}"></TextBox>
 
                         <hc:DateTimePicker />
