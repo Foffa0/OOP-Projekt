@@ -15,42 +15,78 @@
 
         <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Calendar Overview" Style="{StaticResource Title}"></TextBlock>
 
-        <hc:ScrollViewer Grid.Row="1">
-            
-        
-        
-            <ItemsControl ItemsSource="{Binding Day}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid Rows="5" Columns="7" FirstColumn="3"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border BorderBrush="{StaticResource PrimaryColor}" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                            <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="300" />
+            </Grid.ColumnDefinitions>
+
+            <hc:ScrollViewer Grid.Column="0">
+                <StackPanel>
+                    <Grid Margin="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="Mai" Style="{StaticResource Headline}" Margin="0,20,0,10" Grid.RowSpan="2"></TextBlock>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                            <Button Content="⬅️"></Button>
+                            <Button Content="➡️"></Button>
+                        </StackPanel>
+                    </Grid>
+                    <ItemsControl ItemsSource="{Binding Day}" MaxWidth="800">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Rows="5" Columns="7" FirstColumn="3"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="{StaticResource PrimaryColor}" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                       HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
                                       Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}"
                                       Height="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}">
-                                <StackPanel>
-                                    <TextBlock Text="{Binding DayDesc}" Style="{StaticResource text}"></TextBlock>
-                                    <ListBox ItemsSource="{Binding Dates}">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding DayDesc}" Style="{StaticResource text}"></TextBlock>
+                                            <ListBox ItemsSource="{Binding Dates}">
 
-                                        <ListBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <Button Content="{Binding DateDesc}"></Button>
-                                            </DataTemplate>
-                                        </ListBox.ItemTemplate>
-                                    </ListBox>
-                                    
-                                </StackPanel>
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Button Content="{Binding DateDesc}"></Button>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
 
+                                        </StackPanel>
+                                    </ScrollViewer>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </hc:ScrollViewer>
 
-                            </ScrollViewer>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </hc:ScrollViewer>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Border Background="{StaticResource SecondaryColor}" CornerRadius="10" Padding="10">
+                    <StackPanel>
+                        <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Headline}" Margin="0,0,0,10" Text="Eintrag hinzufügen"></TextBlock>
+                        <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource text}"  Text="Titel"></TextBlock>
+                        <TextBox Text="{Binding NewEventTitle}"></TextBox>
+
+                        <hc:DateTimePicker />
+
+                        <Button Content="Hinzufügen" Command="{Binding AddCommand}"></Button>
+                    </StackPanel>
+                </Border>
+            </Grid>
+            
+        </Grid>
     </Grid>
 </UserControl>

@@ -14,7 +14,7 @@ namespace OOP_LernDashboard.Models
 
         private CalendarService _calendarService;
 
-        public LinkedList<CalendarEvent> Events { get; private set; }
+        public LinkedList<CalendarEvent> Events { get; }
 
         private Calendar _calendar;
 
@@ -69,6 +69,22 @@ namespace OOP_LernDashboard.Models
                 HttpClientInitializer = credential,
                 ApplicationName = "OOP-Dashboard",
             });
+        }
+
+        public void AddEvent(CalendarEvent calendarEvent)
+        {
+            Events.Add(calendarEvent);
+            Event e = new Event();
+            e.Summary = calendarEvent.Title;
+            e.Start = new EventDateTime()
+            {
+                DateTime = calendarEvent.StartTime
+            };
+            e.End = new EventDateTime()
+            {
+                DateTime = calendarEvent.EndTime
+            };
+            _calendarService.Events.Insert(e, _calendar.Id).Execute();
         }
 
     }

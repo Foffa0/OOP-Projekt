@@ -1,23 +1,31 @@
 ﻿using OOP_LernDashboard.Commands;
 using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Stores;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace OOP_LernDashboard.ViewModels
 {
     internal class CalendarViewModel : ViewModelBase
     {
+        private string _newEventTitle = "";
+        public string NewEventTitle
+        {
+            get { return _newEventTitle; }
+            set
+            {
+                _newEventTitle = value;
+                OnPropertyChanged(nameof(NewEventTitle));
+            }
+        }
+
         public ObservableCollection<DayModel> Day
         {
             get;
             set;
         }
+
+        public ICommand AddCommand { get; }
 
         public CalendarViewModel(Dashboard dashboard, DashboardStore dashboardStore)
         {
@@ -31,6 +39,8 @@ namespace OOP_LernDashboard.ViewModels
                 Day.Add(dayModel);
 
             }
+
+            AddCommand = new CreateCalendarEventCommand(this, dashboardStore);
         }
 
         public static CalendarViewModel LoadViewModel(Dashboard dashboard, DashboardStore dashboardStore)
