@@ -13,13 +13,13 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Settings" Style="{StaticResource Title}"></TextBlock>
+        <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Einstellungen" Style="{StaticResource Title}"></TextBlock>
 
         <StackPanel Grid.Row="1">
             <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Google" Style="{StaticResource Headline}"></TextBlock>
             <Button Style="{StaticResource PrimaryButton}" HorizontalAlignment="Left" Command="{Binding LoginGoogleCommand}">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock VerticalAlignment="Center" Style="{StaticResource text}">Login with Google</TextBlock>
+                    <TextBlock VerticalAlignment="Center" Style="{StaticResource text}">Mit Google anmelden</TextBlock>
                     <Image Width="20" Margin="10, 0, 0, 0">
                         <Image.Source>
                             <BitmapImage DecodePixelWidth="40" UriSource="/Images/GoogleLogo.png" />
@@ -27,11 +27,11 @@
                     </Image>
                 </StackPanel>
             </Button>
-            <Button Content="This is a button" HorizontalAlignment="Left" hc:IconElement.Geometry="{StaticResource GithubGeometry}" />
-            <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="First name" Style="{StaticResource Headline}"></TextBlock>
+            
+            <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Vorname" Style="{StaticResource Headline}"></TextBlock>
             <StackPanel Orientation="Horizontal">
                 <TextBox Text="Studierende Person" Width="300" VerticalContentAlignment="Center" Style="{StaticResource PrimaryTextInput}"></TextBox>
-                <Button Style="{StaticResource PrimaryButton}">Update</Button>
+                <Button Style="{StaticResource PrimaryButton}">Aktualisieren</Button>
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -13,7 +13,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Calendar Overview" Style="{StaticResource Title}"></TextBlock>
+        <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Kalender Übersicht" Style="{StaticResource Title}"></TextBlock>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>

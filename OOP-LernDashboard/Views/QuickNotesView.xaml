@@ -12,7 +12,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Quick Notes" Style="{StaticResource Title}"></TextBlock>
+        <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Schnelle Notizen" Style="{StaticResource Title}"></TextBlock>
 
         <StackPanel Grid.Row="1">
 
