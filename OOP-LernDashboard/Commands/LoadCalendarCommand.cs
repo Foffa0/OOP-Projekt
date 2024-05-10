@@ -42,8 +42,14 @@ namespace OOP_LernDashboard.Commands
                 {
                     DayModel dayModel = new DayModel((i - 4) % 7 == 0 || i == 0, i < 7, (i + 3) % 7 == 6 || i == 30, i >= 31 - 7);
                     dayModel.DayDesc = (i + 1).ToString();
-                    dayModel.Dates.Add(new DateModel("abc"));
-                    dayModel.Dates.Add(new DateModel("def"));
+
+                    var current = _dashboardStore.GoogleCalendar.Events.First();
+                    while (current != null && current.StartTime.Day - 1 == i)
+                    {
+                        dayModel.Dates.Add(new DateModel(current.Title));
+                        _dashboardStore.GoogleCalendar.Events.RemoveAt(0);
+                        current = _dashboardStore.GoogleCalendar.Events.First();
+                    }
                     _viewModel.Day.Add(dayModel);
                 }
             }

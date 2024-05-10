@@ -2,6 +2,7 @@
 using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Services;
+using System.Globalization;
 using System.Windows;
 
 namespace OOP_LernDashboard.Models
@@ -12,9 +13,12 @@ namespace OOP_LernDashboard.Models
 
         public string AuthToken { get; }
 
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
+
         private CalendarService _calendarService;
 
-        private Calendar _calendar;
+        private Google.Apis.Calendar.v3.Data.Calendar _calendar;
 
         public IList<CalendarEvent> Events { get; private set; }
 
@@ -44,10 +48,14 @@ namespace OOP_LernDashboard.Models
             if (_calendar == null)
             {
                 MessageBox.Show("no calendar found.", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
-                Calendar calendar = new Calendar();
+                Google.Apis.Calendar.v3.Data.Calendar calendar = new Google.Apis.Calendar.v3.Data.Calendar();
                 calendar.Summary = CalendarName;
                 _calendar = _calendarService.Calendars.Insert(calendar).Execute();
             }
+
+            DateTime now = DateTime.Now;
+            Start = new DateTime(now.Year, now.Month, 1);
+            End = Start.AddMonths(1).AddDays(-1);
         }
 
 
@@ -82,13 +90,28 @@ namespace OOP_LernDashboard.Models
 
         public IList<CalendarEvent> GetEvents()
         {
-            return _calendarService.Events.List(_calendar.Id).Execute().Items.Select(e => new CalendarEvent(e.Summary, e.Start.DateTime, e.End.DateTime)).ToList();
-        }
+            return _calendarService.Events.List(_calendar.Id).Execute().Items.Select(e => new CalendarEvent(e.Summary, e.Start.DateTime ?? new DateTime(), e.End.DateTime)).ToList();
+        } 
 
         public async Task LoadEvents()
         {
-            Events events = await _calendarService.Events.List(_calendar.Id).ExecuteAsync();
-            this.Events = events.Items.Select(e => new CalendarEvent(e.Summary, e.Start.DateTime, e.End.DateTime)).ToList();
+            EventsResource.ListRequest request = _calendarService.Events.List(_calendar.Id);
+            request.TimeMinDateTimeOffset = Start;
+            request.TimeMaxDateTimeOffset = End;
+            Events events = await request.ExecuteAsync();
+            this.Events = events.Items.Select(e => ToCalendarEvent(e)).ToList();
+        }
+
+        private static CalendarEvent ToCalendarEvent(Event e)
+        {
+            if(e.Start.DateTime == null || e.End.DateTime == null)
+            {
+                return new CalendarEvent(e.Summary, DateTime.ParseExact(e.Start.Date, "yyyy-mm-dd", CultureInfo.InvariantCulture), null);
+            }
+            else
+            {
+                return new CalendarEvent(e.Summary, e.Start.DateTimeDateTimeOffset.Value.DateTime, e.End.DateTimeDateTimeOffset.Value.DateTime);
+            }
         }
     }
 }
