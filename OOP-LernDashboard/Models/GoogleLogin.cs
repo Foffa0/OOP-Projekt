@@ -160,8 +160,6 @@ namespace OOP_LernDashboard.Models
                     string accessToken = tokenEndpointDecoded["access_token"];
                     string tokenType = tokenEndpointDecoded["token_type"];
 
-                    MessageBox.Show(accessToken + ":" + tokenType, "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-
                     this.AuthToken = accessToken;
 
                     // Raise the event when the token is received

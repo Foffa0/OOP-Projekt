@@ -33,7 +33,6 @@ namespace OOP_LernDashboard.Commands
             //{
             //    throw new Exception("Failed to load ToDos");
             //}
-            _viewModel.UpdateCalendarEvents(_dashboardStore.CalendarEvents);
         }
     }
 }

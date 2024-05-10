@@ -2,6 +2,7 @@
 using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Stores;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace OOP_LernDashboard.ViewModels
@@ -52,6 +53,7 @@ namespace OOP_LernDashboard.ViewModels
 
         public ICommand AddCommand { get; }
         public ICommand LoadCalendarCommand { get; }
+        public ICommand LoginGoogleCommand { get; }
 
         public CalendarViewModel(Dashboard dashboard, DashboardStore dashboardStore)
         {
@@ -59,6 +61,7 @@ namespace OOP_LernDashboard.ViewModels
 
             AddCommand = new CreateCalendarEventCommand(this, dashboardStore);
             LoadCalendarCommand = new LoadCalendarCommand(this, dashboardStore);
+            LoginGoogleCommand = new GoogleLoginCommand(dashboardStore);
 
             UpdateGoogleReady(dashboardStore.GoogleCalendar != null);
         }
@@ -75,9 +78,24 @@ namespace OOP_LernDashboard.ViewModels
             IsGoogleReady = newState;
         }
 
-        internal class DayModel
+        internal class DayModel : ViewModelBase
         {
             public string DayDesc { get; set; }
+            public bool IsTopRow { get; set; }
+
+            private Thickness _thickness;
+            public Thickness Thickness
+            {
+                get { return _thickness; }
+                set
+                {
+                    if (_thickness != value)
+                    {
+                        _thickness = value;
+                        OnPropertyChanged(nameof(Thickness));
+                    }
+                }
+            }
 
             public ObservableCollection<DateModel> Dates
             {
@@ -85,9 +103,11 @@ namespace OOP_LernDashboard.ViewModels
                 set;
             }
 
-            public DayModel()
+            public DayModel(bool isLeftCol = false, bool isTopRow = false, bool isRightCol = false, bool isBottomRow = false)
             {
                 Dates = new ObservableCollection<DateModel>();
+                IsTopRow = isTopRow;
+                Thickness = new Thickness(isLeftCol ? 2 : 1, isTopRow ? 2 : 1, isRightCol ? 2 : 1, isBottomRow ? 2 : 1);
             }
         }
 

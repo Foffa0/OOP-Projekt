@@ -7,9 +7,6 @@
              mc:Ignorable="d" 
              xmlns:hc="https://handyorg.github.io/handycontrol"
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="Bool2VisibilityConverter" />
-    </UserControl.Resources>
     <Grid Background="{StaticResource WindowTheme}">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
@@ -18,7 +15,19 @@
 
         <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Kalender Übersicht" Style="{StaticResource Title}"></TextBlock>
 
-        <TextBlock Grid.Row="1" Style="{StaticResource Text}" Text="Logge dich zuerst in den Einstellungen mit deinem Google account an bevor du den Kalender nutzen kannst." Visibility="{Binding IsGoogleReady, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"></TextBlock>
+        <StackPanel  Grid.Row="1" Visibility="{Binding IsGoogleReady, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+            <TextBlock Style="{StaticResource Text}" Text="Melde dich zuerst mit deinem Google Account an, bevor du den Kalender nutzen kannst." ></TextBlock>
+            <Button Style="{StaticResource PrimaryButton}" HorizontalAlignment="Left" Command="{Binding LoginGoogleCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock VerticalAlignment="Center" Style="{StaticResource Text}">Mit Google anmelden</TextBlock>
+                    <Image Width="20" Margin="10, 0, 0, 0">
+                        <Image.Source>
+                            <BitmapImage DecodePixelWidth="40" UriSource="/Images/GoogleLogo.png" />
+                        </Image.Source>
+                    </Image>
+                </StackPanel>
+            </Button>
+        </StackPanel>
 
         <Grid Grid.Row="1" Visibility="{Binding IsGoogleReady, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.ColumnDefinitions>
@@ -40,7 +49,7 @@
                             <Button Content="➡️"></Button>
                         </StackPanel>
                     </Grid>
-                    <hc:LoadingCircle Foreground="{StaticResource PrimaryColor}" Visibility="{Binding IsLoading, Converter={StaticResource Bool2VisibilityConverter}}"/>
+                    <hc:LoadingCircle Foreground="{StaticResource PrimaryColor}" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     <ItemsControl ItemsSource="{Binding Day}" MaxWidth="800">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -49,9 +58,11 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderBrush="{StaticResource PrimaryColor}" BorderThickness="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  BorderBrush="{StaticResource PrimaryColor}" x:Name="Border" BorderThickness="{Binding Thickness}">
+
                                     <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                                      HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
+                                      HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="4"
+                                           
                                       Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}"
                                       Height="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}">
                                         <StackPanel>
@@ -92,7 +103,7 @@
                     </StackPanel>
                 </Border>
             </Grid>
-            
+
         </Grid>
     </Grid>
 </UserControl>

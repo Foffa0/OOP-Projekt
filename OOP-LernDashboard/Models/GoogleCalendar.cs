@@ -14,13 +14,14 @@ namespace OOP_LernDashboard.Models
 
         private CalendarService _calendarService;
 
-        public LinkedList<CalendarEvent> Events { get; }
-
         private Calendar _calendar;
+
+        public IList<CalendarEvent> Events { get; private set; }
 
         public GoogleCalendar(string authToken)
         {
             AuthToken = authToken;
+            Events = new List<CalendarEvent>();
 
             _calendarService = GetCalendarService(AuthToken);
 
@@ -33,8 +34,8 @@ namespace OOP_LernDashboard.Models
             {
                 if (calendar.Summary.Equals(CalendarName))
                 {
-                    _calendar = _calendarService.Calendars.Get(calendar.Id).Execute(); ;
-                    MessageBox.Show(calendar.Summary, "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    _calendar = _calendarService.Calendars.Get(calendar.Id).Execute();
+                    MessageBox.Show($"Erfolgreich Kalender {calendar.Summary} zum LernDashboard hinzugefügt.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                     break;
                 }
             }
@@ -46,13 +47,6 @@ namespace OOP_LernDashboard.Models
                 Calendar calendar = new Calendar();
                 calendar.Summary = CalendarName;
                 _calendar = _calendarService.Calendars.Insert(calendar).Execute();
-            }
-
-            Events = new LinkedList<CalendarEvent>();
-            Events events = _calendarService.Events.List(_calendar.Id).Execute();
-            foreach (var calendarEvent in events.Items)
-            {
-                Events.Add(new CalendarEvent(calendarEvent.Summary, calendarEvent.Start.DateTime, calendarEvent.End.DateTime));
             }
         }
 
@@ -73,7 +67,6 @@ namespace OOP_LernDashboard.Models
 
         public void AddEvent(CalendarEvent calendarEvent)
         {
-            Events.Add(calendarEvent);
             Event e = new Event();
             e.Summary = calendarEvent.Title;
             e.Start = new EventDateTime()
@@ -87,5 +80,15 @@ namespace OOP_LernDashboard.Models
             _calendarService.Events.Insert(e, _calendar.Id).Execute();
         }
 
+        public IList<CalendarEvent> GetEvents()
+        {
+            return _calendarService.Events.List(_calendar.Id).Execute().Items.Select(e => new CalendarEvent(e.Summary, e.Start.DateTime, e.End.DateTime)).ToList();
+        }
+
+        public async Task LoadEvents()
+        {
+            Events events = await _calendarService.Events.List(_calendar.Id).ExecuteAsync();
+            this.Events = events.Items.Select(e => new CalendarEvent(e.Summary, e.Start.DateTime, e.End.DateTime)).ToList();
+        }
     }
 }

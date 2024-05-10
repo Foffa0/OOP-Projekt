@@ -1,4 +1,5 @@
-﻿using OOP_LernDashboard.Stores;
+﻿using OOP_LernDashboard.Models;
+using OOP_LernDashboard.Stores;
 using OOP_LernDashboard.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -27,11 +28,19 @@ namespace OOP_LernDashboard.Commands
                 _viewModel.IsLoading = true;
                 await _dashboardStore.Load();
 
-                await Task.Delay(10000);
+                if(_dashboardStore.GoogleCalendar == null)
+                {
+                    return;
+                }
+
+                //IList<CalendarEvent> events = _dashboardStore.GoogleCalendar.GetEvents();
+
+                await _dashboardStore.GoogleCalendar.LoadEvents();
+
 
                 for (int i = 0; i < 31; i++)
                 {
-                    DayModel dayModel = new DayModel();
+                    DayModel dayModel = new DayModel((i - 4) % 7 == 0 || i == 0, i < 7, (i + 3) % 7 == 6 || i == 30, i >= 31 - 7);
                     dayModel.DayDesc = (i + 1).ToString();
                     dayModel.Dates.Add(new DateModel("abc"));
                     dayModel.Dates.Add(new DateModel("def"));
@@ -40,7 +49,7 @@ namespace OOP_LernDashboard.Commands
             }
             catch
             {
-                throw new Exception("Failed to load ToDos");
+                throw new Exception("Failed to load Events");
             }
             _viewModel.IsLoading = false;
         }
