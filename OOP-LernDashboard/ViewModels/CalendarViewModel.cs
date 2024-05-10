@@ -25,27 +25,32 @@ namespace OOP_LernDashboard.ViewModels
             set;
         }
 
+        private bool _isLoading;
+        public bool IsLoading 
+        { 
+            get { return _isLoading; } 
+            set { 
+                _isLoading = value; 
+                OnPropertyChanged(nameof(IsLoading));
+            } 
+        }
+
+
         public ICommand AddCommand { get; }
+        public ICommand LoadCalendarCommand { get; }
 
         public CalendarViewModel(Dashboard dashboard, DashboardStore dashboardStore)
         {
             Day = new ObservableCollection<DayModel>();
-            for (int i = 0; i < 31; i++)
-            {
-                DayModel dayModel = new DayModel();
-                dayModel.DayDesc = (i + 1).ToString();
-                dayModel.Dates.Add(new DateModel("abc"));
-                dayModel.Dates.Add(new DateModel("def"));
-                Day.Add(dayModel);
-
-            }
 
             AddCommand = new CreateCalendarEventCommand(this, dashboardStore);
+            LoadCalendarCommand = new LoadCalendarCommand(this, dashboardStore);
         }
 
         public static CalendarViewModel LoadViewModel(Dashboard dashboard, DashboardStore dashboardStore)
         {
             CalendarViewModel viewModel = new CalendarViewModel(dashboard, dashboardStore);
+            viewModel.LoadCalendarCommand.Execute(null);
             return viewModel;
         }
 
