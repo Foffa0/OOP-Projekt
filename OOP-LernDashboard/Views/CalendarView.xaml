@@ -7,6 +7,9 @@
              mc:Ignorable="d" 
              xmlns:hc="https://handyorg.github.io/handycontrol"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="Bool2VisibilityConverter" />
+    </UserControl.Resources>
     <Grid Background="{StaticResource WindowTheme}">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
@@ -35,6 +38,7 @@
                             <Button Content="➡️"></Button>
                         </StackPanel>
                     </Grid>
+                    <hc:LoadingCircle Foreground="{StaticResource PrimaryColor}" Visibility="{Binding IsLoading, Converter={StaticResource Bool2VisibilityConverter}}"/>
                     <ItemsControl ItemsSource="{Binding Day}" MaxWidth="800">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
