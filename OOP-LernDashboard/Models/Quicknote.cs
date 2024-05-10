@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace OOP_LernDashboard.Models
 {
-    internal class Quicknote
+    internal class QuickNote
     {
         public Guid Id { get; }
         public string Note { get; set; }
 
-        public Quicknote(string Note)
+        public QuickNote(string Note)
         {
             Id = new Guid();
             this.Note = Note;
