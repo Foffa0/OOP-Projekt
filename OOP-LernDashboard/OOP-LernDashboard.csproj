@@ -18,6 +18,7 @@
     <None Remove="Images\SettingsIcon.png" />
     <None Remove="Images\TimerIcon.png" />
     <None Remove="Images\ToDoIcon.png" />
+    <None Remove="logo.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,6 +44,9 @@
 
   <ItemGroup>
     <Resource Include="Images\ToDoIcon.png" />
+    <Resource Include="logo.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
