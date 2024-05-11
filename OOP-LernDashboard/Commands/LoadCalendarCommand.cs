@@ -3,9 +3,11 @@ using OOP_LernDashboard.Stores;
 using OOP_LernDashboard.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using static OOP_LernDashboard.ViewModels.CalendarViewModel;
 
 namespace OOP_LernDashboard.Commands
@@ -37,24 +39,26 @@ namespace OOP_LernDashboard.Commands
 
                 await _dashboardStore.GoogleCalendar.LoadEvents();
 
+                int today = DateTime.Now.Day - 1;
 
                 for (int i = 0; i < 31; i++)
                 {
-                    DayModel dayModel = new DayModel((i - 4) % 7 == 0 || i == 0, i < 7, (i + 3) % 7 == 6 || i == 30, i >= 31 - 7);
+                    DayModel dayModel = new DayModel((i - 4) % 7 == 0 || i == 0, i < 7, (i + 3) % 7 == 6 || i == 30, i >= 31 - 7, today == i);
                     dayModel.DayDesc = (i + 1).ToString();
 
-                    var current = _dashboardStore.GoogleCalendar.Events.First();
-                    while (current != null && current.StartTime.Day - 1 == i)
-                    {
-                        dayModel.Dates.Add(new DateModel(current.Title));
-                        _dashboardStore.GoogleCalendar.Events.RemoveAt(0);
-                        current = _dashboardStore.GoogleCalendar.Events.First();
-                    }
+                    dayModel.Dates = new ObservableCollection<DateModel>(
+                        _dashboardStore.GoogleCalendar.Events
+                        .OrderBy(e => e.StartTime)
+                        .Where(e => e.StartTime.Day - 1 == i)
+                        .Select(e => new DateModel(e.Title))
+                        .ToList());
+
                     _viewModel.Day.Add(dayModel);
                 }
             }
-            catch
+            catch(Exception e)
             {
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 throw new Exception("Failed to load Events");
             }
             _viewModel.IsLoading = false;

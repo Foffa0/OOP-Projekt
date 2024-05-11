@@ -79,11 +79,11 @@ namespace OOP_LernDashboard.Models
             e.Summary = calendarEvent.Title;
             e.Start = new EventDateTime()
             {
-                DateTime = calendarEvent.StartTime
+                DateTimeDateTimeOffset = calendarEvent.StartTime
             };
             e.End = new EventDateTime()
             {
-                DateTime = calendarEvent.EndTime
+                DateTimeDateTimeOffset = calendarEvent.EndTime
             };
             _calendarService.Events.Insert(e, _calendar.Id).Execute();
         }
