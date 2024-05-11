@@ -35,15 +35,16 @@ namespace OOP_LernDashboard.Commands
                     return;
                 }
 
-                //IList<CalendarEvent> events = _dashboardStore.GoogleCalendar.GetEvents();
-
                 await _dashboardStore.GoogleCalendar.LoadEvents();
-
+                
                 int today = DateTime.Now.Day - 1;
+                bool isCurrentMonth = DateTime.Now.Month == _dashboardStore.GoogleCalendar.Start.Month
+                                    && DateTime.Now.Year == _dashboardStore.GoogleCalendar.Start.Year;
 
+                _viewModel.Days.Clear();
                 for (int i = 0; i < 31; i++)
                 {
-                    DayModel dayModel = new DayModel((i - 4) % 7 == 0 || i == 0, i < 7, (i + 3) % 7 == 6 || i == 30, i >= 31 - 7, today == i);
+                    DayModel dayModel = new DayModel((i - 4) % 7 == 0 || i == 0, i < 7, (i + 3) % 7 == 6 || i == 30, i >= 31 - 7, isCurrentMonth && today == i);
                     dayModel.DayDesc = (i + 1).ToString();
 
                     dayModel.Dates = new ObservableCollection<DateModel>(
@@ -53,8 +54,9 @@ namespace OOP_LernDashboard.Commands
                         .Select(e => new DateModel(e.Title))
                         .ToList());
 
-                    _viewModel.Day.Add(dayModel);
+                    _viewModel.Days.Add(dayModel);
                 }
+
             }
             catch(Exception e)
             {

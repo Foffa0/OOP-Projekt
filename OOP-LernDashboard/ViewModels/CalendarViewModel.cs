@@ -35,7 +35,7 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
-        public ObservableCollection<DayModel> Day
+        public ObservableCollection<DayModel> Days
         {
             get;
             set;
@@ -56,13 +56,19 @@ namespace OOP_LernDashboard.ViewModels
         public ICommand LoadCalendarCommand { get; }
         public ICommand LoginGoogleCommand { get; }
 
+        public ICommand PrevMonthCommand { get; }
+        public ICommand NextMonthCommand { get; }
+
         public CalendarViewModel(Dashboard dashboard, DashboardStore dashboardStore)
         {
-            Day = new ObservableCollection<DayModel>();
+            Days = new ObservableCollection<DayModel>();
 
             AddCommand = new CreateCalendarEventCommand(this, dashboardStore);
             LoadCalendarCommand = new LoadCalendarCommand(this, dashboardStore);
             LoginGoogleCommand = new GoogleLoginCommand(dashboardStore);
+
+            PrevMonthCommand = new ModifyCalendarMonth(this, dashboardStore, -1);
+            NextMonthCommand = new ModifyCalendarMonth(this, dashboardStore, 1);
 
             UpdateGoogleReady(dashboardStore.GoogleCalendar != null);
         }

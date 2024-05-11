@@ -2,8 +2,9 @@
 using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Services;
+using HandyControl.Controls;
 using System.Globalization;
-using System.Windows;
+
 
 namespace OOP_LernDashboard.Models
 {
@@ -14,7 +15,6 @@ namespace OOP_LernDashboard.Models
         public string AuthToken { get; }
 
         public DateTime Start { get; set; }
-        public DateTime End { get; set; }
 
         private CalendarService _calendarService;
 
@@ -39,7 +39,7 @@ namespace OOP_LernDashboard.Models
                 if (calendar.Summary.Equals(CalendarName))
                 {
                     _calendar = _calendarService.Calendars.Get(calendar.Id).Execute();
-                    MessageBox.Show($"Erfolgreich Kalender {calendar.Summary} zum LernDashboard hinzugefügt.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Success($"Erfolgreich Kalender {calendar.Summary} zum LernDashboard hinzugefügt.", "Information");
                     break;
                 }
             }
@@ -47,7 +47,6 @@ namespace OOP_LernDashboard.Models
             // no matching calendar is found so create one
             if (_calendar == null)
             {
-                MessageBox.Show("no calendar found.", "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
                 Google.Apis.Calendar.v3.Data.Calendar calendar = new Google.Apis.Calendar.v3.Data.Calendar();
                 calendar.Summary = CalendarName;
                 _calendar = _calendarService.Calendars.Insert(calendar).Execute();
@@ -55,7 +54,6 @@ namespace OOP_LernDashboard.Models
 
             DateTime now = DateTime.Now;
             Start = new DateTime(now.Year, now.Month, 1);
-            End = Start.AddMonths(1).AddDays(-1);
         }
 
 
@@ -97,7 +95,7 @@ namespace OOP_LernDashboard.Models
         {
             EventsResource.ListRequest request = _calendarService.Events.List(_calendar.Id);
             request.TimeMinDateTimeOffset = Start;
-            request.TimeMaxDateTimeOffset = End;
+            request.TimeMaxDateTimeOffset = Start.AddMonths(1).AddDays(-1);
             Events events = await request.ExecuteAsync();
             this.Events = events.Items.Select(e => ToCalendarEvent(e)).ToList();
         }

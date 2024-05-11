@@ -7,12 +7,12 @@
            xmlns:views="clr-namespace:OOP_LernDashboard.Views"
         xmlns:vms="clr-namespace:OOP_LernDashboard.ViewModels"
         NonClientAreaBackground="{StaticResource WindowTheme}"
-        CloseButtonHoverForeground="Red"
-        OtherButtonHoverForeground="{StaticResource PrimaryColor}"
-        CloseButtonForeground="WhiteSmoke"
-        OtherButtonForeground="WhiteSmoke"
-        CloseButtonHoverBackground="#181818"
-        OtherButtonHoverBackground="#181818"
+        CloseButtonHoverForeground="#fff"
+        OtherButtonHoverForeground="#fff"
+        CloseButtonForeground="#fff"
+        OtherButtonForeground="#fff"
+        CloseButtonHoverBackground="#3d3d3d"
+        OtherButtonHoverBackground="#3d3d3d"
         SystemBackdropType="Auto"
         WindowStartupLocation="CenterScreen"
         ShowTitle="False"
@@ -25,8 +25,8 @@
     <hc:Window.NonClientAreaContent>
         <Grid>
             
-            <Rectangle Width="100" Fill="{StaticResource SecondaryColor}" Margin="0" HorizontalAlignment="Left" Opacity="1" />
-            <Image Source="/logo.ico" Width="16" Height="16" HorizontalAlignment="Left" Margin="10 0 0 0"/>
+            <Rectangle Width="70" Fill="{StaticResource SecondaryColor}" Margin="0" HorizontalAlignment="Left" Opacity="1" />
+            <Image Source="/logo.ico" Width="16" Height="16" HorizontalAlignment="Left" Margin="27 0 0 0"/>
         </Grid>
     </hc:Window.NonClientAreaContent>
     
@@ -55,7 +55,7 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="70" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 

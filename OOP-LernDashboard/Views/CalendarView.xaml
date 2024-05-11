@@ -45,12 +45,12 @@
 
                         <TextBlock Grid.Column="0" Text="Mai" Style="{StaticResource Headline}" Margin="0,20,0,10" Grid.RowSpan="2"></TextBlock>
                         <StackPanel Grid.Column="1" Orientation="Horizontal">
-                            <Button Content="⬅️"></Button>
-                            <Button Content="➡️"></Button>
+                            <Button Content="⬅️" Command="{Binding PrevMonthCommand}"></Button>
+                            <Button Content="➡️" Command="{Binding NextMonthCommand}"></Button>
                         </StackPanel>
                     </Grid>
                     <hc:LoadingCircle Foreground="{StaticResource PrimaryColor}" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                    <ItemsControl ItemsSource="{Binding Day}" MaxWidth="800">
+                    <ItemsControl ItemsSource="{Binding Days}" MaxWidth="800" Visibility="{Binding IsLoading, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Rows="5" Columns="7" FirstColumn="3"/>
@@ -66,12 +66,20 @@
                                       Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}"
                                       Height="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}">
                                         <StackPanel>
-                                            <TextBlock Text="{Binding DayDesc}" Style="{StaticResource Text}"></TextBlock>
-                                            <ListBox ItemsSource="{Binding Dates}">
-
+                                            <TextBlock Text="{Binding DayDesc}" Style="{StaticResource Text}" Margin="0,0,0, 5"></TextBlock>
+                                            <ListBox ItemsSource="{Binding Dates}"  Background="{StaticResource PrimaryColor}" BorderThickness="0"  hc:ListBoxAttach.IsOddEvenRow="True" AlternationCount="2">
+                                                <ListBox.Style>
+                                                    <Style TargetType="ListBox">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Dates.Count}" Value="0">
+                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </ListBox.Style>
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>
-                                                        <Button Content="{Binding DateDesc}"></Button>
+                                                        <TextBlock Text="{Binding DateDesc}" Margin="0" Padding="2" Style="{StaticResource Text}" ></TextBlock>
                                                     </DataTemplate>
                                                 </ListBox.ItemTemplate>
                                             </ListBox>
