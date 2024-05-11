@@ -22,7 +22,7 @@ namespace OOP_LernDashboard.Stores
         public event Action<ToDo> ToDoDeleted;
 
         public GoogleLogin GoogleLogin { set; get; }
-        public GoogleCalendar GoogleCalendar { set; get; }
+        public GoogleCalendar? GoogleCalendar { set; get; }
 
         public DashboardStore(IDataCreator<ToDo> toDoDataCreator, IDataProvider<ToDo> toDoDataProvider)
         {
