@@ -35,6 +35,8 @@ namespace OOP_LernDashboard.Commands
                     return;
                 }
 
+                _viewModel.UpdateMonth(_dashboardStore.GoogleCalendar.Start);
+
                 await _dashboardStore.GoogleCalendar.LoadEvents();
                 
                 int today = DateTime.Now.Day - 1;
@@ -56,6 +58,8 @@ namespace OOP_LernDashboard.Commands
 
                     _viewModel.Days.Add(dayModel);
                 }
+
+                
 
             }
             catch(Exception e)

@@ -2,6 +2,7 @@
 using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Stores;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -31,6 +32,33 @@ namespace OOP_LernDashboard.ViewModels
                 {
                     _isGoogleReady = value;
                     OnPropertyChanged(nameof(IsGoogleReady));
+                }
+            }
+        }
+
+        private string _month = "";
+        public string Month
+        {
+            get { return _month; }
+            set
+            {
+                if (_month != value)
+                {
+                    _month = value;
+                    OnPropertyChanged(nameof(Month));
+                }
+            }
+        }
+        private string _year = "";
+        public string Year
+        {
+            get { return _year; }
+            set
+            {
+                if (_year != value)
+                {
+                    _year = value;
+                    OnPropertyChanged(nameof(Year));
                 }
             }
         }
@@ -83,6 +111,13 @@ namespace OOP_LernDashboard.ViewModels
         public void UpdateGoogleReady(bool newState)
         {
             IsGoogleReady = newState;
+        }
+
+        public void UpdateMonth(DateTime date)
+        {
+            CultureInfo de = new CultureInfo("de-DE");
+            Month = date.ToString("MMMM", de);
+            Year = date.ToString("yyyy");
         }
 
         internal class DayModel : ViewModelBase

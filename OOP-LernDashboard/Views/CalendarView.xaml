@@ -43,7 +43,12 @@
                             <ColumnDefinition Width="auto" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Column="0" Text="Mai" Style="{StaticResource Headline}" Margin="0,20,0,10" Grid.RowSpan="2"></TextBlock>
+                        <StackPanel Orientation="Horizontal" Grid.Column="0">
+                            <TextBlock Text="{Binding Month}" Style="{StaticResource Headline}" Margin="0,20,0,10" Grid.RowSpan="2"></TextBlock>
+                            <TextBlock Text="{Binding Year}" Style="{StaticResource Headline}" Margin="0,20,0,10" Grid.RowSpan="2"></TextBlock>
+                        </StackPanel>
+                        
+                        
                         <StackPanel Grid.Column="1" Orientation="Horizontal">
                             <Button Content="⬅️" Command="{Binding PrevMonthCommand}"></Button>
                             <Button Content="➡️" Command="{Binding NextMonthCommand}"></Button>
