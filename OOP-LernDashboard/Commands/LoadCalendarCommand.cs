@@ -1,4 +1,5 @@
-﻿using OOP_LernDashboard.Models;
+﻿using HandyControl.Controls;
+using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Stores;
 using OOP_LernDashboard.ViewModels;
 using System;
@@ -7,7 +8,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using static OOP_LernDashboard.ViewModels.CalendarViewModel;
 
 namespace OOP_LernDashboard.Commands
@@ -56,11 +56,11 @@ namespace OOP_LernDashboard.Commands
                     DayViewModel dayModel = new DayViewModel((i + dayInWeek) % 7 == 0 || i == 0, i < 7, (i + dayInWeek) % 7 == 6 || i == daysInMonth - 1, i >= daysInMonth - 7, isCurrentMonth && today == i);
                     dayModel.DayDesc = i + 1;
 
-                    dayModel.Dates = new ObservableCollection<DateViewModel>(
+                    dayModel.Events = new ObservableCollection<EventViewModel>(
                         _dashboardStore.GoogleCalendar.Events
                         .Where(e => e.StartTime.Day - 1 == i)
                         .OrderBy(e => e.StartTime)
-                        .Select(e => new DateViewModel(e.Title, e.StartTime.ToString("HH:mm")))
+                        .Select(e => new EventViewModel(e.Title, e.StartTime.ToString("HH:mm")))
                         .ToList());
 
                     _viewModel.Days.Add(dayModel);
@@ -68,7 +68,7 @@ namespace OOP_LernDashboard.Commands
             }
             catch(Exception e)
             {
-                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Fatal("Failed to load Events", e.Message);
                 throw new Exception("Failed to load Events");
             }
             _viewModel.IsLoading = false;

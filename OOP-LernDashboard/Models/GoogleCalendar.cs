@@ -14,7 +14,7 @@ namespace OOP_LernDashboard.Models
 
         public string AuthToken { get; }
 
-        public DateTime Start { get; set; }
+        public DateTime Start { get; set; } // The start of the month to display events for
 
         private CalendarService _calendarService;
 
@@ -52,8 +52,9 @@ namespace OOP_LernDashboard.Models
                 _calendar = _calendarService.Calendars.Insert(calendar).Execute();
             }
 
+            // Sets the month to display events for to the current month
             DateTime now = DateTime.Now;
-            Start = new DateTime(now.Year, now.Month, 1);
+            Start = new DateTime(now.Year, now.Month, 1);   
         }
 
 
@@ -86,11 +87,10 @@ namespace OOP_LernDashboard.Models
             _calendarService.Events.Insert(e, _calendar.Id).Execute();
         }
 
-        public IList<CalendarEvent> GetEvents()
-        {
-            return _calendarService.Events.List(_calendar.Id).Execute().Items.Select(e => new CalendarEvent(e.Summary, e.Start.DateTime ?? new DateTime(), e.End.DateTime)).ToList();
-        } 
-
+        /// <summary>
+        /// Loads events from the calendar for the current month into the Events property
+        /// </summary>
+        /// <returns></returns>
         public async Task LoadEvents()
         {
             EventsResource.ListRequest request = _calendarService.Events.List(_calendar.Id);

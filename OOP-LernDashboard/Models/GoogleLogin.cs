@@ -155,7 +155,8 @@ namespace OOP_LernDashboard.Models
                     string responseText = await reader.ReadToEndAsync();
 
                     // converts to dictionary
-                    Dictionary<string, string> tokenEndpointDecoded = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseText);
+                    Dictionary<string, string> tokenEndpointDecoded = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseText) 
+                        ?? new Dictionary<string, string>(); ;
 
                     string accessToken = tokenEndpointDecoded["access_token"];
                     string tokenType = tokenEndpointDecoded["token_type"];

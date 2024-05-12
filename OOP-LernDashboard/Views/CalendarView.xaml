@@ -81,11 +81,11 @@
                                       Height="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}">
                                         <StackPanel>
                                             <TextBlock Text="{Binding DayDesc}" Style="{StaticResource Text}" Margin="0,0,0, 5"></TextBlock>
-                                            <ListBox ItemsSource="{Binding Dates}"  Background="{StaticResource PrimaryColor}" BorderThickness="0"  hc:ListBoxAttach.IsOddEvenRow="True" AlternationCount="2">
+                                            <ListBox ItemsSource="{Binding Events}"  Background="{StaticResource PrimaryColor}" BorderThickness="0">
                                                 <ListBox.Style>
                                                     <Style TargetType="ListBox">
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding Dates.Count}" Value="0">
+                                                            <DataTrigger Binding="{Binding Events.Count}" Value="0">
                                                                 <Setter Property="Visibility" Value="Collapsed"/>
                                                             </DataTrigger>
                                                         </Style.Triggers>
