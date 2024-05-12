@@ -58,16 +58,13 @@ namespace OOP_LernDashboard.Commands
 
                     dayModel.Dates = new ObservableCollection<DateViewModel>(
                         _dashboardStore.GoogleCalendar.Events
-                        .OrderBy(e => e.StartTime)
                         .Where(e => e.StartTime.Day - 1 == i)
+                        .OrderBy(e => e.StartTime)
                         .Select(e => new DateViewModel(e.Title))
                         .ToList());
 
                     _viewModel.Days.Add(dayModel);
                 }
-
-                
-
             }
             catch(Exception e)
             {
