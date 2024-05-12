@@ -35,25 +35,32 @@ namespace OOP_LernDashboard.Commands
                     return;
                 }
 
-                _viewModel.UpdateMonth(_dashboardStore.GoogleCalendar.Start);
+                DateTime currentMonth = _dashboardStore.GoogleCalendar.Start;
+
+                _viewModel.UpdateMonth(currentMonth);
 
                 await _dashboardStore.GoogleCalendar.LoadEvents();
                 
                 int today = DateTime.Now.Day - 1;
-                bool isCurrentMonth = DateTime.Now.Month == _dashboardStore.GoogleCalendar.Start.Month
-                                    && DateTime.Now.Year == _dashboardStore.GoogleCalendar.Start.Year;
+                bool isCurrentMonth = DateTime.Now.Month == currentMonth.Month
+                                    && DateTime.Now.Year == currentMonth.Year;
+
+                int dayInWeek = (int)currentMonth.DayOfWeek -1;
+                int daysInMonth = DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month);
+
+                _viewModel.UpdateFirstDayOffset(dayInWeek);
 
                 _viewModel.Days.Clear();
-                for (int i = 0; i < 31; i++)
+                for (int i = 0; i < daysInMonth; i++)
                 {
-                    DayModel dayModel = new DayModel((i - 4) % 7 == 0 || i == 0, i < 7, (i + 3) % 7 == 6 || i == 30, i >= 31 - 7, isCurrentMonth && today == i);
-                    dayModel.DayDesc = (i + 1).ToString();
+                    DayViewModel dayModel = new DayViewModel((i + dayInWeek) % 7 == 0 || i == 0, i < 7, (i + dayInWeek) % 7 == 6 || i == daysInMonth - 1, i >= daysInMonth - 7, isCurrentMonth && today == i);
+                    dayModel.DayDesc = i + 1;
 
-                    dayModel.Dates = new ObservableCollection<DateModel>(
+                    dayModel.Dates = new ObservableCollection<DateViewModel>(
                         _dashboardStore.GoogleCalendar.Events
                         .OrderBy(e => e.StartTime)
                         .Where(e => e.StartTime.Day - 1 == i)
-                        .Select(e => new DateModel(e.Title))
+                        .Select(e => new DateViewModel(e.Title))
                         .ToList());
 
                     _viewModel.Days.Add(dayModel);

@@ -58,12 +58,12 @@
                     <ItemsControl ItemsSource="{Binding Days}" MaxWidth="800" Visibility="{Binding IsLoading, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <UniformGrid Rows="5" Columns="7" FirstColumn="3"/>
+                                <UniformGrid Rows="5" Columns="7" FirstColumn="{Binding FirstDayOffset}"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  BorderBrush="{StaticResource PrimaryColor}" x:Name="Border" BorderThickness="{Binding Thickness}" Background="{Binding BackgroundColor}">
+                                <Border HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch"  BorderBrush="{StaticResource PrimaryColor}" x:Name="Border" BorderThickness="{Binding Thickness}" Background="{Binding BackgroundColor}">
 
                                     <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                       HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="4"

@@ -63,20 +63,32 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
-        public ObservableCollection<DayModel> Days
+        public ObservableCollection<DayViewModel> Days
         {
             get;
             set;
         }
 
         private bool _isLoading;
-        public bool IsLoading 
-        { 
-            get { return _isLoading; } 
-            set { 
-                _isLoading = value; 
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set
+            {
+                _isLoading = value;
                 OnPropertyChanged(nameof(IsLoading));
-            } 
+            }
+        }
+
+        private int _firstDayOffset;
+        public int FirstDayOffset
+        {
+            get { return _firstDayOffset; }
+            set
+            {
+                _firstDayOffset = value;
+                OnPropertyChanged(nameof(FirstDayOffset));
+            }
         }
 
 
@@ -89,7 +101,7 @@ namespace OOP_LernDashboard.ViewModels
 
         public CalendarViewModel(Dashboard dashboard, DashboardStore dashboardStore)
         {
-            Days = new ObservableCollection<DayModel>();
+            Days = new ObservableCollection<DayViewModel>();
 
             AddCommand = new CreateCalendarEventCommand(this, dashboardStore);
             LoadCalendarCommand = new LoadCalendarCommand(this, dashboardStore);
@@ -120,9 +132,14 @@ namespace OOP_LernDashboard.ViewModels
             Year = date.ToString("yyyy");
         }
 
-        internal class DayModel : ViewModelBase
+        public void UpdateFirstDayOffset(int offset)
         {
-            public string DayDesc { get; set; } = "";
+            FirstDayOffset = offset;
+        }
+
+        internal class DayViewModel : ViewModelBase
+        {
+            public int DayDesc { get; set; }
             public bool IsTopRow { get; set; } = false;
 
             private Thickness _thickness;
@@ -145,34 +162,31 @@ namespace OOP_LernDashboard.ViewModels
                 get { return _backgroundColor; }
                 set
                 {
-                    if (_backgroundColor != value)
-                    {
-                        _backgroundColor = value;
-                        OnPropertyChanged(nameof(BackgroundColor));
-                    }
+                    _backgroundColor = value;
+                    OnPropertyChanged(nameof(BackgroundColor));
                 }
             }
 
-            public ObservableCollection<DateModel> Dates
+            public ObservableCollection<DateViewModel> Dates
             {
                 get;
                 set;
             }
 
-            public DayModel(bool isLeftCol = false, bool isTopRow = false, bool isRightCol = false, bool isBottomRow = false, bool isToday = false)
+            public DayViewModel(bool isLeftCol = false, bool isTopRow = false, bool isRightCol = false, bool isBottomRow = false, bool isToday = false)
             {
-                Dates = new ObservableCollection<DateModel>();
+                Dates = new ObservableCollection<DateViewModel>();
                 IsTopRow = isTopRow;
                 Thickness = new Thickness(isLeftCol ? 2 : 1, isTopRow ? 2 : 1, isRightCol ? 2 : 1, isBottomRow ? 2 : 1);
                 BackgroundColor = isToday ? (SolidColorBrush)Application.Current.Resources["PrimaryColor"] : new SolidColorBrush(Colors.Transparent);
             }
         }
 
-        internal class DateModel
+        internal class DateViewModel
         {
             public string DateDesc { get; set; }
 
-            public DateModel(string date)
+            public DateViewModel(string date)
             {
                 DateDesc = date;
             }
