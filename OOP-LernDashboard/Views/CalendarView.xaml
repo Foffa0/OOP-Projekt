@@ -43,16 +43,25 @@
                             <ColumnDefinition Width="auto" />
                         </Grid.ColumnDefinitions>
 
-                        <StackPanel Orientation="Horizontal" Grid.Column="0">
-                            <TextBlock Text="{Binding Month}" Style="{StaticResource Headline}" Margin="0,20,0,10" Grid.RowSpan="2"></TextBlock>
-                            <TextBlock Text="{Binding Year}" Style="{StaticResource Headline}" Margin="0,20,0,10" Grid.RowSpan="2"></TextBlock>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0, 0, 0, 20">
+                            <TextBlock Text="{Binding Month}" Style="{StaticResource Headline}" VerticalAlignment="Center" Margin="0, 0, 10, 0"></TextBlock>
+                            <TextBlock Text="{Binding Year}" Style="{StaticResource Headline}" VerticalAlignment="Center" Margin="0, 0, 10, 0"></TextBlock>
+                            <Button Command="{Binding PrevMonthCommand}" Style="{StaticResource PrimaryButton}">
+                                <Image Width="20">
+                                    <Image.Source>
+                                        <BitmapImage DecodePixelWidth="40" UriSource="/Images/leftArrow.png" />
+                                    </Image.Source>
+                                </Image>
+                            </Button>
+                            <Button Command="{Binding NextMonthCommand}" Style="{StaticResource PrimaryButton}">
+                                <Image Width="20">
+                                    <Image.Source>
+                                        <BitmapImage DecodePixelWidth="40" UriSource="/Images/rightArrow.png" />
+                                    </Image.Source>
+                                </Image>
+                            </Button>
                         </StackPanel>
                         
-                        
-                        <StackPanel Grid.Column="1" Orientation="Horizontal">
-                            <Button Content="⬅️" Command="{Binding PrevMonthCommand}"></Button>
-                            <Button Content="➡️" Command="{Binding NextMonthCommand}"></Button>
-                        </StackPanel>
                     </Grid>
                     <hc:LoadingCircle Foreground="{StaticResource PrimaryColor}" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     <ItemsControl ItemsSource="{Binding Days}" MaxWidth="800" Visibility="{Binding IsLoading, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
@@ -84,7 +93,10 @@
                                                 </ListBox.Style>
                                                 <ListBox.ItemTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock Text="{Binding DateDesc}" Margin="0" Padding="2" Style="{StaticResource Text}" ></TextBlock>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="{Binding DateDesc}" Margin="0" Padding="2" Style="{StaticResource Text}" ></TextBlock>
+                                                            <TextBlock Text="{Binding EventStart}" Margin="0" Padding="2" Style="{StaticResource Text}" HorizontalAlignment="Right"></TextBlock>
+                                                        </StackPanel>
                                                     </DataTemplate>
                                                 </ListBox.ItemTemplate>
                                             </ListBox>
@@ -98,7 +110,7 @@
                 </StackPanel>
             </hc:ScrollViewer>
 
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1" Margin="20, 0, 0, 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
@@ -110,9 +122,10 @@
                         <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Text}"  Text="Titel"></TextBlock>
                         <TextBox Text="{Binding NewEventTitle}"></TextBox>
 
+                        <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Text}"  Text="Datum" Margin="0, 10, 0, 0"></TextBlock>
                         <hc:DateTimePicker />
 
-                        <Button Content="Hinzufügen" Command="{Binding AddCommand}"></Button>
+                        <Button Content="Hinzufügen" Command="{Binding AddCommand}" Style="{StaticResource PrimaryButton}" HorizontalAlignment="Center" Margin="0, 10, 0, 0"></Button>
                     </StackPanel>
                 </Border>
             </Grid>

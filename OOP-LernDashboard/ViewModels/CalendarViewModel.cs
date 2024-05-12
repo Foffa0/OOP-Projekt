@@ -185,10 +185,12 @@ namespace OOP_LernDashboard.ViewModels
         internal class DateViewModel
         {
             public string DateDesc { get; set; }
+            public string EventStart { get; set; }
 
-            public DateViewModel(string date)
+            public DateViewModel(string date, string eventStart)
             {
                 DateDesc = date;
+                EventStart = eventStart;
             }
         }
     }

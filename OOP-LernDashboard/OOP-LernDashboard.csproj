@@ -14,11 +14,17 @@
     <None Remove="Images\CalendarIcon.png" />
     <None Remove="Images\DashboardIcon.png" />
     <None Remove="Images\GoogleLogo.png" />
+    <None Remove="Images\leftArrow.png" />
     <None Remove="Images\QuickNotesIcon.png" />
+    <None Remove="Images\rightArrow.png" />
     <None Remove="Images\SettingsIcon.png" />
     <None Remove="Images\TimerIcon.png" />
     <None Remove="Images\ToDoIcon.png" />
     <None Remove="logo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\leftArrow.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,6 +44,7 @@
     <Resource Include="Images\DashboardIcon.png" />
     <Resource Include="Images\GoogleLogo.png" />
     <Resource Include="Images\QuickNotesIcon.png" />
+    <Resource Include="Images\rightArrow.png" />
     <Resource Include="Images\SettingsIcon.png" />
     <Resource Include="Images\TimerIcon.png" />
   </ItemGroup>

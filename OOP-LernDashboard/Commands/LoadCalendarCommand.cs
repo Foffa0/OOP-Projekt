@@ -60,7 +60,7 @@ namespace OOP_LernDashboard.Commands
                         _dashboardStore.GoogleCalendar.Events
                         .Where(e => e.StartTime.Day - 1 == i)
                         .OrderBy(e => e.StartTime)
-                        .Select(e => new DateViewModel(e.Title))
+                        .Select(e => new DateViewModel(e.Title, e.StartTime.ToString("HH:mm")))
                         .ToList());
 
                     _viewModel.Days.Add(dayModel);
