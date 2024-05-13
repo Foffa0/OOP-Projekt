@@ -53,7 +53,7 @@ namespace OOP_LernDashboard.Commands
                 _viewModel.Days.Clear();
                 for (int i = 0; i < daysInMonth; i++)
                 {
-                    DayViewModel dayModel = new DayViewModel((i + dayInWeek) % 7 == 0 || i == 0, i < 7, (i + dayInWeek) % 7 == 6 || i == daysInMonth - 1, i >= daysInMonth - 7, isCurrentMonth && today == i);
+                    DayViewModel dayModel = new DayViewModel(isCurrentMonth && today == i);
                     dayModel.DayDesc = i + 1;
 
                     dayModel.Events = new ObservableCollection<EventViewModel>(

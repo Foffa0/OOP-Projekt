@@ -14,20 +14,6 @@ namespace OOP_LernDashboard.ViewModels
     {
         public int DayDesc { get; set; }
 
-        private Thickness _thickness;
-        public Thickness Thickness
-        {
-            get { return _thickness; }
-            set
-            {
-                if (_thickness != value)
-                {
-                    _thickness = value;
-                    OnPropertyChanged(nameof(Thickness));
-                }
-            }
-        }
-
         private SolidColorBrush _backgroundColor;
         public SolidColorBrush BackgroundColor
         {
@@ -45,10 +31,10 @@ namespace OOP_LernDashboard.ViewModels
             set;
         }
 
-        public DayViewModel(bool isLeftCol = false, bool isTopRow = false, bool isRightCol = false, bool isBottomRow = false, bool isToday = false)
+
+        public DayViewModel(bool isToday = false)
         {
             Events = new ObservableCollection<EventViewModel>();
-            Thickness = new Thickness(isLeftCol ? 2 : 1, isTopRow ? 2 : 1, isRightCol ? 2 : 1, isBottomRow ? 2 : 1);
             BackgroundColor = isToday ? (SolidColorBrush)Application.Current.Resources["PrimaryColor"] : new SolidColorBrush(Colors.Transparent);
         }
     }

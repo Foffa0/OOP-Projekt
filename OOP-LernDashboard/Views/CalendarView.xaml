@@ -35,80 +35,74 @@
                 <ColumnDefinition Width="300" />
             </Grid.ColumnDefinitions>
 
-            <hc:ScrollViewer Grid.Column="0">
-                <StackPanel>
-                    <Grid Margin="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <Grid Margin="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
 
-                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0, 0, 0, 20">
-                            <TextBlock Text="{Binding Month}" Style="{StaticResource Headline}" VerticalAlignment="Center" Margin="0, 0, 10, 0"></TextBlock>
-                            <TextBlock Text="{Binding Year}" Style="{StaticResource Headline}" VerticalAlignment="Center" Margin="0, 0, 10, 0"></TextBlock>
-                            <Button Command="{Binding PrevMonthCommand}" Style="{StaticResource PrimaryButton}">
-                                <Image Width="20">
-                                    <Image.Source>
-                                        <BitmapImage DecodePixelWidth="40" UriSource="/Images/leftArrow.png" />
-                                    </Image.Source>
-                                </Image>
-                            </Button>
-                            <Button Command="{Binding NextMonthCommand}" Style="{StaticResource PrimaryButton}">
-                                <Image Width="20">
-                                    <Image.Source>
-                                        <BitmapImage DecodePixelWidth="40" UriSource="/Images/rightArrow.png" />
-                                    </Image.Source>
-                                </Image>
-                            </Button>
-                        </StackPanel>
-                        
-                    </Grid>
-                    <hc:LoadingCircle Foreground="{StaticResource PrimaryColor}" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                    <ItemsControl ItemsSource="{Binding Days}" MaxWidth="800" Visibility="{Binding IsLoading, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <UniformGrid Rows="5" Columns="7" FirstColumn="{Binding FirstDayOffset}"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch"  BorderBrush="{StaticResource PrimaryColor}" x:Name="Border" BorderThickness="{Binding Thickness}" Background="{Binding BackgroundColor}">
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0, 0, 0, 20">
+                        <TextBlock Text="{Binding Month}" Style="{StaticResource Headline}" VerticalAlignment="Center" Margin="0, 0, 10, 0"></TextBlock>
+                        <TextBlock Text="{Binding Year}" Style="{StaticResource Headline}" VerticalAlignment="Center" Margin="0, 0, 10, 0"></TextBlock>
+                        <Button Command="{Binding PrevMonthCommand}" Style="{StaticResource PrimaryButton}">
+                            <Image Width="20">
+                                <Image.Source>
+                                    <BitmapImage DecodePixelWidth="240" UriSource="/Images/leftArrow.png" />
+                                </Image.Source>
+                            </Image>
+                        </Button>
+                        <Button Command="{Binding NextMonthCommand}" Style="{StaticResource PrimaryButton}">
+                            <Image Width="20">
+                                <Image.Source>
+                                    <BitmapImage DecodePixelWidth="240" UriSource="/Images/rightArrow.png" />
+                                </Image.Source>
+                            </Image>
+                        </Button>
+                    </StackPanel>
 
-                                    <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                                      HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="4"
-                                           
-                                      Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}"
-                                      Height="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}">
-                                        <StackPanel>
-                                            <TextBlock Text="{Binding DayDesc}" Style="{StaticResource Text}" Margin="0,0,0, 5"></TextBlock>
-                                            <ListBox ItemsSource="{Binding Events}"  Background="{StaticResource PrimaryColor}" BorderThickness="0">
-                                                <ListBox.Style>
-                                                    <Style TargetType="ListBox">
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding Events.Count}" Value="0">
-                                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </ListBox.Style>
-                                                <ListBox.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <StackPanel Orientation="Horizontal">
-                                                            <TextBlock Text="{Binding DateDesc}" Margin="0" Padding="2" Style="{StaticResource Text}" ></TextBlock>
-                                                            <TextBlock Text="{Binding EventStart}" Margin="0" Padding="2" Style="{StaticResource Text}" HorizontalAlignment="Right"></TextBlock>
-                                                        </StackPanel>
-                                                    </DataTemplate>
-                                                </ListBox.ItemTemplate>
-                                            </ListBox>
+                </Grid>
+                <hc:LoadingCircle Foreground="{StaticResource PrimaryColor}" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
-                                        </StackPanel>
-                                    </ScrollViewer>
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </StackPanel>
-            </hc:ScrollViewer>
+                <ItemsControl ItemsSource="{Binding Days}" Visibility="{Binding IsLoading, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="7" SnapsToDevicePixels="False" FirstColumn="{Binding FirstDayOffset}" Margin="2"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="{StaticResource SecondaryColor}" BorderThickness="2" Margin="-1" 
+                                    Height="{Binding ActualWidth, RelativeSource={RelativeSource self}}"
+                                    Background="{Binding BackgroundColor}">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding DayDesc}" Style="{StaticResource Text}" Padding="2"></TextBlock>
+
+                                    <ListView ItemsSource="{Binding Events}" Background="Transparent" BorderThickness="0" 
+                                                VerticalContentAlignment="Top"  
+                                                ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding EventDesc}"></TextBlock>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                        <ListView.Style>
+                                            <Style TargetType="ListView" BasedOn="{StaticResource ListView.Small}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Events.Count}" Value="0">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ListView.Style>
+                                    </ListView>
+
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
 
             <Grid Grid.Column="1" Margin="20, 0, 0, 0">
                 <Grid.RowDefinitions>
