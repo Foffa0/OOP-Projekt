@@ -20,6 +20,7 @@ namespace OOP_LernDashboard.Commands
         {
             _dashboardStore.GoogleLogin.Logout();
             _dashboardStore.GoogleCalendar = null;
+            DashboardStore.AddUpdateAppSettings("GoogleAuthToken", null);
         }
     }
 }

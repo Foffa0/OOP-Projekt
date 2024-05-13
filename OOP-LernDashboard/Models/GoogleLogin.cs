@@ -237,11 +237,6 @@ namespace OOP_LernDashboard.Models
         /// <exception cref="InvalidOperationException"></exception>
         public void Logout()
         {
-            if(this.AuthToken == null)
-            {
-                throw new InvalidOperationException("No AuthToken available to logout");
-            }
-
             this.AuthToken = null;
         }
     }

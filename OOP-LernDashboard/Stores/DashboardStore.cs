@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using OOP_LernDashboard.Models;
+﻿using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Services.DataCreators;
 using OOP_LernDashboard.Services.DataProviders;
+using System.Configuration;
 
 namespace OOP_LernDashboard.Stores
 {
@@ -24,6 +24,8 @@ namespace OOP_LernDashboard.Stores
         public GoogleLogin GoogleLogin { set; get; }
         public GoogleCalendar? GoogleCalendar { set; get; }
 
+        public Configuration AppConfig;
+
         public DashboardStore(IDataCreator<ToDo> toDoDataCreator, IDataProvider<ToDo> toDoDataProvider)
         {
             _toDoCreator = toDoDataCreator;
@@ -35,6 +37,13 @@ namespace OOP_LernDashboard.Stores
 
             this.GoogleLogin = new GoogleLogin();
             this.GoogleLogin.AuthTokenReceived += GoogleLoginAuthTokenReceived;
+
+            string? auth = ReadSetting("GoogleAuthToken");
+            if (auth != null)
+            {
+                this.GoogleCalendar = new GoogleCalendar(auth);
+            }
+
         }
 
         /// <summary>
@@ -96,8 +105,47 @@ namespace OOP_LernDashboard.Stores
         {
             // Initialize GoogleCalendar class using authToken
             this.GoogleCalendar = new GoogleCalendar(authToken);
+
+            AddUpdateAppSettings("GoogleAuthToken", authToken);
         }
 
+        public static void AddUpdateAppSettings(string key, string value)
+        {
+            try
+            {
+                var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                var settings = configFile.AppSettings.Settings;
+                if (settings[key] == null)
+                {
+                    settings.Add(key, value);
+                }
+                else
+                {
+                    settings[key].Value = value;
+                }
+                configFile.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
+            }
+            catch (ConfigurationErrorsException)
+            {
+                Console.WriteLine("Error writing app settings");
+            }
+        }
+
+        public static string? ReadSetting(string key)
+        {
+            try
+            {
+                var appSettings = ConfigurationManager.AppSettings;
+                return appSettings[key];
+            }
+            catch (ConfigurationErrorsException)
+            {
+                Console.WriteLine("Error reading app settings");
+            }
+
+            return null;
+        }
 
     }
 }

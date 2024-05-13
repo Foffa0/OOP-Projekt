@@ -39,7 +39,7 @@ namespace OOP_LernDashboard.Models
                 if (calendar.Summary.Equals(CalendarName))
                 {
                     _calendar = _calendarService.Calendars.Get(calendar.Id).Execute();
-                    MessageBox.Success($"Erfolgreich Kalender {calendar.Summary} zum LernDashboard hinzugefügt.", "Information");
+                    // MessageBox.Success($"Erfolgreich Kalender {calendar.Summary} zum LernDashboard hinzugefügt.", "Information");
                     break;
                 }
             }
