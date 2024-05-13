@@ -31,6 +31,8 @@
                 True="Visible" 
                 False="Collapsed" />
 
+            <cnv:MathConverter x:Key="MathConverter" />
+
             <DataTemplate DataType="{x:Type vms:DemoViewModel}">
                 <views:DemoView />
             </DataTemplate>

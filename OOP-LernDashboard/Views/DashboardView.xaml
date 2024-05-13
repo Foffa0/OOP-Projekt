@@ -81,7 +81,7 @@
                 </Grid>
             </Border>
 
-            <Border Grid.Column="2" Padding="10">
+            <Border Grid.Column="2" Padding="10" Visibility="{Binding IsGoogleReady, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>

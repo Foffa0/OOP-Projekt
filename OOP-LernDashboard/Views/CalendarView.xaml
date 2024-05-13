@@ -64,7 +64,8 @@
                 </Grid>
                 <hc:LoadingCircle Foreground="{StaticResource PrimaryColor}" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
-                <ItemsControl ItemsSource="{Binding Days}" Visibility="{Binding IsLoading, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                <ItemsControl ItemsSource="{Binding Days}" Visibility="{Binding IsLoading, Converter={StaticResource InvertedBooleanToVisibilityConverter}}" 
+                              MaxWidth="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=StackPanel}, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE*7/6}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <UniformGrid Columns="7" SnapsToDevicePixels="False" FirstColumn="{Binding FirstDayOffset}" Margin="2"/>

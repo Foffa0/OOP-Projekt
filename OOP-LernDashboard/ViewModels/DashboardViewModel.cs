@@ -37,6 +37,20 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
+        private bool _isGoogleReady = false;
+        public bool IsGoogleReady
+        {
+            get { return _isGoogleReady; }
+            set
+            {
+                if (IsGoogleReady != value)
+                {
+                    _isGoogleReady = value;
+                    OnPropertyChanged(nameof(IsGoogleReady));
+                }
+            }
+        }
+
         private readonly ObservableCollection<ToDoViewModel> _toDos;
         public IEnumerable<ToDoViewModel> ToDos => _toDos;
 
@@ -62,6 +76,8 @@ namespace OOP_LernDashboard.ViewModels
             // Listen for changes in the dashboardStore
             _dashboardStore.ToDoCreated += OnToDoCreated;
             _dashboardStore.ToDoDeleted += OnToDoDeleted;
+
+            IsGoogleReady = dashboardStore.GoogleCalendar != null;
         }
 
         public override void Dispose()
