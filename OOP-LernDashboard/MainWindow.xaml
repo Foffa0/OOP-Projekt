@@ -53,7 +53,7 @@
             </DataTemplate>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
+    <Grid MouseDown="Grid_MouseDown">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="70" />
             <ColumnDefinition />
