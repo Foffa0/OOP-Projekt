@@ -15,14 +15,14 @@ namespace OOP_LernDashboard.Models
         {
             this.Interval = interval;
         }
-        //public void NextDate()
-        //{
-           
-        //}
-        //public override void check()
-        //{
-
-        //    this.IsChecked = true;
-        //}
+        public DateTime GenerateNextDate()
+        {
+            return DateTime.Now.AddDays(Interval); //Wrong Time
+        }
+        public override void check()
+        {
+            NextDate=GenerateNextDate();
+            IsChecked = false;
+        }
     }
 }

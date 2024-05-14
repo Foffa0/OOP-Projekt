@@ -65,6 +65,7 @@
                             </ListView>
                             <StackPanel>
                                 <TextBox Text="{Binding ToDoDesc, UpdateSourceTrigger=PropertyChanged}" Margin="0,5,0,0"></TextBox>
+                                <ComboBox  Name="comboBox1" IsEditable="True" IsReadOnly="True" Text="--What ToDo?--" ItemsSource="{Binding Combobox}" Margin="0,5,0,0"/>
                                 <Button Style="{StaticResource PrimaryButton}"   Command="{Binding AddCommand}" Content="Add" Margin="0,5,0,0" Width="75" Height="35"></Button>
                             </StackPanel>
                         </StackPanel>

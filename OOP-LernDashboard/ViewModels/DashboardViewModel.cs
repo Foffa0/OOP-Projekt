@@ -54,6 +54,9 @@ namespace OOP_LernDashboard.ViewModels
         private readonly ObservableCollection<ToDoViewModel> _toDos;
         public IEnumerable<ToDoViewModel> ToDos => _toDos;
 
+        private readonly ObservableCollection<string> _combobox;
+        public IEnumerable<string> Combobox => _combobox;
+
         private readonly ObservableCollection<CalendarEventViewModel> _calendarEvents;
         public IEnumerable<CalendarEventViewModel> CalendarEvents => _calendarEvents;
 
@@ -72,6 +75,13 @@ namespace OOP_LernDashboard.ViewModels
 
             _toDos = new ObservableCollection<ToDoViewModel>();
             _calendarEvents = new ObservableCollection<CalendarEventViewModel>();
+            _combobox = new ObservableCollection<string>
+            {
+                "Normales ToDo",
+                "Wiederholendes ToDo"
+            };
+            
+
 
             // Listen for changes in the dashboardStore
             _dashboardStore.ToDoCreated += OnToDoCreated;

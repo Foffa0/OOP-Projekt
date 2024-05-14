@@ -1,10 +1,12 @@
-﻿namespace OOP_LernDashboard.Models
+﻿using System.Collections.ObjectModel;
+
+namespace OOP_LernDashboard.Models
 {
     class ToDo
     {
         public Guid Id { get; }
         public string? Description { get; }
-        public Boolean IsChecked { get; private set; }
+        public Boolean IsChecked { get; protected set; }
 
         public ToDo(string description, bool isChecked = false)
         {
@@ -21,10 +23,7 @@
 
         public virtual void check()
         {
-            if (IsChecked)
-                throw new InvalidOperationException("Cannot check already checked ToDo");
 
-            this.IsChecked = true;
         }
-    }
+    }   
 }
