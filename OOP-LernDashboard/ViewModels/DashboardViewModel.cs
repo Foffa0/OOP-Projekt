@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using OOP_LernDashboard.Commands;
 using OOP_LernDashboard.Models;
+using OOP_LernDashboard.Services;
 using OOP_LernDashboard.Stores;
 using System.Collections.ObjectModel;
 using System.Net.WebSockets;
@@ -64,19 +65,21 @@ namespace OOP_LernDashboard.ViewModels
         public IEnumerable<ShortcutViewModel> Shortcuts => _shortcuts;
 
         public ICommand AddToDoCommand { get; }
-        public ICommand AddShortcutCommand { get; }
 
         public ICommand LoadDataAsyncCommand { get; }
 
-        public DashboardViewModel(Dashboard dashboard, DashboardStore dashboardStore)
+        public ICommand ShortcutsCommand { get; }
+
+        public DashboardViewModel(Dashboard dashboard, DashboardStore dashboardStore, NavigationService shortcutsNavigationService)
         {
             _dashboardStore = dashboardStore;
 
             this.WelcomeMessage = $"Hallo {_firstName}!";
 
             AddToDoCommand = new AddToDoCommand(this, dashboardStore);
-            AddShortcutCommand = new AddShortcutCommand(this, dashboardStore);
             LoadDataAsyncCommand = new LoadDashboardDataCommand(this, dashboardStore);
+
+            ShortcutsCommand = new NavigateCommand(shortcutsNavigationService);
 
             _toDos = new ObservableCollection<ToDoViewModel>();
             _calendarEvents = new ObservableCollection<CalendarEventViewModel>();
@@ -106,9 +109,9 @@ namespace OOP_LernDashboard.ViewModels
             base.Dispose();
         }
 
-        public static DashboardViewModel LoadViewModel(Dashboard dashboard, DashboardStore dashboardStore)
+        public static DashboardViewModel LoadViewModel(Dashboard dashboard, DashboardStore dashboardStore, NavigationService shortcutsNavigationService)
         {
-            DashboardViewModel viewModel = new DashboardViewModel(dashboard, dashboardStore);
+            DashboardViewModel viewModel = new DashboardViewModel(dashboard, dashboardStore, shortcutsNavigationService);
             //Load data asynchronously
             viewModel.LoadDataAsyncCommand.Execute(null);
             return viewModel;
@@ -154,7 +157,7 @@ namespace OOP_LernDashboard.ViewModels
             _shortcuts.Add(shortcutViewModel);
         }
 
-        public void UpdateShortcutss(IEnumerable<Shortcut> shortcuts)
+        public void UpdateShortcuts(IEnumerable<Shortcut> shortcuts)
         {
             _shortcuts.Clear();
 

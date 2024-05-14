@@ -15,7 +15,17 @@
         <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Shortcuts" Style="{StaticResource Title}"></TextBlock>
 
         <StackPanel Grid.Row="1">
-            
+            <DataGrid ItemsSource="{Binding Shortcuts}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn IsReadOnly="True" Width="80" CanUserResize="False" Binding="{Binding Name}" Header="Name"/>
+                    <DataGridTextColumn Width="1*" Binding="{Binding Path}" Header="Path"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Text="{Binding NewShortcutName, UpdateSourceTrigger=PropertyChanged}" Width="100" Margin="0,10,0,0"></TextBox>
+                <TextBox Text="{Binding NewShortcutPath, UpdateSourceTrigger=PropertyChanged}" Width="100" Margin="10,10,0,0"></TextBox>
+                <Button Command="{Binding AddShortcutCommand}" Content="Add" Margin="10,10,0,0"></Button>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

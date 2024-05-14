@@ -33,7 +33,7 @@
                         <StackPanel>
                             <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Headline}" Margin="0,0,0,10">Shortcuts</TextBlock>
 
-                            <ListView Padding="0" Background="Transparent" BorderThickness="0" ItemsSource="{Binding ToDos}">
+                            <ListView Padding="0" Background="Transparent" BorderThickness="0" ItemsSource="{Binding Shortcuts}">
                                 <ListView.Resources>
                                     <Style TargetType="GridViewColumnHeader">
                                         <Setter Property="Template" Value="{x:Null}" />
@@ -62,10 +62,9 @@
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <StackPanel>
-                                <TextBox Text="{Binding ToDoDesc, UpdateSourceTrigger=PropertyChanged}" Margin="0,5,0,0"></TextBox>
-                                <Button Style="{StaticResource PrimaryButton}"   Command="{Binding AddCommand}" Content="Add" Margin="0,5,0,0" Width="75" Height="35"></Button>
-                            </StackPanel>
+                            <Button Command="{Binding ShortcutsCommand}" Background="Transparent" BorderThickness="0" Foreground="#f0f0f0" Cursor="Hand">
+                                <Underline>Bearbeiten</Underline>
+                            </Button>
                         </StackPanel>
                     </Border>
                 </Grid>

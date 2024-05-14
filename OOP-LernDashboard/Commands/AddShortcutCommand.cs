@@ -12,12 +12,12 @@ namespace OOP_LernDashboard.Commands
 {
     internal class AddShortcutCommand : CommandBase
     {
-        private readonly DashboardViewModel _dashboardViewModel;
+        private readonly ShortcutsViewModel _shortcutsViewModel;
         private readonly DashboardStore _dashboardStore;
 
-        public AddShortcutCommand(DashboardViewModel dashboardViewModel, DashboardStore dashboardStore)
+        public AddShortcutCommand(ShortcutsViewModel shortcutsViewModel, DashboardStore dashboardStore)
         {
-            _dashboardViewModel = dashboardViewModel;
+            _shortcutsViewModel = shortcutsViewModel;
             _dashboardStore = dashboardStore;
         }
 
@@ -25,7 +25,9 @@ namespace OOP_LernDashboard.Commands
         public override async void Execute(object? parameter)
         {
 
-            Shortcut shortcut = new Shortcut(ShortcutType.Application, "test123", "Test?!", "r/programerHumor");
+            Shortcut shortcut = new Shortcut(ShortcutType.Application, _shortcutsViewModel.NewShortcutPath, _shortcutsViewModel.NewShortcutName, "r/programerHumor");
+            _shortcutsViewModel.NewShortcutPath = "";
+            _shortcutsViewModel.NewShortcutName = "";
             await _dashboardStore.AddShortcut(shortcut);
 
         }
