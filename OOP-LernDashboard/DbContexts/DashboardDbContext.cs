@@ -14,5 +14,7 @@ namespace OOP_LernDashboard.DbContexts
         public DashboardDbContext(DbContextOptions options) : base(options) { }
 
         public DbSet<ToDoDTO> ToDos { get; set; }
+
+        public DbSet<ShortcutDTO> Shortcuts { get; set; }
     }
 }

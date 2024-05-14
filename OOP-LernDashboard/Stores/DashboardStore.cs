@@ -14,26 +14,37 @@ namespace OOP_LernDashboard.Stores
         private Lazy<Task> _initializeLazy;
         private IDataCreator<ToDo> _toDoCreator;
         private IDataProvider<ToDo> _toDoProvider;
+        private IDataCreator<Shortcut> _shortcutCreator;
+        private IDataProvider<Shortcut> _shortcutProvider;
 
         private readonly Models.LinkedList<ToDo> _toDos;
         public IEnumerable<ToDo> ToDos => _toDos;
 
+        private readonly Models.LinkedList<Shortcut> _shortcuts;
+        public IEnumerable<Shortcut> Shortcuts => _shortcuts;
+
         public event Action<ToDo> ToDoCreated;
         public event Action<ToDo> ToDoDeleted;
+
+        public event Action<Shortcut> ShortcutCreated;
 
         public GoogleLogin GoogleLogin { set; get; }
         public GoogleCalendar? GoogleCalendar { set; get; }
 
         public Configuration AppConfig;
 
-        public DashboardStore(IDataCreator<ToDo> toDoDataCreator, IDataProvider<ToDo> toDoDataProvider)
+        public DashboardStore(IDataCreator<ToDo> toDoDataCreator, IDataProvider<ToDo> toDoDataProvider, IDataCreator<Shortcut> shortcutDataCreator, IDataProvider<Shortcut> shortcutDataProvider)
         {
             _toDoCreator = toDoDataCreator;
             _toDoProvider = toDoDataProvider;
+
+            _shortcutCreator = shortcutDataCreator;
+            _shortcutProvider = shortcutDataProvider;
             // the lazy ensures to only load the data once from the database
             _initializeLazy = new Lazy<Task>(Initialize);
 
             _toDos = new Models.LinkedList<ToDo>();
+            _shortcuts = new Models.LinkedList<Shortcut>();
 
             this.GoogleLogin = new GoogleLogin();
             this.GoogleLogin.AuthTokenReceived += GoogleLoginAuthTokenReceived;
@@ -88,6 +99,18 @@ namespace OOP_LernDashboard.Stores
             ToDoDeleted?.Invoke(toDo);
         }
 
+        /// <summary>
+        /// Adds a Shortcut to the database and updates the Shortcuts-List
+        /// </summary>
+        /// <param name="shortcut"></param>
+        /// <returns></returns>
+        public async Task AddShortcut(Shortcut shortcut)
+        {
+            await _shortcutCreator.CreateModel(shortcut);
+            _shortcuts.Add(shortcut);
+            ShortcutCreated?.Invoke(shortcut);
+        }
+
 
 
         // Loads the data from the database once
@@ -98,6 +121,13 @@ namespace OOP_LernDashboard.Stores
             foreach (var toDo in toDos)
             {
                 _toDos.Add(toDo);
+            }
+
+            IEnumerable<Shortcut> shortcuts = await _shortcutProvider.GetAllModels();
+            _shortcuts.Clear();
+            foreach (var shortcut in shortcuts)
+            {
+                _shortcuts.Add(shortcut);
             }
         }
 

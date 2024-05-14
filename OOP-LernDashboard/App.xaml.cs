@@ -29,8 +29,11 @@ namespace OOP_LernDashboard
             _dashboardDbContextFactory = new DashboardDbContextFactory(CONNECTION_STRING);
             IDataCreator<ToDo> _toDoCreator = new DatabaseToDoCreator(_dashboardDbContextFactory);
             IDataProvider<ToDo> _toDoProvider = new DatabaseToDoProvider(_dashboardDbContextFactory);
+            IDataCreator<Shortcut> _shortcutCreator = new DatabaseShortcutCreator(_dashboardDbContextFactory);
+            IDataProvider<Shortcut> _shortcutProvider = new DatabaseShortcutProvider(_dashboardDbContextFactory);
 
-            _dashboardStore = new DashboardStore(_toDoCreator, _toDoProvider);
+
+            _dashboardStore = new DashboardStore(_toDoCreator, _toDoProvider, _shortcutCreator, _shortcutProvider);
             _navigationStore = new NavigationStore();
             _dashboard = new Dashboard(_dashboardStore);
         }

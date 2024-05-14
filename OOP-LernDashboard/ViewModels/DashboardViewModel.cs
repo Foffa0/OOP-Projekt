@@ -57,7 +57,11 @@ namespace OOP_LernDashboard.ViewModels
         private readonly ObservableCollection<CalendarEventViewModel> _calendarEvents;
         public IEnumerable<CalendarEventViewModel> CalendarEvents => _calendarEvents;
 
-        public ICommand AddCommand { get; }
+        private readonly ObservableCollection<ShortcutViewModel> _shortcuts;
+        public IEnumerable<ShortcutViewModel> Shortcuts => _shortcuts;
+
+        public ICommand AddToDoCommand { get; }
+        public ICommand AddShortcutCommand { get; }
 
         public ICommand LoadDataAsyncCommand { get; }
 
@@ -67,7 +71,8 @@ namespace OOP_LernDashboard.ViewModels
 
             this.WelcomeMessage = $"Hallo {_firstName}!";
 
-            AddCommand = new AddToDoCommand(this, dashboardStore);
+            AddToDoCommand = new AddToDoCommand(this, dashboardStore);
+            AddShortcutCommand = new AddShortcutCommand(this, dashboardStore);
             LoadDataAsyncCommand = new LoadDashboardDataCommand(this, dashboardStore);
 
             _toDos = new ObservableCollection<ToDoViewModel>();
@@ -77,6 +82,8 @@ namespace OOP_LernDashboard.ViewModels
             _dashboardStore.ToDoCreated += OnToDoCreated;
             _dashboardStore.ToDoDeleted += OnToDoDeleted;
 
+            _dashboardStore.ShortcutCreated += OnShortcutCreated;
+
             IsGoogleReady = dashboardStore.GoogleCalendar != null;
         }
 
@@ -84,6 +91,8 @@ namespace OOP_LernDashboard.ViewModels
         {
             _dashboardStore.ToDoCreated -= OnToDoCreated;
             _dashboardStore.ToDoDeleted -= OnToDoDeleted;
+
+            _dashboardStore.ShortcutCreated -= OnShortcutCreated;
             base.Dispose();
         }
 
@@ -104,6 +113,7 @@ namespace OOP_LernDashboard.ViewModels
             ToDoViewModel videoViewModel = new ToDoViewModel(toDo);
             _toDos.Add(videoViewModel);
         }
+
         /// <summary>
         /// Removes the deleted ToDo from the ObservableCollection
         /// </summary>
@@ -121,6 +131,26 @@ namespace OOP_LernDashboard.ViewModels
             foreach (var toDo in todos) 
             {
                 _toDos.Add(new ToDoViewModel(toDo));
+            }
+        }
+
+        /// <summary>
+        /// Adds the newly created Shortcut to the ObservableCollection
+        /// </summary>
+        /// <param name="shortcut"></param>
+        private void OnShortcutCreated(Shortcut shortcut)
+        {
+            ShortcutViewModel shortcutViewModel = new ShortcutViewModel(shortcut);
+            _shortcuts.Add(shortcutViewModel);
+        }
+
+        public void UpdateShortcutss(IEnumerable<Shortcut> shortcuts)
+        {
+            _shortcuts.Clear();
+
+            foreach (var shortcut in shortcuts)
+            {
+                _shortcuts.Add(new ShortcutViewModel(shortcut));
             }
         }
 

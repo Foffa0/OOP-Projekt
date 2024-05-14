@@ -27,6 +27,55 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Background="{StaticResource SecondaryColor}" CornerRadius="10" Padding="10">
+                        <StackPanel>
+                            <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Headline}" Margin="0,0,0,10">Shortcuts</TextBlock>
+
+                            <ListView Padding="0" Background="Transparent" BorderThickness="0" ItemsSource="{Binding ToDos}">
+                                <ListView.Resources>
+                                    <Style TargetType="GridViewColumnHeader">
+                                        <Setter Property="Template" Value="{x:Null}" />
+                                    </Style>
+                                </ListView.Resources>
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                                        <Setter Property="Padding" Value="10"/>
+                                        <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox>
+                                                        <TextBlock Text="{Binding Description}"  Margin="0,-2,0,0"/>
+                                                    </CheckBox>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <StackPanel>
+                                <TextBox Text="{Binding ToDoDesc, UpdateSourceTrigger=PropertyChanged}" Margin="0,5,0,0"></TextBox>
+                                <Button Style="{StaticResource PrimaryButton}"   Command="{Binding AddCommand}" Content="Add" Margin="0,5,0,0" Width="75" Height="35"></Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="1" Padding="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
 
@@ -71,7 +120,7 @@
                     </Border>
                 </Grid>
             </Border>
-            
+
             <Border Grid.Column="1" Padding="10">
                 <Grid>
                     <Grid.RowDefinitions>
