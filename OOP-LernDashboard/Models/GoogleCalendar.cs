@@ -29,8 +29,18 @@ namespace OOP_LernDashboard.Models
 
             _calendarService = GetCalendarService(AuthToken);
 
-            CalendarListResource.ListRequest request = _calendarService.CalendarList.List();
-            CalendarList calendars = request.Execute();
+            CalendarList calendars;
+            try
+            {
+                CalendarListResource.ListRequest request = _calendarService.CalendarList.List();
+                calendars = request.Execute();
+            }
+            catch(Exception e)
+            {
+                // TODO: Logout user
+                throw new Exception("Error while loading calendar", e);
+            }
+            
 
             // check if there is already a calendar matching the name
             IList<CalendarListEntry> calendarListEntries = calendars.Items;

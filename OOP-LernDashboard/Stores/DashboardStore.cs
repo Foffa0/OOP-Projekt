@@ -52,7 +52,10 @@ namespace OOP_LernDashboard.Stores
             string? auth = ReadSetting("GoogleAuthToken");
             if (auth != null && auth != "")
             {
-                this.GoogleCalendar = new GoogleCalendar(auth);
+                try { this.GoogleCalendar = new GoogleCalendar(auth); }
+                catch {
+                    this.GoogleCalendar = null;
+                }
             }
 
         }
