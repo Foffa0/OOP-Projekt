@@ -14,6 +14,7 @@ namespace OOP_LernDashboard.ViewModels
         public ICommand QuickNotesCommand { get; }
         public ICommand SettingsCommand { get; }
         public ICommand TimerCommand { get; }
+        public ICommand ShortcutsCommand { get; }
 
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
 
@@ -24,7 +25,8 @@ namespace OOP_LernDashboard.ViewModels
             NavigationService calendarNavigationServie, 
             NavigationService quickNotesNavigationService, 
             NavigationService settingsNavigationService,
-            NavigationService timerNavigationService) 
+            NavigationService timerNavigationService,
+            NavigationService shortcutsNavigationService) 
         {
             _navigationStore = navigationStore;
 
@@ -35,6 +37,7 @@ namespace OOP_LernDashboard.ViewModels
             SettingsCommand = new NavigateCommand(settingsNavigationService);
             QuickNotesCommand = new NavigateCommand(quickNotesNavigationService);
             TimerCommand = new NavigateCommand(timerNavigationService);
+            ShortcutsCommand = new NavigateCommand(shortcutsNavigationService);
 
         }
 

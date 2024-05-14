@@ -18,6 +18,7 @@
     <None Remove="Images\QuickNotesIcon.png" />
     <None Remove="Images\rightArrow.png" />
     <None Remove="Images\SettingsIcon.png" />
+    <None Remove="Images\ShortcutsIcon.png" />
     <None Remove="Images\TimerIcon.png" />
     <None Remove="Images\ToDoIcon.png" />
     <None Remove="logo.ico" />
@@ -46,6 +47,7 @@
     <Resource Include="Images\QuickNotesIcon.png" />
     <Resource Include="Images\rightArrow.png" />
     <Resource Include="Images\SettingsIcon.png" />
+    <Resource Include="Images\ShortcutsIcon.png" />
     <Resource Include="Images\TimerIcon.png" />
   </ItemGroup>
 

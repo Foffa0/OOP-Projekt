@@ -51,6 +51,9 @@
             <DataTemplate DataType="{x:Type vms:QuickNotesViewModel}">
                 <views:QuickNotesView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:ShortcutsViewModel}">
+                <views:ShortcutsView />
+            </DataTemplate>
         </ResourceDictionary>
     </Window.Resources>
     <Grid MouseDown="Grid_MouseDown">
@@ -98,7 +101,14 @@
                 <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding TimerCommand}">
                     <Image Height="30">
                         <Image.Source>
-                            <BitmapImage DecodePixelWidth="40" UriSource="/Images/TimerIcon.png" />
+                            <BitmapImage DecodePixelWidth="240" UriSource="/Images/TimerIcon.png" />
+                        </Image.Source>
+                    </Image>
+                </RadioButton>
+                <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding ShortcutsCommand}">
+                    <Image Height="30">
+                        <Image.Source>
+                            <BitmapImage DecodePixelWidth="240" UriSource="/Images/ShortcutsIcon.png" />
                         </Image.Source>
                     </Image>
                 </RadioButton>

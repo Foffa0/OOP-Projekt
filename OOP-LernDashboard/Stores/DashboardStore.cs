@@ -39,7 +39,7 @@ namespace OOP_LernDashboard.Stores
             this.GoogleLogin.AuthTokenReceived += GoogleLoginAuthTokenReceived;
 
             string? auth = ReadSetting("GoogleAuthToken");
-            if (auth != null)
+            if (auth != null && auth != "")
             {
                 this.GoogleCalendar = new GoogleCalendar(auth);
             }
