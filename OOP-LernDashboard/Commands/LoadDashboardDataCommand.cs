@@ -1,10 +1,5 @@
 ﻿using OOP_LernDashboard.Stores;
 using OOP_LernDashboard.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OOP_LernDashboard.Commands
 {
@@ -24,15 +19,10 @@ namespace OOP_LernDashboard.Commands
 
         public override async Task ExecuteAsync(object parameter)
         {
-            //try
-            //{
-                await _dashboardStore.Load();
-                _viewModel.UpdateToDos(_dashboardStore.ToDos);
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw new Exception("Failed to load ToDos");
-            //}
+
+            await _dashboardStore.Load();
+            _viewModel.UpdateToDos(_dashboardStore.ToDos);
+            _viewModel.UpdateShortcuts(_dashboardStore.Shortcuts);
         }
     }
 }

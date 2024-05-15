@@ -83,6 +83,7 @@ namespace OOP_LernDashboard.ViewModels
 
             _toDos = new ObservableCollection<ToDoViewModel>();
             _calendarEvents = new ObservableCollection<CalendarEventViewModel>();
+            _shortcuts = new ObservableCollection<ShortcutViewModel>();
             _combobox = new ObservableCollection<string>
             {
                 "Normales ToDo",
@@ -95,8 +96,6 @@ namespace OOP_LernDashboard.ViewModels
             _dashboardStore.ToDoCreated += OnToDoCreated;
             _dashboardStore.ToDoDeleted += OnToDoDeleted;
 
-            _dashboardStore.ShortcutCreated += OnShortcutCreated;
-
             IsGoogleReady = dashboardStore.GoogleCalendar != null;
         }
 
@@ -105,7 +104,6 @@ namespace OOP_LernDashboard.ViewModels
             _dashboardStore.ToDoCreated -= OnToDoCreated;
             _dashboardStore.ToDoDeleted -= OnToDoDeleted;
 
-            _dashboardStore.ShortcutCreated -= OnShortcutCreated;
             base.Dispose();
         }
 
@@ -145,16 +143,6 @@ namespace OOP_LernDashboard.ViewModels
             {
                 _toDos.Add(new ToDoViewModel(toDo));
             }
-        }
-
-        /// <summary>
-        /// Adds the newly created Shortcut to the ObservableCollection
-        /// </summary>
-        /// <param name="shortcut"></param>
-        private void OnShortcutCreated(Shortcut shortcut)
-        {
-            ShortcutViewModel shortcutViewModel = new ShortcutViewModel(shortcut);
-            _shortcuts.Add(shortcutViewModel);
         }
 
         public void UpdateShortcuts(IEnumerable<Shortcut> shortcuts)

@@ -42,10 +42,8 @@ namespace OOP_LernDashboard.Commands
 
                 iconPath = _shortcutsViewModel.NewShortcutPath;
 
-                if (iconPath.StartsWith("https://")) iconPath = iconPath.Substring(8);
-                if (iconPath.StartsWith("http://")) iconPath = iconPath.Substring(7);
-                if (iconPath[^1] == '/') iconPath = iconPath.Substring(0, iconPath.Length - 1);
-                iconPath = iconPath.Substring(0, iconPath.IndexOf('/'));
+                Uri uri = new Uri(_shortcutsViewModel.NewShortcutPath);
+                iconPath = uri.Host;  // host is "www.google.com" for example
 
                 iconPath = " https://icons.duckduckgo.com/ip3/" + iconPath + ".ico";
             }
@@ -53,14 +51,7 @@ namespace OOP_LernDashboard.Commands
             {
                 type = ShortcutType.Application;
 
-                // Get the icon from the executable file
-                Icon? icon = Icon.ExtractAssociatedIcon("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe");
-
-                // Convert the Icon to a BitmapSource
-                BitmapSource bitmapSource = Imaging.CreateBitmapSourceFromHIcon(
-                    icon.Handle,
-                    Int32Rect.Empty,
-                    BitmapSizeOptions.FromEmptyOptions());
+                iconPath = _shortcutsViewModel.NewShortcutPath;
             }
             else
             {

@@ -33,35 +33,23 @@
                         <StackPanel>
                             <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Headline}" Margin="0,0,0,10">Shortcuts</TextBlock>
 
-                            <ListView Padding="0" Background="Transparent" BorderThickness="0" ItemsSource="{Binding Shortcuts}">
-                                <ListView.Resources>
-                                    <Style TargetType="GridViewColumnHeader">
-                                        <Setter Property="Template" Value="{x:Null}" />
-                                    </Style>
-                                </ListView.Resources>
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="BorderThickness" Value="0"/>
-                                        <Setter Property="Margin" Value="0, 0, 0, 10"/>
-                                        <Setter Property="Padding" Value="10"/>
-                                        <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn>
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <CheckBox>
-                                                        <TextBlock Text="{Binding Description}"  Margin="0,-2,0,0"/>
-                                                    </CheckBox>
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>
-                                    </GridView>
-                                </ListView.View>
+                            <ListView ItemsSource="{Binding Shortcuts}" Background="Transparent" BorderThickness="0" 
+                                      Padding="0"
+                                      Margin="0"
+                                        VerticalContentAlignment="Top"  
+                                        ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button Padding="0" Margin="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Command="{Binding OpenShortcutCommand}">
+                                            <StackPanel Orientation="Horizontal" Margin="0">
+                                                <Image Source="{Binding BitmapSource}" Width="auto" Height="18" Stretch="Uniform"/>
+                                                <TextBlock Text="{Binding Name}" Margin="10,0,0,0"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
                             </ListView>
+
                             <Button Command="{Binding ShortcutsCommand}" Background="Transparent" BorderThickness="0" Foreground="#f0f0f0" Cursor="Hand">
                                 <Underline>Bearbeiten</Underline>
                             </Button>

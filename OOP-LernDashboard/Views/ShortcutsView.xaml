@@ -15,33 +15,48 @@
         <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Shortcuts" Style="{StaticResource Title}"></TextBlock>
 
         <StackPanel Grid.Row="1">
-            <DataGrid ItemsSource="{Binding Shortcuts}" AutoGenerateColumns="False">
+            <DataGrid ItemsSource="{Binding Shortcuts}" AutoGenerateColumns="False" CanUserReorderColumns="False" IsReadOnly="True" CanUserSortColumns="False" Background="{StaticResource SecondaryColor}" BorderThickness="0" Foreground="{StaticResource TextColor}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn IsReadOnly="True" Width="80" CanUserResize="False" Binding="{Binding Name}" Header="Name"/>
-                    <DataGridTextColumn IsReadOnly="True" Width="auto" Binding="{Binding Path}" Header="Path"/>
-                    <DataGridTextColumn IsReadOnly="True" Width="auto" Binding="{Binding IconPath}" Header="IconPath"/>
-                    <DataGridTemplateColumn Width="60" CanUserResize="False" Header="Icon">
+                    <DataGridTextColumn IsReadOnly="True" Width="auto" CanUserResize="False" Binding="{Binding Name}" Header="Name"/>
+                    <DataGridTextColumn IsReadOnly="True" Width="auto" Binding="{Binding Path}" Header="Link"/>
+                    <DataGridTemplateColumn Width="60" IsReadOnly="True" Header="Icon">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Image Source="{Binding IconPath}" Width="32" Height="32" Stretch="Uniform"/>
+                                <Image Source="{Binding BitmapSource}" Width="auto" Height="32" Stretch="Uniform"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Width="60" CanUserResize="False" Header="Icon">
+                    <DataGridTemplateColumn Width="auto" IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Image Source="{Binding BitmapSource}" Width="32" Height="32" Stretch="Uniform"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Width="60" CanUserResize="False" Header="Action">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button>Edit</Button>
+                                <Button Style="{StaticResource PrimaryButton}" Command="{Binding EditShortcutCommand}">Edit</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Background" Value="Transparent"></Setter>
+                    </Style>
+                </DataGrid.RowStyle>
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="Background" Value="Transparent"></Setter>
+                        <Setter Property="BorderThickness" Value="0"></Setter>
+                        <Setter Property="Foreground" Value="{StaticResource TextColor}"></Setter>
+                        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+                        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                    </Style>
+                </DataGrid.CellStyle>
+
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="{StaticResource SecondaryColor}"></Setter>
+                        <Setter Property="Foreground" Value="{StaticResource TextColor}"></Setter>
+                        <Setter Property="FontWeight" Value="Bold"></Setter>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                
             </DataGrid>
             <StackPanel Orientation="Horizontal">
                 <TextBox Text="{Binding NewShortcutName, UpdateSourceTrigger=PropertyChanged}" Width="100" Margin="0,10,0,0"></TextBox>
