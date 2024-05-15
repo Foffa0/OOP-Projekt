@@ -54,9 +54,6 @@
             <DataTemplate DataType="{x:Type vms:ShortcutsViewModel}">
                 <views:ShortcutsView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:CountdownViewModel}">
-                <views:CountdownView />
-            </DataTemplate>
         </ResourceDictionary>
     </Window.Resources>
     <Grid MouseDown="Grid_MouseDown">
@@ -112,13 +109,6 @@
                     <Image Height="30">
                         <Image.Source>
                             <BitmapImage DecodePixelWidth="240" UriSource="/Images/ShortcutsIcon.png" />
-                        </Image.Source>
-                    </Image>
-                </RadioButton>
-                <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding CountdownCommand}">
-                    <Image Height="30">
-                        <Image.Source>
-                            <BitmapImage DecodePixelWidth="40" UriSource="/Images/TimerIcon.png" />
                         </Image.Source>
                     </Image>
                 </RadioButton>
