@@ -15,6 +15,7 @@ namespace OOP_LernDashboard.ViewModels
         public ICommand SettingsCommand { get; }
         public ICommand TimerCommand { get; }
         public ICommand ShortcutsCommand { get; }
+        public ICommand CountdownCommand { get; }
 
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
 
@@ -38,6 +39,7 @@ namespace OOP_LernDashboard.ViewModels
             QuickNotesCommand = new NavigateCommand(quickNotesNavigationService);
             TimerCommand = new NavigateCommand(timerNavigationService);
             ShortcutsCommand = new NavigateCommand(shortcutsNavigationService);
+            CountdownCommand = new NavigateCommand(countdownNavigationService);
 
         }
 

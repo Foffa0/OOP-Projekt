@@ -107,6 +107,11 @@ namespace OOP_LernDashboard
         {
             return ShortcutsViewModel.LoadViewModel(_dashboard, _dashboardStore);
         }
+
+        private CountdownViewModel CreateCountdownViewModel()
+        {
+            return CountdownViewModel.LoadViewModel(_dashboardStore);
+        }
     }
 
 }
