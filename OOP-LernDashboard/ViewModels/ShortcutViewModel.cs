@@ -1,5 +1,6 @@
 ﻿using OOP_LernDashboard.Commands;
 using OOP_LernDashboard.Models;
+using OOP_LernDashboard.Stores;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Input;
@@ -10,29 +11,41 @@ namespace OOP_LernDashboard.ViewModels
 {
     internal class ShortcutViewModel
     {
+        private readonly DashboardStore _dashboardStore;
         private readonly Shortcut _shortcut;
 
         public ShortcutType Type => _shortcut.Type;
         public string Path
         {
             get => _shortcut.Path;
-            set => _shortcut.Path = value;
+            set
+            {
+                _shortcut.Path = value;
+                _ = _dashboardStore.ModifyShortcut(_shortcut);
+            }
         }
         public string? Name
         {
             get => _shortcut.Name;
-            set => _shortcut.Name = value;
+            set
+            {
+                _shortcut.Name = value;
+                _ = _dashboardStore.ModifyShortcut(_shortcut);
+            }
         }
 
         public BitmapSource BitmapSource { get; private set; }
 
         public ICommand OpenShortcutCommand { get; }
+        public ICommand DeleteShortcutCommand { get; }
 
-        public ShortcutViewModel(Shortcut shortcut)
+        public ShortcutViewModel(DashboardStore dashboardStore, Shortcut shortcut)
         {
+            _dashboardStore = dashboardStore;
             _shortcut = shortcut;
 
             OpenShortcutCommand = new OpenShortcutCommand(this);
+            DeleteShortcutCommand = new DeleteShortcutCommand(_shortcut, dashboardStore);
 
             if (_shortcut.Type == ShortcutType.Link)
             {

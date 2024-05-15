@@ -1,11 +1,6 @@
 ﻿using OOP_LernDashboard.DbContexts;
 using OOP_LernDashboard.DTOs;
 using OOP_LernDashboard.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OOP_LernDashboard.Services.DataCreators
 {
@@ -24,6 +19,28 @@ namespace OOP_LernDashboard.Services.DataCreators
             {
                 ShortcutDTO shortcutDTO = ToShortcutDTO(model);
                 context.Shortcuts.Add(shortcutDTO);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task ModifyModel(Shortcut model)
+        {
+            using (DashboardDbContext context = _dbContextFactory.CreateDbContext())
+            {
+                ShortcutDTO shortcutDTO = ToShortcutDTO(model);
+                // sets the shortcutDTO with the same id as the model to the new values
+                ShortcutDTO? existingShortcut = await context.Shortcuts.FindAsync(model.Id);
+
+                if (existingShortcut == null)
+                {
+                    throw new Exception("Shortcut not found");
+                }
+
+                // Update the properties of the existing ShortcutDTO with the new values
+                existingShortcut.Name = model.Name; 
+                existingShortcut.Path = model.Path; 
+
+                // Save the changes to the database
                 await context.SaveChangesAsync();
             }
         }

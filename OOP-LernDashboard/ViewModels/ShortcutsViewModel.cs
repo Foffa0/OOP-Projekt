@@ -35,17 +35,6 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
-        private bool _hasUnsavedChanges = false;
-        public bool HasUnsavedChanges
-        {
-            get { return _hasUnsavedChanges; }
-            set
-            {
-                _hasUnsavedChanges = value;
-                OnPropertyChanged(nameof(HasUnsavedChanges));
-            }
-        }
-
         public ICommand LoadDataAsyncCommand { get; }
         public ICommand AddShortcutCommand { get; }
 
@@ -56,6 +45,9 @@ namespace OOP_LernDashboard.ViewModels
             this.AddShortcutCommand = new AddShortcutCommand(this, dashboardStore);
 
             _shortcuts = new ObservableCollection<ShortcutViewModel>();
+
+            _dashboardStore.ShortcutDeleted += OnShortcutDeleted;
+            _dashboardStore.ShortcutCreated += OnShortcutCreated;
         }
 
         public void UpdateShortcuts(IEnumerable<Shortcut> shortcuts)
@@ -63,7 +55,30 @@ namespace OOP_LernDashboard.ViewModels
             _shortcuts.Clear();
             foreach (var shortcut in shortcuts)
             {
-                _shortcuts.Add(new ShortcutViewModel(shortcut));
+                _shortcuts.Add(new ShortcutViewModel(_dashboardStore, shortcut));
+            }
+        }
+
+        /// <summary>
+        /// Adds the newly created Shortcut to the ObservableCollection
+        /// </summary>
+        /// <param name="shortcut"></param>
+        private void OnShortcutCreated(Shortcut shortcut)
+        {
+            ShortcutViewModel shortcutViewModel = new ShortcutViewModel(_dashboardStore, shortcut);
+            _shortcuts.Add(shortcutViewModel);
+        }
+
+        /// <summary>
+        /// Removes the deleted Shortcut from the ObservableCollection
+        /// </summary>
+        /// <param name="shortcut"></param>
+        private void OnShortcutDeleted(Shortcut shortcut)
+        {
+            var s = _shortcuts.Where(s => s.Name == shortcut.Name).FirstOrDefault();
+            if (s != null)
+            {
+                _shortcuts.Remove(s);
             }
         }
 

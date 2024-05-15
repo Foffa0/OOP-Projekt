@@ -16,14 +16,6 @@
         <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Shortcuts" Style="{StaticResource Title}"></TextBlock>
 
         <StackPanel Grid.Row="1">
-            <hc:TransitioningContentControl TransitionMode="Top2BottomWithFade" Visibility="{Binding HasUnsavedChanges, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Border Background="{StaticResource PrimaryColor}">
-                    <StackPanel Orientation="Horizontal"  Margin="10">
-                    <TextBlock Text="Du hast nicht gespeicherte Änderungen." VerticalAlignment="Center" Style="{StaticResource Text}"></TextBlock>
-                    <Button Command="{Binding SaveChangesCommand}" Content="Speichern" Margin="20,0"></Button>
-                </StackPanel>
-                </Border>
-            </hc:TransitioningContentControl>
             <DataGrid ItemsSource="{Binding Shortcuts}" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserSortColumns="False" Background="{StaticResource SecondaryColor}" BorderThickness="0" Foreground="{StaticResource TextColor}" Padding="20, 10">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="auto" Header="Name" Binding="{Binding Name}" IsReadOnly="False"></DataGridTextColumn>
@@ -33,6 +25,17 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Image Source="{Binding BitmapSource}" Width="auto" Height="32" Stretch="Uniform"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="*" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Background="#eb4034" Padding="6" Margin="0" BorderThickness="0" Cursor="Hand" HorizontalAlignment="Right" 
+                                        Command="{Binding DeleteShortcutCommand}">
+                                    <Image Source="/Images/DeleteIcon.png" Width="auto" Height="20" Stretch="Uniform"/>
+                                </Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -60,7 +63,7 @@
                         <Setter Property="FontWeight" Value="Bold"></Setter>
                     </Style>
                 </DataGrid.ColumnHeaderStyle>
-                
+
             </DataGrid>
             <StackPanel Orientation="Horizontal">
                 <TextBox Text="{Binding NewShortcutName, UpdateSourceTrigger=PropertyChanged}" Width="100" Margin="0,10,0,0"></TextBox>

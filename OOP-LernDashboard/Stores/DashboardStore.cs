@@ -27,6 +27,7 @@ namespace OOP_LernDashboard.Stores
         public event Action<ToDo> ToDoDeleted;
 
         public event Action<Shortcut> ShortcutCreated;
+        public event Action<Shortcut> ShortcutDeleted;
 
         public GoogleLogin GoogleLogin { set; get; }
         public GoogleCalendar? GoogleCalendar { set; get; }
@@ -114,7 +115,22 @@ namespace OOP_LernDashboard.Stores
             ShortcutCreated?.Invoke(shortcut);
         }
 
+        /// <summary>
+        /// Removes a Shortcut from the database and updates the ToDo-List
+        /// </summary>
+        /// <param name="toDo"></param>
+        /// <returns></returns>
+        public async Task DeleteShortcut(Shortcut shortcut)
+        {
+            await _shortcutCreator.DeleteModel(shortcut);
+            _shortcuts.Remove(_shortcuts.Where(i => i.Id == shortcut.Id).Single());
+            ShortcutDeleted?.Invoke(shortcut);
+        }
 
+        public async Task ModifyShortcut(Shortcut shortcut)
+        {
+            await ((DatabaseShortcutCreator)_shortcutCreator).ModifyModel(shortcut);
+        }
 
         // Loads the data from the database once
         private async Task Initialize()

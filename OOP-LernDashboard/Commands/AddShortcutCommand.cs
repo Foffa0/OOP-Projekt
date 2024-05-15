@@ -33,6 +33,13 @@ namespace OOP_LernDashboard.Commands
                 throw new NullReferenceException("Cannot create Shortcut with Null as path");
             }
 
+            // check if some shortcut with the same name already exists
+            if(_dashboardStore.Shortcuts.Any(s => s.Name == _shortcutsViewModel.NewShortcutName))
+            {
+                MessageBox.Show("Shortcut mit diesem Namen existiert bereits!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             ShortcutType type;
             string iconPath = "";
 

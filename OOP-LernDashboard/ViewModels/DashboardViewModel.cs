@@ -151,7 +151,7 @@ namespace OOP_LernDashboard.ViewModels
 
             foreach (var shortcut in shortcuts)
             {
-                _shortcuts.Add(new ShortcutViewModel(shortcut));
+                _shortcuts.Add(new ShortcutViewModel(_dashboardStore, shortcut));
             }
         }
 
