@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:hc="https://handyorg.github.io/handycontrol"
              xmlns:local="clr-namespace:OOP_LernDashboard.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -15,21 +16,23 @@
         <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Shortcuts" Style="{StaticResource Title}"></TextBlock>
 
         <StackPanel Grid.Row="1">
-            <DataGrid ItemsSource="{Binding Shortcuts}" AutoGenerateColumns="False" CanUserReorderColumns="False" IsReadOnly="True" CanUserSortColumns="False" Background="{StaticResource SecondaryColor}" BorderThickness="0" Foreground="{StaticResource TextColor}">
+            <hc:TransitioningContentControl TransitionMode="Top2BottomWithFade" Visibility="{Binding HasUnsavedChanges, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Border Background="{StaticResource PrimaryColor}">
+                    <StackPanel Orientation="Horizontal"  Margin="10">
+                    <TextBlock Text="Du hast nicht gespeicherte Änderungen." VerticalAlignment="Center" Style="{StaticResource Text}"></TextBlock>
+                    <Button Command="{Binding SaveChangesCommand}" Content="Speichern" Margin="20,0"></Button>
+                </StackPanel>
+                </Border>
+            </hc:TransitioningContentControl>
+            <DataGrid ItemsSource="{Binding Shortcuts}" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserSortColumns="False" Background="{StaticResource SecondaryColor}" BorderThickness="0" Foreground="{StaticResource TextColor}" Padding="20, 10">
                 <DataGrid.Columns>
-                    <DataGridTextColumn IsReadOnly="True" Width="auto" CanUserResize="False" Binding="{Binding Name}" Header="Name"/>
-                    <DataGridTextColumn IsReadOnly="True" Width="auto" Binding="{Binding Path}" Header="Link"/>
+                    <DataGridTextColumn Width="auto" Header="Name" Binding="{Binding Name}" IsReadOnly="False"></DataGridTextColumn>
+                    <DataGridTextColumn Width="auto" Header="Path" Binding="{Binding Path}" IsReadOnly="False"></DataGridTextColumn>
+
                     <DataGridTemplateColumn Width="60" IsReadOnly="True" Header="Icon">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Image Source="{Binding BitmapSource}" Width="auto" Height="32" Stretch="Uniform"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Width="auto" IsReadOnly="True">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Style="{StaticResource PrimaryButton}" Command="{Binding EditShortcutCommand}">Edit</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -46,6 +49,7 @@
                         <Setter Property="Foreground" Value="{StaticResource TextColor}"></Setter>
                         <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
                         <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                        <Setter Property="Margin" Value="0,0,10,0"></Setter>
                     </Style>
                 </DataGrid.CellStyle>
 
