@@ -35,6 +35,17 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
+        private bool _hasUnsavedChanges = false;
+        public bool HasUnsavedChanges
+        {
+            get { return _hasUnsavedChanges; }
+            set
+            {
+                _hasUnsavedChanges = value;
+                OnPropertyChanged(nameof(HasUnsavedChanges));
+            }
+        }
+
         public ICommand LoadDataAsyncCommand { get; }
         public ICommand AddShortcutCommand { get; }
 
