@@ -149,7 +149,7 @@
 
                                 <TextBlock FontSize="20" VerticalAlignment="Center" Margin="3,0,3,0" Foreground="{StaticResource TextColor}" >:</TextBlock>
 
-                                <TextBlock FontSize="40" VerticalAlignment="Center" FontWeight="Bold" Margin="3,0,3,0" Foreground="{StaticResource TextColor}">37</TextBlock>
+                                <TextBlock FontSize="40" VerticalAlignment="Center" FontWeight="Bold" Margin="3,0,3,0" Foreground="{StaticResource TextColor}">56</TextBlock>
 
                                 <TextBlock FontSize="20" VerticalAlignment="Center" Margin="3,0,3,0" Foreground="{StaticResource TextColor}">:</TextBlock>
 
