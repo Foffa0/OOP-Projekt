@@ -71,10 +71,6 @@ namespace OOP_LernDashboard.ViewModels
                     TimerViewActive = true;
                     OnPropertyChanged(nameof(TimerViewActive));
                     break;
-                default:
-                    DashboardViewActive = true;
-                    OnPropertyChanged(nameof(DashboardViewActive));
-                    break;
             }
 
             OnPropertyChanged(nameof(CurrentViewModel));
