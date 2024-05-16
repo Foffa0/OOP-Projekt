@@ -16,5 +16,16 @@ namespace OOP_LernDashboard.DbContexts
         public DbSet<ToDoDTO> ToDos { get; set; }
 
         public DbSet<ShortcutDTO> Shortcuts { get; set; }
+
+        /// <summary>
+        /// Make shure that the Name of the Shortcut is unique
+        /// </summary>
+        /// <param name="modelBuilder"></param>
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ShortcutDTO>()
+                .HasIndex(s => s.Name)
+                .IsUnique();
+        }
     }
 }

@@ -29,8 +29,11 @@ namespace OOP_LernDashboard.ViewModels
             get => _shortcut.Name;
             set
             {
-                _shortcut.Name = value;
-                _ = _dashboardStore.ModifyShortcut(_shortcut);
+                if (value != null && _dashboardStore.IsUniqueShortcutName(value))
+                {
+                    _shortcut.Name = value;
+                    _ = _dashboardStore.ModifyShortcut(_shortcut);
+                }
             }
         }
 

@@ -18,6 +18,13 @@ namespace OOP_LernDashboard.Services.DataCreators
             using (DashboardDbContext context = _dbContextFactory.CreateDbContext())
             {
                 ShortcutDTO shortcutDTO = ToShortcutDTO(model);
+
+                // check if name is unique
+                if (context.Shortcuts.Any(s => s.Name == model.Name))
+                {
+                    throw new Exception("Shortcut with this name already exists");
+                }
+
                 context.Shortcuts.Add(shortcutDTO);
                 await context.SaveChangesAsync();
             }
@@ -34,6 +41,12 @@ namespace OOP_LernDashboard.Services.DataCreators
                 if (existingShortcut == null)
                 {
                     throw new Exception("Shortcut not found");
+                }
+
+                // check if name is unique
+                if (context.Shortcuts.Any(s => s.Name == model.Name && s.Id != model.Id))
+                {
+                    throw new Exception("Shortcut with this name already exists");
                 }
 
                 // Update the properties of the existing ShortcutDTO with the new values

@@ -16,7 +16,8 @@
         <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Shortcuts" Style="{StaticResource Title}"></TextBlock>
 
         <StackPanel Grid.Row="1">
-            <DataGrid ItemsSource="{Binding Shortcuts}" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserSortColumns="False" Background="{StaticResource SecondaryColor}" BorderThickness="0" Foreground="{StaticResource TextColor}" Padding="20, 10">
+            <DataGrid ItemsSource="{Binding Shortcuts}" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserSortColumns="False" Background="{StaticResource SecondaryColor}" 
+                      BorderThickness="0" Foreground="{StaticResource TextColor}" Padding="20, 10">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="auto" Header="Name" Binding="{Binding Name}" IsReadOnly="False"></DataGridTextColumn>
                     <DataGridTextColumn Width="auto" Header="Path" Binding="{Binding Path}" IsReadOnly="False"></DataGridTextColumn>

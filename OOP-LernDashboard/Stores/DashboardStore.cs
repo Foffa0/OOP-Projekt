@@ -158,6 +158,11 @@ namespace OOP_LernDashboard.Stores
             AddUpdateAppSettings("GoogleAuthToken", authToken);
         }
 
+        public bool IsUniqueShortcutName(string name)
+        {
+            return !_shortcuts.Any(s => s.Name == name);
+        }
+
         public static void AddUpdateAppSettings(string key, string value)
         {
             try
