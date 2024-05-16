@@ -17,10 +17,10 @@ namespace OOP_LernDashboard.ViewModels
         public ICommand TimerCommand { get; }
         public ICommand ShortcutsCommand { get; }
 
-        public bool DashboardViewActive;
-        public bool CalendarViewActive;
-        public bool QuickNotesViewActive;
-        public bool TimerViewActive;
+        public bool DashboardViewActive { get; set; }
+        public bool CalendarViewActive { get; set; }
+        public bool QuickNotesViewActive { get; set; }
+        public bool TimerViewActive {  get; set; }
         public bool ShortcutsViewActive { get; set; }
 
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
@@ -71,7 +71,10 @@ namespace OOP_LernDashboard.ViewModels
                     TimerViewActive = true;
                     OnPropertyChanged(nameof(TimerViewActive));
                     break;
-                default: break;
+                default:
+                    DashboardViewActive = true;
+                    OnPropertyChanged(nameof(DashboardViewActive));
+                    break;
             }
 
             OnPropertyChanged(nameof(CurrentViewModel));
