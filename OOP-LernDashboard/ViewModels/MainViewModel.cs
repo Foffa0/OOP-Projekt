@@ -1,6 +1,7 @@
 ﻿using OOP_LernDashboard.Commands;
 using OOP_LernDashboard.Services;
 using OOP_LernDashboard.Stores;
+using System.Diagnostics;
 using System.Windows.Input;
 
 namespace OOP_LernDashboard.ViewModels
@@ -15,6 +16,12 @@ namespace OOP_LernDashboard.ViewModels
         public ICommand SettingsCommand { get; }
         public ICommand TimerCommand { get; }
         public ICommand ShortcutsCommand { get; }
+
+        public bool DashboardViewActive;
+        public bool CalendarViewActive;
+        public bool QuickNotesViewActive;
+        public bool TimerViewActive;
+        public bool ShortcutsViewActive { get; set; }
 
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
 
@@ -39,10 +46,34 @@ namespace OOP_LernDashboard.ViewModels
             TimerCommand = new NavigateCommand(timerNavigationService);
             ShortcutsCommand = new NavigateCommand(shortcutsNavigationService);
 
+            DashboardViewActive = true;
+            ShortcutsViewActive = QuickNotesViewActive = CalendarViewActive = TimerViewActive = false;
         }
 
         private void OnCurrentViewModelChanged()
         {
+            DashboardViewActive = ShortcutsViewActive = QuickNotesViewActive = CalendarViewActive = TimerViewActive = false;
+            switch (CurrentViewModel.ToString())
+            {
+                case "OOP_LernDashboard.ViewModels.QuickNotesViewModel":
+                    QuickNotesViewActive = true;
+                    OnPropertyChanged(nameof(QuickNotesViewActive));
+                    break;
+                case "OOP_LernDashboard.ViewModels.ShortcutsViewModel":
+                    ShortcutsViewActive = true;
+                    OnPropertyChanged(nameof(ShortcutsViewActive));
+                    break;
+                case "OOP_LernDashboard.ViewModels.CalendarViewModel":
+                    CalendarViewActive = true;
+                    OnPropertyChanged(nameof(CalendarViewActive));
+                    break;
+                case "OOP_LernDashboard.ViewModels.TimerViewModel":
+                    TimerViewActive = true;
+                    OnPropertyChanged(nameof(TimerViewActive));
+                    break;
+                default: break;
+            }
+
             OnPropertyChanged(nameof(CurrentViewModel));
         }
     }

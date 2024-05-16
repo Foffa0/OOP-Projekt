@@ -70,7 +70,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0" Margin="0, 30, 0, 0">
-                <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding DashboardCommand}" IsChecked="True">
+                <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding DashboardCommand}" IsChecked="{Binding DashboardViewActive}">
                     <Image Width="30">
                         <Image.Source>
                             <BitmapImage DecodePixelWidth="240" UriSource="/Images/DashboardIcon.png"/>
@@ -84,28 +84,28 @@
                         </Image.Source>
                     </Image>
                 </RadioButton>
-                <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding QuickNotesCommand}">
+                <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding QuickNotesCommand}" IsChecked="{Binding QuicknotesViewActive}">
                     <Image Width="30">
                         <Image.Source>
                             <BitmapImage DecodePixelWidth="240" UriSource="/Images/QuickNotesIcon.png" />
                         </Image.Source>
                     </Image>
                 </RadioButton>
-                <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding CalendarCommand}">
+                <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding CalendarCommand}" IsChecked="{Binding CalendarViewActive}">
                     <Image Height="30">
                         <Image.Source>
                             <BitmapImage DecodePixelWidth="240" UriSource="/Images/CalendarIcon.png" />
                         </Image.Source>
                     </Image>
                 </RadioButton>
-                <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding TimerCommand}">
+                <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding TimerCommand}" IsChecked="{Binding TimerViewActive}">
                     <Image Height="30">
                         <Image.Source>
                             <BitmapImage DecodePixelWidth="240" UriSource="/Images/TimerIcon.png" />
                         </Image.Source>
                     </Image>
                 </RadioButton>
-                <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding ShortcutsCommand}">
+                <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding ShortcutsCommand}" IsChecked="{Binding ShortcutsViewActive}">
                     <Image Height="30">
                         <Image.Source>
                             <BitmapImage DecodePixelWidth="240" UriSource="/Images/ShortcutsIcon.png" />
