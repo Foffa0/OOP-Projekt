@@ -20,7 +20,7 @@
         hc:Empty.ShowEmpty="True"
         Title="Lern Dashboard" Height="800" Width="1200"
         Background="{StaticResource WindowTheme}"
-        >
+        FontFamily="{StaticResource Regular}">
     
     <hc:Window.NonClientAreaContent>
         <Grid>
@@ -114,10 +114,10 @@
                 </RadioButton>
             </StackPanel>
 
-            <RadioButton GroupName="nav" Grid.Row="1"  BorderThickness="0" Width="50" Height="50" Style="{StaticResource SideNavButtonRoundTheme}" Background="{StaticResource PrimaryColor}" Margin="0, 0, 0, 40" Command="{Binding SettingsCommand}">
-                <Image Width="30">
+            <RadioButton GroupName="nav" Grid.Row="1" BorderThickness="0" Width="50" Height="50" Style="{StaticResource SideNavButtonRoundTheme}" Background="{StaticResource PrimaryColor}" Margin="0, 0, 0, 25" Command="{Binding SettingsCommand}">
+                <Image Width="30" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True">
                     <Image.Source>
-                        <BitmapImage DecodePixelWidth="160" UriSource="/Images/SettingsIcon.png" />
+                        <BitmapImage DecodePixelWidth="160" UriSource="/Images/SettingsIcon.png" RenderOptions.BitmapScalingMode="HighQuality"/>
                     </Image.Source>
                 </Image>
             </RadioButton>
@@ -126,6 +126,6 @@
         </Grid>
 
         <!--Main Content, variable-->
-        <ContentControl Grid.Column="1" Content="{Binding CurrentViewModel}" Margin="10 0 10 10" />
+        <ContentControl Grid.Column="1" Content="{Binding CurrentViewModel}" Margin="20 0 10 20" />
     </Grid>
 </hc:Window>

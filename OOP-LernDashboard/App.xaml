@@ -54,6 +54,8 @@
             <DataTemplate DataType="{x:Type vms:ShortcutsViewModel}">
                 <views:ShortcutsView />
             </DataTemplate>
+
+            <FontFamily x:Key="Regular">pack://application:,,,/OOP-LernDashboard;component/Fonts/#Roboto</FontFamily>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

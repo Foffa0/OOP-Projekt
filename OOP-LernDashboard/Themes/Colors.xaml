@@ -1,9 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--<SolidColorBrush x:Key="PrimaryColor">#35437e</SolidColorBrush>-->
     <SolidColorBrush x:Key="PrimaryColor">#9145B6</SolidColorBrush>
-    <SolidColorBrush x:Key="SecondaryColor">#313131</SolidColorBrush>
+    <SolidColorBrush x:Key="SecondaryColor">#1d1d1d</SolidColorBrush>
     <SolidColorBrush x:Key="TextColor">#FFFFFF</SolidColorBrush>
     <SolidColorBrush x:Key="TextColorSecondary">#A1A1A1</SolidColorBrush>
-    <SolidColorBrush x:Key="WindowTheme">#202020</SolidColorBrush>
-    <SolidColorBrush x:Key="PrimaryHoverColor">#202020</SolidColorBrush>
+    <SolidColorBrush x:Key="WindowTheme">#121212</SolidColorBrush>
+    <SolidColorBrush x:Key="PrimaryHoverColor">#262626</SolidColorBrush>
 </ResourceDictionary>

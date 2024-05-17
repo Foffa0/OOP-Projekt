@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Fonts\Roboto-Regular.ttf" />
     <None Remove="Images\CalendarIcon.png" />
     <None Remove="Images\DashboardIcon.png" />
     <None Remove="Images\DeleteIcon.png" />
@@ -26,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Fonts\Roboto-Regular.ttf" />
     <Resource Include="Images\DeleteIcon.png" />
     <Resource Include="Images\leftArrow.png" />
   </ItemGroup>
@@ -63,6 +65,7 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="NewFolder\" />
   </ItemGroup>
 
 </Project>

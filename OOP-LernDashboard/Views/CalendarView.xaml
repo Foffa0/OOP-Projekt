@@ -17,7 +17,7 @@
 
         <StackPanel  Grid.Row="1" Visibility="{Binding IsGoogleReady, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
             <TextBlock Style="{StaticResource Text}" Text="Melde dich zuerst mit deinem Google Account an, bevor du den Kalender nutzen kannst." ></TextBlock>
-            <Button Style="{StaticResource PrimaryButton}" HorizontalAlignment="Left" Command="{Binding LoginGoogleCommand}">
+            <Button Style="{StaticResource PrimaryButton}" HorizontalAlignment="Left" Command="{Binding LoginGoogleCommand}" Margin="0, 20">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock VerticalAlignment="Center" Style="{StaticResource Text}">Mit Google anmelden</TextBlock>
                     <Image Width="20" Margin="10, 0, 0, 0">
