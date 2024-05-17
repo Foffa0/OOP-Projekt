@@ -1,11 +1,6 @@
-﻿using OOP_LernDashboard.Models;
+﻿using HandyControl.Data;
+using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Stores;
-using OOP_LernDashboard.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace OOP_LernDashboard.Commands
@@ -23,8 +18,17 @@ namespace OOP_LernDashboard.Commands
 
         public override void Execute(object? parameter)
         {
-            MessageBoxResult result =  MessageBox.Show($"Möchtest du diesen Shortcut ({_shortcut.Name}) wirklich löschen?", "Title", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if(result == MessageBoxResult.Yes)
+            MessageBoxResult result = HandyControl.Controls.MessageBox.Show(new HandyControl.Data.MessageBoxInfo
+            {
+                Message = $"Möchtest du diesen Shortcut ({_shortcut.Name}) wirklich löschen?",
+                Button = MessageBoxButton.YesNo,
+                ConfirmContent = "Ja",
+                NoContent = "Nein",
+                IconKey = ResourceToken.AskGeometry,
+                IconBrushKey = "PrimaryColor",
+                StyleKey = "MessageBoxCustom",
+            });
+            if (result == MessageBoxResult.Yes)
             {
                 _ = _dashboardStore.DeleteShortcut(_shortcut);
             }
