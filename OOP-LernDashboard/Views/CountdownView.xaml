@@ -7,15 +7,37 @@
              xmlns:local="clr-namespace:OOP_LernDashboard.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid Background="{StaticResource WindowTheme}">
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition/>
-            <RowDefinition />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="{Binding Countdown}">30 Tage bis ...</TextBlock>
-        <DatePicker Grid.Row="1" Width="400" Height="60" Style="{StaticResource DatePickerExtend}" hc:InfoElement.Title="This is the title"/>
-        <Button Grid.Row="2" Command="{Binding AddCountdownCommand}">Hinzufügen</Button>
+        <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Countdowns" Style="{StaticResource Title}"></TextBlock>
+
+        <ListView Grid.Row="1" ItemsSource="{Binding Countdowns}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Height="50">
+                        <TextBlock Text="{Binding Date}" />
+                        <TextBlock Text="{Binding Description}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <DatePicker Grid.Row="0" Width="400" Height="30" Style="{StaticResource DatePickerExtend}" SelectedDate="{Binding CountdownInput, UpdateSourceTrigger=PropertyChanged}" SelectedDateFormat="Long" Language="de" />
+            <TextBlock Width="200" Height="50" Grid.Row="0" Text="{Binding CountdownInput}" Foreground="White" Margin="67,10,683,7"/>
+            <TextBox Grid.Row="1" Width="400" Height="30" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Grid.Row="2" Command="{Binding AddCountdownCommand}">Hinzufügen</Button>
+        </Grid>
+        
     </Grid>
 </UserControl>

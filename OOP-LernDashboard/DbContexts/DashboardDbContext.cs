@@ -1,11 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OOP_LernDashboard.DTOs;
-using OOP_LernDashboard.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OOP_LernDashboard.DbContexts
 {
@@ -16,5 +10,7 @@ namespace OOP_LernDashboard.DbContexts
         public DbSet<ToDoDTO> ToDos { get; set; }
 
         public DbSet<ShortcutDTO> Shortcuts { get; set; }
+
+        public DbSet<CountdownDTO> Countdowns { get; set; }
     }
 }

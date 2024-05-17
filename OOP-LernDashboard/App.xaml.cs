@@ -1,14 +1,12 @@
-﻿using OOP_LernDashboard.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using OOP_LernDashboard.DbContexts;
+using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Services;
+using OOP_LernDashboard.Services.DataCreators;
+using OOP_LernDashboard.Services.DataProviders;
 using OOP_LernDashboard.Stores;
 using OOP_LernDashboard.ViewModels;
 using System.Windows;
-using OOP_LernDashboard.Services;
-using OOP_LernDashboard.Models;
-using OOP_LernDashboard.DbContexts;
-using OOP_LernDashboard.Services.DataCreators;
-using OOP_LernDashboard.Services.DataProviders;
-using Microsoft.EntityFrameworkCore;
 
 namespace OOP_LernDashboard
 {
@@ -31,9 +29,11 @@ namespace OOP_LernDashboard
             IDataProvider<ToDo> _toDoProvider = new DatabaseToDoProvider(_dashboardDbContextFactory);
             IDataCreator<Shortcut> _shortcutCreator = new DatabaseShortcutCreator(_dashboardDbContextFactory);
             IDataProvider<Shortcut> _shortcutProvider = new DatabaseShortcutProvider(_dashboardDbContextFactory);
+            IDataCreator<Countdown> _countdownCreator = new DatabaseCountdownCreator(_dashboardDbContextFactory);
+            IDataProvider<Countdown> _countdownPriovider = new DatabaseCountdownProvider(_dashboardDbContextFactory);
 
 
-            _dashboardStore = new DashboardStore(_toDoCreator, _toDoProvider, _shortcutCreator, _shortcutProvider);
+            _dashboardStore = new DashboardStore(_toDoCreator, _toDoProvider, _shortcutCreator, _shortcutProvider, _countdownCreator, _countdownPriovider);
             _navigationStore = new NavigationStore();
             _dashboard = new Dashboard(_dashboardStore);
         }
@@ -49,13 +49,14 @@ namespace OOP_LernDashboard
             MainWindow = new MainWindow()
             {
                 DataContext = new MainViewModel(
-                    _navigationStore, 
-                    new NavigationService(_navigationStore, CreateDashboardViewModel), 
-                    new NavigationService(_navigationStore, CreateCalendarViewModel), 
+                    _navigationStore,
+                    new NavigationService(_navigationStore, CreateDashboardViewModel),
+                    new NavigationService(_navigationStore, CreateCalendarViewModel),
                     new NavigationService(_navigationStore, CreateQuickNotesViewModel),
                     new NavigationService(_navigationStore, CreateSettingsViewModel),
                     new NavigationService(_navigationStore, CreateTimerViewModel),
-                    new NavigationService(_navigationStore, CreateShortcutsViewModel)
+                    new NavigationService(_navigationStore, CreateShortcutsViewModel),
+                    new NavigationService(_navigationStore, CreateCountdownViewModel)
                     )
             };
             MainWindow.Show();
@@ -108,9 +109,9 @@ namespace OOP_LernDashboard
             return ShortcutsViewModel.LoadViewModel(_dashboard, _dashboardStore);
         }
 
-        private CountdownViewModel CreateCountdownViewModel()
+        private CountdownsViewModel CreateCountdownViewModel()
         {
-            return CountdownViewModel.LoadViewModel(_dashboardStore);
+            return CountdownsViewModel.LoadViewModel(_dashboardStore);
         }
     }
 

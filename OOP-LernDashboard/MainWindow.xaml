@@ -54,7 +54,7 @@
             <DataTemplate DataType="{x:Type vms:ShortcutsViewModel}">
                 <views:ShortcutsView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:CountdownViewModel}">
+            <DataTemplate DataType="{x:Type vms:CountdownsViewModel}">
                 <views:CountdownView />
             </DataTemplate>
         </ResourceDictionary>

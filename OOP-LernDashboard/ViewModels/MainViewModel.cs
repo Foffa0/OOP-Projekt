@@ -21,13 +21,14 @@ namespace OOP_LernDashboard.ViewModels
 
 
         public MainViewModel(
-            NavigationStore navigationStore, 
-            NavigationService dashboardNavigationService, 
-            NavigationService calendarNavigationServie, 
-            NavigationService quickNotesNavigationService, 
+            NavigationStore navigationStore,
+            NavigationService dashboardNavigationService,
+            NavigationService calendarNavigationServie,
+            NavigationService quickNotesNavigationService,
             NavigationService settingsNavigationService,
             NavigationService timerNavigationService,
-            NavigationService shortcutsNavigationService) 
+            NavigationService shortcutsNavigationService,
+            NavigationService countdownNavigationService)
         {
             _navigationStore = navigationStore;
 

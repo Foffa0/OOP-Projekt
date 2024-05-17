@@ -1,45 +1,26 @@
 ﻿using OOP_LernDashboard.Models;
-using OOP_LernDashboard.Stores;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace OOP_LernDashboard.ViewModels
 {
     internal class CountdownViewModel : ViewModelBase
     {
-		private int countdown;
+        private readonly Countdown _countdown;
 
-		public int Countdown
-		{
-			get { return countdown; }
-			set { countdown = value; }
-		}
+        public DateOnly Date => _countdown.Date;
 
-		private string countdownInput;
+        public string Description => _countdown.Description;
 
-		public string CountdownInput
-		{
-			get { return countdownInput; }
-			set { countdownInput = value; }
-		}
+        // public int DaysLeft =>
 
-		public ICommand AddCountdownCommand;
-
-
-
-        public CountdownViewModel(DashboardStore dashboardStore) 
-		{ 
-			AddCountdownCommand = new CreateCountdownCommand(dashboardStore);
-		}
-
-		public static CountdownViewModel LoadViewModel(DashboardStore dashboardStore)
+        public CountdownViewModel(Countdown countdown)
         {
-            CountdownViewModel viewModel = new CountdownViewModel(dashboardStore);
-            return viewModel;
+            _countdown = countdown;
         }
+
+        /*private int GetDaysLeft(Countdown c)
+        {
+            DateOnly day = new DateOnly();
+            
+        }*/
     }
 }

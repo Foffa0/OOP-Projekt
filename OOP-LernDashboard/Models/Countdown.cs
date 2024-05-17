@@ -1,20 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OOP_LernDashboard.Models
+﻿namespace OOP_LernDashboard.Models
 {
     internal class Countdown
     {
         public Guid Id { get; }
-        
-        public DateTime Date { get; }
 
-        public Countdown(DateTime date)
+        public DateOnly Date { get; }
+
+        public string Description { get; }
+
+        public Countdown(DateOnly date, string description)
         {
+            Id = new Guid();
+            Date = date;
+            Description = description;
+        }
 
+        public Countdown(Guid id, DateOnly date, string description)
+        {
+            Id = id;
+            Date = date;
+            Description = description;
         }
     }
 }
