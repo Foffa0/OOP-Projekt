@@ -9,7 +9,7 @@
         <ResourceDictionary>
 
             <ResourceDictionary.MergedDictionaries>
-                <hc:ThemeResources/>
+                <hc:ThemeResources RequestedTheme="Dark"/>
                 <ResourceDictionary Source="Themes/Colors.xaml" />
                 <ResourceDictionary Source="Themes/RoundedButtonTheme.xaml" />
                 <ResourceDictionary Source="Themes/Fonts.xaml" />

@@ -1,12 +1,14 @@
 ﻿using OOP_LernDashboard.Commands;
 using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Stores;
+using System.Collections;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows.Input;
 
 namespace OOP_LernDashboard.ViewModels
 {
-    internal class ShortcutsViewModel : ViewModelBase
+    internal class ShortcutsViewModel : ViewModelBase, INotifyDataErrorInfo
     {
         private readonly DashboardStore _dashboardStore;
 
@@ -19,6 +21,11 @@ namespace OOP_LernDashboard.ViewModels
             get { return _newShortcutName; }
             set
             {
+                ClearErrors(nameof(NewShortcutName));
+                if (string.IsNullOrEmpty(value))
+                {
+                    AddError("Name can't be empty", nameof(NewShortcutName));
+                }
                 _newShortcutName = value;
                 OnPropertyChanged(nameof(NewShortcutName));
             }
@@ -30,10 +37,19 @@ namespace OOP_LernDashboard.ViewModels
             get { return _newShortcutPath; }
             set
             {
+                ClearErrors(nameof(NewShortcutPath));
+                if (string.IsNullOrEmpty(value))
+                {
+                    AddError("Path can't be empty", nameof(NewShortcutPath));
+                }
                 _newShortcutPath = value;
                 OnPropertyChanged(nameof(NewShortcutPath));
             }
         }
+
+        // Validation Errors
+        private readonly Dictionary<string, List<string>> _propertyNameToErrorsDictionary;
+
 
         public ICommand LoadDataAsyncCommand { get; }
         public ICommand AddShortcutCommand { get; }
@@ -45,6 +61,8 @@ namespace OOP_LernDashboard.ViewModels
             this.AddShortcutCommand = new AddShortcutCommand(this, dashboardStore);
 
             _shortcuts = new ObservableCollection<ShortcutViewModel>();
+
+            _propertyNameToErrorsDictionary = new Dictionary<string, List<string>>();
 
             _dashboardStore.ShortcutDeleted += OnShortcutDeleted;
             _dashboardStore.ShortcutCreated += OnShortcutCreated;
@@ -87,6 +105,40 @@ namespace OOP_LernDashboard.ViewModels
             ShortcutsViewModel viewModel = new ShortcutsViewModel(dashboard, dashboardStore);
             viewModel.LoadDataAsyncCommand.Execute(null);
             return viewModel;
+        }
+
+        // Input validation
+
+        public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
+
+        public bool HasErrors => _propertyNameToErrorsDictionary.Any();
+
+        public IEnumerable GetErrors(string? propertyName)
+        {
+            return _propertyNameToErrorsDictionary.GetValueOrDefault(propertyName, new List<string>());
+        }
+
+        private void AddError(string errorMessage, string propertyName)
+        {
+            if (!_propertyNameToErrorsDictionary.ContainsKey(propertyName))
+            {
+                _propertyNameToErrorsDictionary.Add(propertyName, new List<string>());
+            }
+
+            _propertyNameToErrorsDictionary[propertyName].Add(errorMessage);
+
+            OnErrorsChanged(propertyName);
+        }
+
+        private void OnErrorsChanged(string propertyName)
+        {
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+        }
+
+        private void ClearErrors(string propertyName)
+        {
+            _propertyNameToErrorsDictionary.Remove(propertyName);
+            OnErrorsChanged(propertyName);
         }
     }
 }

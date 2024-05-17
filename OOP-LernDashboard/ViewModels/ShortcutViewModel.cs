@@ -1,4 +1,6 @@
-﻿using OOP_LernDashboard.Commands;
+﻿using HandyControl.Controls;
+using HandyControl.Data;
+using OOP_LernDashboard.Commands;
 using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Stores;
 using System.Drawing;
@@ -33,6 +35,15 @@ namespace OOP_LernDashboard.ViewModels
                 {
                     _shortcut.Name = value;
                     _ = _dashboardStore.ModifyShortcut(_shortcut);
+                }
+                else
+                {
+                    Growl.Error(new GrowlInfo
+                    {
+                        Message = "Name already exists!",
+                        ShowDateTime = false,
+                        StaysOpen = false,
+                    });
                 }
             }
         }
