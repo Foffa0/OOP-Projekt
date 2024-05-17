@@ -37,6 +37,37 @@
                 <TextBox Width="300" VerticalContentAlignment="Center" Style="{StaticResource PrimaryTextInput}" Text="{Binding WelcomeName}"></TextBox>
                 <Button Style="{StaticResource PrimaryButton}" Command="{Binding UpdateWelcomeName}">Aktualisieren</Button>
             </StackPanel>
+
+            <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Farbauswahl" Style="{StaticResource Headline}"></TextBlock>
+            <StackPanel Orientation="Horizontal">
+                
+                <hc:ColorPicker Margin="0">
+                    <hc:ColorPicker.Resources>
+                        <!--Hacky trick to remove cancel button from the color picker-->
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="Transparent"></Setter>
+                            <Setter Property="Cursor" Value="Hand"></Setter>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="{TemplateBinding Background}" BorderBrush="Transparent" BorderThickness="0" CornerRadius="3" Padding="5">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="Grid.Column" Value="0">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource PrimaryHoverColor}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </hc:ColorPicker.Resources>
+                </hc:ColorPicker>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -6,7 +6,7 @@
         </Style.Resources>
         
         <Style.Setters>
-            <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+            <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Foreground" Value="{StaticResource TextColor}" />
             <Setter Property="Cursor" Value="Hand" />

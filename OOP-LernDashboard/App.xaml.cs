@@ -9,6 +9,8 @@ using OOP_LernDashboard.DbContexts;
 using OOP_LernDashboard.Services.DataCreators;
 using OOP_LernDashboard.Services.DataProviders;
 using Microsoft.EntityFrameworkCore;
+using HandyControl.Themes;
+using System.Windows.Media;
 
 namespace OOP_LernDashboard
 {

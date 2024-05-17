@@ -24,7 +24,7 @@
         <Style.Triggers>
                     
             <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+                <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
             </Trigger>
 
             <MultiTrigger>
