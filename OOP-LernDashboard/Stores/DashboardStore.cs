@@ -34,6 +34,9 @@ namespace OOP_LernDashboard.Stores
 
         public Configuration AppConfig;
 
+        public string _welcomeName = "Studierende Person";
+        public string WelcomeName => _welcomeName;
+
         public DashboardStore(IDataCreator<ToDo> toDoDataCreator, IDataProvider<ToDo> toDoDataProvider, IDataCreator<Shortcut> shortcutDataCreator, IDataProvider<Shortcut> shortcutDataProvider)
         {
             _toDoCreator = toDoDataCreator;
@@ -61,6 +64,12 @@ namespace OOP_LernDashboard.Stores
                 {
                     this.GoogleCalendar = null;
                 }
+            }
+
+            string? name = ReadSetting("WelcomeName");
+            if (name != null && name != "")
+            {
+                _welcomeName = name;
             }
 
         }
@@ -165,6 +174,12 @@ namespace OOP_LernDashboard.Stores
         public bool IsUniqueShortcutName(string name)
         {
             return !_shortcuts.Any(s => s.Name == name);
+        }
+
+        public void SetWelcomeName(string name)
+        {
+            _welcomeName = name;
+            AddUpdateAppSettings("WelcomeName", name);
         }
 
         public static void AddUpdateAppSettings(string key, string value)

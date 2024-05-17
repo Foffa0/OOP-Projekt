@@ -23,6 +23,7 @@ namespace OOP_LernDashboard.Commands
             await _dashboardStore.Load();
             _viewModel.UpdateToDos(_dashboardStore.ToDos);
             _viewModel.UpdateShortcuts(_dashboardStore.Shortcuts);
+            _viewModel.UpdateWelcomeName(_dashboardStore.WelcomeName);
         }
     }
 }

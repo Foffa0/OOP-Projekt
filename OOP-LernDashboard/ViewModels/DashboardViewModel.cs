@@ -14,18 +14,18 @@ namespace OOP_LernDashboard.ViewModels
         private readonly DashboardStore _dashboardStore;
 
 
-        private string? _firstName = "Studierende Person";
-        private string? _welcomeMessage;
-
-        public string? WelcomeMessage
+        private string _welcomeName = "Studierende Person";
+        public string WelcomeName
         {
-            get { return _welcomeMessage; }
+            get => _welcomeName;
             set
             {
-                _welcomeMessage = value;
-                OnPropertyChanged(nameof(WelcomeMessage));
+                _welcomeName = value;
+                OnPropertyChanged(nameof(WelcomeName));
             }
         }
+
+        public string WelcomeMessage => $"Hallo {WelcomeName}!";
 
         private string _toDoDesc = "";
         public string ToDoDesc
@@ -73,8 +73,6 @@ namespace OOP_LernDashboard.ViewModels
         public DashboardViewModel(Dashboard dashboard, DashboardStore dashboardStore, NavigationService shortcutsNavigationService)
         {
             _dashboardStore = dashboardStore;
-
-            this.WelcomeMessage = $"Hallo {_firstName}!";
 
             AddToDoCommand = new AddToDoCommand(this, dashboardStore);
             LoadDataAsyncCommand = new LoadDashboardDataCommand(this, dashboardStore);
@@ -143,6 +141,11 @@ namespace OOP_LernDashboard.ViewModels
             {
                 _toDos.Add(new ToDoViewModel(toDo));
             }
+        }
+
+        public void UpdateWelcomeName(string name)
+        {
+            WelcomeName = name;
         }
 
         public void UpdateShortcuts(IEnumerable<Shortcut> shortcuts)
