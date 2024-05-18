@@ -10,17 +10,15 @@ namespace OOP_LernDashboard.ViewModels
 
         public string Description => _countdown.Description;
 
-        // public int DaysLeft =>
+        public int DaysLeft { get; set; }
 
         public CountdownViewModel(Countdown countdown)
         {
             _countdown = countdown;
-        }
 
-        /*private int GetDaysLeft(Countdown c)
-        {
-            DateOnly day = new DateOnly();
-            
-        }*/
+            // get difference between today and the countdown's date
+            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+            DaysLeft = Date.DayNumber - today.DayNumber;
+        }
     }
 }

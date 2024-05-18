@@ -25,10 +25,9 @@ namespace OOP_LernDashboard.Commands
 
         public override async void Execute(object? parameter)
         {
-
-            var dateTime = DateTime.Parse(_countdownsViewModel.CountdownInput);/*Exact(_countdownsViewModel.CountdownInput, "dd/MM/yyyy hh:mm:ss tt",
-                                         CultureInfo.InvariantCulture);*/
+            var dateTime = DateTime.Parse(_countdownsViewModel.CountdownInput);
             DateOnly date = DateOnly.FromDateTime(dateTime);
+
             Countdown countdown = new Countdown(date, _countdownsViewModel.Description);
 
             await _dashboardStore.AddCountdown(countdown);
