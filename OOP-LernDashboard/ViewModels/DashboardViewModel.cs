@@ -1,10 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using OOP_LernDashboard.Commands;
+﻿using OOP_LernDashboard.Commands;
 using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Services;
 using OOP_LernDashboard.Stores;
 using System.Collections.ObjectModel;
-using System.Net.WebSockets;
 using System.Windows.Input;
 
 namespace OOP_LernDashboard.ViewModels
@@ -64,6 +62,9 @@ namespace OOP_LernDashboard.ViewModels
         private readonly ObservableCollection<ShortcutViewModel> _shortcuts;
         public IEnumerable<ShortcutViewModel> Shortcuts => _shortcuts;
 
+        private readonly ObservableCollection<CountdownViewModel> _countdowns;
+        public IEnumerable<CountdownViewModel> Countdowns => _countdowns;
+
         public ICommand AddToDoCommand { get; }
 
         public ICommand LoadDataAsyncCommand { get; }
@@ -87,7 +88,8 @@ namespace OOP_LernDashboard.ViewModels
                 "Normales ToDo",
                 "Wiederholendes ToDo"
             };
-            
+            _countdowns = new ObservableCollection<CountdownViewModel>();
+
 
 
             // Listen for changes in the dashboardStore
@@ -119,8 +121,8 @@ namespace OOP_LernDashboard.ViewModels
         /// <param name="toDo"></param>
         private void OnToDoCreated(ToDo toDo)
         {
-            ToDoViewModel videoViewModel = new ToDoViewModel(toDo);
-            _toDos.Add(videoViewModel);
+            ToDoViewModel toDoViewModel = new ToDoViewModel(toDo);
+            _toDos.Add(toDoViewModel);
         }
 
         /// <summary>
@@ -129,15 +131,16 @@ namespace OOP_LernDashboard.ViewModels
         /// <param name="toDo"></param>
         private void OnToDoDeleted(ToDo toDo)
         {
-            ToDoViewModel videoViewModel = new ToDoViewModel(toDo);
-            _toDos.Remove(videoViewModel);
+            ToDoViewModel toDoViewModel = new ToDoViewModel(toDo);
+            _toDos.Remove(toDoViewModel);
         }
+
 
         public void UpdateToDos(IEnumerable<ToDo> todos)
         {
             _toDos.Clear();
 
-            foreach (var toDo in todos) 
+            foreach (var toDo in todos)
             {
                 _toDos.Add(new ToDoViewModel(toDo));
             }
@@ -162,9 +165,19 @@ namespace OOP_LernDashboard.ViewModels
         {
             _calendarEvents.Clear();
 
-            foreach(var calendarEvent in events)
+            foreach (var calendarEvent in events)
             {
                 _calendarEvents.Add(new CalendarEventViewModel(calendarEvent));
+            }
+        }
+
+        public void UpdateCountdowns(IEnumerable<Countdown> countdowns)
+        {
+            _countdowns.Clear();
+
+            foreach (var countdown in countdowns)
+            {
+                _countdowns.Add(new CountdownViewModel(countdown));
             }
         }
     }

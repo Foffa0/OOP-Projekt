@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="OOP_LernDashboard.Views.CountdownView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:local="clr-namespace:OOP_LernDashboard.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="{StaticResource WindowTheme}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Countdowns" Style="{StaticResource Title}"></TextBlock>
+
+        <ListView Grid.Row="1" ItemsSource="{Binding Countdowns}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Height="50">
+                        <TextBlock Width="80" Text="{Binding DaysLeft}"/>
+                        <TextBlock Text="{Binding Date}" />
+                        <TextBlock Text="{Binding Description}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <DatePicker Grid.Row="0" Width="400" Height="30" Style="{StaticResource DatePickerExtend}" SelectedDate="{Binding CountdownInput, UpdateSourceTrigger=PropertyChanged}" SelectedDateFormat="Long" Language="de" hc:InfoElement.Placeholder="Datum" />
+            <TextBlock Width="200" Height="50" Grid.Row="0" Text="{Binding CountdownInput}" Foreground="White" Margin="67,10,683,7"/>
+            <TextBox Grid.Row="1" Width="400" Height="30" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Grid.Row="2" Command="{Binding AddCountdownCommand}">Hinzufügen</Button>
+        </Grid>
+        
+    </Grid>
+</UserControl>
