@@ -1,14 +1,7 @@
 ﻿using HandyControl.Controls;
-using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Stores;
 using OOP_LernDashboard.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static OOP_LernDashboard.ViewModels.CalendarViewModel;
 
 namespace OOP_LernDashboard.Commands
 {
@@ -30,7 +23,7 @@ namespace OOP_LernDashboard.Commands
                 _viewModel.IsLoading = true;
                 await _dashboardStore.Load();
 
-                if(_dashboardStore.GoogleCalendar == null)
+                if (_dashboardStore.GoogleCalendar == null)
                 {
                     return;
                 }
@@ -38,14 +31,15 @@ namespace OOP_LernDashboard.Commands
                 DateTime currentMonth = _dashboardStore.GoogleCalendar.Start;
 
                 _viewModel.UpdateMonth(currentMonth);
+                _viewModel.UpdateGoogleReady(true);
 
                 await _dashboardStore.GoogleCalendar.LoadEvents();
-                
+
                 int today = DateTime.Now.Day - 1;
                 bool isCurrentMonth = DateTime.Now.Month == currentMonth.Month
                                     && DateTime.Now.Year == currentMonth.Year;
 
-                int dayInWeek = (int)currentMonth.DayOfWeek -1;
+                int dayInWeek = (int)currentMonth.DayOfWeek - 1;
                 int daysInMonth = DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month);
 
                 _viewModel.UpdateFirstDayOffset(dayInWeek);
@@ -60,16 +54,15 @@ namespace OOP_LernDashboard.Commands
                         _dashboardStore.GoogleCalendar.Events
                         .Where(e => e.StartTime.Day - 1 == i)
                         .OrderBy(e => e.StartTime)
-                        .Select(e => new EventViewModel(e.Title, e.StartTime.ToString("HH:mm")))
+                        .Select(e => new EventViewModel(_dashboardStore, e))
                         .ToList());
 
                     _viewModel.Days.Add(dayModel);
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Fatal("Failed to load Events", e.Message);
-                throw new Exception("Failed to load Events");
             }
             _viewModel.IsLoading = false;
         }

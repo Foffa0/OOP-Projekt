@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Security.Cryptography;
+﻿using Newtonsoft.Json;
 using System.Diagnostics;
-using System.Windows;
-using Microsoft.Extensions.Logging;
 using System.IO;
-using Newtonsoft.Json;
-using Microsoft.EntityFrameworkCore;
+using System.Net;
+using System.Net.Sockets;
+using System.Security.Cryptography;
+using System.Text;
+using System.Windows;
 
 namespace OOP_LernDashboard.Models
 {
@@ -20,7 +14,7 @@ namespace OOP_LernDashboard.Models
     /// </summary>
     internal class GoogleLogin
     {
-        public string? AuthToken {  get; set; }
+        public string? AuthToken { get; set; }
         public event EventHandler<string>? AuthTokenReceived;
 
         /// <summary>
@@ -155,7 +149,7 @@ namespace OOP_LernDashboard.Models
                     string responseText = await reader.ReadToEndAsync();
 
                     // converts to dictionary
-                    Dictionary<string, string> tokenEndpointDecoded = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseText) 
+                    Dictionary<string, string> tokenEndpointDecoded = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseText)
                         ?? new Dictionary<string, string>(); ;
 
                     string accessToken = tokenEndpointDecoded["access_token"];
@@ -193,7 +187,7 @@ namespace OOP_LernDashboard.Models
         /// <returns></returns>
         public static string randomDataBase64url(uint length)
         {
-             RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider(); 
+            RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
             // var rng = RandomNumberGenerator.Create();
             byte[] bytes = new byte[length];
             rng.GetBytes(bytes);

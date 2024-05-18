@@ -3,11 +3,11 @@
 namespace OOP_LernDashboard.Views
 {
     /// <summary>
-    /// Interaktionslogik für DemoView.xaml
+    /// Interaction logic for EventDetailsView.xaml
     /// </summary>
-    public partial class DemoView : UserControl
+    public partial class EventDetailsView : UserControl
     {
-        public DemoView()
+        public EventDetailsView()
         {
             InitializeComponent();
         }

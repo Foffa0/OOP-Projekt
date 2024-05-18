@@ -50,8 +50,8 @@ namespace OOP_LernDashboard.Services.DataCreators
                 }
 
                 // Update the properties of the existing ShortcutDTO with the new values
-                existingShortcut.Name = model.Name; 
-                existingShortcut.Path = model.Path; 
+                existingShortcut.Name = model.Name;
+                existingShortcut.Path = model.Path;
 
                 // Save the changes to the database
                 await context.SaveChangesAsync();

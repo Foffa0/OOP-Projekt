@@ -1,13 +1,7 @@
 ﻿using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Stores;
 using OOP_LernDashboard.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace OOP_LernDashboard.Commands
 {
@@ -37,7 +31,7 @@ namespace OOP_LernDashboard.Commands
             ToDo toDo = new ToDo(_dashboardViewModel.ToDoDesc);
 
             await _dashboardStore.AddToDo(toDo);
-            
+
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)

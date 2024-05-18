@@ -1,10 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using OOP_LernDashboard.Commands;
+﻿using OOP_LernDashboard.Commands;
 using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Services;
 using OOP_LernDashboard.Stores;
 using System.Collections.ObjectModel;
-using System.Net.WebSockets;
 using System.Windows.Input;
 
 namespace OOP_LernDashboard.ViewModels
@@ -58,8 +56,8 @@ namespace OOP_LernDashboard.ViewModels
         private readonly ObservableCollection<string> _combobox;
         public IEnumerable<string> Combobox => _combobox;
 
-        private readonly ObservableCollection<CalendarEventViewModel> _calendarEvents;
-        public IEnumerable<CalendarEventViewModel> CalendarEvents => _calendarEvents;
+        private readonly ObservableCollection<EventViewModel> _calendarEvents;
+        public IEnumerable<EventViewModel> CalendarEvents => _calendarEvents;
 
         private readonly ObservableCollection<ShortcutViewModel> _shortcuts;
         public IEnumerable<ShortcutViewModel> Shortcuts => _shortcuts;
@@ -80,14 +78,14 @@ namespace OOP_LernDashboard.ViewModels
             ShortcutsCommand = new NavigateCommand(shortcutsNavigationService);
 
             _toDos = new ObservableCollection<ToDoViewModel>();
-            _calendarEvents = new ObservableCollection<CalendarEventViewModel>();
+            _calendarEvents = new ObservableCollection<EventViewModel>();
             _shortcuts = new ObservableCollection<ShortcutViewModel>();
             _combobox = new ObservableCollection<string>
             {
                 "Normales ToDo",
                 "Wiederholendes ToDo"
             };
-            
+
 
 
             // Listen for changes in the dashboardStore
@@ -137,7 +135,7 @@ namespace OOP_LernDashboard.ViewModels
         {
             _toDos.Clear();
 
-            foreach (var toDo in todos) 
+            foreach (var toDo in todos)
             {
                 _toDos.Add(new ToDoViewModel(toDo));
             }
@@ -162,9 +160,9 @@ namespace OOP_LernDashboard.ViewModels
         {
             _calendarEvents.Clear();
 
-            foreach(var calendarEvent in events)
+            foreach (var calendarEvent in events)
             {
-                _calendarEvents.Add(new CalendarEventViewModel(calendarEvent));
+                _calendarEvents.Add(new EventViewModel(_dashboardStore, calendarEvent));
             }
         }
     }

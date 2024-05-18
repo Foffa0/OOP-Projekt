@@ -1,19 +1,5 @@
 ﻿using HandyControl.Data;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace OOP_LernDashboard.Views
 {
@@ -30,7 +16,7 @@ namespace OOP_LernDashboard.Views
 
         private void ColorPicker_SelectedColorChanged(object? sender, FunctionEventArgs<System.Windows.Media.Color> e)
         {
-            if(DataContext == null)
+            if (DataContext == null)
             {
                 return;
             }

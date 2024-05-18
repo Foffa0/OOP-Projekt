@@ -1,10 +1,5 @@
 ﻿using OOP_LernDashboard.Stores;
 using OOP_LernDashboard.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OOP_LernDashboard.Commands
 {
@@ -24,7 +19,7 @@ namespace OOP_LernDashboard.Commands
 
         public override void Execute(object? parameter)
         {
-            if(_dashboardStore.GoogleCalendar == null)
+            if (_dashboardStore.GoogleCalendar == null)
             {
                 throw new InvalidOperationException("Cannot modify month on non existing calendar.");
             }

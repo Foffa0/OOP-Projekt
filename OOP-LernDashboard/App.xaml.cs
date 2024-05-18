@@ -1,16 +1,12 @@
-﻿using OOP_LernDashboard.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using OOP_LernDashboard.DbContexts;
+using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Services;
+using OOP_LernDashboard.Services.DataCreators;
+using OOP_LernDashboard.Services.DataProviders;
 using OOP_LernDashboard.Stores;
 using OOP_LernDashboard.ViewModels;
 using System.Windows;
-using OOP_LernDashboard.Services;
-using OOP_LernDashboard.Models;
-using OOP_LernDashboard.DbContexts;
-using OOP_LernDashboard.Services.DataCreators;
-using OOP_LernDashboard.Services.DataProviders;
-using Microsoft.EntityFrameworkCore;
-using HandyControl.Themes;
-using System.Windows.Media;
 
 namespace OOP_LernDashboard
 {
@@ -51,9 +47,9 @@ namespace OOP_LernDashboard
             MainWindow = new MainWindow()
             {
                 DataContext = new MainViewModel(
-                    _navigationStore, 
-                    new NavigationService(_navigationStore, CreateDashboardViewModel), 
-                    new NavigationService(_navigationStore, CreateCalendarViewModel), 
+                    _navigationStore,
+                    new NavigationService(_navigationStore, CreateDashboardViewModel),
+                    new NavigationService(_navigationStore, CreateCalendarViewModel),
                     new NavigationService(_navigationStore, CreateQuickNotesViewModel),
                     new NavigationService(_navigationStore, CreateSettingsViewModel),
                     new NavigationService(_navigationStore, CreateTimerViewModel),

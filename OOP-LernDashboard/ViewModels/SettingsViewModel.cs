@@ -1,11 +1,6 @@
 ﻿using HandyControl.Themes;
 using OOP_LernDashboard.Commands;
 using OOP_LernDashboard.Stores;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -42,7 +37,7 @@ namespace OOP_LernDashboard.ViewModels
             get => _accentColor;
             set
             {
-                if(_accentColor == value)
+                if (_accentColor == value)
                 {
                     return;
                 }
@@ -52,7 +47,7 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
-        public Brush AccentColorBrush => new SolidColorBrush(AccentColor); 
+        public Brush AccentColorBrush => new SolidColorBrush(AccentColor);
 
         public ICommand LoginGoogleCommand { get; }
         public ICommand LogoutGoogleCommand { get; }
@@ -61,7 +56,7 @@ namespace OOP_LernDashboard.ViewModels
 
         public ICommand UpdateAccentColorCommand { get; }
 
-        public SettingsViewModel(DashboardStore dashboardStore) 
+        public SettingsViewModel(DashboardStore dashboardStore)
         {
             LoginGoogleCommand = new GoogleLoginCommand(dashboardStore);
             LogoutGoogleCommand = new GoogleLogoutCommand(dashboardStore);

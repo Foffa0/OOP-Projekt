@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace OOP_LernDashboard.Models
+﻿namespace OOP_LernDashboard.Models
 {
     class ToDo
     {
@@ -14,7 +12,7 @@ namespace OOP_LernDashboard.Models
             this.Description = description;
             this.IsChecked = isChecked;
         }
-        public ToDo(Guid id,string description, bool isChecked = false)
+        public ToDo(Guid id, string description, bool isChecked = false)
         {
             Id = id;
             this.Description = description;
@@ -25,5 +23,5 @@ namespace OOP_LernDashboard.Models
         {
 
         }
-    }   
+    }
 }

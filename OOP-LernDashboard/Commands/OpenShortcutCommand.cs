@@ -16,8 +16,8 @@ namespace OOP_LernDashboard.Commands
         public override void Execute(object? parameter)
         {
             if (_shortcutviewmodel.Type == ShortcutType.Link)
-            { 
-                System.Diagnostics.Process.Start(new ProcessStartInfo { FileName = _shortcutviewmodel.Path, UseShellExecute = true }); 
+            {
+                System.Diagnostics.Process.Start(new ProcessStartInfo { FileName = _shortcutviewmodel.Path, UseShellExecute = true });
             }
             else
             {

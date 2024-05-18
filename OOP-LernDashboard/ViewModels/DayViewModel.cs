@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static OOP_LernDashboard.ViewModels.CalendarViewModel;
-using System.Windows.Media;
-using System.Windows;
+﻿using System.Collections.ObjectModel;
 
 namespace OOP_LernDashboard.ViewModels
 {
@@ -25,12 +17,7 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
-        public ObservableCollection<EventViewModel> Events
-        {
-            get;
-            set;
-        }
-
+        public ObservableCollection<EventViewModel> Events { get; set; }
 
         public DayViewModel(bool isToday = false)
         {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OOP_LernDashboard.Commands
+﻿namespace OOP_LernDashboard.Commands
 {
     /// <summary>
     /// Base class for async commands

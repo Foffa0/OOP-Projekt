@@ -1,11 +1,6 @@
 ﻿using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Stores;
 using OOP_LernDashboard.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OOP_LernDashboard.Commands
 {
@@ -22,7 +17,7 @@ namespace OOP_LernDashboard.Commands
 
         public override async void Execute(object? parameter)
         {
-            var calendarEvent = new CalendarEvent(_calendarViewModel.NewEventTitle, new DateTime(2024, 5, 12, 10, 30, 50), new DateTime(2024, 5, 12, 10, 40, 50));
+            var calendarEvent = new CalendarEvent(_calendarViewModel.NewEventTitle, "test123", new DateTime(2024, 5, 12, 10, 30, 50), new DateTime(2024, 5, 12, 10, 40, 50));
             _dashboardStore.GoogleCalendar.AddEvent(calendarEvent);
         }
     }

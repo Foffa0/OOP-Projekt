@@ -104,17 +104,61 @@
                                         </Style.Triggers>
                                     </Style>
                                 </Border.Style>
-                                <StackPanel>
-                                    <TextBlock Text="{Binding DayDesc}" Style="{StaticResource Text}" Padding="2"></TextBlock>
 
-                                    <ListView ItemsSource="{Binding Events}" Background="Transparent" BorderThickness="0" 
-                                                VerticalContentAlignment="Top"  
-                                                ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Text="{Binding DayDesc}" Style="{StaticResource Text}" Padding="2"></TextBlock>
+
+
+                                    <ListView Grid.Row="1" ItemsSource="{Binding Events}" Background="Transparent" BorderThickness="0"
+                                              Margin="0"
+                                              Padding="4,0,4,4"
+                                              VerticalContentAlignment="Top"  
+                                              ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                              VirtualizingPanel.ScrollUnit="Pixel"
+                                              HorizontalContentAlignment="Stretch"
+                                              Height="{Binding ActualHeigt, RelativeSource={RelativeSource AncestorType=Border}}">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding EventDesc}"></TextBlock>
+                                                <Grid Background="Transparent" Margin="0" HorizontalAlignment="Stretch" Cursor="Hand">
+                                                    <Grid.InputBindings>
+                                                        <MouseBinding Gesture="LeftClick" Command="{Binding ShowDetailsCommand}"/>
+                                                    </Grid.InputBindings>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="auto" />
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <TextBlock Grid.Column="0" Text="{Binding EventTitle}" TextWrapping="WrapWithOverflow"></TextBlock>
+
+                                                    <TextBlock Grid.Column="1" Text="{Binding EventStart}"></TextBlock>
+                                                </Grid>
+
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="ListViewItem">
+                                                <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="ListViewItem">
+                                                            <Border Background="{TemplateBinding Background}" 
+                                                                    BorderBrush="{TemplateBinding BorderBrush}" 
+                                                                    BorderThickness="{TemplateBinding BorderThickness}" 
+                                                                    CornerRadius="5" 
+                                                                    Padding="5">
+                                                                <ContentPresenter HorizontalAlignment="Stretch" 
+                                                                        VerticalAlignment="Stretch"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
                                         <ListView.Style>
                                             <Style TargetType="ListView" BasedOn="{StaticResource ListView.Small}">
                                                 <Style.Triggers>
@@ -126,7 +170,7 @@
                                         </ListView.Style>
                                     </ListView>
 
-                                </StackPanel>
+                                </Grid>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

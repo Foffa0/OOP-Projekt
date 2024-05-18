@@ -7,8 +7,8 @@ namespace OOP_LernDashboard.ViewModels
     internal class DemoViewModel : ViewModelBase
     {
         private string? _textBoxInput;
-        public string? TextBoxInput 
-        { 
+        public string? TextBoxInput
+        {
             get { return _textBoxInput; }
             set
             {

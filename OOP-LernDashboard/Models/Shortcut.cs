@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 
 namespace OOP_LernDashboard.Models
 {
@@ -19,7 +14,7 @@ namespace OOP_LernDashboard.Models
         public string Path { get; set; }
         public string Name { get; set; }
         public string IconPath { get; set; }
-        
+
         public Shortcut(ShortcutType type, string path, string name, string iconPath)
         {
             Id = Guid.NewGuid();
@@ -40,7 +35,7 @@ namespace OOP_LernDashboard.Models
 
         public static bool IsValidPath(string path, ShortcutType type)
         {
-            if(type == ShortcutType.Link)
+            if (type == ShortcutType.Link)
             {
                 if (Uri.TryCreate(path, UriKind.Absolute, out Uri uriResult))
                 {
@@ -48,7 +43,7 @@ namespace OOP_LernDashboard.Models
                 }
                 return false;
             }
-            else if(type == ShortcutType.Application)
+            else if (type == ShortcutType.Application)
             {
                 return File.Exists(path);
             }

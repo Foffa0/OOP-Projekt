@@ -35,12 +35,12 @@ namespace OOP_LernDashboard.Models
                 CalendarListResource.ListRequest request = _calendarService.CalendarList.List();
                 calendars = request.Execute();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 // TODO: Logout user
                 throw new Exception("Error while loading calendar", e);
             }
-            
+
 
             // check if there is already a calendar matching the name
             IList<CalendarListEntry> calendarListEntries = calendars.Items;
@@ -49,7 +49,7 @@ namespace OOP_LernDashboard.Models
                 if (calendar.Summary.Equals(CalendarName))
                 {
                     _calendar = _calendarService.Calendars.Get(calendar.Id).Execute();
-                    if(isAfterAppStartup)
+                    if (isAfterAppStartup)
                         MessageBox.Success($"Erfolgreich Kalender {calendar.Summary} zum LernDashboard hinzugefügt.", "Information");
                     break;
                 }
@@ -65,7 +65,7 @@ namespace OOP_LernDashboard.Models
 
             // Sets the month to display events for to the current month
             DateTime now = DateTime.Now;
-            Start = new DateTime(now.Year, now.Month, 1);   
+            Start = new DateTime(now.Year, now.Month, 1);
         }
 
 
@@ -85,17 +85,9 @@ namespace OOP_LernDashboard.Models
 
         public void AddEvent(CalendarEvent calendarEvent)
         {
-            Event e = new Event();
-            e.Summary = calendarEvent.Title;
-            e.Start = new EventDateTime()
-            {
-                DateTimeDateTimeOffset = calendarEvent.StartTime
-            };
-            e.End = new EventDateTime()
-            {
-                DateTimeDateTimeOffset = calendarEvent.EndTime
-            };
-            _calendarService.Events.Insert(e, _calendar.Id).Execute();
+            Event e = ToGoogleEvent(calendarEvent);
+            Event @event = _calendarService.Events.Insert(e, _calendar.Id).Execute();
+            calendarEvent.Id = @event.Id;
         }
 
         /// <summary>
@@ -111,16 +103,45 @@ namespace OOP_LernDashboard.Models
             this.Events = events.Items.Select(e => ToCalendarEvent(e)).ToList();
         }
 
+        /// <summary>
+        /// Updates the event in the Google Calendar
+        /// </summary>
+        /// <param name="calendarEvent"></param>
+        /// <returns></returns>
+        public async Task UpdateEvent(CalendarEvent calendarEvent)
+        {
+            Event e = ToGoogleEvent(calendarEvent);
+            await _calendarService.Events.Update(e, _calendar.Id, calendarEvent.Id).ExecuteAsync();
+            this.Events = this.Events.Select(e => e.Id == calendarEvent.Id ? calendarEvent : e).ToList();
+        }
+
         private static CalendarEvent ToCalendarEvent(Event e)
         {
-            if(e.Start.DateTime == null || e.End.DateTime == null)
+            if (e.Start.DateTime == null || e.End.DateTime == null)
             {
-                return new CalendarEvent(e.Summary, DateTime.ParseExact(e.Start.Date, "yyyy-mm-dd", CultureInfo.InvariantCulture), null);
+                return new CalendarEvent(e.Summary, e.Description, DateTime.ParseExact(e.Start.Date, "yyyy-mm-dd", CultureInfo.InvariantCulture), null, e.Id);
             }
             else
             {
-                return new CalendarEvent(e.Summary, e.Start.DateTimeDateTimeOffset.Value.DateTime, e.End.DateTimeDateTimeOffset.Value.DateTime);
+                return new CalendarEvent(e.Summary, e.Description, e.Start.DateTimeDateTimeOffset.Value.DateTime, e.End.DateTimeDateTimeOffset.Value.DateTime, e.Id);
             }
+        }
+
+        private static Event ToGoogleEvent(CalendarEvent e)
+        {
+            Event googleEvent = new Event();
+            googleEvent.Summary = e.Title;
+            googleEvent.Id = e.Id;
+            googleEvent.Description = e.Description;
+            googleEvent.Start = new EventDateTime()
+            {
+                DateTimeDateTimeOffset = e.StartTime
+            };
+            googleEvent.End = new EventDateTime()
+            {
+                DateTimeDateTimeOffset = e.EndTime ?? e.StartTime.AddHours(1)
+            };
+            return googleEvent;
         }
     }
 }

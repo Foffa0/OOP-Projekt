@@ -1,7 +1,6 @@
 ﻿using OOP_LernDashboard.Commands;
 using OOP_LernDashboard.Services;
 using OOP_LernDashboard.Stores;
-using System.Diagnostics;
 using System.Windows.Input;
 
 namespace OOP_LernDashboard.ViewModels
@@ -20,20 +19,20 @@ namespace OOP_LernDashboard.ViewModels
         public bool DashboardViewActive { get; set; }
         public bool CalendarViewActive { get; set; }
         public bool QuickNotesViewActive { get; set; }
-        public bool TimerViewActive {  get; set; }
+        public bool TimerViewActive { get; set; }
         public bool ShortcutsViewActive { get; set; }
 
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
 
 
         public MainViewModel(
-            NavigationStore navigationStore, 
-            NavigationService dashboardNavigationService, 
-            NavigationService calendarNavigationServie, 
-            NavigationService quickNotesNavigationService, 
+            NavigationStore navigationStore,
+            NavigationService dashboardNavigationService,
+            NavigationService calendarNavigationServie,
+            NavigationService quickNotesNavigationService,
             NavigationService settingsNavigationService,
             NavigationService timerNavigationService,
-            NavigationService shortcutsNavigationService) 
+            NavigationService shortcutsNavigationService)
         {
             _navigationStore = navigationStore;
 

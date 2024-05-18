@@ -20,7 +20,7 @@ namespace OOP_LernDashboard.Models
             }
         }
 
-        public Element? head {  get; set; }
+        public Element? head { get; set; }
 
         /// <summary>
         /// Adds new ListElement in front of List

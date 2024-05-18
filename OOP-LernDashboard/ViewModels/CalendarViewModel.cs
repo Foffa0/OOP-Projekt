@@ -3,9 +3,7 @@ using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Stores;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace OOP_LernDashboard.ViewModels
 {
@@ -111,6 +109,8 @@ namespace OOP_LernDashboard.ViewModels
             NextMonthCommand = new ModifyCalendarMonth(this, dashboardStore, 1);
 
             UpdateGoogleReady(dashboardStore.GoogleCalendar != null);
+
+            dashboardStore.GoogleLoggedIn += OnGoogleLogin;
         }
 
         public static CalendarViewModel LoadViewModel(Dashboard dashboard, DashboardStore dashboardStore)
@@ -135,6 +135,14 @@ namespace OOP_LernDashboard.ViewModels
         public void UpdateFirstDayOffset(int offset)
         {
             FirstDayOffset = offset;
+        }
+
+        /// <summary>
+        /// Loads the calendar events from the Google Calendar
+        /// </summary>
+        private void OnGoogleLogin()
+        {
+            LoadCalendarCommand.Execute(null);
         }
     }
 }

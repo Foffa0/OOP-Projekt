@@ -31,6 +31,8 @@ namespace OOP_LernDashboard.Stores
         public event Action<Shortcut> ShortcutCreated;
         public event Action<Shortcut> ShortcutDeleted;
 
+        public event Action GoogleLoggedIn;
+
         public GoogleLogin GoogleLogin { set; get; }
         public GoogleCalendar? GoogleCalendar { set; get; }
 
@@ -171,6 +173,8 @@ namespace OOP_LernDashboard.Stores
             this.GoogleCalendar = new GoogleCalendar(authToken);
 
             AddUpdateAppSettings("GoogleAuthToken", authToken);
+
+            GoogleLoggedIn?.Invoke();
         }
 
         public bool IsUniqueShortcutName(string name)

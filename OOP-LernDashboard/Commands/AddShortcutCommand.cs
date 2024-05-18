@@ -2,11 +2,6 @@
 using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Stores;
 using OOP_LernDashboard.ViewModels;
-using System.Drawing;
-using System.IO;
-using System.Windows;
-using System.Windows.Interop;
-using System.Windows.Media.Imaging;
 
 namespace OOP_LernDashboard.Commands
 {
@@ -37,7 +32,7 @@ namespace OOP_LernDashboard.Commands
             }
 
             // check if some shortcut with the same name already exists
-            if(_dashboardStore.Shortcuts.Any(s => s.Name == _shortcutsViewModel.NewShortcutName))
+            if (_dashboardStore.Shortcuts.Any(s => s.Name == _shortcutsViewModel.NewShortcutName))
             {
                 _shortcutsViewModel.AddError("Shortcut mit diesem Namen existiert bereits", nameof(ShortcutsViewModel.NewShortcutName));
                 return;
@@ -46,7 +41,7 @@ namespace OOP_LernDashboard.Commands
             ShortcutType type;
             string iconPath = "";
 
-            
+
             if (Shortcut.IsValidPath(_shortcutsViewModel.NewShortcutPath, ShortcutType.Link))
             {
                 type = ShortcutType.Link;

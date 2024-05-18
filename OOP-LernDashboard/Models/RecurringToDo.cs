@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OOP_LernDashboard.Models
+﻿namespace OOP_LernDashboard.Models
 {
     internal class RecurringToDo : ToDo
     {
@@ -21,7 +15,7 @@ namespace OOP_LernDashboard.Models
         }
         public override void check()
         {
-            NextDate=GenerateNextDate();
+            NextDate = GenerateNextDate();
             IsChecked = false;
         }
     }
