@@ -3,7 +3,6 @@ using OOP_LernDashboard.Commands;
 using OOP_LernDashboard.Stores;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,8 +36,8 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
-        private System.Windows.Media.Color _accentColor;
-        public System.Windows.Media.Color AccentColor
+        private Color _accentColor;
+        public Color AccentColor
         {
             get => _accentColor;
             set
@@ -53,7 +52,7 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
-        public System.Windows.Media.Brush AccentColorBrush => new SolidColorBrush(AccentColor); 
+        public Brush AccentColorBrush => new SolidColorBrush(AccentColor); 
 
         public ICommand LoginGoogleCommand { get; }
         public ICommand LogoutGoogleCommand { get; }
@@ -71,8 +70,7 @@ namespace OOP_LernDashboard.ViewModels
             UpdateAccentColorCommand = new UpdateAccentColorCommand(this, dashboardStore);
 
             _welcomeName = dashboardStore.WelcomeName;
-            AccentColor = (ThemeManager.Current.AccentColor as SolidColorBrush).Color;
-
+            AccentColor = (ThemeManager.Current.AccentColor as SolidColorBrush)?.Color ?? new Color();
         }
 
         public static SettingsViewModel LoadViewModel(DashboardStore dashboardStore)

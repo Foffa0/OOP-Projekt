@@ -37,5 +37,22 @@ namespace OOP_LernDashboard.Models
             Name = name;
             IconPath = iconPath;
         }
+
+        public static bool IsValidPath(string path, ShortcutType type)
+        {
+            if(type == ShortcutType.Link)
+            {
+                if (Uri.TryCreate(path, UriKind.Absolute, out Uri uriResult))
+                {
+                    return uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps;
+                }
+                return false;
+            }
+            else if(type == ShortcutType.Application)
+            {
+                return File.Exists(path);
+            }
+            return false;
+        }
     }
 }

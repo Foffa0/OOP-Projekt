@@ -16,19 +16,24 @@
         <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Shortcuts" Style="{StaticResource Title}"></TextBlock>
 
         <StackPanel Grid.Row="1">
+            <TextBlock Text="ⓘ Doppel-Klicke auf Elemente um diese zu bearbeiten" Style="{StaticResource Text}" Margin="0,0,0,20"></TextBlock>
             <DataGrid ItemsSource="{Binding Shortcuts}" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserSortColumns="False" Background="{StaticResource SecondaryColor}" 
                       BorderThickness="0" Foreground="{StaticResource TextColor}" Padding="20, 10">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="auto" Header="Name" Binding="{Binding Name}" IsReadOnly="False"></DataGridTextColumn>
-                    <DataGridTextColumn Width="auto" Header="Path" Binding="{Binding Path}" IsReadOnly="False"></DataGridTextColumn>
-
-                    <DataGridTemplateColumn Width="60" IsReadOnly="True" Header="Icon">
+                    <DataGridTemplateColumn Width="50" IsReadOnly="True" CanUserResize="False">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Image Source="{Binding BitmapSource}" Width="auto" Height="32" Stretch="Uniform"/>
+                                <Image Source="{Binding BitmapSource}" Width="auto" Height="32" Stretch="Uniform" 
+                                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
+                    
+                    <DataGridTextColumn Width="auto" Header="Name" Binding="{Binding Name}" IsReadOnly="False"></DataGridTextColumn>
+                    <DataGridTextColumn Width="auto" Header="Path" Binding="{Binding Path}" IsReadOnly="False"></DataGridTextColumn>
+                    <DataGridTextColumn Width="auto" Header="Type" Binding="{Binding Type}" IsReadOnly="True"></DataGridTextColumn>
+
+                    
 
                     <DataGridTemplateColumn Width="*" IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
@@ -66,11 +71,32 @@
                 </DataGrid.ColumnHeaderStyle>
 
             </DataGrid>
-            <StackPanel Orientation="Horizontal">
-                <TextBox Text="{Binding NewShortcutName, UpdateSourceTrigger=PropertyChanged}" Width="100" Margin="0,10,0,0"></TextBox>
-                <TextBox Text="{Binding NewShortcutPath, UpdateSourceTrigger=PropertyChanged}" Width="100" Margin="10,10,0,0"></TextBox>
-                <Button Command="{Binding AddShortcutCommand}" Content="Add" Margin="10,10,0,0"></Button>
+            <TextBlock Text="Neuen Shortcut hinzufügen" Style="{StaticResource Headline}"></TextBlock>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0, 15">
+                <TextBlock Text="Name" VerticalAlignment="Center" Style="{StaticResource Text}" Padding="0" Margin="0" Width="70"></TextBlock>
+                <TextBox Text="{Binding NewShortcutName, UpdateSourceTrigger=PropertyChanged}" Width="100"></TextBox>
             </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0, 20">
+                <TextBlock Text="Pfad" VerticalAlignment="Center" Style="{StaticResource Text}" Padding="0" Margin="0" Width="70"></TextBlock>
+                <TextBox Text="{Binding NewShortcutPath, UpdateSourceTrigger=PropertyChanged}" MinWidth="300" MaxWidth="500"></TextBox>
+                <Button  Padding="0" Margin="10, 0, 0, 0" Height="28"  
+                        VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch"
+                         Cursor="Hand"
+                         Command="{Binding OpenFileSelectorCommand}"
+                        BorderThickness="0">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Border HorizontalAlignment="Center" CornerRadius="5" VerticalAlignment="Center" Background="{DynamicResource PrimaryBrush}" Width="35" Height="28">
+                                <Image Source="/Images/FileIcon.png" 
+                               Width="16" 
+                               Height="16"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+            <Button Command="{Binding AddShortcutCommand}" Content="Hinzufügen" HorizontalAlignment="Left" Style="{DynamicResource PrimaryButton}"></Button>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -15,6 +15,9 @@ namespace OOP_LernDashboard.ViewModels
         private readonly ObservableCollection<ShortcutViewModel> _shortcuts;
         public IEnumerable<ShortcutViewModel> Shortcuts => _shortcuts;
 
+        // used to bypass validation when clearing input fields after successful creation
+        private bool _bypassValidation = false;
+
         private string _newShortcutName = "";
         public string NewShortcutName
         {
@@ -22,9 +25,9 @@ namespace OOP_LernDashboard.ViewModels
             set
             {
                 ClearErrors(nameof(NewShortcutName));
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrEmpty(value) && !_bypassValidation)
                 {
-                    AddError("Name can't be empty", nameof(NewShortcutName));
+                    AddError("Name kann nicht leer sein", nameof(NewShortcutName));
                 }
                 _newShortcutName = value;
                 OnPropertyChanged(nameof(NewShortcutName));
@@ -38,9 +41,9 @@ namespace OOP_LernDashboard.ViewModels
             set
             {
                 ClearErrors(nameof(NewShortcutPath));
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrEmpty(value) && !_bypassValidation)
                 {
-                    AddError("Path can't be empty", nameof(NewShortcutPath));
+                    AddError("Path kann nicht leer sein", nameof(NewShortcutPath));
                 }
                 _newShortcutPath = value;
                 OnPropertyChanged(nameof(NewShortcutPath));
@@ -53,12 +56,14 @@ namespace OOP_LernDashboard.ViewModels
 
         public ICommand LoadDataAsyncCommand { get; }
         public ICommand AddShortcutCommand { get; }
+        public ICommand OpenFileSelectorCommand { get; }
 
         public ShortcutsViewModel(Dashboard dashboard, DashboardStore dashboardStore)
         {
             _dashboardStore = dashboardStore;
             LoadDataAsyncCommand = new LoadShortcutsCommand(this, dashboardStore);
             this.AddShortcutCommand = new AddShortcutCommand(this, dashboardStore);
+            this.OpenFileSelectorCommand = new SelectFileCommand(this);
 
             _shortcuts = new ObservableCollection<ShortcutViewModel>();
 
@@ -118,7 +123,7 @@ namespace OOP_LernDashboard.ViewModels
             return _propertyNameToErrorsDictionary.GetValueOrDefault(propertyName, new List<string>());
         }
 
-        private void AddError(string errorMessage, string propertyName)
+        public void AddError(string errorMessage, string propertyName)
         {
             if (!_propertyNameToErrorsDictionary.ContainsKey(propertyName))
             {
@@ -139,6 +144,14 @@ namespace OOP_LernDashboard.ViewModels
         {
             _propertyNameToErrorsDictionary.Remove(propertyName);
             OnErrorsChanged(propertyName);
+        }
+
+        public void ClearInputFields()
+        {
+            _bypassValidation = true;
+            NewShortcutName = "";
+            NewShortcutPath = "";
+            _bypassValidation = false;
         }
     }
 }

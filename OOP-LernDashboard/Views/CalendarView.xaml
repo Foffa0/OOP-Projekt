@@ -31,12 +31,12 @@
 
         <Grid Grid.Row="1" Visibility="{Binding IsGoogleReady, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="*" MaxWidth="{Binding ActualWidth, ElementName=Calendar}"/>
+                <ColumnDefinition Width="auto"  MinWidth="300"/>
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0">
-                <Grid Margin="0">
+                <Grid Margin="0" MaxWidth="{Binding ActualWidth, ElementName=Calendar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="auto" />
@@ -64,7 +64,27 @@
                 </Grid>
                 <hc:LoadingCircle Foreground="{StaticResource PrimaryColor}" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
-                <ItemsControl ItemsSource="{Binding Days}" Visibility="{Binding IsLoading, Converter={StaticResource InvertedBooleanToVisibilityConverter}}" 
+                <Grid Visibility="{Binding IsLoading, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
+                      MaxWidth="{Binding ActualWidth, ElementName=Calendar}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Mo" Style="{StaticResource Text}" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Column="1" Text="Di" Style="{StaticResource Text}" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Column="2" Text="Mi" Style="{StaticResource Text}" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Column="3" Text="Do" Style="{StaticResource Text}" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Column="4" Text="Fr" Style="{StaticResource Text}" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Column="5" Text="Sa" Style="{StaticResource Text}" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Column="6" Text="So" Style="{StaticResource Text}" HorizontalAlignment="Center"></TextBlock>
+                </Grid>
+
+                <ItemsControl x:Name="Calendar" ItemsSource="{Binding Days}" Visibility="{Binding IsLoading, Converter={StaticResource InvertedBooleanToVisibilityConverter}}" 
                               MaxWidth="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=StackPanel}, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE*7/6}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -74,8 +94,16 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="{StaticResource SecondaryColor}" BorderThickness="2" Margin="-1" 
-                                    Height="{Binding ActualWidth, RelativeSource={RelativeSource self}}"
-                                    Background="{Binding BackgroundColor}">
+                                    Height="{Binding ActualWidth, RelativeSource={RelativeSource self}}">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsToday}" Value="True">
+                                                <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
                                 <StackPanel>
                                     <TextBlock Text="{Binding DayDesc}" Style="{StaticResource Text}" Padding="2"></TextBlock>
 

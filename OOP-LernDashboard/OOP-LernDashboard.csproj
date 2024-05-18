@@ -15,6 +15,7 @@
     <None Remove="Images\CalendarIcon.png" />
     <None Remove="Images\DashboardIcon.png" />
     <None Remove="Images\DeleteIcon.png" />
+    <None Remove="Images\FileIcon.png" />
     <None Remove="Images\GoogleLogo.png" />
     <None Remove="Images\leftArrow.png" />
     <None Remove="Images\QuickNotesIcon.png" />
@@ -29,6 +30,7 @@
   <ItemGroup>
     <Resource Include="Fonts\Roboto-Regular.ttf" />
     <Resource Include="Images\DeleteIcon.png" />
+    <Resource Include="Images\FileIcon.png" />
     <Resource Include="Images\leftArrow.png" />
   </ItemGroup>
 

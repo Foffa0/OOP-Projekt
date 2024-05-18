@@ -14,14 +14,14 @@ namespace OOP_LernDashboard.ViewModels
     {
         public int DayDesc { get; set; }
 
-        private SolidColorBrush _backgroundColor;
-        public SolidColorBrush BackgroundColor
+        private bool _isToday;
+        public bool IsToday
         {
-            get { return _backgroundColor; }
+            get { return _isToday; }
             set
             {
-                _backgroundColor = value;
-                OnPropertyChanged(nameof(BackgroundColor));
+                _isToday = value;
+                OnPropertyChanged(nameof(IsToday));
             }
         }
 
@@ -35,7 +35,7 @@ namespace OOP_LernDashboard.ViewModels
         public DayViewModel(bool isToday = false)
         {
             Events = new ObservableCollection<EventViewModel>();
-            BackgroundColor = isToday ? (SolidColorBrush)Application.Current.Resources["PrimaryColor"] : new SolidColorBrush(Colors.Transparent);
+            IsToday = isToday;
         }
     }
 }
