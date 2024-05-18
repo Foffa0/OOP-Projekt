@@ -60,6 +60,9 @@
             <DataTemplate DataType="{x:Type vms:ShortcutsViewModel}">
                 <views:ShortcutsView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:CountdownsViewModel}">
+                <views:CountdownView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type vms:EventViewModel}">
                 <views:EventDetailsView />
             </DataTemplate>

@@ -15,6 +15,7 @@ namespace OOP_LernDashboard.ViewModels
         public ICommand SettingsCommand { get; }
         public ICommand TimerCommand { get; }
         public ICommand ShortcutsCommand { get; }
+        public ICommand CountdownCommand { get; }
 
         public bool DashboardViewActive { get; set; }
         public bool CalendarViewActive { get; set; }
@@ -32,7 +33,8 @@ namespace OOP_LernDashboard.ViewModels
             NavigationService quickNotesNavigationService,
             NavigationService settingsNavigationService,
             NavigationService timerNavigationService,
-            NavigationService shortcutsNavigationService)
+            NavigationService shortcutsNavigationService,
+            NavigationService countdownNavigationService)
         {
             _navigationStore = navigationStore;
 
@@ -44,6 +46,7 @@ namespace OOP_LernDashboard.ViewModels
             QuickNotesCommand = new NavigateCommand(quickNotesNavigationService);
             TimerCommand = new NavigateCommand(timerNavigationService);
             ShortcutsCommand = new NavigateCommand(shortcutsNavigationService);
+            CountdownCommand = new NavigateCommand(countdownNavigationService);
 
             DashboardViewActive = true;
             ShortcutsViewActive = QuickNotesViewActive = CalendarViewActive = TimerViewActive = false;

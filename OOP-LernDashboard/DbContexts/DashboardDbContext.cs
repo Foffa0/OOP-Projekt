@@ -11,6 +11,8 @@ namespace OOP_LernDashboard.DbContexts
 
         public DbSet<ShortcutDTO> Shortcuts { get; set; }
 
+        public DbSet<CountdownDTO> Countdowns { get; set; }
+
         /// <summary>
         /// Make shure that the Name of the Shortcut is unique
         /// </summary>

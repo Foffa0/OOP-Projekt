@@ -19,10 +19,10 @@ namespace OOP_LernDashboard.Commands
 
         public override async Task ExecuteAsync(object parameter)
         {
-
             await _dashboardStore.Load();
             _viewModel.UpdateToDos(_dashboardStore.ToDos);
             _viewModel.UpdateShortcuts(_dashboardStore.Shortcuts);
+            _viewModel.UpdateCountdowns(_dashboardStore.Countdowns);
             _viewModel.UpdateWelcomeName(_dashboardStore.WelcomeName);
         }
     }

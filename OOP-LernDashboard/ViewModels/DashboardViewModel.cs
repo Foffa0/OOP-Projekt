@@ -62,6 +62,9 @@ namespace OOP_LernDashboard.ViewModels
         private readonly ObservableCollection<ShortcutViewModel> _shortcuts;
         public IEnumerable<ShortcutViewModel> Shortcuts => _shortcuts;
 
+        private readonly ObservableCollection<CountdownViewModel> _countdowns;
+        public IEnumerable<CountdownViewModel> Countdowns => _countdowns;
+
         public ICommand AddToDoCommand { get; }
 
         public ICommand LoadDataAsyncCommand { get; }
@@ -85,6 +88,7 @@ namespace OOP_LernDashboard.ViewModels
                 "Normales ToDo",
                 "Wiederholendes ToDo"
             };
+            _countdowns = new ObservableCollection<CountdownViewModel>();
 
 
 
@@ -117,8 +121,8 @@ namespace OOP_LernDashboard.ViewModels
         /// <param name="toDo"></param>
         private void OnToDoCreated(ToDo toDo)
         {
-            ToDoViewModel videoViewModel = new ToDoViewModel(toDo);
-            _toDos.Add(videoViewModel);
+            ToDoViewModel toDoViewModel = new ToDoViewModel(toDo);
+            _toDos.Add(toDoViewModel);
         }
 
         /// <summary>
@@ -127,9 +131,10 @@ namespace OOP_LernDashboard.ViewModels
         /// <param name="toDo"></param>
         private void OnToDoDeleted(ToDo toDo)
         {
-            ToDoViewModel videoViewModel = new ToDoViewModel(toDo);
-            _toDos.Remove(videoViewModel);
+            ToDoViewModel toDoViewModel = new ToDoViewModel(toDo);
+            _toDos.Remove(toDoViewModel);
         }
+
 
         public void UpdateToDos(IEnumerable<ToDo> todos)
         {
@@ -163,6 +168,16 @@ namespace OOP_LernDashboard.ViewModels
             foreach (var calendarEvent in events)
             {
                 _calendarEvents.Add(new EventViewModel(_dashboardStore, calendarEvent));
+            }
+        }
+
+        public void UpdateCountdowns(IEnumerable<Countdown> countdowns)
+        {
+            _countdowns.Clear();
+
+            foreach (var countdown in countdowns)
+            {
+                _countdowns.Add(new CountdownViewModel(countdown));
             }
         }
     }
