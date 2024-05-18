@@ -60,6 +60,8 @@ namespace OOP_LernDashboard
                     new NavigationService(_navigationStore, CreateShortcutsViewModel)
                     )
             };
+            _dashboardStore.LoadAccentColor();
+
             MainWindow.Show();
 
             base.OnStartup(e);

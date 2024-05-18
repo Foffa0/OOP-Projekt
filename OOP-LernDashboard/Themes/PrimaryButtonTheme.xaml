@@ -23,11 +23,11 @@
 
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="BtnBorder" Property="Border.BorderBrush" Value="{StaticResource PrimaryColor}"/>
+                                <Setter TargetName="BtnBorder" Property="Border.BorderBrush" Value="{DynamicResource PrimaryBrush}"/>
                             </Trigger>
 
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
+                                <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
                                 <Setter Property="Foreground" Value="White" />
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
