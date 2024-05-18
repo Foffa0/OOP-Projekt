@@ -34,7 +34,7 @@
 
             <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Vorname" Style="{StaticResource Headline}"></TextBlock>
             <StackPanel Orientation="Horizontal">
-                <TextBox Width="300" VerticalContentAlignment="Center" Style="{StaticResource PrimaryTextInput}" Text="{Binding WelcomeName}"></TextBox>
+                <TextBox Width="300" VerticalContentAlignment="Center" Style="{StaticResource PrimaryTextInput}" Text="{Binding WelcomeName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 <Button Style="{StaticResource PrimaryButton}" Command="{Binding UpdateWelcomeName}">Aktualisieren</Button>
             </StackPanel>
         </StackPanel>

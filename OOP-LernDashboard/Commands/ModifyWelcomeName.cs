@@ -1,10 +1,6 @@
 ﻿using OOP_LernDashboard.Stores;
 using OOP_LernDashboard.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace OOP_LernDashboard.Commands
 {
@@ -17,16 +13,24 @@ namespace OOP_LernDashboard.Commands
         {
             _settingsViewModel = settingsViewModel;
             _dashboardStore = dashboardStore;
+
+            _settingsViewModel.PropertyChanged += OnViewModelPropertyChanged;
+        }
+
+        public override bool CanExecute(object? parameter)
+        {
+            return !string.IsNullOrEmpty(_settingsViewModel.WelcomeName);
         }
 
         public override void Execute(object? parameter)
         {
-            if(_settingsViewModel.WelcomeName == null || _settingsViewModel.WelcomeName == "")
-            {
-                return;
-            }
-
             _dashboardStore.SetWelcomeName(_settingsViewModel.WelcomeName);
+        }
+
+        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+
+            OnCanExecutedChanged();
         }
     }
 }
