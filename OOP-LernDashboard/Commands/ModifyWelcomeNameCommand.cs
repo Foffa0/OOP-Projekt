@@ -29,7 +29,6 @@ namespace OOP_LernDashboard.Commands
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-
             OnCanExecutedChanged();
         }
     }
