@@ -1,7 +1,9 @@
-﻿using OOP_LernDashboard.Models;
+﻿using HandyControl.Themes;
+using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Services.DataCreators;
 using OOP_LernDashboard.Services.DataProviders;
 using System.Configuration;
+using System.Windows.Media;
 
 namespace OOP_LernDashboard.Stores
 {
@@ -180,6 +182,21 @@ namespace OOP_LernDashboard.Stores
         {
             _welcomeName = name;
             AddUpdateAppSettings("WelcomeName", name);
+        }
+
+        public void SetAccentColor(Brush color)
+        {
+            ThemeManager.Current.AccentColor = color;
+            AddUpdateAppSettings("AccentColor", color.ToString());
+        }
+
+        public void LoadAccentColor()
+        {
+            string? acccentColor = ReadSetting("AccentColor");
+            if (acccentColor != null && acccentColor != "")
+            {
+                ThemeManager.Current.AccentColor = (Brush)new BrushConverter().ConvertFrom(acccentColor);
+            }
         }
 
         public static void AddUpdateAppSettings(string key, string value)

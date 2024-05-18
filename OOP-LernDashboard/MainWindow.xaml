@@ -114,7 +114,7 @@
                 </RadioButton>
             </StackPanel>
 
-            <RadioButton GroupName="nav" Grid.Row="1" BorderThickness="0" Width="50" Height="50" Style="{StaticResource SideNavButtonRoundTheme}" Background="{StaticResource PrimaryColor}" Margin="0, 0, 0, 25" Command="{Binding SettingsCommand}">
+            <RadioButton GroupName="nav" Grid.Row="1" BorderThickness="0" Width="50" Height="50" Style="{StaticResource SideNavButtonRoundTheme}"  Margin="0, 0, 0, 25" Command="{Binding SettingsCommand}">
                 <Image Width="30" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True">
                     <Image.Source>
                         <BitmapImage DecodePixelWidth="160" UriSource="/Images/SettingsIcon.png" RenderOptions.BitmapScalingMode="HighQuality"/>

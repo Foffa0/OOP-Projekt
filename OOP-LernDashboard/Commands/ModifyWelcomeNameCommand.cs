@@ -4,12 +4,12 @@ using System.ComponentModel;
 
 namespace OOP_LernDashboard.Commands
 {
-    class ModifyWelcomeName : CommandBase
+    class ModifyWelcomeNameCommand : CommandBase
     {
         private readonly SettingsViewModel _settingsViewModel;
         private readonly DashboardStore _dashboardStore;
 
-        public ModifyWelcomeName(SettingsViewModel settingsViewModel, DashboardStore dashboardStore)
+        public ModifyWelcomeNameCommand(SettingsViewModel settingsViewModel, DashboardStore dashboardStore)
         {
             _settingsViewModel = settingsViewModel;
             _dashboardStore = dashboardStore;
