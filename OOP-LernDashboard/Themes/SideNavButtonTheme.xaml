@@ -24,7 +24,7 @@
         <Style.Triggers>
                     
             <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+                <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
             </Trigger>
 
             <MultiTrigger>
@@ -39,13 +39,14 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource SideNavButtonTheme}" x:Key="SideNavButtonRoundTheme">
+    <Style TargetType="{x:Type RadioButton}" x:Key="SideNavButtonRoundTheme">
         <Style.Setters>
-            <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+            <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
             <Setter Property="Foreground" Value="WhiteSmoke"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"></Setter>
             <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RadioButton}">
@@ -59,20 +60,19 @@
                         <ControlTemplate.Triggers>
 
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="BtnBorder" Property="Border.BorderBrush" Value="{StaticResource PrimaryColor}"/>
+                                <Setter TargetName="BtnBorder" Property="Border.BorderBrush" Value="{DynamicResource PrimaryBrush}"/>
                                 <Setter Property="Foreground" Value="White" />
                             </Trigger>
 
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
+                                <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
                                 <Setter Property="Foreground" Value="White" />
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
+                                <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
                                 <Setter Property="Foreground" Value="Gray" />
                             </Trigger>
                         </ControlTemplate.Triggers>
-
                     </ControlTemplate>
             </Setter.Value>
         </Setter>
