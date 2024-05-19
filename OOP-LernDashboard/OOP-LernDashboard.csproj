@@ -18,7 +18,10 @@
     <None Remove="Images\FileIcon.png" />
     <None Remove="Images\GoogleLogo.png" />
     <None Remove="Images\leftArrow.png" />
+    <None Remove="Images\pauseIcon.png" />
+    <None Remove="Images\playButton.png" />
     <None Remove="Images\QuickNotesIcon.png" />
+    <None Remove="Images\restartIcon.png" />
     <None Remove="Images\rightArrow.png" />
     <None Remove="Images\SettingsIcon.png" />
     <None Remove="Images\ShortcutsIcon.png" />
@@ -51,7 +54,10 @@
     <Resource Include="Images\CalendarIcon.png" />
     <Resource Include="Images\DashboardIcon.png" />
     <Resource Include="Images\GoogleLogo.png" />
+    <Resource Include="Images\pauseIcon.png" />
+    <Resource Include="Images\playButton.png" />
     <Resource Include="Images\QuickNotesIcon.png" />
+    <Resource Include="Images\restartIcon.png" />
     <Resource Include="Images\rightArrow.png" />
     <Resource Include="Images\SettingsIcon.png" />
     <Resource Include="Images\ShortcutsIcon.png" />

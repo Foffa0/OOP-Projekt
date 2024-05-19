@@ -22,5 +22,10 @@ namespace OOP_LernDashboard.Views
             }
             (DataContext as ViewModels.SettingsViewModel).AccentColor = e.Info;
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
