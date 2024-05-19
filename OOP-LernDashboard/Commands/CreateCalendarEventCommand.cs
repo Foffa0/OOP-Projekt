@@ -15,10 +15,18 @@ namespace OOP_LernDashboard.Commands
             _dashboardStore = dashboardStore;
         }
 
-        public override async void Execute(object? parameter)
+        public override void Execute(object? parameter)
         {
-            var calendarEvent = new CalendarEvent(_calendarViewModel.NewEventTitle, "test123", new DateTime(2024, 5, 12, 10, 30, 50), new DateTime(2024, 5, 12, 10, 40, 50));
-            _dashboardStore.GoogleCalendar.AddEvent(calendarEvent);
+            DateTime start = _calendarViewModel.IsWholeDay ? _calendarViewModel.NewEventDate : _calendarViewModel.NewEventDate.AddHours(_calendarViewModel.NewEventStartTime.Hour).AddMinutes(_calendarViewModel.NewEventStartTime.Minute);
+            DateTime? end = _calendarViewModel.IsWholeDay ? null : _calendarViewModel.NewEventDate.AddHours(_calendarViewModel.NewEventEndTime.Hour).AddMinutes(_calendarViewModel.NewEventEndTime.Minute);
+            
+            var calendarEvent = new CalendarEvent(
+                _calendarViewModel.NewEventTitle,
+                _calendarViewModel.NewEventDescription,
+                startTime: start,
+                endTime: end);
+
+            _dashboardStore.GoogleCalendar?.AddEvent(calendarEvent);
         }
     }
 }

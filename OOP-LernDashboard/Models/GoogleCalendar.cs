@@ -130,17 +130,25 @@ namespace OOP_LernDashboard.Models
         private static Event ToGoogleEvent(CalendarEvent e)
         {
             Event googleEvent = new Event();
+
+            if(e.Id != null) googleEvent.Id = e.Id;
             googleEvent.Summary = e.Title;
-            googleEvent.Id = e.Id;
             googleEvent.Description = e.Description;
-            googleEvent.Start = new EventDateTime()
+
+            googleEvent.Start = new EventDateTime();
+            googleEvent.End = new EventDateTime();
+
+            if (e.IsAllDayEvent)
             {
-                DateTimeDateTimeOffset = e.StartTime
-            };
-            googleEvent.End = new EventDateTime()
+                googleEvent.Start.Date = e.StartTime.ToString("yyyy-MM-dd");
+                googleEvent.End.Date = e.StartTime.AddDays(1).ToString("yyyy-MM-dd");
+            }
+            else
             {
-                DateTimeDateTimeOffset = e.EndTime ?? e.StartTime.AddHours(1)
-            };
+                googleEvent.Start.DateTimeDateTimeOffset = e.StartTime;
+                googleEvent.End.DateTimeDateTimeOffset = e.EndTime;
+            }
+            
             return googleEvent;
         }
     }

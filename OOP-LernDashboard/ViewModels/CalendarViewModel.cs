@@ -9,6 +9,9 @@ namespace OOP_LernDashboard.ViewModels
 {
     internal class CalendarViewModel : ViewModelBase
     {
+
+        #region Properties
+
         private string _newEventTitle = "";
         public string NewEventTitle
         {
@@ -17,6 +20,63 @@ namespace OOP_LernDashboard.ViewModels
             {
                 _newEventTitle = value;
                 OnPropertyChanged(nameof(NewEventTitle));
+            }
+        }
+
+        private string _newEventDescription = "";
+        public string NewEventDescription
+        {
+            get { return _newEventDescription; }
+            set
+            {
+                _newEventDescription = value;
+                OnPropertyChanged(nameof(NewEventDescription));
+            }
+        }
+
+        private DateTime _newEventDate = DateTime.Today;
+        public DateTime NewEventDate
+        {
+            get { return _newEventDate; }
+            set
+            {
+                _newEventDate = value;
+                OnPropertyChanged(nameof(NewEventDate));
+            }
+        }
+
+        private DateTime _newEventStartTime = DateTime.Now;
+        public DateTime NewEventStartTime
+        {
+            get { return _newEventStartTime; }
+            set
+            {
+                // TODO validate that the start time is before the end time
+                _newEventStartTime = value;
+                OnPropertyChanged(nameof(NewEventStartTime));
+            }
+        }
+
+        private DateTime _newEventEndTime = DateTime.Now.AddHours(1);
+        public DateTime NewEventEndTime
+        {
+            get { return _newEventEndTime; }
+            set
+            {
+                // TODO validate that the end time is after the start time
+                _newEventEndTime = value;
+                OnPropertyChanged(nameof(NewEventEndTime));
+            }
+        }
+
+        private bool _isWholeDay = true;
+        public bool IsWholeDay
+        {
+            get { return _isWholeDay; }
+            set
+            {
+                _isWholeDay = value;
+                OnPropertyChanged(nameof(IsWholeDay));
             }
         }
 
@@ -89,6 +149,7 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
+        #endregion
 
         public ICommand AddCommand { get; }
         public ICommand LoadCalendarCommand { get; }
