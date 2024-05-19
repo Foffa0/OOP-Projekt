@@ -135,7 +135,7 @@
 
                                                     <TextBlock Grid.Column="0" Text="{Binding EventTitle}" TextWrapping="WrapWithOverflow"></TextBlock>
 
-                                                    <TextBlock Grid.Column="1" Text="{Binding EventStart}"></TextBlock>
+                                                    <TextBlock Grid.Column="1" Text="{Binding EventStart}" Visibility="{Binding IsWholeDayEvent, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"></TextBlock>
                                                 </Grid>
 
                                             </DataTemplate>
@@ -182,8 +182,13 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
 
-                <Border Background="{StaticResource SecondaryColor}" CornerRadius="10" Padding="10">
+                <Border Grid.Column="0" Background="{StaticResource SecondaryColor}" CornerRadius="10" Padding="10">
                     <StackPanel>
                         <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Headline}" Margin="0,0,0,10" Text="Eintrag hinzufügen"></TextBlock>
 

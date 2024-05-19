@@ -115,15 +115,33 @@ namespace OOP_LernDashboard.Models
             this.Events = this.Events.Select(e => e.Id == calendarEvent.Id ? calendarEvent : e).ToList();
         }
 
+        public async Task DeleteEvent(CalendarEvent calendarEvent)
+        {
+            await _calendarService.Events.Delete(_calendar.Id, calendarEvent.Id).ExecuteAsync();
+            this.Events = this.Events.Where(e => e.Id != calendarEvent.Id).ToList();
+        }
+
         private static CalendarEvent ToCalendarEvent(Event e)
         {
-            if (e.Start.DateTime == null || e.End.DateTime == null)
+            if(e.Start.Date != null)
             {
-                return new CalendarEvent(e.Summary, e.Description, DateTime.ParseExact(e.Start.Date, "yyyy-mm-dd", CultureInfo.InvariantCulture), null, e.Id);
+                // whole day event
+                return new CalendarEvent(
+                    e.Summary, 
+                    e.Description, 
+                    DateTime.Parse(e.Start.Date), 
+                    null, 
+                    e.Id);
             }
             else
             {
-                return new CalendarEvent(e.Summary, e.Description, e.Start.DateTimeDateTimeOffset.Value.DateTime, e.End.DateTimeDateTimeOffset.Value.DateTime, e.Id);
+                // event with start and end time
+                return new CalendarEvent(
+                    e.Summary, 
+                    e.Description, 
+                    e.Start.DateTimeDateTimeOffset.Value.LocalDateTime, 
+                    e.End.DateTimeDateTimeOffset.Value.LocalDateTime, 
+                    e.Id);
             }
         }
 

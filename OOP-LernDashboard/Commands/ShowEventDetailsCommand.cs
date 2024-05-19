@@ -19,6 +19,7 @@ namespace OOP_LernDashboard.Commands
             _dashboardStore = dashboardStore;
 
             _eventViewModel.OnSaved += () => _popup?.Close();
+            _eventViewModel.OnDeleted += () => _popup?.Close();
         }
 
         public override void Execute(object? parameter)
@@ -30,7 +31,7 @@ namespace OOP_LernDashboard.Commands
             _popup = new PopupWindow()
             {
                 MinWidth = 400,
-                Title = "Title",
+                Title = "Eintrag bearbeiten",
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
                 ShowInTaskbar = false,
                 AllowsTransparency = true,

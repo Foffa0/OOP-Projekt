@@ -139,6 +139,6 @@
         </Grid>
 
         <!--Main Content, variable-->
-        <ContentControl Grid.Column="1" Content="{Binding CurrentViewModel}" Margin="20 0 10 20" />
+        <ContentControl Grid.Column="1" Content="{Binding CurrentViewModel}" Margin="20 0 20 20" />
     </Grid>
 </hc:Window>

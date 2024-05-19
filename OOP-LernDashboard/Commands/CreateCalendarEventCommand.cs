@@ -27,6 +27,8 @@ namespace OOP_LernDashboard.Commands
                 endTime: end);
 
             _dashboardStore.GoogleCalendar?.AddEvent(calendarEvent);
+
+            _calendarViewModel.LoadCalendarCommand.Execute(null);
         }
     }
 }
