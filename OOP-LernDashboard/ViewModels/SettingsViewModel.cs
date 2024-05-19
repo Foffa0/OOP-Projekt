@@ -1,4 +1,5 @@
-﻿using OOP_LernDashboard.Commands;
+﻿using HandyControl.Themes;
+using OOP_LernDashboard.Commands;
 using OOP_LernDashboard.Stores;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace OOP_LernDashboard.ViewModels
 {
@@ -34,19 +36,41 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
+        private Color _accentColor;
+        public Color AccentColor
+        {
+            get => _accentColor;
+            set
+            {
+                if(_accentColor == value)
+                {
+                    return;
+                }
+                _accentColor = value;
+                OnPropertyChanged(nameof(AccentColor));
+                OnPropertyChanged(nameof(AccentColorBrush));
+            }
+        }
+
+        public Brush AccentColorBrush => new SolidColorBrush(AccentColor); 
+
         public ICommand LoginGoogleCommand { get; }
         public ICommand LogoutGoogleCommand { get; }
 
-        public ICommand UpdateWelcomeName { get; }
+        public ICommand UpdateWelcomeNameCommand { get; }
+
+        public ICommand UpdateAccentColorCommand { get; }
 
         public SettingsViewModel(DashboardStore dashboardStore) 
         {
             LoginGoogleCommand = new GoogleLoginCommand(dashboardStore);
             LogoutGoogleCommand = new GoogleLogoutCommand(dashboardStore);
             IsGoogleLoggedIn = dashboardStore.GoogleCalendar != null;
-            UpdateWelcomeName = new ModifyWelcomeName(this, dashboardStore);
+            UpdateWelcomeNameCommand = new ModifyWelcomeNameCommand(this, dashboardStore);
+            UpdateAccentColorCommand = new UpdateAccentColorCommand(this, dashboardStore);
 
             _welcomeName = dashboardStore.WelcomeName;
+            AccentColor = (ThemeManager.Current.AccentColor as SolidColorBrush)?.Color ?? new Color();
         }
 
         public static SettingsViewModel LoadViewModel(DashboardStore dashboardStore)

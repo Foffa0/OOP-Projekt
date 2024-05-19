@@ -10,7 +10,11 @@
         <ResourceDictionary>
 
             <ResourceDictionary.MergedDictionaries>
-                <hc:ThemeResources RequestedTheme="Dark"/>
+                <hc:ThemeResources RequestedTheme="Dark">
+                    <hc:ThemeResources.AccentColor>
+                        <SolidColorBrush Color="#35437e" />
+                    </hc:ThemeResources.AccentColor>
+                </hc:ThemeResources>
                 <ResourceDictionary Source="Themes/Colors.xaml" />
                 <ResourceDictionary Source="Themes/RoundedButtonTheme.xaml" />
                 <ResourceDictionary Source="Themes/Fonts.xaml" />
@@ -18,8 +22,11 @@
                 <ResourceDictionary Source="Themes/SideNavButtonTheme.xaml" />
                 <ResourceDictionary Source="Themes/PrimaryButtonTheme.xaml" />
                 <ResourceDictionary Source="Themes/PrimaryTextInputTheme.xaml" />
+                <ResourceDictionary Source="Themes/DynamicIconColor.xaml" />
                 <!--Put themes above here-->
-                <hc:Theme/>
+
+                <hc:Theme />
+
             </ResourceDictionary.MergedDictionaries>
 
             <cnv:BooleanToVisibilityConverter 
@@ -55,8 +62,13 @@
             <DataTemplate DataType="{x:Type vms:ShortcutsViewModel}">
                 <views:ShortcutsView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:CountdownsViewModel}">
+                <views:CountdownView />
+            </DataTemplate>
 
             <FontFamily x:Key="Regular">pack://application:,,,/OOP-LernDashboard;component/Fonts/#Roboto</FontFamily>
+
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

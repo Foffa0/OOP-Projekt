@@ -22,8 +22,20 @@ namespace OOP_LernDashboard.ViewModels
             get => _shortcut.Path;
             set
             {
-                _shortcut.Path = value;
-                _ = _dashboardStore.ModifyShortcut(_shortcut);
+                if (Shortcut.IsValidPath(value, _shortcut.Type))
+                {
+                    _shortcut.Path = value;
+                    _ = _dashboardStore.ModifyShortcut(_shortcut);
+                }
+                else
+                {
+                    Growl.Error(new GrowlInfo
+                    {
+                        Message = "Ungültigen Pfad",
+                        ShowDateTime = false,
+                        StaysOpen = false,
+                    });
+                }
             }
         }
         public string? Name
@@ -40,7 +52,7 @@ namespace OOP_LernDashboard.ViewModels
                 {
                     Growl.Error(new GrowlInfo
                     {
-                        Message = "Name already exists!",
+                        Message = "Name existiert bereits",
                         ShowDateTime = false,
                         StaysOpen = false,
                     });

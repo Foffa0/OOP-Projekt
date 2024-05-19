@@ -1,7 +1,9 @@
-﻿using OOP_LernDashboard.Models;
+﻿using HandyControl.Themes;
+using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Services.DataCreators;
 using OOP_LernDashboard.Services.DataProviders;
 using System.Configuration;
+using System.Windows.Media;
 
 namespace OOP_LernDashboard.Stores
 {
@@ -16,6 +18,8 @@ namespace OOP_LernDashboard.Stores
         private IDataProvider<ToDo> _toDoProvider;
         private IDataCreator<Shortcut> _shortcutCreator;
         private IDataProvider<Shortcut> _shortcutProvider;
+        private IDataCreator<Countdown> _countdownCreator;
+        private IDataProvider<Countdown> _countdownProvider;
 
         private readonly Models.LinkedList<ToDo> _toDos;
         public IEnumerable<ToDo> ToDos => _toDos;
@@ -23,8 +27,14 @@ namespace OOP_LernDashboard.Stores
         private readonly Models.LinkedList<Shortcut> _shortcuts;
         public IEnumerable<Shortcut> Shortcuts => _shortcuts;
 
+        private readonly Models.LinkedList<Countdown> _countdowns;
+        public IEnumerable<Countdown> Countdowns => _countdowns;
+
         public event Action<ToDo> ToDoCreated;
         public event Action<ToDo> ToDoDeleted;
+
+        public event Action<Countdown> CountdownCreated;
+        public event Action<Countdown> CountdownDeleted;
 
         public event Action<Shortcut> ShortcutCreated;
         public event Action<Shortcut> ShortcutDeleted;
@@ -37,18 +47,23 @@ namespace OOP_LernDashboard.Stores
         public string _welcomeName = "Studierende Person";
         public string WelcomeName => _welcomeName;
 
-        public DashboardStore(IDataCreator<ToDo> toDoDataCreator, IDataProvider<ToDo> toDoDataProvider, IDataCreator<Shortcut> shortcutDataCreator, IDataProvider<Shortcut> shortcutDataProvider)
+        public DashboardStore(IDataCreator<ToDo> toDoDataCreator, IDataProvider<ToDo> toDoDataProvider, IDataCreator<Shortcut> shortcutDataCreator, IDataProvider<Shortcut> shortcutDataProvider, IDataCreator<Countdown> countdownCreator, IDataProvider<Countdown> countdownProvider)
         {
             _toDoCreator = toDoDataCreator;
             _toDoProvider = toDoDataProvider;
 
             _shortcutCreator = shortcutDataCreator;
             _shortcutProvider = shortcutDataProvider;
+
+            _countdownCreator = countdownCreator;
+            _countdownProvider = countdownProvider;
+
             // the lazy ensures to only load the data once from the database
             _initializeLazy = new Lazy<Task>(Initialize);
 
             _toDos = new Models.LinkedList<ToDo>();
             _shortcuts = new Models.LinkedList<Shortcut>();
+            _countdowns = new Models.LinkedList<Countdown>();
 
             this.GoogleLogin = new GoogleLogin();
             this.GoogleLogin.AuthTokenReceived += GoogleLoginAuthTokenReceived;
@@ -117,6 +132,30 @@ namespace OOP_LernDashboard.Stores
         }
 
         /// <summary>
+        /// Adds a countdown to the database and updates the Countdown-List
+        /// </summary>
+        /// <param name="countdown"></param>
+        /// <returns></returns>
+        public async Task AddCountdown(Countdown countdown)
+        {
+            await _countdownCreator.CreateModel(countdown);
+            _countdowns.Add(countdown);
+            CountdownCreated?.Invoke(countdown);
+        }
+
+        /// <summary>
+        /// Removes a countdown from the database and updates the Countown-List
+        /// </summary>
+        /// <param name="countdown"></param>
+        /// <returns></returns>
+        public async Task DeleteCountdown(Countdown countdown)
+        {
+            await _countdownCreator.DeleteModel(countdown);
+            _toDos.Remove(_toDos.Where(i => i.Id == countdown.Id).Single());
+            CountdownDeleted?.Invoke(countdown);
+        }
+
+        /// <summary>
         /// Adds a Shortcut to the database and updates the Shortcuts-List
         /// </summary>
         /// <param name="shortcut"></param>
@@ -161,6 +200,13 @@ namespace OOP_LernDashboard.Stores
             {
                 _shortcuts.Add(shortcut);
             }
+
+            IEnumerable<Countdown> countdowns = await _countdownProvider.GetAllModels();
+            _countdowns.Clear();
+            foreach (var countdown in countdowns)
+            {
+                _countdowns.Add(countdown);
+            }
         }
 
         private void GoogleLoginAuthTokenReceived(object sender, string authToken)
@@ -180,6 +226,21 @@ namespace OOP_LernDashboard.Stores
         {
             _welcomeName = name;
             AddUpdateAppSettings("WelcomeName", name);
+        }
+
+        public void SetAccentColor(Brush color)
+        {
+            ThemeManager.Current.AccentColor = color;
+            AddUpdateAppSettings("AccentColor", color.ToString());
+        }
+
+        public void LoadAccentColor()
+        {
+            string? acccentColor = ReadSetting("AccentColor");
+            if (acccentColor != null && acccentColor != "")
+            {
+                ThemeManager.Current.AccentColor = (Brush)new BrushConverter().ConvertFrom(acccentColor);
+            }
         }
 
         public static void AddUpdateAppSettings(string key, string value)

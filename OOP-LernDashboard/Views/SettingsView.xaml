@@ -34,8 +34,20 @@
 
             <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Vorname" Style="{StaticResource Headline}"></TextBlock>
             <StackPanel Orientation="Horizontal">
-                <TextBox Width="300" VerticalContentAlignment="Center" Style="{StaticResource PrimaryTextInput}" Text="{Binding WelcomeName}"></TextBox>
-                <Button Style="{StaticResource PrimaryButton}" Command="{Binding UpdateWelcomeName}">Aktualisieren</Button>
+                <TextBox Width="300" VerticalContentAlignment="Center" Style="{StaticResource PrimaryTextInput}" Text="{Binding WelcomeName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Button Style="{StaticResource PrimaryButton}" Command="{Binding UpdateWelcomeNameCommand}">Aktualisieren</Button>
+            </StackPanel>
+
+            <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Farbauswahl" Style="{StaticResource Headline}"></TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <!--Hacky trick to remove cancel and confirm button from the color picker-->
+                <Border BorderBrush="{DynamicResource BorderBrush}" MaxHeight="294" BorderThickness="0,0,0,1">
+                    <hc:ColorPicker Margin="0" SelectedBrush="{Binding AccentColorBrush, Mode=OneWay}" Name="ColorPicker"></hc:ColorPicker>
+                </Border>
+                <Button Style="{StaticResource PrimaryButton}" Background="{Binding AccentColorBrush}" VerticalAlignment="Center"
+                        Command="{Binding UpdateAccentColorCommand}" Margin="20, 0">
+                    Speichern
+                </Button>
             </StackPanel>
         </StackPanel>
     </Grid>

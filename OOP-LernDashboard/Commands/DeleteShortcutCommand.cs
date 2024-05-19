@@ -26,7 +26,6 @@ namespace OOP_LernDashboard.Commands
                 NoContent = "Nein",
                 IconKey = ResourceToken.AskGeometry,
                 IconBrushKey = "PrimaryColor",
-                StyleKey = "MessageBoxCustom",
             });
             if (result == MessageBoxResult.Yes)
             {

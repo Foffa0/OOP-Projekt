@@ -1,5 +1,7 @@
-﻿using System;
+﻿using HandyControl.Data;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +25,16 @@ namespace OOP_LernDashboard.Views
         public SettingsView()
         {
             InitializeComponent();
+            ColorPicker.SelectedColorChanged += ColorPicker_SelectedColorChanged;
+        }
+
+        private void ColorPicker_SelectedColorChanged(object? sender, FunctionEventArgs<System.Windows.Media.Color> e)
+        {
+            if(DataContext == null)
+            {
+                return;
+            }
+            (DataContext as ViewModels.SettingsViewModel).AccentColor = e.Info;
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

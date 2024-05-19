@@ -1,4 +1,5 @@
-﻿using OOP_LernDashboard.Models;
+﻿using HandyControl.Tools.Extension;
+using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Stores;
 using OOP_LernDashboard.ViewModels;
 using System.Drawing;
@@ -23,38 +24,42 @@ namespace OOP_LernDashboard.Commands
 
         public override async void Execute(object? parameter)
         {
-            if (_shortcutsViewModel.NewShortcutName == "" || _shortcutsViewModel.NewShortcutName == null)
+            if (_shortcutsViewModel.NewShortcutName.IsNullOrEmpty())
             {
-                throw new NullReferenceException("Cannot create Shortcut with Null as name");
+                _shortcutsViewModel.AddError("Name kann nicht leer sein", nameof(ShortcutsViewModel.NewShortcutName));
+                return;
             }
 
-            if (_shortcutsViewModel.NewShortcutPath == "" || _shortcutsViewModel.NewShortcutPath == null)
+            if (_shortcutsViewModel.NewShortcutPath.IsNullOrEmpty())
             {
-                throw new NullReferenceException("Cannot create Shortcut with Null as path");
+                _shortcutsViewModel.AddError("Pfad kann nicht leer sein", nameof(ShortcutsViewModel.NewShortcutPath));
+                return;
             }
 
             // check if some shortcut with the same name already exists
             if(_dashboardStore.Shortcuts.Any(s => s.Name == _shortcutsViewModel.NewShortcutName))
             {
-                MessageBox.Show("Shortcut mit diesem Namen existiert bereits!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _shortcutsViewModel.AddError("Shortcut mit diesem Namen existiert bereits", nameof(ShortcutsViewModel.NewShortcutName));
                 return;
             }
 
             ShortcutType type;
             string iconPath = "";
 
-            if (Uri.IsWellFormedUriString(_shortcutsViewModel.NewShortcutPath, UriKind.RelativeOrAbsolute))
+            
+            if (Shortcut.IsValidPath(_shortcutsViewModel.NewShortcutPath, ShortcutType.Link))
             {
                 type = ShortcutType.Link;
 
                 iconPath = _shortcutsViewModel.NewShortcutPath;
 
-                Uri uri = new Uri(_shortcutsViewModel.NewShortcutPath);
+                var uri = new Uri(_shortcutsViewModel.NewShortcutPath);
+
                 iconPath = uri.Host;  // host is "www.google.com" for example
 
                 iconPath = " https://icons.duckduckgo.com/ip3/" + iconPath + ".ico";
             }
-            else if (_shortcutsViewModel.NewShortcutPath.IndexOfAny(Path.GetInvalidPathChars()) == -1)
+            else if (Shortcut.IsValidPath(_shortcutsViewModel.NewShortcutPath, ShortcutType.Application))
             {
                 type = ShortcutType.Application;
 
@@ -62,12 +67,12 @@ namespace OOP_LernDashboard.Commands
             }
             else
             {
-                throw new ArgumentException("Path is not a valid link or application path");
+                _shortcutsViewModel.AddError("Pfad ist nicht valide", nameof(ShortcutsViewModel.NewShortcutPath));
+                return;
             }
 
             Shortcut shortcut = new Shortcut(type, _shortcutsViewModel.NewShortcutPath, _shortcutsViewModel.NewShortcutName, iconPath);
-            _shortcutsViewModel.NewShortcutPath = "";
-            _shortcutsViewModel.NewShortcutName = "";
+            _shortcutsViewModel.ClearInputFields();
             await _dashboardStore.AddShortcut(shortcut);
 
         }
