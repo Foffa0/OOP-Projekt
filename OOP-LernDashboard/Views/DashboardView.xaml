@@ -33,29 +33,61 @@
                         <StackPanel>
                             <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Headline}" Margin="0,0,0,10">Shortcuts</TextBlock>
 
-                            <ListBox ItemsSource="{Binding Shortcuts}" Background="Transparent" BorderThickness="0" 
-                                      Padding="0"
+                            <ListView Grid.Row="1" ItemsSource="{Binding Shortcuts}" Background="Transparent" BorderThickness="0"
                                       Margin="0"
-                                      VerticalContentAlignment="Stretch"  
-                                      HorizontalContentAlignment="Stretch"
-                                        ScrollViewer.VerticalScrollBarVisibility="Visible">
-                                <ListBox.ItemTemplate>
+                                      Padding="4,0,4,4"
+                                      VerticalContentAlignment="Top"  
+                                      ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                      VirtualizingPanel.ScrollUnit="Pixel"
+                                      HorizontalContentAlignment="Stretch">
+                                <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <Button  HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Margin="0" Padding="0" Command="{Binding OpenShortcutCommand}">
-                                            <StackPanel Orientation="Horizontal" Margin="0">
-                                                <Image Source="{Binding BitmapSource}" Width="auto" Height="18" Stretch="Uniform"/>
-                                                <TextBlock Text="{Binding Name}" Margin="10,0,0,0"/>
-                                            </StackPanel>
-                                        </Button>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
+                                        <Grid Background="Transparent" Margin="0" HorizontalAlignment="Stretch" Cursor="Hand">
+                                            <Grid.InputBindings>
+                                                <MouseBinding Gesture="LeftClick" Command="{Binding OpenShortcutCommand}"/>
+                                            </Grid.InputBindings>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
 
-                                <ListBox.ItemContainerStyle>
-                                    <Style TargetType="ListBoxItem">
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                            <Image Grid.Column="0" Source="{Binding BitmapSource}" Width="auto" Height="18" Stretch="Uniform"/>
+
+                                            <TextBlock Grid.Column="1" Text="{Binding Name}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+
+                                        </Grid>
+
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ListViewItem">
+                                                    <Border Background="{TemplateBinding Background}" 
+                                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                                        BorderThickness="{TemplateBinding BorderThickness}" 
+                                                        CornerRadius="5" 
+                                                        Padding="5">
+                                                        <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
                                     </Style>
-                                </ListBox.ItemContainerStyle>
-                            </ListBox>
+                                </ListView.ItemContainerStyle>
+                                <ListView.Style>
+                                    <Style TargetType="ListView" BasedOn="{StaticResource ListView.Small}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Events.Count}" Value="0">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ListView.Style>
+                            </ListView>
 
                             <Button Command="{Binding ShortcutsCommand}" Background="Transparent" BorderThickness="0" Foreground="#f0f0f0" Cursor="Hand">
                                 <Underline>Bearbeiten</Underline>
@@ -164,7 +196,7 @@
                                                     <TextBlock Text="{Binding TimeWindow}"  HorizontalAlignment="Right"></TextBlock>
                                                 </StackPanel>
                                             </StackPanel>
-                                            
+
                                         </Grid>
 
                                     </DataTemplate>

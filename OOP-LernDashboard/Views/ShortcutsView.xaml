@@ -29,9 +29,9 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     
-                    <DataGridTextColumn Width="auto" Header="Name" Binding="{Binding Name}" IsReadOnly="False"></DataGridTextColumn>
-                    <DataGridTextColumn Width="auto" Header="Path" Binding="{Binding Path}" IsReadOnly="False"></DataGridTextColumn>
-                    <DataGridTextColumn Width="auto" Header="Type" Binding="{Binding Type}" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTextColumn Width="auto" MinWidth="50" Header="Name" Binding="{Binding Name}" IsReadOnly="False"></DataGridTextColumn>
+                    <DataGridTextColumn Width="auto" MinWidth="50" Header="Path" Binding="{Binding Path}" IsReadOnly="False"></DataGridTextColumn>
+                    <DataGridTextColumn Width="auto" MinWidth="50" Header="Type" Binding="{Binding Type}" IsReadOnly="True"></DataGridTextColumn>
 
                     
 

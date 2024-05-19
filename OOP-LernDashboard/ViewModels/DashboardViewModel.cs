@@ -11,6 +11,7 @@ namespace OOP_LernDashboard.ViewModels
     {
         private readonly DashboardStore _dashboardStore;
 
+        #region Properties
 
         private string _welcomeName = "Studierende Person";
         public string WelcomeName
@@ -50,6 +51,10 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
+        #endregion
+
+        #region ObservableCollections
+
         private readonly ObservableCollection<ToDoViewModel> _toDos;
         public IEnumerable<ToDoViewModel> ToDos => _toDos;
 
@@ -65,12 +70,18 @@ namespace OOP_LernDashboard.ViewModels
         private readonly ObservableCollection<CountdownViewModel> _countdowns;
         public IEnumerable<CountdownViewModel> Countdowns => _countdowns;
 
+        #endregion
+
+        #region Commands
+
         public ICommand AddToDoCommand { get; }
 
         public ICommand LoadDataAsyncCommand { get; }
 
         public ICommand ShortcutsCommand { get; }
         public ICommand CalendarCommand { get; }
+
+        #endregion
 
         public DashboardViewModel(Dashboard dashboard, DashboardStore dashboardStore, NavigationService shortcutsNavigationService, NavigationService dashboardNavigationService)
         {
@@ -136,7 +147,6 @@ namespace OOP_LernDashboard.ViewModels
             ToDoViewModel toDoViewModel = new ToDoViewModel(toDo);
             _toDos.Remove(toDoViewModel);
         }
-
 
         public void UpdateToDos(IEnumerable<ToDo> todos)
         {

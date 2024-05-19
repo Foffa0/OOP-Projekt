@@ -99,18 +99,30 @@ namespace OOP_LernDashboard.ViewModels
         public ICommand SaveCommand { get; }
         public ICommand DeleteCommand { get; }
 
-        public EventViewModel(DashboardStore dashboardStore)
+        public EventViewModel(DashboardStore dashboardStore, CalendarEvent calendarEvent)
         {
             ShowDetailsCommand = new ShowEventDetailsCommand(this, dashboardStore);
             SaveCommand = new ModifyEventDetailsCommand(this, dashboardStore);
             DeleteCommand = new DeleteCalendarEventCommand(this, dashboardStore);
-        }
 
-        public EventViewModel(DashboardStore dashboardStore, CalendarEvent calendarEvent) : this(dashboardStore)
-        {
             _event = calendarEvent;
+
+            _eventTitleTemp = EventTitle;
+            _eventDescriptionTemp = EventDescription;
+            _eventDateTemp = _event.StartTime.Date;
+            if (!IsWholeDayEvent)
+            {
+                _eventStartTimeTemp = _event.StartTime;
+                _eventEndTimeTemp = _event.EndTime!.Value;
+            }
+
+            OnSaved = () => { };
+            OnDeleted = () => { };
         }
 
+        /// <summary>
+        /// Resets the temp data to the current event data
+        /// </summary>
         public void ResetTempData()
         {
             EventTitleTemp = EventTitle;
@@ -124,6 +136,9 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
+        /// <summary>
+        /// Applies the temp data to the event
+        /// </summary>
         public void ApplyTempData()
         {
             _event.Title = EventTitleTemp;
