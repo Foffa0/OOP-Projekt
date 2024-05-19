@@ -113,7 +113,7 @@ namespace OOP_LernDashboard.ViewModels
             EventDescriptionTemp = EventDescription;
             EventDateTemp = _event.StartTime.Date;
 
-            if(!IsWholeDayEvent)
+            if (!IsWholeDayEvent)
             {
                 EventStartTimeTemp = _event.StartTime;
                 EventEndTimeTemp = _event.EndTime!.Value;

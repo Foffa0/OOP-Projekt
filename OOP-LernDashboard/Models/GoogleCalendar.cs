@@ -3,7 +3,6 @@ using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Services;
 using HandyControl.Controls;
-using System.Globalization;
 
 
 namespace OOP_LernDashboard.Models
@@ -123,24 +122,24 @@ namespace OOP_LernDashboard.Models
 
         private static CalendarEvent ToCalendarEvent(Event e)
         {
-            if(e.Start.Date != null)
+            if (e.Start.Date != null)
             {
                 // whole day event
                 return new CalendarEvent(
-                    e.Summary, 
-                    e.Description, 
-                    DateTime.Parse(e.Start.Date), 
-                    null, 
+                    e.Summary,
+                    e.Description,
+                    DateTime.Parse(e.Start.Date),
+                    null,
                     e.Id);
             }
             else
             {
                 // event with start and end time
                 return new CalendarEvent(
-                    e.Summary, 
-                    e.Description, 
-                    e.Start.DateTimeDateTimeOffset.Value.LocalDateTime, 
-                    e.End.DateTimeDateTimeOffset.Value.LocalDateTime, 
+                    e.Summary,
+                    e.Description,
+                    e.Start.DateTimeDateTimeOffset.Value.LocalDateTime,
+                    e.End.DateTimeDateTimeOffset.Value.LocalDateTime,
                     e.Id);
             }
         }
@@ -149,7 +148,7 @@ namespace OOP_LernDashboard.Models
         {
             Event googleEvent = new Event();
 
-            if(e.Id != null) googleEvent.Id = e.Id;
+            if (e.Id != null) googleEvent.Id = e.Id;
             googleEvent.Summary = e.Title;
             googleEvent.Description = e.Description;
 
@@ -166,7 +165,7 @@ namespace OOP_LernDashboard.Models
                 googleEvent.Start.DateTimeDateTimeOffset = e.StartTime;
                 googleEvent.End.DateTimeDateTimeOffset = e.EndTime;
             }
-            
+
             return googleEvent;
         }
     }

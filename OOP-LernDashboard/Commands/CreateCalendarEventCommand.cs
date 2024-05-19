@@ -19,7 +19,7 @@ namespace OOP_LernDashboard.Commands
         {
             DateTime start = _calendarViewModel.IsWholeDay ? _calendarViewModel.NewEventDate : _calendarViewModel.NewEventDate.AddHours(_calendarViewModel.NewEventStartTime.Hour).AddMinutes(_calendarViewModel.NewEventStartTime.Minute);
             DateTime? end = _calendarViewModel.IsWholeDay ? null : _calendarViewModel.NewEventDate.AddHours(_calendarViewModel.NewEventEndTime.Hour).AddMinutes(_calendarViewModel.NewEventEndTime.Minute);
-            
+
             var calendarEvent = new CalendarEvent(
                 _calendarViewModel.NewEventTitle,
                 _calendarViewModel.NewEventDescription,
