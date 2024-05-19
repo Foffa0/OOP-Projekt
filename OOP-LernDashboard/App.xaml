@@ -4,7 +4,8 @@
              xmlns:local="clr-namespace:OOP_LernDashboard"
              xmlns:vms="clr-namespace:OOP_LernDashboard.ViewModels"
              xmlns:cnv="clr-namespace:OOP_LernDashboard.Views.Converters"
-             xmlns:views="clr-namespace:OOP_LernDashboard.Views" xmlns:hc="https://handyorg.github.io/handycontrol">
+             xmlns:views="clr-namespace:OOP_LernDashboard.Views" 
+             xmlns:hc="https://handyorg.github.io/handycontrol">
     <Application.Resources>
         <ResourceDictionary>
 
