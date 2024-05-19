@@ -15,8 +15,12 @@ namespace OOP_LernDashboard.ViewModels
 
         public string EventTitle => _event.Title;
         public string EventDescription => _event.Description;
-        public string EventStart => _event.StartTime.ToString("HH:mm", de);
-        public string EventEnd => _event.EndTime?.ToString("HH:mm", de) ?? "";
+        public string Date => _event.StartTime.ToString("dd.MM.yyyy", de);
+
+        public string StartTime => _event.StartTime.ToString("HH:mm", de);
+        public string EndTime => _event.EndTime?.ToString("HH:mm", de) ?? "";
+
+        public string TimeWindow => IsWholeDayEvent ? "Ganztägig" : $"{StartTime} - {EndTime}";
 
         public bool IsWholeDayEvent => _event.IsAllDayEvent;
 

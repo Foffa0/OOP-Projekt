@@ -70,8 +70,9 @@ namespace OOP_LernDashboard.ViewModels
         public ICommand LoadDataAsyncCommand { get; }
 
         public ICommand ShortcutsCommand { get; }
+        public ICommand CalendarCommand { get; }
 
-        public DashboardViewModel(Dashboard dashboard, DashboardStore dashboardStore, NavigationService shortcutsNavigationService)
+        public DashboardViewModel(Dashboard dashboard, DashboardStore dashboardStore, NavigationService shortcutsNavigationService, NavigationService dashboardNavigationService)
         {
             _dashboardStore = dashboardStore;
 
@@ -79,6 +80,7 @@ namespace OOP_LernDashboard.ViewModels
             LoadDataAsyncCommand = new LoadDashboardDataCommand(this, dashboardStore);
 
             ShortcutsCommand = new NavigateCommand(shortcutsNavigationService);
+            CalendarCommand = new NavigateCommand(dashboardNavigationService);
 
             _toDos = new ObservableCollection<ToDoViewModel>();
             _calendarEvents = new ObservableCollection<EventViewModel>();
@@ -107,9 +109,9 @@ namespace OOP_LernDashboard.ViewModels
             base.Dispose();
         }
 
-        public static DashboardViewModel LoadViewModel(Dashboard dashboard, DashboardStore dashboardStore, NavigationService shortcutsNavigationService)
+        public static DashboardViewModel LoadViewModel(Dashboard dashboard, DashboardStore dashboardStore, NavigationService shortcutsNavigationService, NavigationService dashboardNavigationService)
         {
-            DashboardViewModel viewModel = new DashboardViewModel(dashboard, dashboardStore, shortcutsNavigationService);
+            DashboardViewModel viewModel = new DashboardViewModel(dashboard, dashboardStore, shortcutsNavigationService, dashboardNavigationService);
             //Load data asynchronously
             viewModel.LoadDataAsyncCommand.Execute(null);
             return viewModel;

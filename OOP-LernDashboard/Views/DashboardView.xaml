@@ -137,33 +137,71 @@
                         <StackPanel>
                             <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Headline}" Margin="0,0,0,10" Text="Anstehende Termine"></TextBlock>
 
-                            <ListView Padding="0" Background="Transparent" BorderThickness="0" ItemsSource="{Binding CalendarEvents}">
-                                <ListView.Resources>
-                                    <Style TargetType="GridViewColumnHeader">
-                                        <Setter Property="Template" Value="{x:Null}" />
-                                    </Style>
-                                </ListView.Resources>
+                            <ListView Grid.Row="1" ItemsSource="{Binding CalendarEvents}" Background="Transparent" BorderThickness="0"
+                                        Margin="0"
+                                        Padding="4,0,4,4"
+                                        VerticalContentAlignment="Top"  
+                                        ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                        VirtualizingPanel.ScrollUnit="Pixel"
+                                        HorizontalContentAlignment="Stretch">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Background="Transparent" Margin="0" HorizontalAlignment="Stretch" Cursor="Hand">
+                                            <Grid.InputBindings>
+                                                <MouseBinding Gesture="LeftClick" Command="{Binding ShowDetailsCommand}"/>
+                                            </Grid.InputBindings>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Grid.Column="0" Text="{Binding EventTitle}" TextWrapping="WrapWithOverflow"></TextBlock>
+
+                                            <StackPanel Grid.Column="1">
+                                                <TextBlock Text="{Binding Date}" HorizontalAlignment="Right"></TextBlock>
+                                                <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right">
+                                                    <TextBlock Text="{Binding TimeWindow}"  HorizontalAlignment="Right"></TextBlock>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            
+                                        </Grid>
+
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
                                 <ListView.ItemContainerStyle>
                                     <Style TargetType="ListViewItem">
-                                        <Setter Property="BorderThickness" Value="0"/>
-                                        <Setter Property="Margin" Value="0, 0, 0, 10"/>
-                                        <Setter Property="Padding" Value="10"/>
-                                        <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
+                                        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ListViewItem">
+                                                    <Border Background="{TemplateBinding Background}" 
+                                                            BorderBrush="{TemplateBinding BorderBrush}" 
+                                                            BorderThickness="{TemplateBinding BorderThickness}" 
+                                                            CornerRadius="5" 
+                                                            Padding="5">
+                                                        <ContentPresenter HorizontalAlignment="Stretch" 
+                                    VerticalAlignment="Stretch"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
                                     </Style>
                                 </ListView.ItemContainerStyle>
-
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn>
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock Text="{Binding Title}"  Margin="0,-2,0,0"/>
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>
-                                    </GridView>
-                                </ListView.View>
+                                <ListView.Style>
+                                    <Style TargetType="ListView" BasedOn="{StaticResource ListView.Small}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Events.Count}" Value="0">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ListView.Style>
                             </ListView>
+
+                            <Button Command="{Binding CalendarCommand}" Background="Transparent" BorderThickness="0" Foreground="#f0f0f0" Cursor="Hand">
+                                <Underline>Kalender</Underline>
+                            </Button>
                         </StackPanel>
                     </Border>
                 </Grid>
