@@ -1,38 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows;
-using HandyControl.Expression.Shapes;
-using System.Windows.Controls.Primitives;
-using HandyControl.Controls;
-using HandyControl.Data;
+﻿
+using System.Threading;
 using System.Windows.Input;
+using System.Windows.Threading;
 using OOP_LernDashboard.Commands;
-using System.Runtime.CompilerServices;
-using System.Diagnostics;
+
 
 
 namespace OOP_LernDashboard.ViewModels
 {
     class TimerViewModel : ViewModelBase
     {
-        public static TimerViewModel LoadViewModel()
-        {
-            TimerViewModel viewModel = new TimerViewModel();
-            return viewModel;
-        }
-
         
         public ICommand SetTimerCommand { get; }
 
+        private DispatcherTimer _timer;
+        private DateTime _startTime;
+        private TimeSpan _totalTime;
+
+        public TimerViewModel()
+        {
+            SetTimerCommand = new SetTimerCommand(this);
+            _timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(1),
+            };
+            _timer.Tick += Timer_Tick;
+        }
 
         public void StartTimer()
         {
+            _startTime = DateTime.Now;
+            _totalTime = new TimeSpan(Hours, Minutes, Seconds);
             BarValue = 100.00;
-            
+            _timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            var elapsed = DateTime.Now - _startTime;
+            var remaining = _totalTime - elapsed;
+            BarValue = (remaining.TotalSeconds / _totalTime.TotalSeconds) * 100;
+            if (remaining.TotalSeconds <= 0)
+            {
+                _timer.Stop();
+                Timer = "Ich habe fertig";
+            }
         }
 
         private void UpdateTime()
@@ -63,7 +75,7 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
-        private int _hours = 00;
+        private int _hours;
         public int Hours
         {
             get => this._hours;
@@ -76,7 +88,7 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
-        private int _minutes = 00;
+        private int _minutes;
         public int Minutes
         {
             get => this._minutes;
@@ -88,7 +100,7 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
-        private int _seconds;
+        private int _seconds=1;
         public int Seconds
         {
             get => this._seconds;
@@ -100,14 +112,10 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
-
-
-        public TimerViewModel()
+        public static TimerViewModel LoadViewModel()
         {
-            SetTimerCommand = new SetTimerCommand(this);
+            TimerViewModel viewModel = new TimerViewModel();
+            return viewModel;
         }
-
-        
-
     }
 }
