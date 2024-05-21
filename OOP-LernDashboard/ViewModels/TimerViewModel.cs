@@ -3,6 +3,7 @@ using System.Threading;
 using System.Windows.Input;
 using System.Windows.Threading;
 using OOP_LernDashboard.Commands;
+using OOP_LernDashboard.Models;
 
 
 
@@ -13,43 +14,20 @@ namespace OOP_LernDashboard.ViewModels
         
         public ICommand SetTimerCommand { get; }
 
-        private DispatcherTimer _timer;
-        private DateTime _startTime;
-        private TimeSpan _totalTime;
-
         public TimerViewModel()
         {
             SetTimerCommand = new SetTimerCommand(this);
-            _timer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromMilliseconds(1),
-            };
-            _timer.Tick += Timer_Tick;
         }
 
         public void StartTimer()
         {
-            _startTime = DateTime.Now;
-            _totalTime = new TimeSpan(Hours, Minutes, Seconds);
-            BarValue = 100.00;
-            _timer.Start();
-        }
-
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            var elapsed = DateTime.Now - _startTime;
-            var remaining = _totalTime - elapsed;
-            BarValue = (remaining.TotalSeconds / _totalTime.TotalSeconds) * 100;
-            if (remaining.TotalSeconds <= 0)
-            {
-                _timer.Stop();
-                Timer = "Ich habe fertig";
-            }
+            Models.Timer timer = new Models.Timer(this, new TimeSpan(Hours, Minutes, Seconds));
+            timer.Start();
         }
 
         private void UpdateTime()
         {
-            Timer = $"{Hours}:{Minutes},{Seconds}";
+            Timer = $"{Hours}:{Minutes}.{Seconds}";
         }
 
         private string _time = "Time";
@@ -58,7 +36,7 @@ namespace OOP_LernDashboard.ViewModels
             get => _time;
             set
             {
-                _time = $"{Hours}:{Minutes},{Seconds}";
+                _time = value;
                 OnPropertyChanged(nameof(Timer));
             }
         }
@@ -71,7 +49,6 @@ namespace OOP_LernDashboard.ViewModels
             {
                 _barValue = value;
                 OnPropertyChanged(nameof(BarValue));
-                
             }
         }
 
