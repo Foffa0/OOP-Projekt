@@ -15,7 +15,7 @@ namespace OOP_LernDashboard.Models
     internal class GoogleLogin
     {
         public string? AuthToken { get; set; }
-        public event EventHandler<(string accessToken, string? refreshToken)>? AuthTokenReceived;
+        public event EventHandler<(string accessToken, string? refreshToken)>? AuthTokenReceived; // When refresh token is null, the user is loggin in again and the refresh token is not needed to update
 
         /// <summary>
         /// Authencitation data from https://console.cloud.google.com/apis/credentials?project=oop-lerndashboard
@@ -214,7 +214,7 @@ namespace OOP_LernDashboard.Models
                 this.AuthToken = accessToken;
 
                 // Raise the event when the token is received
-                AuthTokenReceived?.Invoke(this, (accessToken, refreshToken));
+                AuthTokenReceived?.Invoke(this, (accessToken, null));
 
                 return accessToken;
             }

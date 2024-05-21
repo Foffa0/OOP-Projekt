@@ -213,11 +213,16 @@ namespace OOP_LernDashboard.Stores
 
         private void GoogleLoginAuthTokenReceived(object sender, (string authToken, string refreshToken) token)
         {
-            // Initialize GoogleCalendar class using authToken
-            this.GoogleCalendar = new GoogleCalendar(token.authToken);
-
-            AddUpdateAppSettings("GoogleRefreshToken", token.refreshToken);
-
+            if(token.refreshToken == null)
+            {
+                // User logs in again and no need to update the refresh token
+                this.GoogleCalendar = new GoogleCalendar(token.authToken, false);
+            }
+            else
+            {
+                this.GoogleCalendar = new GoogleCalendar(token.authToken, true);
+                AddUpdateAppSettings("GoogleRefreshToken", token.refreshToken);
+            }
             GoogleLoggedIn?.Invoke();
         }
 
