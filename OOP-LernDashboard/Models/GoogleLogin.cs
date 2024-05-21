@@ -15,7 +15,7 @@ namespace OOP_LernDashboard.Models
     internal class GoogleLogin
     {
         public string? AuthToken { get; set; }
-        public event EventHandler<string>? AuthTokenReceived;
+        public event EventHandler<(string accessToken, string? refreshToken)>? AuthTokenReceived;
 
         /// <summary>
         /// Authencitation data from https://console.cloud.google.com/apis/credentials?project=oop-lerndashboard
@@ -25,19 +25,6 @@ namespace OOP_LernDashboard.Models
         const string AuthorizationEndpoint = "https://accounts.google.com/o/oauth2/v2/auth";
 
         public GoogleLogin() { }
-
-        /// <summary>
-        /// returns random unused Port used for Browser interaction
-        /// </summary>
-        /// <returns></returns>
-        public static int GetRandomUnusedPort()
-        {
-            var listener = new TcpListener(IPAddress.Loopback, 0);
-            listener.Start();
-            var port = ((IPEndPoint)listener.LocalEndpoint).Port;
-            listener.Stop();
-            return port;
-        }
 
         /// <summary>
         /// Main methode to call when the user wants to login into account
@@ -59,7 +46,7 @@ namespace OOP_LernDashboard.Models
             http.Start();
 
             // Creates the OAuth 2.0 authorization request.
-            string authorizationRequest = string.Format("{0}?response_type=code&scope=https://www.googleapis.com/auth/calendar%20openid%20profile&redirect_uri={1}&client_id={2}&state={3}&code_challenge={4}&code_challenge_method={5}",
+            string authorizationRequest = string.Format("{0}?response_type=code&scope=https://www.googleapis.com/auth/calendar%20openid%20profile&redirect_uri={1}&client_id={2}&state={3}&code_challenge={4}&code_challenge_method={5}&access_type=offline&prompt=consent",
                 AuthorizationEndpoint,
                 System.Uri.EscapeDataString(redirectURI),
                 ClientID,
@@ -113,52 +100,35 @@ namespace OOP_LernDashboard.Models
             }
 
             // Starts the code exchange at the Token Endpoint.
-            performCodeExchange(code, code_verifier, redirectURI);
+            PerformCodeExchange(code, code_verifier, redirectURI);
         }
 
-        async void performCodeExchange(string code, string code_verifier, string redirectURI)
+        /// <summary>
+        /// Sends a request to the token endpoint to exchange the code for an access token
+        /// </summary>
+        /// <param name="requestBody"></param>
+        /// <returns></returns>
+        private async Task<string> SendTokenRequestAsync(string requestBody)
         {
-            // builds the  request
             string tokenRequestURI = "https://www.googleapis.com/oauth2/v4/token";
-            string tokenRequestBody = string.Format("code={0}&redirect_uri={1}&client_id={2}&code_verifier={3}&client_secret={4}&scope=&grant_type=authorization_code",
-                code,
-                System.Uri.EscapeDataString(redirectURI),
-                ClientID,
-                code_verifier,
-                ClientSecret
-                );
 
-            // sends the request
             HttpWebRequest tokenRequest = (HttpWebRequest)WebRequest.Create(tokenRequestURI);
             tokenRequest.Method = "POST";
             tokenRequest.ContentType = "application/x-www-form-urlencoded";
-            tokenRequest.Accept = "Accept=text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
-            byte[] _byteVersion = Encoding.ASCII.GetBytes(tokenRequestBody);
-            tokenRequest.ContentLength = _byteVersion.Length;
-            Stream stream = tokenRequest.GetRequestStream();
-            await stream.WriteAsync(_byteVersion, 0, _byteVersion.Length);
-            stream.Close();
+            byte[] byteVersion = Encoding.ASCII.GetBytes(requestBody);
+            tokenRequest.ContentLength = byteVersion.Length;
+
+            using (Stream stream = tokenRequest.GetRequestStream())
+            {
+                await stream.WriteAsync(byteVersion, 0, byteVersion.Length);
+            }
 
             try
             {
-                // gets the response
                 WebResponse tokenResponse = await tokenRequest.GetResponseAsync();
                 using (StreamReader reader = new StreamReader(tokenResponse.GetResponseStream()))
                 {
-                    // reads response body
-                    string responseText = await reader.ReadToEndAsync();
-
-                    // converts to dictionary
-                    Dictionary<string, string> tokenEndpointDecoded = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseText)
-                        ?? new Dictionary<string, string>(); ;
-
-                    string accessToken = tokenEndpointDecoded["access_token"];
-                    string tokenType = tokenEndpointDecoded["token_type"];
-
-                    this.AuthToken = accessToken;
-
-                    // Raise the event when the token is received
-                    AuthTokenReceived?.Invoke(this, accessToken);
+                    return await reader.ReadToEndAsync();
                 }
             }
             catch (WebException ex)
@@ -170,14 +140,99 @@ namespace OOP_LernDashboard.Models
                     {
                         using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                         {
-                            // reads response body
                             string responseText = await reader.ReadToEndAsync();
                             MessageBox.Show("HTTP: " + response.StatusCode + "\n" + responseText, "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                     }
-
                 }
+                return null;
             }
+        }
+
+        /// <summary>
+        /// Parses the response from the token endpoint
+        /// </summary>
+        /// <param name="responseText"></param>
+        /// <returns></returns>
+        private Dictionary<string, string> ParseResponse(string responseText)
+        {
+            return JsonConvert.DeserializeObject<Dictionary<string, string>>(responseText)
+                ?? new Dictionary<string, string>();
+        }
+
+        /// <summary>
+        /// Gets the access token from the code when User logs in for the first time
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="codeVerifier"></param>
+        /// <param name="redirectURI"></param>
+        private async void PerformCodeExchange(string code, string codeVerifier, string redirectURI)
+        {
+            string tokenRequestBody = string.Format("code={0}&redirect_uri={1}&client_id={2}&code_verifier={3}&client_secret={4}&scope=&grant_type=authorization_code&access_type=offline&prompt=consent",
+                code,
+                Uri.EscapeDataString(redirectURI),
+                ClientID,
+                codeVerifier,
+                ClientSecret
+            );
+
+            string responseText = await SendTokenRequestAsync(tokenRequestBody);
+
+            if (!string.IsNullOrEmpty(responseText))
+            {
+                Dictionary<string, string> tokenEndpointDecoded = ParseResponse(responseText);
+                string accessToken = tokenEndpointDecoded["access_token"];
+                string? refreshToken = tokenEndpointDecoded.ContainsKey("refresh_token") ? tokenEndpointDecoded["refresh_token"] : null;
+
+                this.AuthToken = accessToken;
+
+                // Raise the event when the token is received
+                AuthTokenReceived?.Invoke(this, (accessToken, refreshToken));
+            }
+        }
+
+        /// <summary>
+        /// Gets the new access token from the refresh token
+        /// </summary>
+        /// <param name="refreshToken"></param>
+        /// <returns></returns>
+        public async Task<string> RefreshAccessTokenAsync(string refreshToken)
+        {
+            string tokenRequestBody = string.Format("client_id={0}&client_secret={1}&refresh_token={2}&grant_type=refresh_token&access_type=offline&prompt=consent",
+                ClientID,
+                ClientSecret,
+                refreshToken
+            );
+
+            string responseText = await SendTokenRequestAsync(tokenRequestBody);
+
+            if (!string.IsNullOrEmpty(responseText))
+            {
+                Dictionary<string, string> tokenEndpointDecoded = ParseResponse(responseText);
+                string accessToken = tokenEndpointDecoded["access_token"];
+
+                this.AuthToken = accessToken;
+
+                // Raise the event when the token is received
+                AuthTokenReceived?.Invoke(this, (accessToken, refreshToken));
+
+                return accessToken;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// returns random unused Port used for Browser interaction
+        /// </summary>
+        /// <returns></returns>
+        public static int GetRandomUnusedPort()
+        {
+            var listener = new TcpListener(IPAddress.Loopback, 0);
+            listener.Start();
+            var port = ((IPEndPoint)listener.LocalEndpoint).Port;
+            listener.Stop();
+            return port;
         }
 
         /// <summary>
