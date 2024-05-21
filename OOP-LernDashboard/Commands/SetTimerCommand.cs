@@ -13,7 +13,8 @@ namespace OOP_LernDashboard.Commands
 
         public override void Execute(object? parameter)
         {
-            _timerViewModel.Timer = $"{_timerViewModel.Hours},{_timerViewModel.Minutes},{_timerViewModel.Seconds}";
+            _timerViewModel.Timer = $"{_timerViewModel.Hours}:{_timerViewModel.Minutes}.{_timerViewModel.Seconds}";
+            _timerViewModel.BarValue = 0;
             _timerViewModel.StartTimer();
         }
     }

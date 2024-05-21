@@ -1,36 +1,42 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows.Threading;
+using OOP_LernDashboard.ViewModels;
 
 namespace OOP_LernDashboard.Models
 {
-    internal class Timer
+    class Timer
     {
-        int hours;
-        int minutes;
-        int seconds;
-        Stopwatch sw;
-        long totalMilliseconds;
+        string timerName;
+        TimerViewModel _timerViewModel;
+        DispatcherTimer timer;
+        DateTime startTime;
+        DateTime endTime;
 
-        public Timer(int hours, int minutes, int seconds)
+        public Timer(TimerViewModel timerViewModel, TimeSpan endTime)
         {
-            this.hours = hours;
-            this.minutes = minutes;
-            this.seconds = seconds;
-            // Konvertieren Sie hours, minutes und seconds in Millisekunden und speichern Sie den Wert
-            totalMilliseconds = ((hours * 60 * 60) + (minutes * 60) + seconds) * 1000;
-            sw = Stopwatch.StartNew();
+            timer = new DispatcherTimer();
+            _timerViewModel = timerViewModel;
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Interval = TimeSpan.FromMilliseconds(500);
+            startTime = DateTime.Now;
+            this.endTime = DateTime.Now + endTime;
         }
 
-        public double PercentileTimeElapsed()
+        void timer_Tick(object sender, EventArgs e)
         {
-            // Berechnen Sie den Prozentsatz der bereits vergangenen Zeit
-            double elapsed = (double)sw.ElapsedMilliseconds / totalMilliseconds * 100;
-            return elapsed;
+            TimeSpan elapsed = DateTime.Now - startTime;
+            TimeSpan total = endTime - startTime;
+            _timerViewModel.Timer = $"{endTime - DateTime.Now}";
+            _timerViewModel.BarValue = (elapsed.TotalMilliseconds / total.TotalMilliseconds) * 100;
+            if ((endTime - DateTime.Now).TotalMilliseconds < 0)
+            {
+                timer.Stop();
+                _timerViewModel.Timer = "Ich habe fertig!";
+            }
+        }
+
+        public void Start()
+        {
+            timer.Start();
         }
     }
 }
