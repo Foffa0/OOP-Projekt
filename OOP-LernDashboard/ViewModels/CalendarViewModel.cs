@@ -51,7 +51,10 @@ namespace OOP_LernDashboard.ViewModels
             get { return _newEventStartTime; }
             set
             {
-                // TODO validate that the start time is before the end time
+                if(value >= NewEventEndTime)
+                {
+                    return;
+                }
                 _newEventStartTime = value;
                 OnPropertyChanged(nameof(NewEventStartTime));
             }
@@ -63,7 +66,10 @@ namespace OOP_LernDashboard.ViewModels
             get { return _newEventEndTime; }
             set
             {
-                // TODO validate that the end time is after the start time
+                if (value <= NewEventStartTime)
+                {
+                    return;
+                }
                 _newEventEndTime = value;
                 OnPropertyChanged(nameof(NewEventEndTime));
             }

@@ -3,6 +3,7 @@ using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Services;
 using HandyControl.Controls;
+using System.Globalization;
 
 
 namespace OOP_LernDashboard.Models
@@ -93,12 +94,23 @@ namespace OOP_LernDashboard.Models
         /// Loads events from the calendar for the current month into the Events property
         /// </summary>
         /// <returns></returns>
-        public async Task LoadEvents()
+        public async Task LoadEvents(bool loadPastEvents = true)
         {
             EventsResource.ListRequest request = _calendarService.Events.List(_calendar.Id);
             request.TimeMinDateTimeOffset = Start;
             request.TimeMaxDateTimeOffset = Start.AddMonths(1).AddDays(-1);
+            request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
+            request.SingleEvents = true;
             Events events = await request.ExecuteAsync();
+            // if loadPastEvents is false, only keep events that are in the future or today
+            if (!loadPastEvents)
+            {
+                events.Items = events.Items.Where(
+                    e => (
+                        e.Start.Date != null && DateTime.ParseExact(e.Start.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture).Date >= DateTime.Now.Date)
+                        || (e.Start.DateTimeDateTimeOffset != null && e.Start.DateTimeDateTimeOffset.Value.LocalDateTime.Date >= DateTime.Now.Date)
+                    ).ToList();
+            }
             this.Events = events.Items.Select(e => ToCalendarEvent(e)).ToList();
         }
 
