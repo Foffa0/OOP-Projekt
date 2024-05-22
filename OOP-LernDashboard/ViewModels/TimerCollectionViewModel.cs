@@ -12,9 +12,7 @@ namespace OOP_LernDashboard.ViewModels
         private string _timerName;
         private int _hourInput;
         private int _minuteInput;
-        private int _secondInput=1;
-        
-        
+        private int _secondInput=1;        
 
         public int Hours
         {
@@ -47,7 +45,20 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
+        public string TimerName
+        {
+            get => _timerName;
+            set
+            {
+                _timerName = value;
+                OnPropertyChanged(nameof(TimerName));
+            }
+        }
 
+        public TimeSpan EndTime
+        {
+            get => new TimeSpan(Hours, Minutes, Seconds);
+        }
         
 
         public TimerCollectionViewModel()

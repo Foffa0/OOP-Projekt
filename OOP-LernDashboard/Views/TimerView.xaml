@@ -21,12 +21,13 @@
             <Border Background="{StaticResource SecondaryColor}" CornerRadius="10" Padding="10" Height="190">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="40" />
+                        <RowDefinition Height="50" />
                         <RowDefinition Height="*" />
 
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Timer 1" Foreground="{StaticResource TextColor}" Style="{StaticResource Headline}" Margin="0"></TextBlock>
+                    <hc:TextBox Grid.Row="0" hc:InfoElement.Placeholder="name" Text="{Binding TimerName}" hc:InfoElement.Necessary="True" Foreground="{StaticResource TextColor}" Margin="0,10,0,10">
+                    </hc:TextBox>
 
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
                         <Grid Grid.Row="1">
@@ -76,7 +77,7 @@
                             </StackPanel>
 
                             <Button Grid.Row="1" Style="{StaticResource PrimaryButton}" Width="80" Margin="0,10,0,0" Command="{Binding AddTimerCommand}">
-                                <Image Source="/Resources/Images/playIcon.png" Width="20" Height="20" />
+                                <Image Source="/Resources/Images/AddIcon.png" Width="30" Height="30" />
                             </Button>
 
                         </Grid>
@@ -101,12 +102,21 @@
                     <Border Background="{StaticResource SecondaryColor}" CornerRadius="10" Padding="10" Margin="0,10,10,0"  Height="260">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="40" />
                                 <RowDefinition Height="*" />
+                                <RowDefinition Height="50"  />
                             </Grid.RowDefinitions>
 
-                            <TextBlock Grid.Row="0" Margin="0" Style="{StaticResource Headline}" TextAlignment="Center" Foreground="{StaticResource TextColor}">Timer 1</TextBlock>
-                            <hc:CircleProgressBar Grid.Row="1" Value="{Binding BarValue}" Text="{Binding Timer}" Width="160" Height="160" ArcThickness="2" />
+                            
+                            <hc:CircleProgressBar Grid.Row="0" Value="{Binding BarValue}" FontSize="20" Text="{Binding Timer}" Width="150" Height="150" ArcThickness="2" />
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Button Style="{StaticResource PrimaryButton}" Margin="5,0,5,0" Command="{Binding StartPauseTimer}">
+                                    <Image Source="/Images/playIcon.png" Width="20" Height="20" />
+                                </Button>
+                                <TextBlock  Style="{StaticResource Headline}" Margin="5,0,5,0" VerticalAlignment="Center" TextAlignment="Center" Foreground="{StaticResource TextColor}" Text="{Binding Name}"></TextBlock>
+                                <Button Style="{StaticResource PrimaryButton}" Margin="5,0,5,0" Command="{Binding RestartTimer}">
+                                    <Image Source="/Images/restartIcon.png" Width="20" Height="20" />
+                                </Button>
+                            </StackPanel>
                         </Grid>
                     </Border>
                 </DataTemplate>
