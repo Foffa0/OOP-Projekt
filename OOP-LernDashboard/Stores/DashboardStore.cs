@@ -70,12 +70,12 @@ namespace OOP_LernDashboard.Stores
             this.GoogleLogin = new GoogleLogin();
             this.GoogleLogin.AuthTokenReceived += GoogleLoginAuthTokenReceived;
 
-            string? auth = ReadSetting("GoogleAuthToken");
+            string? auth = ReadSetting("GoogleRefreshToken");
             if (auth != null && auth != "")
             {
                 try
                 {
-                    this.GoogleCalendar = new GoogleCalendar(auth, false);
+                    InitCalendarFromRefreshToken(auth);
                 }
                 catch
                 {
@@ -211,13 +211,18 @@ namespace OOP_LernDashboard.Stores
             }
         }
 
-        private void GoogleLoginAuthTokenReceived(object sender, string authToken)
+        private void GoogleLoginAuthTokenReceived(object sender, (string authToken, string refreshToken) token)
         {
-            // Initialize GoogleCalendar class using authToken
-            this.GoogleCalendar = new GoogleCalendar(authToken);
-
-            AddUpdateAppSettings("GoogleAuthToken", authToken);
-
+            if(token.refreshToken == null)
+            {
+                // User logs in again and no need to update the refresh token
+                this.GoogleCalendar = new GoogleCalendar(token.authToken, false);
+            }
+            else
+            {
+                this.GoogleCalendar = new GoogleCalendar(token.authToken, true);
+                AddUpdateAppSettings("GoogleRefreshToken", token.refreshToken);
+            }
             GoogleLoggedIn?.Invoke();
         }
 
@@ -245,6 +250,11 @@ namespace OOP_LernDashboard.Stores
             {
                 ThemeManager.Current.AccentColor = (Brush)new BrushConverter().ConvertFrom(acccentColor);
             }
+        }
+
+        private async Task InitCalendarFromRefreshToken(string token)
+        {
+            this.GoogleLogin.RefreshAccessTokenAsync(token);
         }
 
         public static void AddUpdateAppSettings(string key, string value)

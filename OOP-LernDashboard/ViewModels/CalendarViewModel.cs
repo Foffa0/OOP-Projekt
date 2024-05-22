@@ -51,7 +51,10 @@ namespace OOP_LernDashboard.ViewModels
             get { return _newEventStartTime; }
             set
             {
-                // TODO validate that the start time is before the end time
+                if (value >= NewEventEndTime)
+                {
+                    return;
+                }
                 _newEventStartTime = value;
                 OnPropertyChanged(nameof(NewEventStartTime));
             }
@@ -63,7 +66,10 @@ namespace OOP_LernDashboard.ViewModels
             get { return _newEventEndTime; }
             set
             {
-                // TODO validate that the end time is after the start time
+                if (value <= NewEventStartTime)
+                {
+                    return;
+                }
                 _newEventEndTime = value;
                 OnPropertyChanged(nameof(NewEventEndTime));
             }
@@ -176,7 +182,7 @@ namespace OOP_LernDashboard.ViewModels
 
         public static CalendarViewModel LoadViewModel(Dashboard dashboard, DashboardStore dashboardStore)
         {
-            CalendarViewModel viewModel = new CalendarViewModel(dashboard, dashboardStore);
+            CalendarViewModel viewModel = new(dashboard, dashboardStore);
             viewModel.LoadCalendarCommand.Execute(null);
             return viewModel;
         }
@@ -188,7 +194,7 @@ namespace OOP_LernDashboard.ViewModels
 
         public void UpdateMonth(DateTime date)
         {
-            CultureInfo de = new CultureInfo("de-DE");
+            CultureInfo de = new CultureInfo("de-DE"); // used to get german month names
             Month = date.ToString("MMMM", de);
             Year = date.ToString("yyyy");
         }

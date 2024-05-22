@@ -57,7 +57,7 @@
             <DataTemplate DataType="{x:Type vms:SettingsViewModel}">
                 <views:SettingsView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:TimerViewModel}">
+            <DataTemplate DataType="{x:Type vms:TimerCollectionViewModel}">
                 <views:TimerView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vms:ShortcutsViewModel}">

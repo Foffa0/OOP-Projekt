@@ -15,6 +15,7 @@
 
         <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Kalender Übersicht" Style="{StaticResource Title}"></TextBlock>
 
+        <!--#region Google Login not ready-->
         <StackPanel  Grid.Row="1" Visibility="{Binding IsGoogleReady, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
             <TextBlock Style="{StaticResource Text}" Text="Melde dich zuerst mit deinem Google Account an, bevor du den Kalender nutzen kannst." ></TextBlock>
             <Button Style="{StaticResource PrimaryButton}" HorizontalAlignment="Left" Command="{Binding LoginGoogleCommand}" Margin="0, 20">
@@ -28,6 +29,7 @@
                 </StackPanel>
             </Button>
         </StackPanel>
+        <!--#endregion-->
 
         <Grid Grid.Row="1" Visibility="{Binding IsGoogleReady, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.ColumnDefinitions>
@@ -35,7 +37,10 @@
                 <ColumnDefinition Width="auto"  MinWidth="300"/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0">
+            <StackPanel Grid.Column="0" MinHeight="0"
+                        MaxHeight="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Grid}, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE}"
+                        MaxWidth="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Grid}, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE*7/6}">
+                <!--#region Top Calenar Nav Row-->
                 <Grid Margin="0" MaxWidth="{Binding ActualWidth, ElementName=Calendar}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -60,10 +65,12 @@
                             </Image>
                         </Button>
                     </StackPanel>
-
                 </Grid>
+                <!--#endregion-->
+
                 <hc:LoadingCircle Foreground="{StaticResource PrimaryColor}" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
+                <!--#region Day in week row over calendar-->
                 <Grid Visibility="{Binding IsLoading, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"
                       MaxWidth="{Binding ActualWidth, ElementName=Calendar}">
                     <Grid.ColumnDefinitions>
@@ -83,18 +90,26 @@
                     <TextBlock Grid.Column="5" Text="Sa" Style="{StaticResource Text}" HorizontalAlignment="Center"></TextBlock>
                     <TextBlock Grid.Column="6" Text="So" Style="{StaticResource Text}" HorizontalAlignment="Center"></TextBlock>
                 </Grid>
+                <!--#endregion-->
 
-                <ItemsControl x:Name="Calendar" ItemsSource="{Binding Days}" Visibility="{Binding IsLoading, Converter={StaticResource InvertedBooleanToVisibilityConverter}}" 
-                              MaxWidth="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=StackPanel}, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE*7/6}">
+                <!--#region Main calendar-->
+                <ItemsControl x:Name="Calendar" ItemsSource="{Binding Days}" 
+                              MinWidth="0"
+                              Visibility="{Binding IsLoading, Converter={StaticResource InvertedBooleanToVisibilityConverter}}" 
+                              MaxWidth="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=StackPanel}, Converter={StaticResource MathConverter}, ConverterParameter=(@VALUE-86)*7/5}">
+
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <UniformGrid Columns="7" SnapsToDevicePixels="False" FirstColumn="{Binding FirstDayOffset}" Margin="2"/>
+                            <UniformGrid Columns="7" SnapsToDevicePixels="False" FirstColumn="{Binding FirstDayOffset}" Margin="2" MinHeight="0"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
+
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="{StaticResource SecondaryColor}" BorderThickness="2" Margin="-1" 
+                            <Border BorderBrush="{StaticResource SecondaryColor}" 
+                                    BorderThickness="2" Margin="-1" 
                                     Height="{Binding ActualWidth, RelativeSource={RelativeSource self}}">
+
                                 <Border.Style>
                                     <Style TargetType="Border">
                                         <Style.Triggers>
@@ -105,12 +120,13 @@
                                     </Style>
                                 </Border.Style>
 
+                                <!--#region Events-->
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0" Text="{Binding DayDesc}" Style="{StaticResource Text}" Padding="2"></TextBlock>
+                                    <TextBlock Grid.Row="0" Text="{Binding DayDesc}" Style="{StaticResource Text}" Padding="2" MinWidth="0"></TextBlock>
 
 
                                     <ListView Grid.Row="1" ItemsSource="{Binding Events}" Background="Transparent" BorderThickness="0"
@@ -121,10 +137,10 @@
                                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                               VirtualizingPanel.ScrollUnit="Pixel"
                                               HorizontalContentAlignment="Stretch"
-                                              Height="{Binding ActualHeigt, RelativeSource={RelativeSource AncestorType=Border}}">
+                                              Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Border}}">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
-                                                <Grid Background="Transparent" Margin="0" HorizontalAlignment="Stretch" Cursor="Hand">
+                                                <Grid Background="Transparent" Margin="0" HorizontalAlignment="Stretch" Cursor="Hand" MinWidth="0" MinHeight="0">
                                                     <Grid.InputBindings>
                                                         <MouseBinding Gesture="LeftClick" Command="{Binding ShowDetailsCommand}"/>
                                                     </Grid.InputBindings>
@@ -135,7 +151,7 @@
 
                                                     <TextBlock Grid.Column="0" Text="{Binding EventTitle}" TextWrapping="WrapWithOverflow"></TextBlock>
 
-                                                    <TextBlock Grid.Column="1" Text="{Binding EventStart}" Visibility="{Binding IsWholeDayEvent, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"></TextBlock>
+                                                    <TextBlock Grid.Column="1" Text="{Binding StartTime}" Visibility="{Binding IsWholeDayEvent, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"></TextBlock>
                                                 </Grid>
 
                                             </DataTemplate>
@@ -169,14 +185,17 @@
                                             </Style>
                                         </ListView.Style>
                                     </ListView>
-
                                 </Grid>
+                                <!--#endregion-->
+
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
+                <!--#endregion-->
             </StackPanel>
 
+            <!--#region New Event Form-->
             <Grid Grid.Column="1" Margin="20, 0, 0, 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
@@ -186,7 +205,7 @@
                     <ColumnDefinition Width="300" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                
+
 
                 <Border Grid.Column="0" Background="{StaticResource SecondaryColor}" CornerRadius="10" Padding="10">
                     <StackPanel>
@@ -248,7 +267,7 @@
                     </StackPanel>
                 </Border>
             </Grid>
-
+            <!--#endregion-->
         </Grid>
     </Grid>
 </UserControl>

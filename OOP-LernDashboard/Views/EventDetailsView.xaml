@@ -61,7 +61,7 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Command="{Binding SaveCommand}" Style="{DynamicResource PrimaryButton}">Speichern</Button>
-            <Button Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Command="{Binding DeleteCommand}" Background="Red" Style="{DynamicResource PrimaryButton}">Löschen</Button>
+            <Button Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Command="{Binding DeleteCommand}" Background="#eb4034" Style="{DynamicResource PrimaryButton}" BorderBrush="#eb4034">Löschen</Button>
         </Grid>
 
     </StackPanel>
