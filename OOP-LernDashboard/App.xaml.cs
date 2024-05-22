@@ -101,11 +101,6 @@ namespace OOP_LernDashboard
             return SettingsViewModel.LoadViewModel(_dashboardStore);
         }
 
-        private TimerViewModel CreateTimerViewModel()
-        {
-            return TimerViewModel.LoadViewModel();
-        }
-
         private TimerCollectionViewModel CreateTimerCollectionViewModel()
         {
             return TimerCollectionViewModel.LoadViewModel();

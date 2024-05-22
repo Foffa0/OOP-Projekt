@@ -1,6 +1,7 @@
 ﻿
 using System.Threading;
 using System.Windows.Input;
+using System.Windows.Navigation;
 using System.Windows.Threading;
 using OOP_LernDashboard.Commands;
 using OOP_LernDashboard.Models;
@@ -11,27 +12,28 @@ namespace OOP_LernDashboard.ViewModels
 {
     class TimerViewModel : ViewModelBase
     {
-        
 
+        private string _name;
+        private double _barValue;
+        private string _timerText = "Time";
+        private TimeSpan _endTime;
 
-        //public void StartTimer()
-        //{
-        //    Models.Timer timer = new Models.Timer(this, new TimeSpan(Hours, Minutes, Seconds));
-        //    timer.Start();
-        //}
+        public void StartTimer()
+        {
+            Models.Timer timer = new Models.Timer(this, _endTime);
+            timer.Start();
+        }
 
-        private string _time = "Time";
         public string Timer
         {
-            get => _time;
+            get => _timerText;
             set
             {
-                _time = value;
+                _timerText = value;
                 OnPropertyChanged(nameof(Timer));
             }
         }
 
-        private double _barValue;
         public double BarValue
         {
             get => this._barValue;
@@ -42,15 +44,24 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
-        public TimerViewModel()
+        public string Name
         {
-
+            get => _name;
+            set
+            {
+                _name = value;
+                OnPropertyChanged(nameof(Name));
+            }
         }
 
-        public static TimerViewModel LoadViewModel()
+
+        public TimerViewModel(string _name, TimeSpan endTime)
         {
-            TimerViewModel viewModel = new TimerViewModel();
-            return viewModel;
+            Name = _name;
+            _endTime = endTime;
+            StartTimer();
         }
+
+
     }
 }

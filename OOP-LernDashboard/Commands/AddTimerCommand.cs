@@ -1,4 +1,7 @@
-﻿using OOP_LernDashboard.ViewModels;
+﻿using HandyControl.Controls;
+using HandyControl.Data;
+using HandyControl.Tools.Extension;
+using OOP_LernDashboard.ViewModels;
 using System.Collections.ObjectModel;
 
 namespace OOP_LernDashboard.Commands
@@ -9,6 +12,7 @@ namespace OOP_LernDashboard.Commands
         private int TimerCount = 0;
         private int maxTimerCount = 4;
 
+
         public AddTimerCommand(TimerCollectionViewModel viewModel)
         {
             _viewModel = viewModel;
@@ -16,9 +20,19 @@ namespace OOP_LernDashboard.Commands
 
         public override void Execute(object? parameter)
         {
-            if (TimerCount < maxTimerCount)
+            if (_viewModel.TimerName.IsNullOrEmpty()) 
             {
-                _viewModel.Timers.Add(new TimerViewModel());
+                Growl.Error(new GrowlInfo
+                {
+                    Message = "Timer-Name darf nicht leer sein",
+                    ShowDateTime = false,
+                    StaysOpen = false
+                });
+            }
+            else if (TimerCount < maxTimerCount)
+            {
+                _viewModel.Timers.Add(new TimerViewModel(_viewModel.TimerName, _viewModel.EndTime));
+                _viewModel.TimerName = "";
                 TimerCount++;
             }
         }
