@@ -153,7 +153,7 @@ namespace OOP_LernDashboard.Stores
         public async Task DeleteCountdown(Countdown countdown)
         {
             await _countdownCreator.DeleteModel(countdown);
-            _toDos.Remove(_toDos.Where(i => i.Id == countdown.Id).Single());
+            _countdowns.Remove(_countdowns.Where(i => i.Id == countdown.Id).Single());
             CountdownDeleted?.Invoke(countdown);
         }
 

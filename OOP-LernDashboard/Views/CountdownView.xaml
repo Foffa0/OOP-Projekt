@@ -5,40 +5,129 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:hc="https://handyorg.github.io/handycontrol"
              xmlns:local="clr-namespace:OOP_LernDashboard.Views"
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="src" Source="{Binding Countdowns}">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="Date" />
+            </CollectionViewSource.SortDescriptions>
+
+        </CollectionViewSource>
+    </UserControl.Resources>
+
     <Grid Background="{StaticResource WindowTheme}">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
-            <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Countdowns" Style="{StaticResource Title}"></TextBlock>
 
-        <ListView Grid.Row="1" ItemsSource="{Binding Countdowns}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Height="50">
-                        <TextBlock Width="80" Text="{Binding DaysLeft}"/>
-                        <TextBlock Text="{Binding Date}" />
-                        <TextBlock Text="{Binding Description}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <Grid Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
 
-            <DatePicker Grid.Row="0" Width="400" Height="30" Style="{StaticResource DatePickerExtend}" SelectedDate="{Binding CountdownInput, UpdateSourceTrigger=PropertyChanged}" SelectedDateFormat="Long" Language="de" hc:InfoElement.Placeholder="Datum" />
-            <TextBlock Width="200" Height="50" Grid.Row="0" Text="{Binding CountdownInput}" Foreground="White" Margin="67,10,683,7"/>
-            <TextBox Grid.Row="1" Width="400" Height="30" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Grid.Row="2" Command="{Binding AddCountdownCommand}">Hinzufügen</Button>
+            <ListView Grid.Column="0"
+                      ItemsSource="{Binding Source={StaticResource src}}" 
+                      Style="{StaticResource ListViewTheme}" 
+                      ItemContainerStyle="{StaticResource ListViewItemTheme}" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ScrollViewer.VerticalScrollBarVisibility="Visible"
+                      HorizontalContentAlignment="Stretch">
+                
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <hc:TransitioningContentControl TransitionMode="Left2RightWithFade">
+                            <Grid Height="80" Margin="0 10 0 10" x:Name="CountdownElement" IsHitTestVisible="True" Background="Transparent">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="250"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="80"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <Grid Grid.Column="0">
+                                    <Ellipse Width="80" Height="80" Stroke="Gray" StrokeThickness="1" HorizontalAlignment="Center"/>
+                                    <StackPanel Orientation="Vertical" Margin="80 0 80 0" VerticalAlignment="Center" Visibility="{Binding Expired, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                                        <TextBlock Width="80" Text="{Binding DaysLeft}" FontSize="25" FontWeight="Bold" TextAlignment="Center" />
+                                        <TextBlock Text="Tage" FontSize="12" FontWeight="Light" TextAlignment="Center" Foreground="Gray" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical" Margin="80 0 80 0" VerticalAlignment="Center" Visibility="{Binding Expired, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <Image Source="/Images/check.png" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Grid>
+
+                                <TextBlock Grid.Column="1" Text="{Binding Description}" FontSize="20" TextWrapping="Wrap" VerticalAlignment="Center">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Expired}" Value="True">
+                                                    <Setter Property="Foreground" Value="Gray" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <TextBlock Grid.Column="1" Text="{Binding Date, ConverterCulture=de-DE}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="Gray">
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsMouseOver, ElementName=CountdownElement}" Value="False">
+                                                    <Setter Property="Visibility" Value="Hidden" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+
+                                <Button Grid.Column="2" Width="50" Height="50" Background="Transparent" BorderThickness="0" Command="{Binding DataContext.DeleteCountdownCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource DynamicColorIcon}">
+                                            <Setter Property="Visibility" Value="Hidden" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsMouseOver, ElementName=CountdownElement}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                    <Setter Property="Foreground" Value="#991212" />
+                                                </DataTrigger>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Foreground" Value="#991212"/>
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="False">
+                                                    <Setter Property="Foreground" Value="#944747"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                    <Image Source="/Images/DeleteIcon.png" Width="auto" Height="20" Stretch="Uniform"/>
+                                </Button>
+                            </Grid>
+                        </hc:TransitioningContentControl>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+            
+                <Border Grid.Column="1" Background="{StaticResource SecondaryColor}" CornerRadius="10" Padding="10" Margin="10">
+                    <StackPanel>
+                        <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Headline}" Margin="0,0,0,10" Text="Eintrag hinzufügen"></TextBlock>
+
+                        <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Text}"  Text="Titel"></TextBlock>
+                        <TextBox Height="30" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" />
+
+                        <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Text}"  Text="Datum" Margin="0, 10, 0, 0"></TextBlock>
+                        <DatePicker Grid.Row="0" Height="30" Style="{StaticResource DatePickerExtend}" SelectedDate="{Binding CountdownInput, UpdateSourceTrigger=PropertyChanged}" SelectedDateFormat="Long" Language="de" hc:InfoElement.Placeholder="Datum" />
+                        <Button Command="{Binding AddCountdownCommand}" Style="{StaticResource PrimaryButton}" Cursor="Hand" HorizontalAlignment="Center" Margin="0, 20, 0, 0">Hinzufügen</Button>
+                    </StackPanel>
+                </Border>
+            </Grid>
         </Grid>
-        
+
     </Grid>
 </UserControl>
