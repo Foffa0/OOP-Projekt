@@ -51,7 +51,7 @@ namespace OOP_LernDashboard.ViewModels
             get { return _newEventStartTime; }
             set
             {
-                if(value >= NewEventEndTime)
+                if (value >= NewEventEndTime)
                 {
                     return;
                 }

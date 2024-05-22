@@ -37,7 +37,9 @@
                 <ColumnDefinition Width="auto"  MinWidth="300"/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0">
+            <StackPanel Grid.Column="0" MinHeight="0"
+                        MaxHeight="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Grid}, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE}"
+                        MaxWidth="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Grid}, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE*7/6}">
                 <!--#region Top Calenar Nav Row-->
                 <Grid Margin="0" MaxWidth="{Binding ActualWidth, ElementName=Calendar}">
                     <Grid.ColumnDefinitions>
@@ -92,12 +94,13 @@
 
                 <!--#region Main calendar-->
                 <ItemsControl x:Name="Calendar" ItemsSource="{Binding Days}" 
+                              MinWidth="0"
                               Visibility="{Binding IsLoading, Converter={StaticResource InvertedBooleanToVisibilityConverter}}" 
-                              MaxWidth="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=StackPanel}, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE*7/6}">
+                              MaxWidth="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=StackPanel}, Converter={StaticResource MathConverter}, ConverterParameter=(@VALUE-86)*7/5}">
 
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <UniformGrid Columns="7" SnapsToDevicePixels="False" FirstColumn="{Binding FirstDayOffset}" Margin="2"/>
+                            <UniformGrid Columns="7" SnapsToDevicePixels="False" FirstColumn="{Binding FirstDayOffset}" Margin="2" MinHeight="0"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
 
@@ -123,7 +126,7 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="0" Text="{Binding DayDesc}" Style="{StaticResource Text}" Padding="2"></TextBlock>
+                                    <TextBlock Grid.Row="0" Text="{Binding DayDesc}" Style="{StaticResource Text}" Padding="2" MinWidth="0"></TextBlock>
 
 
                                     <ListView Grid.Row="1" ItemsSource="{Binding Events}" Background="Transparent" BorderThickness="0"
@@ -134,10 +137,10 @@
                                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                               VirtualizingPanel.ScrollUnit="Pixel"
                                               HorizontalContentAlignment="Stretch"
-                                              Height="{Binding ActualHeigt, RelativeSource={RelativeSource AncestorType=Border}}">
+                                              Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Border}}">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
-                                                <Grid Background="Transparent" Margin="0" HorizontalAlignment="Stretch" Cursor="Hand">
+                                                <Grid Background="Transparent" Margin="0" HorizontalAlignment="Stretch" Cursor="Hand" MinWidth="0" MinHeight="0">
                                                     <Grid.InputBindings>
                                                         <MouseBinding Gesture="LeftClick" Command="{Binding ShowDetailsCommand}"/>
                                                     </Grid.InputBindings>
@@ -148,7 +151,7 @@
 
                                                     <TextBlock Grid.Column="0" Text="{Binding EventTitle}" TextWrapping="WrapWithOverflow"></TextBlock>
 
-                                                    <TextBlock Grid.Column="1" Text="{Binding EventStart}" Visibility="{Binding IsWholeDayEvent, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"></TextBlock>
+                                                    <TextBlock Grid.Column="1" Text="{Binding StartTime}" Visibility="{Binding IsWholeDayEvent, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"></TextBlock>
                                                 </Grid>
 
                                             </DataTemplate>

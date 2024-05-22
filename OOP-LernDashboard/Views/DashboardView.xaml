@@ -78,15 +78,6 @@
                                         </Setter>
                                     </Style>
                                 </ListView.ItemContainerStyle>
-                                <ListView.Style>
-                                    <Style TargetType="ListView" BasedOn="{StaticResource ListView.Small}">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Events.Count}" Value="0">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </ListView.Style>
                             </ListView>
 
                             <Button Command="{Binding ShortcutsCommand}" Background="Transparent" BorderThickness="0" Foreground="#f0f0f0" Cursor="Hand">
@@ -220,15 +211,6 @@
                                         </Setter>
                                     </Style>
                                 </ListView.ItemContainerStyle>
-                                <ListView.Style>
-                                    <Style TargetType="ListView" BasedOn="{StaticResource ListView.Small}">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Events.Count}" Value="0">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </ListView.Style>
                             </ListView>
 
                             <Button Command="{Binding CalendarCommand}" Background="Transparent" BorderThickness="0" Foreground="#f0f0f0" Cursor="Hand">
