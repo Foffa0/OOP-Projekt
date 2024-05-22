@@ -54,7 +54,7 @@ namespace OOP_LernDashboard
                     new NavigationService(_navigationStore, CreateCalendarViewModel),
                     new NavigationService(_navigationStore, CreateQuickNotesViewModel),
                     new NavigationService(_navigationStore, CreateSettingsViewModel),
-                    new NavigationService(_navigationStore, CreateTimerViewModel),
+                    new NavigationService(_navigationStore, CreateTimerCollectionViewModel),
                     new NavigationService(_navigationStore, CreateShortcutsViewModel),
                     new NavigationService(_navigationStore, CreateCountdownViewModel)
                     )
@@ -104,6 +104,11 @@ namespace OOP_LernDashboard
         private TimerViewModel CreateTimerViewModel()
         {
             return TimerViewModel.LoadViewModel();
+        }
+
+        private TimerCollectionViewModel CreateTimerCollectionViewModel()
+        {
+            return TimerCollectionViewModel.LoadViewModel();
         }
 
         private ShortcutsViewModel CreateShortcutsViewModel()

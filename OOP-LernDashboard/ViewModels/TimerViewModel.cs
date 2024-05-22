@@ -12,23 +12,13 @@ namespace OOP_LernDashboard.ViewModels
     class TimerViewModel : ViewModelBase
     {
         
-        public ICommand SetTimerCommand { get; }
 
-        public TimerViewModel()
-        {
-            SetTimerCommand = new SetTimerCommand(this);
-        }
 
-        public void StartTimer()
-        {
-            Models.Timer timer = new Models.Timer(this, new TimeSpan(Hours, Minutes, Seconds));
-            timer.Start();
-        }
-
-        private void UpdateTime()
-        {
-            Timer = $"{Hours}:{Minutes}.{Seconds}";
-        }
+        //public void StartTimer()
+        //{
+        //    Models.Timer timer = new Models.Timer(this, new TimeSpan(Hours, Minutes, Seconds));
+        //    timer.Start();
+        //}
 
         private string _time = "Time";
         public string Timer
@@ -52,41 +42,9 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
-        private int _hours;
-        public int Hours
+        public TimerViewModel()
         {
-            get => this._hours;
-            set
-            {
-                _hours = value;
-                OnPropertyChanged(nameof(Hours));
-                UpdateTime();
-                
-            }
-        }
 
-        private int _minutes;
-        public int Minutes
-        {
-            get => this._minutes;
-            set
-            {
-                _minutes = value;
-                OnPropertyChanged(nameof(Minutes));
-                UpdateTime();
-            }
-        }
-
-        private int _seconds=1;
-        public int Seconds
-        {
-            get => this._seconds;
-            set
-            {
-                _seconds = value;
-                OnPropertyChanged(nameof(Seconds));
-                UpdateTime();
-            }
         }
 
         public static TimerViewModel LoadViewModel()
