@@ -13,10 +13,11 @@ namespace OOP_LernDashboard.Models
 
         public Timer(TimerViewModel timerViewModel, TimeSpan endTime)
         {
-            timer = new DispatcherTimer();
             _timerViewModel = timerViewModel;
+            timer = new DispatcherTimer();
             timer.Tick += new EventHandler(timer_Tick);
-            timer.Interval = TimeSpan.FromMilliseconds(500);
+            timer.Interval = TimeSpan.FromMilliseconds(1);
+
             startTime = DateTime.Now;
             this.endTime = DateTime.Now + endTime;
         }
@@ -25,7 +26,8 @@ namespace OOP_LernDashboard.Models
         {
             TimeSpan elapsed = DateTime.Now - startTime;
             TimeSpan total = endTime - startTime;
-            _timerViewModel.Timer = $"{endTime - DateTime.Now}";
+
+            _timerViewModel.Timer = $"{elapsed}";
             _timerViewModel.BarValue = (elapsed.TotalMilliseconds / total.TotalMilliseconds) * 100;
             if ((endTime - DateTime.Now).TotalMilliseconds < 0)
             {

@@ -11,33 +11,35 @@
     <Grid Background="{StaticResource WindowTheme}" >
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="200" />
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Timer" Style="{StaticResource Title}"></TextBlock>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Height="220" VerticalAlignment="Top">
-            <Border Background="{StaticResource SecondaryColor}" CornerRadius="10" Padding="10" Margin="10,0,10,0"  Height="220">
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Height="190" VerticalAlignment="Top">
+            <Border Background="{StaticResource SecondaryColor}" CornerRadius="10" Padding="10" Height="190">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="40" />
                         <RowDefinition Height="*" />
+
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Text="Timer 1" Foreground="{StaticResource TextColor}" Style="{StaticResource Headline}" Margin="0"></TextBlock>
 
-                    <StackPanel VerticalAlignment="Center" Grid.Row="1" Orientation="Horizontal">
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
                         <Grid Grid.Row="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="50"></RowDefinition>
                                 <RowDefinition Height="60"></RowDefinition>
                             </Grid.RowDefinitions>
 
-                            
+
                             <StackPanel Grid.Row="0" Orientation="Horizontal">
 
                                 <hc:TextBox x:Name="hours" hc:InfoElement.Placeholder="{Binding Hours}" Width="60" TextAlignment="Center" hc:InfoElement.Necessary="True">
-                                <hc:TextBox.Text>
+                                    <hc:TextBox.Text>
                                         <Binding Path="Hours" UpdateSourceTrigger="PropertyChanged">
                                             <Binding.ValidationRules>
                                                 <hc:RegexRule Type="Int" Pattern="^(2[0-3]|[01]?[0-9])$" ErrorContent="Zahl zwischen 0 und 23"/>
@@ -73,7 +75,7 @@
 
                             </StackPanel>
 
-                            <Button Grid.Row="1" Style="{StaticResource PrimaryButton}" Width="80" Margin="0,10,0,0" Command="{Binding SetTimerCommand}">
+                            <Button Grid.Row="1" Style="{StaticResource PrimaryButton}" Width="80" Margin="0,10,0,0" Command="{Binding AddTimerCommand}">
                                 <Image Source="/Images/playIcon.png" Width="20" Height="20" />
                             </Button>
 
@@ -86,20 +88,30 @@
                 </Grid>
             </Border>
 
-            <Border Background="{StaticResource SecondaryColor}" CornerRadius="10" Padding="10" Margin="10,0,10,0"  Height="220">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="40" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-
-                    
-                    <hc:CircleProgressBar Grid.Row="1" Value="{Binding BarValue}" Text="{Binding Timer}" Width="160" Height="160" ArcThickness="2" />
-                </Grid>
-            </Border>
-
         </StackPanel>
-        
+
+        <ItemsControl Grid.Row="2" ItemsSource="{Binding Timers}" Margin="0" >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" ItemWidth="240" ItemHeight="270" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="{StaticResource SecondaryColor}" CornerRadius="10" Padding="10" Margin="0,10,10,0"  Height="260">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Margin="0" Style="{StaticResource Headline}" TextAlignment="Center" Foreground="{StaticResource TextColor}">Timer 1</TextBlock>
+                            <hc:CircleProgressBar Grid.Row="1" Value="{Binding BarValue}" Text="{Binding Timer}" Width="160" Height="160" ArcThickness="2" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
         
     </Grid>
 
