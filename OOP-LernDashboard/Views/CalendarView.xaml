@@ -23,7 +23,7 @@
                     <TextBlock VerticalAlignment="Center" Style="{StaticResource Text}">Mit Google anmelden</TextBlock>
                     <Image Width="20" Margin="10, 0, 0, 0">
                         <Image.Source>
-                            <BitmapImage DecodePixelWidth="40" UriSource="/Images/GoogleLogo.png" />
+                            <BitmapImage DecodePixelWidth="40" UriSource="/Resources/Images/GoogleLogo.png" />
                         </Image.Source>
                     </Image>
                 </StackPanel>
@@ -53,14 +53,14 @@
                         <Button Command="{Binding PrevMonthCommand}" Style="{StaticResource PrimaryButton}">
                             <Image Width="20">
                                 <Image.Source>
-                                    <BitmapImage DecodePixelWidth="240" UriSource="/Images/leftArrow.png" />
+                                    <BitmapImage DecodePixelWidth="240" UriSource="/Resources/Images/leftArrow.png" />
                                 </Image.Source>
                             </Image>
                         </Button>
                         <Button Command="{Binding NextMonthCommand}" Style="{StaticResource PrimaryButton}">
                             <Image Width="20">
                                 <Image.Source>
-                                    <BitmapImage DecodePixelWidth="240" UriSource="/Images/rightArrow.png" />
+                                    <BitmapImage DecodePixelWidth="240" UriSource="/Resources/Images/rightArrow.png" />
                                 </Image.Source>
                             </Image>
                         </Button>

@@ -56,7 +56,7 @@
                                         <TextBlock Text="Tage" FontSize="12" FontWeight="Light" TextAlignment="Center" Foreground="Gray" />
                                     </StackPanel>
                                     <StackPanel Orientation="Vertical" Margin="80 0 80 0" VerticalAlignment="Center" Visibility="{Binding Expired, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                        <Image Source="/Images/check.png" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        <Image Source="/Resources/Images/check.png" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Grid>
 
@@ -101,7 +101,7 @@
                                             </Style.Triggers>
                                         </Style>
                                     </Button.Style>
-                                    <Image Source="/Images/DeleteIcon.png" Width="auto" Height="20" Stretch="Uniform"/>
+                                    <Image Source="/Resources/Images/DeleteIcon.png" Width="auto" Height="20" Stretch="Uniform"/>
                                 </Button>
                             </Grid>
                         </hc:TransitioningContentControl>

@@ -70,7 +70,7 @@
                 <views:EventDetailsView />
             </DataTemplate>
 
-            <FontFamily x:Key="Regular">pack://application:,,,/OOP-LernDashboard;component/Fonts/#Roboto</FontFamily>
+            <FontFamily x:Key="Regular">pack://application:,,,/OOP-LernDashboard;component/Resources/Fonts/#Roboto</FontFamily>
 
             
         </ResourceDictionary>

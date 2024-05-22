@@ -22,7 +22,7 @@
                     <TextBlock VerticalAlignment="Center" Style="{StaticResource Text}">Mit Google anmelden</TextBlock>
                     <Image Width="20" Margin="10, 0, 0, 0">
                         <Image.Source>
-                            <BitmapImage DecodePixelWidth="40" UriSource="/Images/GoogleLogo.png" />
+                            <BitmapImage DecodePixelWidth="40" UriSource="/Resources/Images/GoogleLogo.png" />
                         </Image.Source>
                     </Image>
                 </StackPanel>

@@ -79,49 +79,49 @@
                 <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding DashboardCommand}" IsChecked="{Binding DashboardViewActive}">
                     <Image Width="30">
                         <Image.Source>
-                            <BitmapImage DecodePixelWidth="240" UriSource="/Images/DashboardIcon.png"/>
+                            <BitmapImage DecodePixelWidth="240" UriSource="/Resources/Images/DashboardIcon.png"/>
                         </Image.Source>
                     </Image>
                 </RadioButton>
                 <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" >
                     <Image Width="30">
                         <Image.Source>
-                            <BitmapImage DecodePixelWidth="240" UriSource="/Images/ToDoIcon.png"/>
+                            <BitmapImage DecodePixelWidth="240" UriSource="/Resources/Images/ToDoIcon.png"/>
                         </Image.Source>
                     </Image>
                 </RadioButton>
                 <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding QuickNotesCommand}" IsChecked="{Binding QuickNotesViewActive}">
                     <Image Width="30">
                         <Image.Source>
-                            <BitmapImage DecodePixelWidth="240" UriSource="/Images/QuickNotesIcon.png" />
+                            <BitmapImage DecodePixelWidth="240" UriSource="/Resources/Images/QuickNotesIcon.png" />
                         </Image.Source>
                     </Image>
                 </RadioButton>
                 <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding CalendarCommand}" IsChecked="{Binding CalendarViewActive}">
                     <Image Height="30">
                         <Image.Source>
-                            <BitmapImage DecodePixelWidth="240" UriSource="/Images/CalendarIcon.png" />
+                            <BitmapImage DecodePixelWidth="240" UriSource="/Resources/Images/CalendarIcon.png" />
                         </Image.Source>
                     </Image>
                 </RadioButton>
                 <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding TimerCommand}" IsChecked="{Binding TimerViewActive}">
                     <Image Height="30">
                         <Image.Source>
-                            <BitmapImage DecodePixelWidth="240" UriSource="/Images/TimerIcon.png" />
+                            <BitmapImage DecodePixelWidth="240" UriSource="/Resources/Images/TimerIcon.png" />
                         </Image.Source>
                     </Image>
                 </RadioButton>
                 <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding ShortcutsCommand}" IsChecked="{Binding ShortcutsViewActive}">
                     <Image Height="30">
                         <Image.Source>
-                            <BitmapImage DecodePixelWidth="240" UriSource="/Images/ShortcutsIcon.png" />
+                            <BitmapImage DecodePixelWidth="240" UriSource="/Resources/Images/ShortcutsIcon.png" />
                         </Image.Source>
                     </Image>
                 </RadioButton>
                 <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding CountdownCommand}">
                     <Image Height="30">
                         <Image.Source>
-                            <BitmapImage DecodePixelWidth="40" UriSource="/Images/TimerIcon.png" />
+                            <BitmapImage DecodePixelWidth="40" UriSource="/Resources/Images/TimerIcon.png" />
                         </Image.Source>
                     </Image>
                 </RadioButton>
@@ -130,7 +130,7 @@
             <RadioButton GroupName="nav" Grid.Row="1" BorderThickness="0" Width="50" Height="50" Style="{StaticResource SideNavButtonRoundTheme}"  Margin="0, 0, 0, 25" Command="{Binding SettingsCommand}">
                 <Image Width="30" RenderOptions.BitmapScalingMode="HighQuality" UseLayoutRounding="True">
                     <Image.Source>
-                        <BitmapImage DecodePixelWidth="160" UriSource="/Images/SettingsIcon.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <BitmapImage DecodePixelWidth="160" UriSource="/Resources/Images/SettingsIcon.png" RenderOptions.BitmapScalingMode="HighQuality"/>
                     </Image.Source>
                 </Image>
             </RadioButton>

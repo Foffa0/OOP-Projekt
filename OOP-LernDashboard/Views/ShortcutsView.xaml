@@ -40,7 +40,7 @@
                             <DataTemplate>
                                 <Button Background="#eb4034" Padding="6" Margin="0" BorderThickness="0" Cursor="Hand" HorizontalAlignment="Right" 
                                         Command="{Binding DeleteShortcutCommand}">
-                                    <Image Source="/Images/DeleteIcon.png" Width="auto" Height="20" Stretch="Uniform"/>
+                                    <Image Source="/Resources/Images/DeleteIcon.png" Width="auto" Height="20" Stretch="Uniform"/>
                                 </Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -88,7 +88,7 @@
                     <Button.Template>
                         <ControlTemplate>
                             <Border HorizontalAlignment="Center" CornerRadius="5" VerticalAlignment="Center" Background="{DynamicResource PrimaryBrush}" Width="35" Height="28">
-                                <Image Source="/Images/FileIcon.png" 
+                                <Image Source="/Resources/Images/FileIcon.png" 
                                Width="16" 
                                Height="16"/>
                             </Border>

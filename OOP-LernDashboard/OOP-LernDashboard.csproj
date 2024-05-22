@@ -11,32 +11,32 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Fonts\Roboto-Regular.ttf" />
-    <None Remove="Images\CalendarIcon.png" />
-    <None Remove="Images\check.png" />
-    <None Remove="Images\DashboardIcon.png" />
-    <None Remove="Images\DeleteIcon.png" />
-    <None Remove="Images\FileIcon.png" />
-    <None Remove="Images\GoogleLogo.png" />
-    <None Remove="Images\leftArrow.png" />
-    <None Remove="Images\pauseIcon.png" />
-    <None Remove="Images\playIcon.png" />
-    <None Remove="Images\QuickNotesIcon.png" />
-    <None Remove="Images\restartIcon.png" />
-    <None Remove="Images\rightArrow.png" />
-    <None Remove="Images\SettingsIcon.png" />
-    <None Remove="Images\ShortcutsIcon.png" />
-    <None Remove="Images\TimerIcon.png" />
-    <None Remove="Images\ToDoIcon.png" />
+    <None Remove="Resources\Fonts\Roboto-Regular.ttf" />
+    <None Remove="Resources\Images\CalendarIcon.png" />
+    <None Remove="Resources\Images\check.png" />
+    <None Remove="Resources\Images\DashboardIcon.png" />
+    <None Remove="Resources\Images\DeleteIcon.png" />
+    <None Remove="Resources\Images\FileIcon.png" />
+    <None Remove="Resources\Images\GoogleLogo.png" />
+    <None Remove="Resources\Images\leftArrow.png" />
+    <None Remove="Resources\Images\pauseIcon.png" />
+    <None Remove="Resources\Images\playIcon.png" />
+    <None Remove="Resources\Images\QuickNotesIcon.png" />
+    <None Remove="Resources\Images\restartIcon.png" />
+    <None Remove="Resources\Images\rightArrow.png" />
+    <None Remove="Resources\Images\SettingsIcon.png" />
+    <None Remove="Resources\Images\ShortcutsIcon.png" />
+    <None Remove="Resources\Images\TimerIcon.png" />
+    <None Remove="Resources\Images\ToDoIcon.png" />
     <None Remove="logo.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Fonts\Roboto-Regular.ttf" />
-    <Resource Include="Images\check.png" />
-    <Resource Include="Images\DeleteIcon.png" />
-    <Resource Include="Images\FileIcon.png" />
-    <Resource Include="Images\leftArrow.png" />
+    <Resource Include="Resources\Fonts\Roboto-Regular.ttf" />
+    <Resource Include="Resources\Images\check.png" />
+    <Resource Include="Resources\Images\DeleteIcon.png" />
+    <Resource Include="Resources\Images\FileIcon.png" />
+    <Resource Include="Resources\Images\leftArrow.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,21 +53,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\CalendarIcon.png" />
-    <Resource Include="Images\DashboardIcon.png" />
-    <Resource Include="Images\GoogleLogo.png" />
-    <Resource Include="Images\pauseIcon.png" />
-    <Resource Include="Images\playIcon.png" />
-    <Resource Include="Images\QuickNotesIcon.png" />
-    <Resource Include="Images\restartIcon.png" />
-    <Resource Include="Images\rightArrow.png" />
-    <Resource Include="Images\SettingsIcon.png" />
-    <Resource Include="Images\ShortcutsIcon.png" />
-    <Resource Include="Images\TimerIcon.png" />
+    <Resource Include="Resources\Images\CalendarIcon.png" />
+    <Resource Include="Resources\Images\DashboardIcon.png" />
+    <Resource Include="Resources\Images\GoogleLogo.png" />
+    <Resource Include="Resources\Images\pauseIcon.png" />
+    <Resource Include="Resources\Images\playIcon.png" />
+    <Resource Include="Resources\Images\QuickNotesIcon.png" />
+    <Resource Include="Resources\Images\restartIcon.png" />
+    <Resource Include="Resources\Images\rightArrow.png" />
+    <Resource Include="Resources\Images\SettingsIcon.png" />
+    <Resource Include="Resources\Images\ShortcutsIcon.png" />
+    <Resource Include="Resources\Images\TimerIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\ToDoIcon.png" />
+    <Resource Include="Resources\Images\ToDoIcon.png" />
     <Resource Include="logo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
