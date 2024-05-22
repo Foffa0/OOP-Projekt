@@ -35,6 +35,7 @@ namespace OOP_LernDashboard.ViewModels
         }
 
         public ICommand AddCountdownCommand { get; set; }
+        public ICommand DeleteCountdownCommand { get; set; }
         public ICommand LoadDataCommand { get; set; }
 
         private DashboardStore _dashboardStore;
@@ -44,6 +45,7 @@ namespace OOP_LernDashboard.ViewModels
             _dashboardStore = dashboardStore;
 
             AddCountdownCommand = new CreateCountdownCommand(this, dashboardStore);
+            DeleteCountdownCommand = new DeleteCountdownCommand(dashboardStore);
             LoadDataCommand = new LoadCountdownsCommand(this, dashboardStore);
             _countdowns = new ObservableCollection<CountdownViewModel>();
 
@@ -61,7 +63,7 @@ namespace OOP_LernDashboard.ViewModels
 
 
         /// <summary>
-        /// Adds the newly created ToDo to the ObservableCollection
+        /// Adds the newly created countdown to the ObservableCollection
         /// </summary>
         /// <param name="countdown"></param>
         private void OnCountdownCreated(Countdown countdown)
@@ -71,13 +73,13 @@ namespace OOP_LernDashboard.ViewModels
         }
 
         /// <summary>
-        /// Removes the deleted ToDo from the ObservableCollection
+        /// Removes the deleted countdown from the ObservableCollection
         /// </summary>
-        /// <param name="toDo"></param>
+        /// <param name="countdown"></param>
         private void OnCountdownDeleted(Countdown countdown)
         {
             CountdownViewModel countdownViewModel = new CountdownViewModel(countdown);
-            _countdowns.Remove(countdownViewModel);
+            _countdowns.Remove(_countdowns.Where(i => i.Id == countdownViewModel.Id).Single());
         }
 
 

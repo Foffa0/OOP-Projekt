@@ -23,6 +23,7 @@
                 <ResourceDictionary Source="Themes/PrimaryButtonTheme.xaml" />
                 <ResourceDictionary Source="Themes/PrimaryTextInputTheme.xaml" />
                 <ResourceDictionary Source="Themes/DynamicIconColor.xaml" />
+                <ResourceDictionary Source="Themes/ListViewTheme.xaml" />
                 <!--Put themes above here-->
 
                 <hc:Theme />

@@ -90,7 +90,7 @@
                         </Image.Source>
                     </Image>
                 </RadioButton>
-                <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding QuickNotesCommand}" IsChecked="{Binding QuicknotesViewActive}">
+                <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding QuickNotesCommand}" IsChecked="{Binding QuickNotesViewActive}">
                     <Image Width="30">
                         <Image.Source>
                             <BitmapImage DecodePixelWidth="240" UriSource="/Images/QuickNotesIcon.png" />
