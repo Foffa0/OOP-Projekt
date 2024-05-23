@@ -10,7 +10,7 @@
 
         public Countdown(DateOnly date, string description)
         {
-            Id = new Guid();
+            Id = Guid.NewGuid();
             Date = date;
             Description = description;
         }
