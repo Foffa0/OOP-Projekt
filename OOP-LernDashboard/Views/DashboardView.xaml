@@ -4,8 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OOP_LernDashboard.Views"
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1200">
+    <!--Sort Countowns in UI-->
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="countownsSorted" Source="{Binding Countdowns}">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="Date" />
+            </CollectionViewSource.SortDescriptions>
+
+        </CollectionViewSource>
+    </UserControl.Resources>
+
     <Grid Background="{StaticResource WindowTheme}">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
@@ -139,15 +150,6 @@
                 </Grid>
             </Border>
 
-            <Border Grid.Column="1" Padding="10">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                </Grid>
-            </Border>
-
             <Border Grid.Column="2" Padding="10" Visibility="{Binding IsGoogleReady, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -215,6 +217,73 @@
 
                             <Button Command="{Binding CalendarCommand}" Background="Transparent" BorderThickness="0" Foreground="#f0f0f0" Cursor="Hand">
                                 <Underline>Kalender</Underline>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="3" Padding="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Background="{StaticResource SecondaryColor}" CornerRadius="5" Padding="10">
+                        <StackPanel>
+                            <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Headline}" Margin="0,0,0,10">Countdowns</TextBlock>
+
+                            <ListView Grid.Column="0" Background="Transparent" BorderThickness="0"
+                                Margin="0"
+                                Padding="4,0,4,4"
+                                ItemsSource="{Binding Source={StaticResource countownsSorted}}" 
+                                Style="{StaticResource ListViewTheme}" 
+                                ItemContainerStyle="{StaticResource ListViewItemTheme}" 
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                HorizontalContentAlignment="Stretch">
+
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Height="35" Margin="0 8 0 8" x:Name="CountdownElement" Background="Transparent" IsHitTestVisible="True">
+                                            <Grid.InputBindings>
+                                                <MouseBinding Gesture="LeftClick" Command="{Binding CountdownsCommand}"/>
+                                            </Grid.InputBindings>
+                                            <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="35"/>
+                                                    <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Grid Grid.Column="0">
+                                                <StackPanel Orientation="Vertical" Margin="0 0 0 0" VerticalAlignment="Center" Visibility="{Binding Expired, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                                                    <TextBlock Text="{Binding DaysLeft}" FontSize="14" FontWeight="Normal" TextAlignment="Center" />
+                                                    <TextBlock Text="Tage" FontSize="10" FontWeight="Light" TextAlignment="Center" Foreground="Gray" />
+                                                </StackPanel>
+                                                <Border BorderThickness="0 0 1 0" BorderBrush="Gray" Grid.Column="1" HorizontalAlignment="Right"  Margin="0 0 0 0"/>
+                                                <StackPanel Orientation="Vertical" Margin="0 0 0 0" VerticalAlignment="Center" Visibility="{Binding Expired, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <Image Source="/Resources/Images/check.png" Width="15" Height="15" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                </StackPanel>
+                                            </Grid>
+
+                                            <TextBlock Grid.Column="1" Text="{Binding Description}" FontSize="14" TextWrapping="Wrap" VerticalAlignment="Center" Margin="5 0 0 0">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Expired}" Value="True">
+                                                                <Setter Property="Foreground" Value="Gray" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+
+                            <Button Command="{Binding CountdownsCommand}" Background="Transparent" BorderThickness="0" Foreground="#f0f0f0" Cursor="Hand">
+                                <Underline>Bearbeiten</Underline>
                             </Button>
                         </StackPanel>
                     </Border>

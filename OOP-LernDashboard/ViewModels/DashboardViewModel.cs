@@ -80,10 +80,11 @@ namespace OOP_LernDashboard.ViewModels
 
         public ICommand ShortcutsCommand { get; }
         public ICommand CalendarCommand { get; }
+        public ICommand CountdownsCommand { get; }
 
         #endregion
 
-        public DashboardViewModel(Dashboard dashboard, DashboardStore dashboardStore, NavigationService shortcutsNavigationService, NavigationService dashboardNavigationService)
+        public DashboardViewModel(Dashboard dashboard, DashboardStore dashboardStore, NavigationService shortcutsNavigationService, NavigationService dashboardNavigationService, NavigationService countdownsNavigationService)
         {
             _dashboardStore = dashboardStore;
 
@@ -92,6 +93,7 @@ namespace OOP_LernDashboard.ViewModels
 
             ShortcutsCommand = new NavigateCommand(shortcutsNavigationService);
             CalendarCommand = new NavigateCommand(dashboardNavigationService);
+            CountdownsCommand = new NavigateCommand(countdownsNavigationService);
 
             _toDos = new ObservableCollection<ToDoViewModel>();
             _calendarEvents = new ObservableCollection<EventViewModel>();
@@ -120,9 +122,9 @@ namespace OOP_LernDashboard.ViewModels
             base.Dispose();
         }
 
-        public static DashboardViewModel LoadViewModel(Dashboard dashboard, DashboardStore dashboardStore, NavigationService shortcutsNavigationService, NavigationService dashboardNavigationService)
+        public static DashboardViewModel LoadViewModel(Dashboard dashboard, DashboardStore dashboardStore, NavigationService shortcutsNavigationService, NavigationService dashboardNavigationService, NavigationService countdownsNavigationService)
         {
-            DashboardViewModel viewModel = new DashboardViewModel(dashboard, dashboardStore, shortcutsNavigationService, dashboardNavigationService);
+            DashboardViewModel viewModel = new DashboardViewModel(dashboard, dashboardStore, shortcutsNavigationService, dashboardNavigationService, countdownsNavigationService);
             //Load data asynchronously
             viewModel.LoadDataAsyncCommand.Execute(null);
             return viewModel;

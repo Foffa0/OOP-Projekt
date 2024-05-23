@@ -83,7 +83,7 @@ namespace OOP_LernDashboard
 
         private DashboardViewModel CreateDashboardViewModel()
         {
-            return DashboardViewModel.LoadViewModel(_dashboard, _dashboardStore, new NavigationService(_navigationStore, CreateShortcutsViewModel), new NavigationService(_navigationStore, CreateCalendarViewModel));
+            return DashboardViewModel.LoadViewModel(_dashboard, _dashboardStore, new NavigationService(_navigationStore, CreateShortcutsViewModel), new NavigationService(_navigationStore, CreateCalendarViewModel), new NavigationService(_navigationStore, CreateCountdownViewModel));
         }
 
         private CalendarViewModel CreateCalendarViewModel()
