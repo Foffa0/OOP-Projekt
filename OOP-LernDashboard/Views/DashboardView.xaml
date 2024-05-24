@@ -25,7 +25,7 @@
 
         <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="{Binding WelcomeMessage}" Style="{StaticResource Title}"></TextBlock>
 
-        <Grid Grid.Row="1" Margin="-10, 0">
+        <Grid Grid.Row="1" Margin="-10, 0" x:Name="MainGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -155,7 +155,6 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
 
                     <Border Background="{StaticResource SecondaryColor}" CornerRadius="5" Padding="10">
@@ -168,6 +167,7 @@
                                         VerticalContentAlignment="Top"  
                                         ScrollViewer.VerticalScrollBarVisibility="Visible"
                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                        MaxHeight="{Binding ActualHeight, ElementName=MainGrid, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-102}"
                                         VirtualizingPanel.ScrollUnit="Pixel"
                                         HorizontalContentAlignment="Stretch">
                                 <ListView.ItemTemplate>
@@ -251,8 +251,8 @@
                                                 <MouseBinding Gesture="LeftClick" Command="{Binding CountdownsCommand}"/>
                                             </Grid.InputBindings>
                                             <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="35"/>
-                                                    <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="35"/>
+                                                <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
 
                                             <Grid Grid.Column="0">

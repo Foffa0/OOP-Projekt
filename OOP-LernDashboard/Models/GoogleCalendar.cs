@@ -74,20 +74,18 @@ namespace OOP_LernDashboard.Models
         }
 
         /// <summary>
-        /// Loads events from the calendar for the current month into the Events property
+        /// Loads events from the calendar into the Events property
         /// </summary>
         /// <returns></returns>
-        public async Task LoadEvents(bool loadPastEvents = true)
+        public async Task LoadEvents(DateTime? start = null, DateTime? end = null)
         {
-            var eventTasks = CalendarIds.Select(id => GetEventsForCalendarAsync(id)).ToArray();
+            var eventTasks = CalendarIds.Select(id => GetEventsForCalendarAsync(id, start: start, end: end)).ToArray();
             var allEvents = await Task.WhenAll(eventTasks);
             var combinedEvents = allEvents.SelectMany(e => e).ToList();
 
-            // if loadPastEvents is false, only keep events that are in the future or today
-            if (!loadPastEvents)
-            {
-                combinedEvents = combinedEvents.Where(e => e.StartTime.Date >= DateTime.Now.Date).ToList();
-            }
+            // sort events by start time
+            combinedEvents.Sort((e1, e2) => e1.StartTime.CompareTo(e2.StartTime));
+
             this.Events = combinedEvents;
         }
 
@@ -124,13 +122,20 @@ namespace OOP_LernDashboard.Models
         }
 
 
-        private async Task<List<CalendarEvent>> GetEventsForCalendarAsync(string calendarId, bool loadPastEvents = true)
+        private async Task<List<CalendarEvent>> GetEventsForCalendarAsync(
+            string calendarId,
+            bool loadPastEvents = true,
+            DateTime? start = null,
+            DateTime? end = null,
+            int max = 250
+            )
         {
             EventsResource.ListRequest request = _calendarService.Events.List(calendarId);
-            request.TimeMinDateTimeOffset = Start;
-            request.TimeMaxDateTimeOffset = Start.AddMonths(1).AddDays(-1);
+            request.TimeMinDateTimeOffset = start ?? Start;
+            request.TimeMaxDateTimeOffset = end ?? Start.AddMonths(1).AddDays(-1);
             request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
             request.SingleEvents = true;
+            request.MaxResults = max;
             Events events = await request.ExecuteAsync();
             // if loadPastEvents is false, only keep events that are in the future or today
             if (!loadPastEvents)

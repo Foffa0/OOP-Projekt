@@ -27,7 +27,10 @@ namespace OOP_LernDashboard.Commands
 
             if (_dashboardStore.GoogleCalendar != null)
             {
-                await _dashboardStore.GoogleCalendar.LoadEvents(loadPastEvents: false);
+                await _dashboardStore.GoogleCalendar.LoadEvents(
+                    start: DateTime.Now.Date.AddSeconds(-1),
+                    end: DateTime.Now.Date.AddYears(1)
+                    );
                 _viewModel.UpdateCalendarEvents(_dashboardStore.GoogleCalendar.Events);
             }
         }
