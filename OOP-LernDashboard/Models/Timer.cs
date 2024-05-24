@@ -1,5 +1,5 @@
-﻿using OOP_LernDashboard.ViewModels;
-using System.Windows.Threading;
+﻿using System.Windows.Threading;
+using OOP_LernDashboard.ViewModels;
 
 
 namespace OOP_LernDashboard.Models

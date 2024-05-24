@@ -1,4 +1,7 @@
-﻿namespace OOP_LernDashboard.ViewModels
+﻿using OOP_LernDashboard.Commands;
+using System.Windows.Input;
+
+namespace OOP_LernDashboard.ViewModels
 {
     class TimerViewModel : ViewModelBase
     {
