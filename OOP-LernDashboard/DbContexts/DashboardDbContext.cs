@@ -13,6 +13,8 @@ namespace OOP_LernDashboard.DbContexts
 
         public DbSet<CountdownDTO> Countdowns { get; set; }
 
+        public DbSet<CalendarDTO> CalendarIds { get; set; }
+
         /// <summary>
         /// Make shure that the Name of the Shortcut is unique
         /// </summary>

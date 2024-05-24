@@ -20,6 +20,8 @@ namespace OOP_LernDashboard.Stores
         private IDataProvider<Shortcut> _shortcutProvider;
         private IDataCreator<Countdown> _countdownCreator;
         private IDataProvider<Countdown> _countdownProvider;
+        private IDataCreator<string> _calendarIdCreator;
+        private IDataProvider<string> _calendarIdProvider;
 
         private readonly Models.LinkedList<ToDo> _toDos;
         public IEnumerable<ToDo> ToDos => _toDos;
@@ -29,6 +31,9 @@ namespace OOP_LernDashboard.Stores
 
         private readonly Models.LinkedList<Countdown> _countdowns;
         public IEnumerable<Countdown> Countdowns => _countdowns;
+
+        private readonly Models.LinkedList<string> _calendarIds;
+        public Models.LinkedList<string> CalendarIds => _calendarIds;
 
         public event Action<ToDo> ToDoCreated;
         public event Action<ToDo> ToDoDeleted;
@@ -46,10 +51,21 @@ namespace OOP_LernDashboard.Stores
 
         public Configuration AppConfig;
 
-        public string _welcomeName = "Studierende Person";
+        private string _welcomeName = "Studierende Person";
         public string WelcomeName => _welcomeName;
 
-        public DashboardStore(IDataCreator<ToDo> toDoDataCreator, IDataProvider<ToDo> toDoDataProvider, IDataCreator<Shortcut> shortcutDataCreator, IDataProvider<Shortcut> shortcutDataProvider, IDataCreator<Countdown> countdownCreator, IDataProvider<Countdown> countdownProvider)
+        private string _selectedCalendarId = "";
+        public string SelectedCalendarId => _selectedCalendarId;
+
+        public DashboardStore(
+            IDataCreator<ToDo> toDoDataCreator,
+            IDataProvider<ToDo> toDoDataProvider,
+            IDataCreator<Shortcut> shortcutDataCreator,
+            IDataProvider<Shortcut> shortcutDataProvider,
+            IDataCreator<Countdown> countdownCreator,
+            IDataProvider<Countdown> countdownProvider,
+            IDataCreator<string> calendarIdCreator,
+            IDataProvider<string> calendarIdProvider)
         {
             _toDoCreator = toDoDataCreator;
             _toDoProvider = toDoDataProvider;
@@ -60,12 +76,16 @@ namespace OOP_LernDashboard.Stores
             _countdownCreator = countdownCreator;
             _countdownProvider = countdownProvider;
 
+            _calendarIdCreator = calendarIdCreator;
+            _calendarIdProvider = calendarIdProvider;
+
             // the lazy ensures to only load the data once from the database
             _initializeLazy = new Lazy<Task>(Initialize);
 
             _toDos = new Models.LinkedList<ToDo>();
             _shortcuts = new Models.LinkedList<Shortcut>();
             _countdowns = new Models.LinkedList<Countdown>();
+            _calendarIds = new Models.LinkedList<string>();
 
             this.GoogleLogin = new GoogleLogin();
             this.GoogleLogin.AuthTokenReceived += GoogleLoginAuthTokenReceived;
@@ -89,6 +109,11 @@ namespace OOP_LernDashboard.Stores
                 _welcomeName = name;
             }
 
+            string? calendarId = ReadSetting("SelectedCalendarId");
+            if (calendarId != null && calendarId != "")
+            {
+                _selectedCalendarId = calendarId;
+            }
         }
 
         /// <summary>
@@ -209,11 +234,19 @@ namespace OOP_LernDashboard.Stores
             {
                 _countdowns.Add(countdown);
             }
+
+            IEnumerable<string> ids = await _calendarIdProvider.GetAllModels();
+            _calendarIds.Clear();
+            foreach (var id in ids)
+            {
+                _calendarIds.Add(id);
+                this.GoogleCalendar?.AddCalendar(id);
+            }
         }
 
         private void GoogleLoginAuthTokenReceived(object sender, (string authToken, string refreshToken) token)
         {
-            if(token.refreshToken == null)
+            if (token.refreshToken == null)
             {
                 // User logs in again and no need to update the refresh token
                 this.GoogleCalendar = new GoogleCalendar(token.authToken, false);
@@ -223,6 +256,17 @@ namespace OOP_LernDashboard.Stores
                 this.GoogleCalendar = new GoogleCalendar(token.authToken, true);
                 AddUpdateAppSettings("GoogleRefreshToken", token.refreshToken);
             }
+
+            if (SelectedCalendarId != null && SelectedCalendarId != "")
+            {
+                this.GoogleCalendar.SelectCalendar(SelectedCalendarId);
+            }
+
+            foreach (string id in CalendarIds)
+            {
+                this.GoogleCalendar.AddCalendar(id);
+            }
+
             GoogleLoggedIn?.Invoke();
         }
 
@@ -241,6 +285,27 @@ namespace OOP_LernDashboard.Stores
         {
             ThemeManager.Current.AccentColor = color;
             AddUpdateAppSettings("AccentColor", color.ToString());
+        }
+
+        public async Task SetCalendarSelected(string id, bool isSelected)
+        {
+            if (this.GoogleCalendar == null)
+            {
+                throw new Exception("No Google Calendar available");
+            }
+
+            if (isSelected)
+            {
+                _calendarIds.Add(id);
+                this.GoogleCalendar.AddCalendar(id);
+                await _calendarIdCreator.CreateModel(id);
+            }
+            else
+            {
+                _calendarIds.Remove(id);
+                this.GoogleCalendar.RemoveCalendar(id);
+                await _calendarIdCreator.DeleteModel(id);
+            }
         }
 
         public void LoadAccentColor()

@@ -12,6 +12,7 @@ namespace OOP_LernDashboard.Services.DataCreators
         {
             _dbContextFactory = dbContextFactory;
         }
+
         public async Task CreateModel(Countdown model)
         {
             using (DashboardDbContext context = _dbContextFactory.CreateDbContext())

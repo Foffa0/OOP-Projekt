@@ -31,9 +31,15 @@ namespace OOP_LernDashboard
             IDataProvider<Shortcut> _shortcutProvider = new DatabaseShortcutProvider(_dashboardDbContextFactory);
             IDataCreator<Countdown> _countdownCreator = new DatabaseCountdownCreator(_dashboardDbContextFactory);
             IDataProvider<Countdown> _countdownPriovider = new DatabaseCountdownProvider(_dashboardDbContextFactory);
+            IDataCreator<string> _calendarIdCreator = new DatabaseCalendarIdCreator(_dashboardDbContextFactory);
+            IDataProvider<string> _calendarIdPriovider = new DatabaseCalendarIdProvider(_dashboardDbContextFactory);
 
 
-            _dashboardStore = new DashboardStore(_toDoCreator, _toDoProvider, _shortcutCreator, _shortcutProvider, _countdownCreator, _countdownPriovider);
+            _dashboardStore = new DashboardStore(
+                _toDoCreator, _toDoProvider,
+                _shortcutCreator, _shortcutProvider,
+                _countdownCreator, _countdownPriovider,
+                _calendarIdCreator, _calendarIdPriovider);
             _navigationStore = new NavigationStore();
             _dashboard = new Dashboard(_dashboardStore);
         }

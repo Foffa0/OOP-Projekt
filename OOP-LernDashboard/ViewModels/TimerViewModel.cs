@@ -1,14 +1,4 @@
-﻿
-using System.Threading;
-using System.Windows.Input;
-using System.Windows.Navigation;
-using System.Windows.Threading;
-using OOP_LernDashboard.Commands;
-using OOP_LernDashboard.Models;
-
-
-
-namespace OOP_LernDashboard.ViewModels
+﻿namespace OOP_LernDashboard.ViewModels
 {
     class TimerViewModel : ViewModelBase
     {
