@@ -3,7 +3,6 @@ using HandyControl.Data;
 using HandyControl.Tools.Extension;
 using OOP_LernDashboard.ViewModels;
 
-
 namespace OOP_LernDashboard.Commands
 {
     class AddTimerCommand : CommandBase
@@ -20,7 +19,7 @@ namespace OOP_LernDashboard.Commands
 
         public override void Execute(object? parameter)
         {
-            if (_viewModel.TimerName.IsNullOrEmpty()) 
+            if (_viewModel.TimerName.IsNullOrEmpty())
             {
                 Growl.Error(new GrowlInfo
                 {

@@ -3,11 +3,11 @@
 namespace OOP_LernDashboard.Views
 {
     /// <summary>
-    /// Interaktionslogik für QuickNotesView.xaml
+    /// Interaction logic for SelectCalendarsView.xaml
     /// </summary>
-    public partial class QuickNotesView : UserControl
+    public partial class SelectCalendarsView : UserControl
     {
-        public QuickNotesView()
+        public SelectCalendarsView()
         {
             InitializeComponent();
         }

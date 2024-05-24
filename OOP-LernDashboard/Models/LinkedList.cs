@@ -22,6 +22,18 @@ namespace OOP_LernDashboard.Models
 
         public Element? head { get; set; }
 
+        public LinkedList()
+        {
+        }
+
+        public LinkedList(IList list)
+        {
+            foreach (T item in list)
+            {
+                Add(item);
+            }
+        }
+
         /// <summary>
         /// Adds new ListElement in front of List
         /// </summary>

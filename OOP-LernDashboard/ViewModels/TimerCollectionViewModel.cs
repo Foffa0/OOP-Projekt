@@ -1,6 +1,4 @@
-using OOP_LernDashboard.Commands;
 using System.Collections.ObjectModel;
-using System.Timers;
 using System.Windows.Input;
 
 namespace OOP_LernDashboard.ViewModels
@@ -12,7 +10,7 @@ namespace OOP_LernDashboard.ViewModels
         private string _timerName;
         private int _hourInput;
         private int _minuteInput;
-        private int _secondInput=1;        
+        private int _secondInput = 1;
 
         public int Hours
         {
@@ -59,7 +57,7 @@ namespace OOP_LernDashboard.ViewModels
         {
             get => new TimeSpan(Hours, Minutes, Seconds);
         }
-        
+
 
         public TimerCollectionViewModel()
         {

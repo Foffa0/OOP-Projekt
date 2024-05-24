@@ -15,40 +15,67 @@
 
         <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Einstellungen" Style="{StaticResource Title}"></TextBlock>
 
-        <StackPanel Grid.Row="1">
-            <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Google" Style="{StaticResource Headline}"></TextBlock>
-            <Button Style="{StaticResource PrimaryButton}" HorizontalAlignment="Left" Command="{Binding LoginGoogleCommand}" Visibility="{Binding IsGoogleLoggedIn, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock VerticalAlignment="Center" Style="{StaticResource Text}">Mit Google anmelden</TextBlock>
-                    <Image Width="20" Margin="10, 0, 0, 0">
-                        <Image.Source>
-                            <BitmapImage DecodePixelWidth="40" UriSource="/Resources/Images/GoogleLogo.png" />
-                        </Image.Source>
-                    </Image>
-                </StackPanel>
-            </Button>
-            <StackPanel Orientation="Horizontal" Visibility="{Binding IsGoogleLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <TextBlock Style="{StaticResource Text}" VerticalAlignment="Center" Margin="0, 0, 20, 0">Bereits Eingeloggt</TextBlock>
-                <Button Style="{StaticResource PrimaryButton}" Command="{Binding LogoutGoogleCommand}">Abmelden</Button>
-            </StackPanel>
-
-            <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Vorname" Style="{StaticResource Headline}"></TextBlock>
-            <StackPanel Orientation="Horizontal">
-                <TextBox Width="300" VerticalContentAlignment="Center" Style="{StaticResource PrimaryTextInput}" Text="{Binding WelcomeName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                <Button Style="{StaticResource PrimaryButton}" Command="{Binding UpdateWelcomeNameCommand}">Aktualisieren</Button>
-            </StackPanel>
-
-            <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Farbauswahl" Style="{StaticResource Headline}"></TextBlock>
-            <StackPanel Orientation="Horizontal">
-                <!--Hacky trick to remove cancel and confirm button from the color picker-->
-                <Border BorderBrush="{DynamicResource BorderBrush}" MaxHeight="294" BorderThickness="0,0,0,1">
-                    <hc:ColorPicker Margin="0" SelectedBrush="{Binding AccentColorBrush, Mode=OneWay}" Name="ColorPicker"></hc:ColorPicker>
-                </Border>
-                <Button Style="{StaticResource PrimaryButton}" Background="{Binding AccentColorBrush}" VerticalAlignment="Center"
-                        Command="{Binding UpdateAccentColorCommand}" Margin="20, 0">
-                    Speichern
+        <hc:ScrollViewer Grid.Row="1">
+            <StackPanel>
+                <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Google" Style="{StaticResource Headline}"></TextBlock>
+                <Button Style="{StaticResource PrimaryButton}" HorizontalAlignment="Left" Command="{Binding LoginGoogleCommand}" Visibility="{Binding IsGoogleLoggedIn, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center" Style="{StaticResource Text}">Mit Google anmelden</TextBlock>
+                        <Image Width="20" Margin="10, 0, 0, 0">
+                            <Image.Source>
+                                <BitmapImage DecodePixelWidth="40" UriSource="/Resources/Images/GoogleLogo.png" />
+                            </Image.Source>
+                        </Image>
+                    </StackPanel>
                 </Button>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding IsGoogleLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBlock Style="{StaticResource Text}" VerticalAlignment="Center" Margin="0, 0, 20, 0">Bereits Eingeloggt</TextBlock>
+                    <Button Style="{StaticResource PrimaryButton}" Command="{Binding LogoutGoogleCommand}">Abmelden</Button>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+
+                    <StackPanel Margin="0,0,20,0">
+                        <TextBlock Text="Wähle Kalendar zum Anzeigen aus"></TextBlock>
+                        <ListBox hc:ListBoxAttach.IsOddEvenRow="True" AlternationCount="2" ItemsSource="{Binding Calendars}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <CheckBox 
+                                        Content="{Binding Name}"
+                                        IsChecked="{Binding IsSelected, Mode=OneWay}"
+                                        Command="{Binding UpdateCalendarSelected}"
+                                        CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}"></CheckBox>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <TextBlock Text="Wähle Kalendar zum Hinzufügen von Events aus"></TextBlock>
+                        <ComboBox ItemsSource="{Binding Calendars}" SelectedIndex="0" DisplayMemberPath="Name" SelectedItem="{Binding SelectedCalendar}"/>
+
+                    </StackPanel>
+                </StackPanel>
+
+
+                <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Vorname" Style="{StaticResource Headline}"></TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="300" VerticalContentAlignment="Center" Style="{StaticResource PrimaryTextInput}" Text="{Binding WelcomeName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <Button Style="{StaticResource PrimaryButton}" Command="{Binding UpdateWelcomeNameCommand}">Aktualisieren</Button>
+                </StackPanel>
+
+                <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Farbauswahl" Style="{StaticResource Headline}"></TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <!--Hacky trick to remove cancel and confirm button from the color picker-->
+                    <Border BorderBrush="{DynamicResource BorderBrush}" MaxHeight="294" BorderThickness="0,0,0,1">
+                        <hc:ColorPicker Margin="0" SelectedBrush="{Binding AccentColorBrush, Mode=OneWay}" Name="ColorPicker"></hc:ColorPicker>
+                    </Border>
+                    <Button Style="{StaticResource PrimaryButton}" Background="{Binding AccentColorBrush}" VerticalAlignment="Center"
+                        Command="{Binding UpdateAccentColorCommand}" Margin="20, 0">
+                        Speichern
+                    </Button>
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
+        </hc:ScrollViewer>
     </Grid>
 </UserControl>
