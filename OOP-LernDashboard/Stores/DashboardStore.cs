@@ -257,11 +257,6 @@ namespace OOP_LernDashboard.Stores
                 AddUpdateAppSettings("GoogleRefreshToken", token.refreshToken);
             }
 
-            if (SelectedCalendarId != null && SelectedCalendarId != "")
-            {
-                this.GoogleCalendar.SelectCalendar(SelectedCalendarId);
-            }
-
             foreach (string id in CalendarIds)
             {
                 this.GoogleCalendar.AddCalendar(id);
@@ -285,6 +280,12 @@ namespace OOP_LernDashboard.Stores
         {
             ThemeManager.Current.AccentColor = color;
             AddUpdateAppSettings("AccentColor", color.ToString());
+        }
+
+        public void SetSelectedCalendar(string id)
+        {
+            _selectedCalendarId = id;
+            AddUpdateAppSettings("SelectedCalendarId", id);
         }
 
         public async Task SetCalendarSelected(string id, bool isSelected)

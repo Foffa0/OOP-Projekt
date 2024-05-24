@@ -28,10 +28,12 @@ namespace OOP_LernDashboard.Commands
             // This is necessary to ensure that the EventDetailsView shows the correct data
             _eventViewModel.ResetTempData();
 
+            string titel = _eventViewModel.CanEdit ? "Eintrag bearbeiten" : "Eintrag ansehen";
+
             _popup = new PopupWindow()
             {
                 MinWidth = 400,
-                Title = "Eintrag bearbeiten",
+                Title = titel,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
                 ShowInTaskbar = false,
                 AllowsTransparency = true,

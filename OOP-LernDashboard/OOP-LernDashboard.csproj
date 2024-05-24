@@ -15,6 +15,7 @@
 	<None Remove="Resources\Images\AddIcon.png" />
     <None Remove="Resources\Images\CalendarIcon.png" />
     <None Remove="Resources\Images\check.png" />
+    <None Remove="Resources\Images\CountdownIcon.png" />
     <None Remove="Resources\Images\DashboardIcon.png" />
     <None Remove="Resources\Images\DeleteIcon.png" />
     <None Remove="Resources\Images\FileIcon.png" />
@@ -37,6 +38,7 @@
     <Resource Include="Resources\Fonts\Roboto-Regular.ttf" />
 	<Resource Include="Resources\Images\AddIcon.png" />
     <Resource Include="Resources\Images\check.png" />
+    <Resource Include="Resources\Images\CountdownIcon.png" />
     <Resource Include="Resources\Images\DeleteIcon.png" />
     <Resource Include="Resources\Images\FileIcon.png" />
     <Resource Include="Resources\Images\leftArrow.png" />

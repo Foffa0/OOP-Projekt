@@ -262,6 +262,14 @@
                                                ></hc:TimePicker>
                             </Grid>
                         </hc:TransitioningContentControl>
+
+                        <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Text}" Text="Kalendarauswahl" Margin="0, 10, 0, 0"></TextBlock>
+                        <TextBlock Style="{StaticResource Text.Small}" Text="Wähle aus, zu welchem Kalender das Event hinzugefügt wird." Margin="0, 5"></TextBlock>
+                        <ComboBox 
+                            ItemsSource="{Binding Calendars}" 
+                            DisplayMemberPath="Summary" 
+                            SelectedItem="{Binding SelectedCalendar}"/>
+
                         <Button Content="Hinzufügen" Command="{Binding AddCommand}" Style="{StaticResource PrimaryButton}" Cursor="Hand" HorizontalAlignment="Center" Margin="0, 10, 0, 0"></Button>
 
                     </StackPanel>

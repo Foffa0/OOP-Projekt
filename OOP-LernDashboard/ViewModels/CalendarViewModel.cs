@@ -1,9 +1,11 @@
-﻿using OOP_LernDashboard.Commands;
+﻿using HandyControl.Tools.Extension;
+using OOP_LernDashboard.Commands;
 using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Stores;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Input;
+using Calendar = Google.Apis.Calendar.v3.Data.Calendar;
 
 namespace OOP_LernDashboard.ViewModels
 {
@@ -155,6 +157,20 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
+        private Calendar _selectedCalendar;
+        public Calendar SelectedCalendar
+        {
+            get { return _selectedCalendar; }
+            set
+            {
+                _selectedCalendar = value;
+                OnPropertyChanged(nameof(SelectedCalendar));
+            }
+        }
+
+        public ObservableCollection<Calendar> Calendars { get; private set; }
+
+
         #endregion
 
         public ICommand AddCommand { get; }
@@ -167,6 +183,7 @@ namespace OOP_LernDashboard.ViewModels
         public CalendarViewModel(Dashboard dashboard, DashboardStore dashboardStore)
         {
             Days = new ObservableCollection<DayViewModel>();
+            Calendars = new ObservableCollection<Calendar>();
 
             AddCommand = new CreateCalendarEventCommand(this, dashboardStore);
             LoadCalendarCommand = new LoadCalendarCommand(this, dashboardStore);
@@ -202,6 +219,36 @@ namespace OOP_LernDashboard.ViewModels
         public void UpdateFirstDayOffset(int offset)
         {
             FirstDayOffset = offset;
+        }
+
+        public void UpdateCalendars(Models.LinkedList<Calendar> calendars)
+        {
+            Calendars.Clear();
+            foreach (Calendar calendar in calendars)
+            {
+                Calendars.Add(calendar);
+            }
+
+            if (SelectedCalendar == null)
+            {
+                SelectedCalendar = Calendars.First();
+            }
+        }
+
+
+        public void UpdateSelectedCalendar(string id)
+        {
+            if (id.IsNullOrEmpty())
+            {
+                return;
+            }
+
+            Calendar? calendar = Calendars.FirstOrDefault(c => c.Id == id);
+
+            if (calendar != null)
+            {
+                SelectedCalendar = calendar;
+            }
         }
 
         /// <summary>

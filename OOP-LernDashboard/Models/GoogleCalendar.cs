@@ -16,8 +16,6 @@ namespace OOP_LernDashboard.Models
 
         private CalendarService _calendarService;
 
-        private string? _selectedCalendarId;
-
         public IList<CalendarEvent> Events { get; private set; }
 
         // List of all calendars the user wants to display
@@ -29,7 +27,6 @@ namespace OOP_LernDashboard.Models
         public GoogleCalendar(string authToken, bool isAfterAppStartup = true)
         {
             AuthToken = authToken;
-            _selectedCalendarId = null;
 
             Events = new List<CalendarEvent>();
             CalendarIds = new LinkedList<string>();
@@ -69,15 +66,10 @@ namespace OOP_LernDashboard.Models
             });
         }
 
-        public void AddEvent(CalendarEvent calendarEvent)
+        public void AddEvent(CalendarEvent calendarEvent, string calendarId)
         {
-            if (_selectedCalendarId == null)
-            {
-                throw new Exception("No calendar selected");
-            }
-
             Event e = ToGoogleEvent(calendarEvent);
-            Event @event = _calendarService.Events.Insert(e, _selectedCalendarId).Execute();
+            Event @event = _calendarService.Events.Insert(e, calendarId).Execute();
             calendarEvent.Id = @event.Id;
         }
 
@@ -90,12 +82,24 @@ namespace OOP_LernDashboard.Models
             var eventTasks = CalendarIds.Select(id => GetEventsForCalendarAsync(id)).ToArray();
             var allEvents = await Task.WhenAll(eventTasks);
             var combinedEvents = allEvents.SelectMany(e => e).ToList();
+
+            // if loadPastEvents is false, only keep events that are in the future or today
+            if (!loadPastEvents)
+            {
+                combinedEvents = combinedEvents.Where(e => e.StartTime.Date >= DateTime.Now.Date).ToList();
+            }
             this.Events = combinedEvents;
         }
 
-        public async Task LoadAllCalendars()
+        public async Task LoadAllCalendars(bool onlyEditable = false)
         {
             CalendarListResource.ListRequest request = _calendarService.CalendarList.List();
+
+            if (onlyEditable)
+            {
+                request.MinAccessRole = CalendarListResource.ListRequest.MinAccessRoleEnum.Owner;
+            }
+
             CalendarList calendars = await request.ExecuteAsync();
 
             // get all calendars
@@ -137,8 +141,8 @@ namespace OOP_LernDashboard.Models
                         || (e.Start.DateTimeDateTimeOffset != null && e.Start.DateTimeDateTimeOffset.Value.LocalDateTime.Date >= DateTime.Now.Date)
                     ).ToList();
             }
-
-            return events.Items.Select(e => ToCalendarEvent(e)).ToList();
+            bool canEdit = events.AccessRole == "owner" || events.AccessRole == "writer";
+            return events.Items.Select(e => ToCalendarEvent(e, calendarId, canEdit)).ToList();
         }
 
         /// <summary>
@@ -148,30 +152,15 @@ namespace OOP_LernDashboard.Models
         /// <returns></returns>
         public async Task UpdateEvent(CalendarEvent calendarEvent)
         {
-            if (_selectedCalendarId == null)
-            {
-                throw new Exception("No calendar selected");
-            }
-
             Event e = ToGoogleEvent(calendarEvent);
-            await _calendarService.Events.Update(e, _selectedCalendarId, calendarEvent.Id).ExecuteAsync();
+            await _calendarService.Events.Update(e, calendarEvent.CalendarId, calendarEvent.Id).ExecuteAsync();
             this.Events = this.Events.Select(e => e.Id == calendarEvent.Id ? calendarEvent : e).ToList();
         }
 
         public async Task DeleteEvent(CalendarEvent calendarEvent)
         {
-            if (_selectedCalendarId == null)
-            {
-                throw new Exception("No calendar selected");
-            }
-
-            await _calendarService.Events.Delete(_selectedCalendarId, calendarEvent.Id).ExecuteAsync();
+            await _calendarService.Events.Delete(calendarEvent.CalendarId, calendarEvent.Id).ExecuteAsync();
             this.Events = this.Events.Where(e => e.Id != calendarEvent.Id).ToList();
-        }
-
-        public void SelectCalendar(string calendarId)
-        {
-            _selectedCalendarId = calendarId;
         }
 
         public void AddCalendar(string calendarId)
@@ -194,14 +183,16 @@ namespace OOP_LernDashboard.Models
             CalendarIds.Remove(calendarId);
         }
 
-        private static CalendarEvent ToCalendarEvent(Event e)
+        private static CalendarEvent ToCalendarEvent(Event e, string calendarId, bool canEdit)
         {
             if (e.Start.Date != null)
             {
                 // whole day event
                 return new CalendarEvent(
+                    calendarId,
                     e.Summary,
                     e.Description,
+                    canEdit,
                     DateTime.Parse(e.Start.Date),
                     null,
                     e.Id);
@@ -210,8 +201,10 @@ namespace OOP_LernDashboard.Models
             {
                 // event with start and end time
                 return new CalendarEvent(
+                    calendarId,
                     e.Summary,
                     e.Description,
+                    canEdit,
                     e.Start.DateTimeDateTimeOffset.Value.LocalDateTime,
                     e.End.DateTimeDateTimeOffset.Value.LocalDateTime,
                     e.Id);

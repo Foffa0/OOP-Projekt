@@ -24,11 +24,17 @@
 
         public bool IsAllDayEvent => !EndTime.HasValue;
 
-        public CalendarEvent(string title, string Desc, DateTime startTime, DateTime? endTime, string? id = null)
+        public string CalendarId { get; set; }
+
+        public bool CanEdit { get; set; }
+
+        public CalendarEvent(string calendarId, string title, string Desc, bool canEdit, DateTime startTime, DateTime? endTime, string? id = null)
         {
+            CalendarId = calendarId;
             _id = id;
             Title = title;
             Description = Desc;
+            CanEdit = canEdit;
             StartTime = startTime;
             EndTime = endTime;
         }

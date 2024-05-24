@@ -10,7 +10,7 @@
     <StackPanel Margin="20">
 
         <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Text}"  Text="Titel"></TextBlock>
-        <TextBox Text="{Binding EventTitleTemp, UpdateSourceTrigger=PropertyChanged}" Name="Title"></TextBox>
+        <TextBox Text="{Binding EventTitleTemp, UpdateSourceTrigger=PropertyChanged}" Name="Title" IsEnabled="{Binding CanEdit}"></TextBox>
 
         <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Text}"  Text="Beschreibung" Margin="0, 10, 0, 0"></TextBlock>
         <Border>
@@ -20,13 +20,14 @@
              VerticalContentAlignment="Top"
              TextWrapping="Wrap"
              AllowDrop="True"
+             IsEnabled="{Binding CanEdit}"
              Padding="5">
             </TextBox>
         </Border>
 
 
         <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Text}"  Text="Datum" Margin="0, 10, 0, 0"></TextBlock>
-        <hc:DatePicker Margin="0,0,0,10" SelectedDate="{Binding EventDateTemp, UpdateSourceTrigger=PropertyChanged}" Language="de"/>
+        <hc:DatePicker IsEnabled="{Binding CanEdit}" Margin="0,0,0,10" SelectedDate="{Binding EventDateTemp, UpdateSourceTrigger=PropertyChanged}" Language="de"/>
 
 
         <Grid Margin="0,0,0,10" Visibility="{Binding IsWholeDayEvent, Converter={StaticResource InvertedBooleanToVisibilityConverter}}">
@@ -42,6 +43,7 @@
 
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Start" Style="{StaticResource Text}" VerticalAlignment="Center"></TextBlock>
             <hc:TimePicker Grid.Row="1" Grid.Column="0" 
+                   IsEnabled="{Binding CanEdit}"
                    TimeFormat="HH:mm"
                    SelectedTime="{Binding EventStartTimeTemp, UpdateSourceTrigger=PropertyChanged}"
                    ></hc:TimePicker>
@@ -50,10 +52,11 @@
             <hc:TimePicker Grid.Row="1" Grid.Column="2" 
                    TimeFormat="HH:mm"
                    SelectedTime="{Binding EventEndTimeTemp, UpdateSourceTrigger=PropertyChanged}"
+                   IsEnabled="{Binding CanEdit}"
                    ></hc:TimePicker>
         </Grid>
 
-        <Grid>
+        <Grid Visibility="{Binding CanEdit, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />

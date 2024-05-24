@@ -1,5 +1,5 @@
-﻿using System.Windows.Threading;
-using OOP_LernDashboard.ViewModels;
+﻿using OOP_LernDashboard.ViewModels;
+using System.Windows.Threading;
 
 
 namespace OOP_LernDashboard.Models
@@ -8,7 +8,7 @@ namespace OOP_LernDashboard.Models
     {
         TimerViewModel _timerViewModel;
         DispatcherTimer timer;
-        
+
         DateTime startTime;
         TimeSpan endTime;
         double elapsedTime;
@@ -35,7 +35,7 @@ namespace OOP_LernDashboard.Models
 
 
             _timerViewModel.Timer = $"{endTime.ToString(@"hh\:mm\:ss")}";
-            _timerViewModel.BarValue = (elapsedTime/totalTime) * 100;
+            _timerViewModel.BarValue = (elapsedTime / totalTime) * 100;
             if (endTime.TotalMilliseconds < 0)
             {
                 timer.Stop();

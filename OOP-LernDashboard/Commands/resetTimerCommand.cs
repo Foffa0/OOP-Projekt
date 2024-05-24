@@ -6,7 +6,7 @@ namespace OOP_LernDashboard.Commands
     {
         TimerViewModel _viewModel;
 
-        
+
         public resetTimerCommand(TimerViewModel viewModel)
         {
             _viewModel = viewModel;

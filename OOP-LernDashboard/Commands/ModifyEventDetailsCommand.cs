@@ -19,6 +19,8 @@ namespace OOP_LernDashboard.Commands
             _eventViewModel.ApplyTempData();
             await _dashboardStore.GoogleCalendar.UpdateEvent(_eventViewModel.Event);
             _eventViewModel.OnSaved?.Invoke();
+
+            // TODO: Reload events
         }
     }
 }

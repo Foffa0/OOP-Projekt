@@ -33,6 +33,10 @@ namespace OOP_LernDashboard.Commands
                 _viewModel.UpdateMonth(currentMonth);
                 _viewModel.UpdateGoogleReady(true);
 
+                await _dashboardStore.GoogleCalendar.LoadAllCalendars(onlyEditable: true);
+                _viewModel.UpdateCalendars(_dashboardStore.GoogleCalendar.AllCalendars);
+                _viewModel.UpdateSelectedCalendar(_dashboardStore.SelectedCalendarId);
+
                 await _dashboardStore.GoogleCalendar.LoadEvents();
 
                 int today = DateTime.Now.Day - 1;

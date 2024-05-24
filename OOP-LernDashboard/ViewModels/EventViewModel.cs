@@ -24,6 +24,8 @@ namespace OOP_LernDashboard.ViewModels
 
         public bool IsWholeDayEvent => _event.IsAllDayEvent;
 
+        public bool CanEdit => _event.CanEdit;
+
         #region TempData
 
         // used to store updated data before saving
@@ -115,9 +117,6 @@ namespace OOP_LernDashboard.ViewModels
                 _eventStartTimeTemp = _event.StartTime;
                 _eventEndTimeTemp = _event.EndTime!.Value;
             }
-
-            OnSaved = () => { };
-            OnDeleted = () => { };
         }
 
         /// <summary>

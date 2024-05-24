@@ -50,21 +50,6 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
-        private Calendar _selectedCalendar;
-
-        public CalendarSelectViewModel SelectedCalendar
-        {
-            get => new CalendarSelectViewModel(_selectedCalendar, _dashboardStore, false);
-            set
-            {
-                _selectedCalendar = value.Calendar;
-                OnPropertyChanged(nameof(SelectedCalendar));
-
-                // TODO: automaticly select calendar to show
-            }
-        }
-
-
         private readonly ObservableCollection<CalendarSelectViewModel> _calendars;
         public IEnumerable<CalendarSelectViewModel> Calendars => _calendars;
 

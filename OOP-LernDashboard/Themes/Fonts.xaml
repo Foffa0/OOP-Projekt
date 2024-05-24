@@ -14,4 +14,9 @@
         <Setter Property="FontSize" Value="14" />
         <Setter Property="Foreground" Value="White" />
     </Style>
+
+    <Style x:Key="Text.Small" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
 </ResourceDictionary>

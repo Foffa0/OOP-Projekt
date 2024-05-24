@@ -49,12 +49,6 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </StackPanel>
-
-                    <StackPanel>
-                        <TextBlock Text="Wähle Kalendar zum Hinzufügen von Events aus"></TextBlock>
-                        <ComboBox ItemsSource="{Binding Calendars}" SelectedIndex="0" DisplayMemberPath="Name" SelectedItem="{Binding SelectedCalendar}"/>
-
-                    </StackPanel>
                 </StackPanel>
 
 
