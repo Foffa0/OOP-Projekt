@@ -68,6 +68,7 @@ namespace OOP_LernDashboard.Models
         public void Reset()
         {
             timer.Stop();
+            _timerViewModel.IconPath = "/Resources/Images/playIcon.png";
             elapsedTime = 0;
             endTime = TimeSpan.FromMilliseconds(totalTime);
             _timerViewModel.Timer = $"{endTime.ToString(@"hh\:mm\:ss")}";
