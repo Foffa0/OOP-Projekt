@@ -121,7 +121,7 @@
                 <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding CountdownCommand}">
                     <Image Height="30">
                         <Image.Source>
-                            <BitmapImage DecodePixelWidth="40" UriSource="/Resources/Images/TimerIcon.png" />
+                            <BitmapImage DecodePixelWidth="40" UriSource="/Resources/Images/CountdownIcon.png" />
                         </Image.Source>
                     </Image>
                 </RadioButton>
