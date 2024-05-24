@@ -11,8 +11,8 @@ using OOP_LernDashboard.DbContexts;
 namespace OOP_LernDashboard.Migrations
 {
     [DbContext(typeof(DashboardDbContext))]
-    [Migration("20240524150701_calendarIds")]
-    partial class calendarIds
+    [Migration("20240524164338_calendarids")]
+    partial class calendarids
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
