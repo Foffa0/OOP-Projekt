@@ -1,34 +1,42 @@
 ﻿using System.Windows.Threading;
 using OOP_LernDashboard.ViewModels;
 
+
 namespace OOP_LernDashboard.Models
 {
     class Timer
     {
         TimerViewModel _timerViewModel;
         DispatcherTimer timer;
+        
         DateTime startTime;
-        DateTime endTime;
+        TimeSpan endTime;
+        double elapsedTime;
+        double totalTime;
+        private int tickSize = 500;
+        bool isPaused = false;
 
         public Timer(TimerViewModel timerViewModel, TimeSpan endTime)
         {
             _timerViewModel = timerViewModel;
-            timer = new DispatcherTimer();
-            timer.Tick += new EventHandler(timer_Tick);
-            timer.Interval = TimeSpan.FromMilliseconds(500);
+            this.endTime = endTime;
 
-            startTime = DateTime.Now;
-            this.endTime = DateTime.Now + endTime;
+            timer = new DispatcherTimer();
+            timer.Tick += new EventHandler(TimerTick);
+            timer.Interval = TimeSpan.FromMilliseconds(tickSize);
+
+            totalTime = endTime.TotalMilliseconds;
         }
 
-        void timer_Tick(object sender, EventArgs e)
+        void TimerTick(object sender, EventArgs e)
         {
-            TimeSpan elapsed = DateTime.Now - startTime;
-            TimeSpan total = endTime - startTime;
+            endTime = endTime.Subtract(new TimeSpan(0, 0, 0, 0, tickSize));
+            elapsedTime += tickSize;
 
-            _timerViewModel.Timer = $"{elapsed.ToString(@"hh\:mm\:ss")}";
-            _timerViewModel.BarValue = (elapsed.TotalMilliseconds / total.TotalMilliseconds) * 100;
-            if ((endTime - DateTime.Now).TotalMilliseconds < 0)
+
+            _timerViewModel.Timer = $"{endTime.ToString(@"hh\:mm\:ss")}";
+            _timerViewModel.BarValue = (elapsedTime/totalTime) * 100;
+            if (endTime.TotalMilliseconds < 0)
             {
                 timer.Stop();
                 _timerViewModel.Timer = "Ich habe fertig!";
@@ -38,6 +46,32 @@ namespace OOP_LernDashboard.Models
         public void Start()
         {
             timer.Start();
+        }
+
+        public void Pause()
+        {
+            if (isPaused)
+            {
+                _timerViewModel.IconPath = "/Resources/Images/pauseIcon.png";
+                timer.Start();
+                isPaused = false;
+
+            }
+            else
+            {
+                _timerViewModel.IconPath = "/Resources/Images/playIcon.png";
+                timer.Stop();
+                isPaused = true;
+            }
+        }
+
+        public void Reset()
+        {
+            timer.Stop();
+            elapsedTime = 0;
+            endTime = TimeSpan.FromMilliseconds(totalTime);
+            _timerViewModel.Timer = $"{endTime.ToString(@"hh\:mm\:ss")}";
+            _timerViewModel.BarValue = (elapsedTime / totalTime) * 100;
         }
     }
 }

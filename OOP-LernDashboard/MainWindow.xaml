@@ -100,14 +100,14 @@
                 <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding CalendarCommand}" IsChecked="{Binding CalendarViewActive}">
                     <Image Height="30">
                         <Image.Source>
-                            <BitmapImage DecodePixelWidth="240" UriSource="/Resources/Images/CalendarIcon.png" />
+                            <BitmapImage DecodePixelWidth="40" UriSource="/Resources/Images/CalendarIcon.png" />
                         </Image.Source>
                     </Image>
                 </RadioButton>
                 <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding TimerCommand}" IsChecked="{Binding TimerViewActive}">
                     <Image Height="30">
                         <Image.Source>
-                            <BitmapImage DecodePixelWidth="240" UriSource="/Resources/Images/TimerIcon.png" />
+                            <BitmapImage DecodePixelWidth="40" UriSource="/Resources/Images/TimerIcon.png" />
                         </Image.Source>
                     </Image>
                 </RadioButton>

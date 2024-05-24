@@ -12,17 +12,34 @@ namespace OOP_LernDashboard.ViewModels
 {
     class TimerViewModel : ViewModelBase
     {
+        public ICommand resetTimer { get; }
+        public ICommand pauseTimer { get; }
 
         private string _name;
         private double _barValue;
-        private string _timerText = "Time";
+        private string _timerText;
         private TimeSpan _endTime;
+        private string _IconPath;
+        Models.Timer timer;
+
 
         public void StartTimer()
         {
-            Models.Timer timer = new Models.Timer(this, _endTime);
+            timer = new Models.Timer(this, _endTime);
             timer.Start();
         }
+
+        public void PauseTimer()
+        {
+            timer.Pause();
+        }
+
+        public void ResetTimer()
+        {
+            timer.Reset();
+        }
+
+
 
         public string Timer
         {
@@ -54,14 +71,27 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
+        public string IconPath
+        {
+            get => _IconPath;
+            set
+            {
+                _IconPath = value;
+                OnPropertyChanged(nameof(IconPath));
+            }
+        }
+
 
         public TimerViewModel(string _name, TimeSpan endTime)
         {
             Name = _name;
             _endTime = endTime;
+            Timer = endTime.ToString(@"hh\:mm\:ss");
+            IconPath = "/Resources/Images/pauseIcon.png";
+            resetTimer = new resetTimerCommand(this);
+            pauseTimer = new pauseTimerCommand(this);
+
             StartTimer();
         }
-
-
     }
 }

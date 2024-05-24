@@ -23,7 +23,7 @@
     <None Remove="Resources\Images\pauseIcon.png" />
     <None Remove="Resources\Images\playIcon.png" />
     <None Remove="Resources\Images\QuickNotesIcon.png" />
-    <None Remove="Resources\Images\restartIcon.png" />
+    <None Remove="Resources\Images\resetIcon.png" />
     <None Remove="Resources\Images\rightArrow.png" />
     <None Remove="Resources\Images\SettingsIcon.png" />
     <None Remove="Resources\Images\ShortcutsIcon.png" />
@@ -62,7 +62,7 @@
     <Resource Include="Resources\Images\pauseIcon.png" />
     <Resource Include="Resources\Images\playIcon.png" />
     <Resource Include="Resources\Images\QuickNotesIcon.png" />
-    <Resource Include="Resources\Images\restartIcon.png" />
+    <Resource Include="Resources\Images\resetIcon.png" />
     <Resource Include="Resources\Images\rightArrow.png" />
     <Resource Include="Resources\Images\SettingsIcon.png" />
     <Resource Include="Resources\Images\ShortcutsIcon.png" />
