@@ -27,6 +27,7 @@
     <None Remove="Resources\Images\rightArrow.png" />
     <None Remove="Resources\Images\SettingsIcon.png" />
     <None Remove="Resources\Images\ShortcutsIcon.png" />
+    <None Remove="Resources\Images\SplashScreen.png" />
     <None Remove="Resources\Images\TimerIcon.png" />
     <None Remove="Resources\Images\ToDoIcon.png" />
     <None Remove="logo.ico" />
@@ -77,6 +78,10 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SplashScreen Include="Resources\Images\SplashScreen.png" />
   </ItemGroup>
 
 </Project>
