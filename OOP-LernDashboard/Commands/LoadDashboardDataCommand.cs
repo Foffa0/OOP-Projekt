@@ -17,7 +17,7 @@ namespace OOP_LernDashboard.Commands
             _dashboardStore = dashboardStore;
         }
 
-        public override async Task ExecuteAsync(object parameter)
+        public override async Task ExecuteAsync(object? parameter)
         {
             await _dashboardStore.Load();
             _viewModel.UpdateToDos(_dashboardStore.ToDos);
@@ -29,7 +29,7 @@ namespace OOP_LernDashboard.Commands
             {
                 await _dashboardStore.GoogleCalendar.LoadEvents(
                     start: DateTime.Now.Date.AddSeconds(-1),
-                    end: DateTime.Now.Date.AddYears(1)
+                    end: DateTime.Now.Date.AddDays(30)
                     );
                 _viewModel.UpdateCalendarEvents(_dashboardStore.GoogleCalendar.Events);
             }

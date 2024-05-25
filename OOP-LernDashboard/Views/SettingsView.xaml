@@ -29,15 +29,27 @@
                     </StackPanel>
                 </Button>
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsGoogleLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <TextBlock Style="{StaticResource Text}" VerticalAlignment="Center" Margin="0, 0, 20, 0">Bereits Eingeloggt</TextBlock>
-                    <Button Style="{StaticResource PrimaryButton}" Command="{Binding LogoutGoogleCommand}">Abmelden</Button>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" Visibility="{Binding IsGoogleLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
-
-                    <StackPanel Margin="0,0,20,0">
-                        <TextBlock Text="Wähle Kalendar zum Anzeigen aus"></TextBlock>
-                        <ListBox hc:ListBoxAttach.IsOddEvenRow="True" AlternationCount="2" ItemsSource="{Binding Calendars}">
+                    
+                    <StackPanel Margin="0,0,20,0" Visibility="{Binding IsGoogleLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <TextBlock Text="Wähle Kalendar zum Anzeigen aus" Margin="0,0,0,5"></TextBlock>
+                        <ListBox hc:ListBoxAttach.IsOddEvenRow="True" AlternationCount="2" ItemsSource="{Binding Calendars}" HorizontalAlignment="Left">
+                            <ListBox.Template>
+                                <!--Used to make shure user can scroll settings view also when mouse is over the listbox-->
+                                <ControlTemplate TargetType="ListBox">
+                                    <Border x:Name="Bd" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                                        <hc:ToggleBlock IsChecked="{Binding HasItems,RelativeSource={RelativeSource TemplatedParent},Mode=OneWay}" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                                            <hc:ToggleBlock.CheckedContent>
+                                                <Border>
+                                                    <ItemsPresenter/>
+                                                </Border>
+                                            </hc:ToggleBlock.CheckedContent>
+                                            <hc:ToggleBlock.UnCheckedContent>
+                                                <hc:Empty/>
+                                            </hc:ToggleBlock.UnCheckedContent>
+                                        </hc:ToggleBlock>
+                                    </Border>
+                                </ControlTemplate>
+                            </ListBox.Template>
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <CheckBox 
@@ -47,8 +59,23 @@
                                         CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}"></CheckBox>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListBoxItemBaseStyle}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsSelected" Value="True" >
+                                            <Setter Property="Background" Value="Transparent" />
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
                         </ListBox>
                     </StackPanel>
+
+                    <Button Style="{StaticResource PrimaryButton}" Command="{Binding LogoutGoogleCommand}" VerticalAlignment="Top">Abmelden</Button>
+
                 </StackPanel>
 
 

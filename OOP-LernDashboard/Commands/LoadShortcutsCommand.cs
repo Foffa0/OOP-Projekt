@@ -14,7 +14,7 @@ namespace OOP_LernDashboard.Commands
             _dashboardStore = dashboardStore;
         }
 
-        public override async Task ExecuteAsync(object parameter)
+        public override async Task ExecuteAsync(object? parameter)
         {
             await _dashboardStore.Load();
             _viewModel.UpdateShortcuts(_dashboardStore.Shortcuts);

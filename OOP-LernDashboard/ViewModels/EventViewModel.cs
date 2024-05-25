@@ -26,6 +26,8 @@ namespace OOP_LernDashboard.ViewModels
 
         public bool CanEdit => _event.CanEdit;
 
+        public string DateText => ToDateText(_event.StartTime);
+
         #region TempData
 
         // used to store updated data before saving
@@ -144,6 +146,27 @@ namespace OOP_LernDashboard.ViewModels
             _event.Description = EventDescriptionTemp;
             _event.StartTime = EventDateTemp.Date.Add(EventStartTimeTemp.TimeOfDay);
             _event.EndTime = IsWholeDayEvent ? null : EventDateTemp.Date.Add(EventEndTimeTemp.TimeOfDay);
+        }
+
+        private string ToDateText(DateTime date)
+        {
+            // date is today 
+            if (date.Date == DateTime.Today)
+                return "Heute";
+
+            // date is tomorrow
+            if (date.Date == DateTime.Today.AddDays(1))
+                return "Morgen";
+
+            // date is day after tomorrow
+            if (date.Date == DateTime.Today.AddDays(2))
+                return "Übermorgen";
+
+            // date is in the next 7 days
+            if (date.Date < DateTime.Today.AddDays(7))
+                return date.ToString("dddd", de);
+
+            return date.ToString("dd.MM.yyyy", de);
         }
     }
 }

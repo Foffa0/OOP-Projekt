@@ -47,7 +47,7 @@ namespace OOP_LernDashboard
         {
             // Set the current directory to the directory of the executable
             // Necessary when running the application on Windows startup
-            Environment.CurrentDirectory = System.IO.Path.GetDirectoryName(System.Environment.ProcessPath);
+            Environment.CurrentDirectory = System.IO.Path.GetDirectoryName(Environment.ProcessPath) ?? AppDomain.CurrentDomain.BaseDirectory;
 
             using (DashboardDbContext dbContext = _dashboardDbContextFactory.CreateDbContext())
             {

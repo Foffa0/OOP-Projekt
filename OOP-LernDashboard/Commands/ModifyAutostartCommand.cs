@@ -23,7 +23,12 @@ namespace OOP_LernDashboard.Commands
 
         public override void Execute(object? parameter)
         {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            RegistryKey? key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+
+            if (key == null)
+            {
+                throw new Exception("Cannot open registry key while trying to configure autostart");
+            }
 
             if (_viewModel.IsAutostartEnabled)
             {
@@ -34,7 +39,7 @@ namespace OOP_LernDashboard.Commands
                 }
                 else
                 {
-                    key.SetValue("LernDashboard", System.Environment.ProcessPath);
+                    key.SetValue("LernDashboard", System.Environment.ProcessPath ?? "");
                     _dashboardStore.SetAutostart(AutostartConfig.Enabled);
                 }
             }

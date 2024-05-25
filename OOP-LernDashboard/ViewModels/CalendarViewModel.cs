@@ -157,8 +157,8 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
-        private Calendar _selectedCalendar;
-        public Calendar SelectedCalendar
+        private Calendar? _selectedCalendar;
+        public Calendar? SelectedCalendar
         {
             get { return _selectedCalendar; }
             set
