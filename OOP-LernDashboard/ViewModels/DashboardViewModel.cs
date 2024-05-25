@@ -136,7 +136,7 @@ namespace OOP_LernDashboard.ViewModels
         /// <param name="toDo"></param>
         private void OnToDoCreated(ToDo toDo)
         {
-            ToDoViewModel toDoViewModel = new ToDoViewModel(toDo);
+            ToDoViewModel toDoViewModel = new ToDoViewModel(toDo,_dashboardStore);
             _toDos.Add(toDoViewModel);
         }
 
@@ -146,8 +146,11 @@ namespace OOP_LernDashboard.ViewModels
         /// <param name="toDo"></param>
         private void OnToDoDeleted(ToDo toDo)
         {
-            ToDoViewModel toDoViewModel = new ToDoViewModel(toDo);
-            _toDos.Remove(toDoViewModel);
+            var s = _toDos.Where(s => s.ToDo.Id == toDo.Id).FirstOrDefault();
+            if (s != null)
+            {
+                _toDos.Remove(s);
+            }
         }
 
         public void UpdateToDos(IEnumerable<ToDo> todos)
@@ -156,7 +159,7 @@ namespace OOP_LernDashboard.ViewModels
 
             foreach (var toDo in todos)
             {
-                _toDos.Add(new ToDoViewModel(toDo));
+                _toDos.Add(new ToDoViewModel(toDo,_dashboardStore));
             }
         }
 

@@ -1,4 +1,5 @@
-﻿namespace OOP_LernDashboard.Models
+﻿using System.ComponentModel;
+namespace OOP_LernDashboard.Models
 {
     class ToDo
     {

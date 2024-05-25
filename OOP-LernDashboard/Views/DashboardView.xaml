@@ -122,7 +122,7 @@
                                         <Setter Property="BorderThickness" Value="0"/>
                                         <Setter Property="Margin" Value="0, 0, 0, 10"/>
                                         <Setter Property="Padding" Value="10"/>
-                                        <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
+                                        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
                                     </Style>
                                 </ListView.ItemContainerStyle>
 
@@ -131,7 +131,7 @@
                                         <GridViewColumn>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <CheckBox>
+                                                    <CheckBox IsChecked="{Binding IsChecked, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding CheckToDoCommand}">
                                                         <TextBlock Text="{Binding Description}"  Margin="0,-2,0,0"/>
                                                     </CheckBox>
                                                 </DataTemplate>
@@ -141,9 +141,9 @@
                                 </ListView.View>
                             </ListView>
                             <StackPanel>
-                                <TextBox Text="{Binding ToDoDesc, UpdateSourceTrigger=PropertyChanged}" Margin="0,5,0,0"></TextBox>
+                                <TextBox Text="{Binding ToDoDesc, UpdateSourceTrigger=PropertyChanged}" Margin="0,5,0,0" Name="TextBoxToClear"></TextBox>
                                 <ComboBox  Name="comboBox1" IsEditable="True" IsReadOnly="True" Text="--What ToDo?--" ItemsSource="{Binding Combobox}" Margin="0,5,0,0"/>
-                                <Button Style="{DynamicResource PrimaryButton}"   Command="{Binding AddCommand}" Content="Add" Margin="0,5,0,0" Width="75" Height="35"></Button>
+                                <Button Style="{DynamicResource PrimaryButton}"   Command="{Binding AddToDoCommand}" Content="Add" Margin="0,5,0,0" Width="75" Height="35" Click="Button_Click"></Button>
                             </StackPanel>
                         </StackPanel>
                     </Border>

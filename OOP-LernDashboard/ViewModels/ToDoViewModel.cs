@@ -1,17 +1,34 @@
-﻿using OOP_LernDashboard.Models;
+﻿using OOP_LernDashboard.Commands;
+using OOP_LernDashboard.Models;
+using OOP_LernDashboard.Stores;
+using System.Windows.Input;
 
 namespace OOP_LernDashboard.ViewModels
 {
     internal class ToDoViewModel : ViewModelBase
     {
         private readonly ToDo _toDo;
+        public ToDo ToDo => _toDo;
 
         public string? Description => _toDo.Description;
-        public Boolean IsChecked => _toDo.IsChecked;
+        public Boolean IsChecked
+        {
+            get => _toDo.IsChecked;
+            set
+            {
+                if (value)
+                {
+                    ToDo.check();
+                }
+            }
+        }
+        public ICommand CheckToDoCommand { get; set; }
 
-        public ToDoViewModel(ToDo toDo)
+        public ToDoViewModel(ToDo toDo, DashboardStore dashboardStore)
         {
             _toDo = toDo;
+            CheckToDoCommand = new DeleteToDoCommand(this, dashboardStore);
         }
     }
 }
+
