@@ -50,6 +50,28 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
+        private bool _isAutostartEnabled;
+        public bool IsAutostartEnabled
+        {
+            get => _isAutostartEnabled;
+            set
+            {
+                _isAutostartEnabled = value;
+                OnPropertyChanged(nameof(IsAutostartEnabled));
+            }
+        }
+
+        private bool _isMinimizeEnabled;
+        public bool IsMinimizeEnabled
+        {
+            get => _isMinimizeEnabled;
+            set
+            {
+                _isMinimizeEnabled = value;
+                OnPropertyChanged(nameof(IsMinimizeEnabled));
+            }
+        }
+
         private readonly ObservableCollection<CalendarSelectViewModel> _calendars;
         public IEnumerable<CalendarSelectViewModel> Calendars => _calendars;
 
@@ -64,6 +86,8 @@ namespace OOP_LernDashboard.ViewModels
 
         public ICommand UpdateAccentColorCommand { get; }
 
+        public ICommand ModifyAutostartCommand { get; }
+
         public SettingsViewModel(DashboardStore dashboardStore)
         {
             _dashboardStore = dashboardStore;
@@ -74,6 +98,8 @@ namespace OOP_LernDashboard.ViewModels
             IsGoogleLoggedIn = dashboardStore.GoogleCalendar != null;
             UpdateWelcomeNameCommand = new ModifyWelcomeNameCommand(this, dashboardStore);
             UpdateAccentColorCommand = new UpdateAccentColorCommand(this, dashboardStore);
+
+            this.ModifyAutostartCommand = new ModifyAutostartCommand(this, dashboardStore);
 
             _calendars = new ObservableCollection<CalendarSelectViewModel>();
 

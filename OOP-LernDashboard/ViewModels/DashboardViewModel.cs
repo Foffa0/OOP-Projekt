@@ -136,7 +136,7 @@ namespace OOP_LernDashboard.ViewModels
         /// <param name="toDo"></param>
         private void OnToDoCreated(ToDo toDo)
         {
-            ToDoViewModel toDoViewModel = new ToDoViewModel(toDo,_dashboardStore);
+            ToDoViewModel toDoViewModel = new ToDoViewModel(toDo, _dashboardStore);
             _toDos.Add(toDoViewModel);
         }
 
@@ -159,7 +159,7 @@ namespace OOP_LernDashboard.ViewModels
 
             foreach (var toDo in todos)
             {
-                _toDos.Add(new ToDoViewModel(toDo,_dashboardStore));
+                _toDos.Add(new ToDoViewModel(toDo, _dashboardStore));
             }
         }
 

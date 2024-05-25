@@ -7,6 +7,13 @@ using System.Windows.Media;
 
 namespace OOP_LernDashboard.Stores
 {
+    enum AutostartConfig
+    {
+        Disabled,
+        Minimized,
+        Enabled
+    }
+
     /// <summary>
     /// Stores the application state (and caches it locally).
     /// This avoides to call the datase every single time we need some data.
@@ -50,6 +57,8 @@ namespace OOP_LernDashboard.Stores
         public GoogleCalendar? GoogleCalendar { set; get; }
 
         public Configuration AppConfig;
+
+        public AutostartConfig AutostartConfig { get; private set; }
 
         private string _welcomeName = "Studierende Person";
         public string WelcomeName => _welcomeName;
@@ -113,6 +122,16 @@ namespace OOP_LernDashboard.Stores
             if (calendarId != null && calendarId != "")
             {
                 _selectedCalendarId = calendarId;
+            }
+
+            string? autostart = ReadSetting("Autostart");
+            if (autostart != null && autostart != "")
+            {
+                AutostartConfig = (AutostartConfig)Enum.Parse(typeof(AutostartConfig), autostart);
+            }
+            else
+            {
+                AutostartConfig = AutostartConfig.Disabled;
             }
         }
 
@@ -286,6 +305,12 @@ namespace OOP_LernDashboard.Stores
         {
             _selectedCalendarId = id;
             AddUpdateAppSettings("SelectedCalendarId", id);
+        }
+
+        public void SetAutostart(AutostartConfig config)
+        {
+            AutostartConfig = config;
+            AddUpdateAppSettings("Autostart", config.ToString());
         }
 
         public async Task SetCalendarSelected(string id, bool isSelected)

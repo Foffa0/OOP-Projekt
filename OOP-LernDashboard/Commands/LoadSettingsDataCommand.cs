@@ -18,6 +18,9 @@ namespace OOP_LernDashboard.Commands
         {
             await _dashboardStore.Load();
 
+            _viewModel.IsAutostartEnabled = _dashboardStore.AutostartConfig == AutostartConfig.Enabled || _dashboardStore.AutostartConfig == AutostartConfig.Minimized;
+            _viewModel.IsMinimizeEnabled = _dashboardStore.AutostartConfig == AutostartConfig.Minimized;
+
             if (_dashboardStore.GoogleCalendar != null)
             {
                 await _dashboardStore.GoogleCalendar.LoadAllCalendars();

@@ -33,7 +33,7 @@
                     <Button Style="{StaticResource PrimaryButton}" Command="{Binding LogoutGoogleCommand}">Abmelden</Button>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" Visibility="{Binding IsGoogleLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
 
                     <StackPanel Margin="0,0,20,0">
                         <TextBlock Text="Wähle Kalendar zum Anzeigen aus"></TextBlock>
@@ -57,6 +57,18 @@
                     <TextBox Width="300" VerticalContentAlignment="Center" Style="{StaticResource PrimaryTextInput}" Text="{Binding WelcomeName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <Button Style="{StaticResource PrimaryButton}" Command="{Binding UpdateWelcomeNameCommand}">Aktualisieren</Button>
                 </StackPanel>
+
+                <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Autostart" Style="{StaticResource Headline}"></TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <ToggleButton Style="{StaticResource ToggleButtonSwitch}" IsChecked="{Binding IsAutostartEnabled}" Command="{Binding ModifyAutostartCommand}" />
+                    <TextBlock Style="{StaticResource Text}" Text="Zusammen mit Windows starten" VerticalAlignment="Center" Margin="10, 0, 0, 0"/>
+                </StackPanel>
+                <hc:TransitioningContentControl TransitionMode="Top2BottomWithFade" Visibility="{Binding IsAutostartEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 0">
+                        <ToggleButton Style="{StaticResource ToggleButtonSwitch}" IsChecked="{Binding IsMinimizeEnabled}" Command="{Binding ModifyAutostartCommand}" />
+                        <TextBlock Style="{StaticResource Text}" Text="Minimiert, nur im Hintergrund starten" VerticalAlignment="Center" Margin="10, 0, 0, 0"/>
+                    </StackPanel>
+                </hc:TransitioningContentControl>
 
                 <TextBlock Grid.Row="0" Foreground="{StaticResource TextColor}" Text="Farbauswahl" Style="{StaticResource Headline}"></TextBlock>
                 <StackPanel Orientation="Horizontal">

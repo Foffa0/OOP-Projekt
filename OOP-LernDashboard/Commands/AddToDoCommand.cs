@@ -2,7 +2,6 @@
 using OOP_LernDashboard.Stores;
 using OOP_LernDashboard.ViewModels;
 using System.ComponentModel;
-using System.Windows.Controls.Primitives;
 
 namespace OOP_LernDashboard.Commands
 {
@@ -30,7 +29,7 @@ namespace OOP_LernDashboard.Commands
             //    throw new NullReferenceException("Cannot create ToDo with Null as description");
 
             ToDo toDo = new ToDo(_dashboardViewModel.ToDoDesc);
-            
+
             await _dashboardStore.AddToDo(toDo);
 
         }
