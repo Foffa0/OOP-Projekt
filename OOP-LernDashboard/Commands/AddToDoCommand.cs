@@ -2,26 +2,25 @@
 using OOP_LernDashboard.Stores;
 using OOP_LernDashboard.ViewModels;
 using System.ComponentModel;
-using System.Windows.Controls.Primitives;
 
 namespace OOP_LernDashboard.Commands
 {
     internal class AddToDoCommand : CommandBase
     {
-        private readonly DashboardViewModel _dashboardViewModel;
+        private readonly ToDosViewModel _toDosViewModel;
         private readonly DashboardStore _dashboardStore;
 
-        public AddToDoCommand(DashboardViewModel dashboardViewModel, DashboardStore dashboardStore)
+        public AddToDoCommand(ToDosViewModel toDosViewModel, DashboardStore dashboardStore)
         {
-            _dashboardViewModel = dashboardViewModel;
+            _toDosViewModel = toDosViewModel;
             _dashboardStore = dashboardStore;
 
-            _dashboardViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            _toDosViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
 
         public override bool CanExecute(object? parameter)
         {
-            return _dashboardViewModel.ToDoDesc != null;
+            return _toDosViewModel.ToDoDesc != null;
         }
 
         public override async void Execute(object? parameter)
@@ -29,8 +28,8 @@ namespace OOP_LernDashboard.Commands
             //if (_dashboardViewModel.ToDoDesc == null)
             //    throw new NullReferenceException("Cannot create ToDo with Null as description");
 
-            ToDo toDo = new ToDo(_dashboardViewModel.ToDoDesc);
-            
+            ToDo toDo = new ToDo(_toDosViewModel.ToDoDesc);
+
             await _dashboardStore.AddToDo(toDo);
 
         }

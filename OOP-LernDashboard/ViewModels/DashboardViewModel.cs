@@ -74,26 +74,28 @@ namespace OOP_LernDashboard.ViewModels
 
         #region Commands
 
-        public ICommand AddToDoCommand { get; }
+        //public ICommand AddToDoCommand { get; }
 
         public ICommand LoadDataAsyncCommand { get; }
 
         public ICommand ShortcutsCommand { get; }
         public ICommand CalendarCommand { get; }
         public ICommand CountdownsCommand { get; }
+        public ICommand AddToDoCommand { get; }
 
         #endregion
 
-        public DashboardViewModel(Dashboard dashboard, DashboardStore dashboardStore, NavigationService shortcutsNavigationService, NavigationService dashboardNavigationService, NavigationService countdownsNavigationService)
+        public DashboardViewModel(Dashboard dashboard, DashboardStore dashboardStore, NavigationService shortcutsNavigationService, NavigationService dashboardNavigationService, NavigationService countdownsNavigationService, NavigationService toDosNavigationService)
         {
             _dashboardStore = dashboardStore;
 
-            AddToDoCommand = new AddToDoCommand(this, dashboardStore);
+            //AddToDoCommand = new AddToDoCommand(this, dashboardStore);
             LoadDataAsyncCommand = new LoadDashboardDataCommand(this, dashboardStore);
 
             ShortcutsCommand = new NavigateCommand(shortcutsNavigationService);
             CalendarCommand = new NavigateCommand(dashboardNavigationService);
             CountdownsCommand = new NavigateCommand(countdownsNavigationService);
+            AddToDoCommand = new NavigateCommand(toDosNavigationService);
 
             _toDos = new ObservableCollection<ToDoViewModel>();
             _calendarEvents = new ObservableCollection<EventViewModel>();
@@ -122,9 +124,9 @@ namespace OOP_LernDashboard.ViewModels
             base.Dispose();
         }
 
-        public static DashboardViewModel LoadViewModel(Dashboard dashboard, DashboardStore dashboardStore, NavigationService shortcutsNavigationService, NavigationService dashboardNavigationService, NavigationService countdownsNavigationService)
+        public static DashboardViewModel LoadViewModel(Dashboard dashboard, DashboardStore dashboardStore, NavigationService shortcutsNavigationService, NavigationService dashboardNavigationService, NavigationService countdownsNavigationService, NavigationService toDosNavigationService)
         {
-            DashboardViewModel viewModel = new DashboardViewModel(dashboard, dashboardStore, shortcutsNavigationService, dashboardNavigationService, countdownsNavigationService);
+            DashboardViewModel viewModel = new DashboardViewModel(dashboard, dashboardStore, shortcutsNavigationService, dashboardNavigationService, countdownsNavigationService, toDosNavigationService);
             //Load data asynchronously
             viewModel.LoadDataAsyncCommand.Execute(null);
             return viewModel;
@@ -136,7 +138,7 @@ namespace OOP_LernDashboard.ViewModels
         /// <param name="toDo"></param>
         private void OnToDoCreated(ToDo toDo)
         {
-            ToDoViewModel toDoViewModel = new ToDoViewModel(toDo,_dashboardStore);
+            ToDoViewModel toDoViewModel = new ToDoViewModel(toDo, _dashboardStore);
             _toDos.Add(toDoViewModel);
         }
 
@@ -159,7 +161,7 @@ namespace OOP_LernDashboard.ViewModels
 
             foreach (var toDo in todos)
             {
-                _toDos.Add(new ToDoViewModel(toDo,_dashboardStore));
+                _toDos.Add(new ToDoViewModel(toDo, _dashboardStore));
             }
         }
 

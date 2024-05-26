@@ -42,6 +42,9 @@
             <DataTemplate DataType="{x:Type vms:DashboardViewModel}">
                 <views:DashboardView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:ToDosViewModel}">
+                <views:ToDosView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type vms:CalendarViewModel}">
                 <views:CalendarView />
             </DataTemplate>
@@ -83,7 +86,7 @@
                         </Image.Source>
                     </Image>
                 </RadioButton>
-                <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" >
+                <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding ToDoCommand}" IsChecked="{Binding ToDoViewActive}" >
                     <Image Width="30">
                         <Image.Source>
                             <BitmapImage DecodePixelWidth="240" UriSource="/Resources/Images/ToDoIcon.png"/>

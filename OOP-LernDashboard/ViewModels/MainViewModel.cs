@@ -16,12 +16,15 @@ namespace OOP_LernDashboard.ViewModels
         public ICommand TimerCommand { get; }
         public ICommand ShortcutsCommand { get; }
         public ICommand CountdownCommand { get; }
+        public ICommand ToDoCommand { get; }
+
 
         public bool DashboardViewActive { get; set; }
         public bool CalendarViewActive { get; set; }
         public bool QuickNotesViewActive { get; set; }
         public bool TimerViewActive { get; set; }
         public bool ShortcutsViewActive { get; set; }
+        public bool ToDoViewActive { get; set; }
 
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
 
@@ -34,7 +37,8 @@ namespace OOP_LernDashboard.ViewModels
             NavigationService settingsNavigationService,
             NavigationService timerNavigationService,
             NavigationService shortcutsNavigationService,
-            NavigationService countdownNavigationService)
+            NavigationService countdownNavigationService,
+            NavigationService toDosNavigationService)
         {
             _navigationStore = navigationStore;
 
@@ -47,14 +51,15 @@ namespace OOP_LernDashboard.ViewModels
             TimerCommand = new NavigateCommand(timerNavigationService);
             ShortcutsCommand = new NavigateCommand(shortcutsNavigationService);
             CountdownCommand = new NavigateCommand(countdownNavigationService);
+            ToDoCommand = new NavigateCommand(toDosNavigationService);
 
             DashboardViewActive = true;
-            ShortcutsViewActive = QuickNotesViewActive = CalendarViewActive = TimerViewActive = false;
+            ShortcutsViewActive = QuickNotesViewActive = CalendarViewActive = TimerViewActive = ToDoViewActive = false;
         }
 
         private void OnCurrentViewModelChanged()
         {
-            DashboardViewActive = ShortcutsViewActive = QuickNotesViewActive = CalendarViewActive = TimerViewActive = false;
+            DashboardViewActive = ShortcutsViewActive = QuickNotesViewActive = CalendarViewActive = TimerViewActive = ToDoViewActive = false;
             switch (CurrentViewModel.ToString())
             {
                 case "OOP_LernDashboard.ViewModels.QuickNotesViewModel":
@@ -72,6 +77,10 @@ namespace OOP_LernDashboard.ViewModels
                 case "OOP_LernDashboard.ViewModels.TimerViewModel":
                     TimerViewActive = true;
                     OnPropertyChanged(nameof(TimerViewActive));
+                    break;
+                case "OOP_LernDashboard.ViewModels.ToDosViewModel":
+                    ToDoViewActive = true;
+                    OnPropertyChanged(nameof(ToDoViewActive));
                     break;
             }
 

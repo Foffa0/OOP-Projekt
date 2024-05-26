@@ -1,15 +1,10 @@
 ﻿using OOP_LernDashboard.Stores;
 using OOP_LernDashboard.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OOP_LernDashboard.Commands
 {
-    internal class DeleteToDoCommand:CommandBase
+    internal class DeleteToDoCommand : CommandBase
     {
         private readonly ToDoViewModel _toDoViewModel;
         private readonly DashboardStore _dashboardStore;

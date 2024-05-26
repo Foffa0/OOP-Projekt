@@ -62,7 +62,8 @@ namespace OOP_LernDashboard
                     new NavigationService(_navigationStore, CreateSettingsViewModel),
                     new NavigationService(_navigationStore, CreateTimerCollectionViewModel),
                     new NavigationService(_navigationStore, CreateShortcutsViewModel),
-                    new NavigationService(_navigationStore, CreateCountdownViewModel)
+                    new NavigationService(_navigationStore, CreateCountdownViewModel),
+                    new NavigationService(_navigationStore, CreateToDosViewModel)
                     )
             };
             _dashboardStore.LoadAccentColor();
@@ -89,7 +90,7 @@ namespace OOP_LernDashboard
 
         private DashboardViewModel CreateDashboardViewModel()
         {
-            return DashboardViewModel.LoadViewModel(_dashboard, _dashboardStore, new NavigationService(_navigationStore, CreateShortcutsViewModel), new NavigationService(_navigationStore, CreateCalendarViewModel), new NavigationService(_navigationStore, CreateCountdownViewModel));
+            return DashboardViewModel.LoadViewModel(_dashboard, _dashboardStore, new NavigationService(_navigationStore, CreateShortcutsViewModel), new NavigationService(_navigationStore, CreateCalendarViewModel), new NavigationService(_navigationStore, CreateCountdownViewModel), new NavigationService(_navigationStore, CreateToDosViewModel));
         }
 
         private CalendarViewModel CreateCalendarViewModel()
@@ -120,6 +121,10 @@ namespace OOP_LernDashboard
         private CountdownsViewModel CreateCountdownViewModel()
         {
             return CountdownsViewModel.LoadViewModel(_dashboardStore);
+        }
+        private ToDosViewModel CreateToDosViewModel()
+        {
+            return ToDosViewModel.LoadViewModel(_dashboard, _dashboardStore);
         }
     }
 
