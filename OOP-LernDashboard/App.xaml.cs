@@ -45,6 +45,10 @@ namespace OOP_LernDashboard
         }
         protected override void OnStartup(StartupEventArgs e)
         {
+            // Set the current directory to the directory of the executable
+            // Necessary when running the application on Windows startup
+            Environment.CurrentDirectory = System.IO.Path.GetDirectoryName(Environment.ProcessPath) ?? AppDomain.CurrentDomain.BaseDirectory;
+
             using (DashboardDbContext dbContext = _dashboardDbContextFactory.CreateDbContext())
             {
                 dbContext.Database.Migrate();
@@ -67,6 +71,12 @@ namespace OOP_LernDashboard
                     )
             };
             _dashboardStore.LoadAccentColor();
+
+            // Check if the application was started with the -minimized argument
+            if (e.Args.Contains("-minimized"))
+            {
+                MainWindow.WindowState = WindowState.Minimized;
+            }
 
             MainWindow.Show();
 

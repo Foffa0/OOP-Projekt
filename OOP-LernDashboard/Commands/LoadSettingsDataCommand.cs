@@ -14,9 +14,12 @@ namespace OOP_LernDashboard.Commands
             _dashboardStore = dashboardStore;
         }
 
-        public override async Task ExecuteAsync(object parameter)
+        public override async Task ExecuteAsync(object? parameter)
         {
             await _dashboardStore.Load();
+
+            _viewModel.IsAutostartEnabled = _dashboardStore.AutostartConfig == AutostartConfig.Enabled || _dashboardStore.AutostartConfig == AutostartConfig.Minimized;
+            _viewModel.IsMinimizeEnabled = _dashboardStore.AutostartConfig == AutostartConfig.Minimized;
 
             if (_dashboardStore.GoogleCalendar != null)
             {

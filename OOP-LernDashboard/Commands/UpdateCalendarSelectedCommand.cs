@@ -3,7 +3,7 @@ using OOP_LernDashboard.ViewModels;
 
 namespace OOP_LernDashboard.Commands
 {
-    internal class UpdateCalendarSelectedCommand : CommandBase
+    internal class UpdateCalendarSelectedCommand : AsyncCommandBase
     {
         private readonly CalendarSelectViewModel _viewModel;
         private readonly DashboardStore _dashboardStore;
@@ -14,14 +14,14 @@ namespace OOP_LernDashboard.Commands
             _dashboardStore = dashboardStore;
         }
 
-        public override void Execute(object? parameter)
+        public override async Task ExecuteAsync(object? parameter)
         {
             if (parameter is not bool)
                 throw new ArgumentException("Parameter must be a boolean value");
 
             bool isSelected = (bool)parameter;
 
-            _dashboardStore.SetCalendarSelected(_viewModel.Id, isSelected);
+            await _dashboardStore.SetCalendarSelected(_viewModel.Id, isSelected);
         }
     }
 }

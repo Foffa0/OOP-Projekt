@@ -1,4 +1,5 @@
 ﻿using HandyControl.Data;
+using OOP_LernDashboard.ViewModels;
 using System.Windows.Controls;
 
 namespace OOP_LernDashboard.Views
@@ -16,11 +17,10 @@ namespace OOP_LernDashboard.Views
 
         private void ColorPicker_SelectedColorChanged(object? sender, FunctionEventArgs<System.Windows.Media.Color> e)
         {
-            if (DataContext == null)
+            if (DataContext is SettingsViewModel settingsViewModel)
             {
-                return;
+                settingsViewModel.AccentColor = e.Info;
             }
-            (DataContext as ViewModels.SettingsViewModel).AccentColor = e.Info;
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

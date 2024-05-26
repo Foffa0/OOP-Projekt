@@ -7,6 +7,13 @@ using System.Windows.Media;
 
 namespace OOP_LernDashboard.Stores
 {
+    enum AutostartConfig
+    {
+        Disabled,
+        Minimized,
+        Enabled
+    }
+
     /// <summary>
     /// Stores the application state (and caches it locally).
     /// This avoides to call the datase every single time we need some data.
@@ -35,21 +42,23 @@ namespace OOP_LernDashboard.Stores
         private readonly Models.LinkedList<string> _calendarIds;
         public Models.LinkedList<string> CalendarIds => _calendarIds;
 
-        public event Action<ToDo> ToDoCreated;
-        public event Action<ToDo> ToDoDeleted;
+        public event Action<ToDo>? ToDoCreated;
+        public event Action<ToDo>? ToDoDeleted;
 
-        public event Action<Countdown> CountdownCreated;
-        public event Action<Countdown> CountdownDeleted;
+        public event Action<Countdown>? CountdownCreated;
+        public event Action<Countdown>? CountdownDeleted;
 
-        public event Action<Shortcut> ShortcutCreated;
-        public event Action<Shortcut> ShortcutDeleted;
+        public event Action<Shortcut>? ShortcutCreated;
+        public event Action<Shortcut>? ShortcutDeleted;
 
-        public event Action GoogleLoggedIn;
+        public event Action? GoogleLoggedIn;
 
         public GoogleLogin GoogleLogin { set; get; }
         public GoogleCalendar? GoogleCalendar { set; get; }
 
-        public Configuration AppConfig;
+        // public Configuration AppConfig;
+
+        public AutostartConfig AutostartConfig { get; private set; }
 
         private string _welcomeName = "Studierende Person";
         public string WelcomeName => _welcomeName;
@@ -113,6 +122,16 @@ namespace OOP_LernDashboard.Stores
             if (calendarId != null && calendarId != "")
             {
                 _selectedCalendarId = calendarId;
+            }
+
+            string? autostart = ReadSetting("Autostart");
+            if (autostart != null && autostart != "")
+            {
+                AutostartConfig = (AutostartConfig)Enum.Parse(typeof(AutostartConfig), autostart);
+            }
+            else
+            {
+                AutostartConfig = AutostartConfig.Disabled;
             }
         }
 
@@ -288,6 +307,12 @@ namespace OOP_LernDashboard.Stores
             AddUpdateAppSettings("SelectedCalendarId", id);
         }
 
+        public void SetAutostart(AutostartConfig config)
+        {
+            AutostartConfig = config;
+            AddUpdateAppSettings("Autostart", config.ToString());
+        }
+
         public async Task SetCalendarSelected(string id, bool isSelected)
         {
             if (this.GoogleCalendar == null)
@@ -314,13 +339,13 @@ namespace OOP_LernDashboard.Stores
             string? acccentColor = ReadSetting("AccentColor");
             if (acccentColor != null && acccentColor != "")
             {
-                ThemeManager.Current.AccentColor = (Brush)new BrushConverter().ConvertFrom(acccentColor);
+                ThemeManager.Current.AccentColor = (Brush)(new BrushConverter().ConvertFrom(acccentColor) ??  Brushes.Red);
             }
         }
 
-        private async Task InitCalendarFromRefreshToken(string token)
+        private async void InitCalendarFromRefreshToken(string token)
         {
-            this.GoogleLogin.RefreshAccessTokenAsync(token);
+            await this.GoogleLogin.RefreshAccessTokenAsync(token);
         }
 
         public static void AddUpdateAppSettings(string key, string value)

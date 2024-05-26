@@ -86,6 +86,12 @@ namespace OOP_LernDashboard.Models
             // sort events by start time
             combinedEvents.Sort((e1, e2) => e1.StartTime.CompareTo(e2.StartTime));
 
+            // remove all events that falsely in the list where its datetime is before the start date
+            while (combinedEvents[0] != null && combinedEvents[0].StartTime < (start ?? Start))
+            {
+                combinedEvents.RemoveAt(0);
+            }
+
             this.Events = combinedEvents;
         }
 
@@ -124,7 +130,6 @@ namespace OOP_LernDashboard.Models
 
         private async Task<List<CalendarEvent>> GetEventsForCalendarAsync(
             string calendarId,
-            bool loadPastEvents = true,
             DateTime? start = null,
             DateTime? end = null,
             int max = 250
@@ -137,15 +142,7 @@ namespace OOP_LernDashboard.Models
             request.SingleEvents = true;
             request.MaxResults = max;
             Events events = await request.ExecuteAsync();
-            // if loadPastEvents is false, only keep events that are in the future or today
-            if (!loadPastEvents)
-            {
-                events.Items = events.Items.Where(
-                    e => (
-                        e.Start.Date != null && DateTime.ParseExact(e.Start.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture).Date >= DateTime.Now.Date)
-                        || (e.Start.DateTimeDateTimeOffset != null && e.Start.DateTimeDateTimeOffset.Value.LocalDateTime.Date >= DateTime.Now.Date)
-                    ).ToList();
-            }
+
             bool canEdit = events.AccessRole == "owner" || events.AccessRole == "writer";
             return events.Items.Select(e => ToCalendarEvent(e, calendarId, canEdit)).ToList();
         }
