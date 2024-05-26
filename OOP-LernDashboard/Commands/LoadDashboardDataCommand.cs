@@ -28,7 +28,7 @@ namespace OOP_LernDashboard.Commands
             if (_dashboardStore.GoogleCalendar != null)
             {
                 await _dashboardStore.GoogleCalendar.LoadEvents(
-                    start: DateTime.Now.Date.AddSeconds(-1),
+                    start: DateTime.Now.Date,
                     end: DateTime.Now.Date.AddDays(30)
                     );
                 _viewModel.UpdateCalendarEvents(_dashboardStore.GoogleCalendar.Events);
