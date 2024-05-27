@@ -249,7 +249,7 @@
                                     <DataTemplate>
                                         <Grid Height="35" Margin="0 8 0 8" x:Name="CountdownElement" Background="Transparent" IsHitTestVisible="True">
                                             <Grid.InputBindings>
-                                                <MouseBinding Gesture="LeftClick" Command="{Binding CountdownsCommand}"/>
+                                                <MouseBinding Gesture="LeftClick" Command="{Binding DataContext.CountdownsCommand, RelativeSource={RelativeSource AncestorType=ListView}}"/>
                                             </Grid.InputBindings>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="35"/>

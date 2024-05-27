@@ -87,7 +87,7 @@ namespace OOP_LernDashboard.Models
             combinedEvents.Sort((e1, e2) => e1.StartTime.CompareTo(e2.StartTime));
 
             // remove all events that falsely in the list where its datetime is before the start date
-            while (combinedEvents[0] != null && combinedEvents[0].StartTime < (start ?? Start))
+            while (combinedEvents.Count > 0 && combinedEvents[0] != null && combinedEvents[0].StartTime < (start ?? Start))
             {
                 combinedEvents.RemoveAt(0);
             }
