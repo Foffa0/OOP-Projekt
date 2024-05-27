@@ -11,6 +11,7 @@ namespace OOP_LernDashboard.ViewModels
         private readonly DashboardStore _dashboardStore;
 
         private readonly ObservableCollection<ToDoViewModel> _toDos;
+        public IEnumerable<ToDoViewModel> ToDos => _toDos;
         private string _toDoDesc = "";
         public string ToDoDesc
         {
@@ -19,6 +20,16 @@ namespace OOP_LernDashboard.ViewModels
             {
                 _toDoDesc = value;
                 OnPropertyChanged(nameof(ToDoDesc));
+            }
+        }
+        private bool _isRecurringToDo = false;
+        public bool IsRecurringToDo
+        {
+            get { return _isRecurringToDo; }
+            set
+            {
+                _isRecurringToDo = value;
+                OnPropertyChanged(nameof(IsRecurringToDo));
             }
         }
 
