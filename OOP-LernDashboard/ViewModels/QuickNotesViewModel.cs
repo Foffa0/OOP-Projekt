@@ -1,4 +1,5 @@
-﻿using OOP_LernDashboard.Models;
+﻿using OOP_LernDashboard.Commands;
+using OOP_LernDashboard.Models;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -29,6 +30,8 @@ namespace OOP_LernDashboard.ViewModels
             _quickNotes.Add(new QuickNoteViewModel(new QuickNote("sdafjhlöasdlkökjfhölsdalkjfdlkösa")));
             _quickNotes.Add(new QuickNoteViewModel(new QuickNote("sdafjhlöasdlkökjssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssfhölsdalkjfdlkösa")));
             _quickNotes.Add(new QuickNoteViewModel(new QuickNote("sdafjasdfffffffdddddddddddddddddddddddddddddddddddddddddddddddddddddddddhlöasdlkökjfhölsdalkjfdlkösa")));
+
+            this.AddQuickNoteCommand = new AddQuickNoteCommand();
         }
 
         public static QuickNotesViewModel LoadViewModel()

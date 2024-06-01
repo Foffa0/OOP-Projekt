@@ -8,9 +8,11 @@ namespace OOP_LernDashboard.Commands
 {
     internal class AddQuickNoteCommand : CommandBase
     {
+        
         public override void Execute(object? parameter)
         {
             
+
         }
     }
 }
