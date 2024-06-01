@@ -15,6 +15,8 @@ namespace OOP_LernDashboard.DbContexts
 
         public DbSet<CalendarDTO> CalendarIds { get; set; }
 
+        public DbSet<QuickNoteDTO> QuickNotes { get; set; }
+
         /// <summary>
         /// Make shure that the Name of the Shortcut is unique
         /// </summary>

@@ -1,10 +1,6 @@
 ﻿using OOP_LernDashboard.DbContexts;
+using OOP_LernDashboard.DTOs;
 using OOP_LernDashboard.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OOP_LernDashboard.Services.DataCreators
 {
@@ -17,14 +13,35 @@ namespace OOP_LernDashboard.Services.DataCreators
             _dbContextFactory = dbContextFactory;
         }
 
-        public Task CreateModel(QuickNote model)
+        public async Task CreateModel(QuickNote model)
         {
-            throw new NotImplementedException();
+            using (DashboardDbContext context = _dbContextFactory.CreateDbContext())
+            {
+                QuickNoteDTO quickNoteDTO = ToQuickNoteDTO(model);
+
+                context.QuickNotes.Add(quickNoteDTO);
+                await context.SaveChangesAsync();
+            }
         }
 
-        public Task DeleteModel(QuickNote model)
+        public async Task DeleteModel(QuickNote model)
         {
-            throw new NotImplementedException();
+            using (DashboardDbContext context = _dbContextFactory.CreateDbContext())
+            {
+                QuickNoteDTO quickNoteDTO = ToQuickNoteDTO(model);
+
+                context.QuickNotes.Remove(quickNoteDTO);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        private QuickNoteDTO ToQuickNoteDTO(QuickNote quickNote)
+        {
+            return new QuickNoteDTO
+            {
+                Id = quickNote.Id,
+                Note = quickNote.Note
+            };
         }
     }
 }

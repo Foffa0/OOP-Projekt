@@ -5,10 +5,15 @@
         public Guid Id { get; }
         public string Note { get; set; }
 
-        public QuickNote(string Note)
+        public QuickNote(string note)
         {
             Id = new Guid();
-            this.Note = Note;
+            Note = note;
+        }
+        public QuickNote(Guid id, string note)
+        {
+            Id = id;
+            Note = note;
         }
     }
 }
