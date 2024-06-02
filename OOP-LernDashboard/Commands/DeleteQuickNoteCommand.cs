@@ -9,23 +9,20 @@ using System.Threading.Tasks;
 
 namespace OOP_LernDashboard.Commands
 {
-    internal class AddQuickNoteCommand : CommandBase
+    internal class DeleteQuickNoteCommand : CommandBase
     {
+        private QuickNote _quickNote;
         private DashboardStore _dashboardStore;
-        private QuickNotesViewModel _quickNotesViewModel;
 
-        public AddQuickNoteCommand(QuickNotesViewModel quickNotesViewModel, DashboardStore dashboardStore)
+        public DeleteQuickNoteCommand(QuickNote quickNote,DashboardStore dashboardStore)
         {
+            _quickNote = quickNote;
             _dashboardStore = dashboardStore;
-            _quickNotesViewModel = quickNotesViewModel;
         }
 
-        
         public override async void Execute(object? parameter)
         {
-            QuickNote quickNote = new QuickNote(_quickNotesViewModel.Note);
-            _quickNotesViewModel.Note = "";
-            await _dashboardStore.AddQuickNote(quickNote);
+            await _dashboardStore.DeleteQuickNote(_quickNote);
         }
     }
 }

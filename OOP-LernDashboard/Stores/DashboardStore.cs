@@ -56,13 +56,13 @@ namespace OOP_LernDashboard.Stores
         public event Action<Shortcut>? ShortcutCreated;
         public event Action<Shortcut>? ShortcutDeleted;
 
+        public event Action<QuickNote>? QuickNoteCreated;
+        public event Action<QuickNote>? QuickNoteDeleted;
+
         public event Action? GoogleLoggedIn;
 
         public GoogleLogin GoogleLogin { set; get; }
         public GoogleCalendar? GoogleCalendar { set; get; }
-
-        public event Action<QuickNote>? QuickNoteCreated;
-        public event Action<QuickNote>? QuickNoteDeleted;
 
         // public Configuration AppConfig;
 

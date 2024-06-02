@@ -70,6 +70,8 @@ namespace OOP_LernDashboard.ViewModels
         private readonly ObservableCollection<CountdownViewModel> _countdowns;
         public IEnumerable<CountdownViewModel> Countdowns => _countdowns;
 
+        private readonly ObservableCollection<QuickNoteViewModel> _quickNotes;
+        public IEnumerable<QuickNoteViewModel> QuickNotes => _quickNotes;
         #endregion
 
         #region Commands

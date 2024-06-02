@@ -24,24 +24,53 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
-        public ICommand AddQuickNoteCommand;
-        public ICommand DeleteQuickNoteCommand;
+        public ICommand AddQuickNoteCommand { get; }
+        public ICommand LoadDataAsyncCommand { get; }
 
         public QuickNotesViewModel(DashboardStore dashboardStore)
         {
             _quickNotes = new ObservableCollection<QuickNoteViewModel>();
-            _quickNotes.Add(new QuickNoteViewModel(new QuickNote("sdafjhlöasdlkökjfhölsdalkjfdlkösa")));
-            _quickNotes.Add(new QuickNoteViewModel(new QuickNote("sdafjhlöasdlkökjssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssfhölsdalkjfdlkösa")));
-            _quickNotes.Add(new QuickNoteViewModel(new QuickNote("sdafjasdfffffffdddddddddddddddddddddddddddddddddddddddddddddddddddddddddhlöasdlkökjfhölsdalkjfdlkösa")));
+            _quickNotes.Add(new QuickNoteViewModel(new QuickNote("sdafjhlöasdlkökjfhölsdalkjfdlkösa"),dashboardStore));
+            _quickNotes.Add(new QuickNoteViewModel(new QuickNote("sdafjhlöasdlkökjssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssfhölsdalkjfdlkösa"),dashboardStore));
+            _quickNotes.Add(new QuickNoteViewModel(new QuickNote("sdafjasdfffffffdddddddddddddddddddddddddddddddddddddddddddddddddddddddddhlöasdlkökjfhölsdalkjfdlkösa"),dashboardStore));
 
             _dashboardStore = dashboardStore;
-            this.AddQuickNoteCommand = new AddQuickNoteCommand(_dashboardStore, this);
+            this.AddQuickNoteCommand = new AddQuickNoteCommand(this, _dashboardStore);
+            LoadDataAsyncCommand = new LoadQuickNotesCommand(this, _dashboardStore);
+
+            _dashboardStore.QuickNoteCreated += OnQuickNoteCreated;
+            _dashboardStore.QuickNoteDeleted += OnQuickNoteDeleted;
         }
 
         public static QuickNotesViewModel LoadViewModel(DashboardStore dashboardStore)
         {
-            QuickNotesViewModel viewModel = new QuickNotesViewModel(dashboardStore);
-            return viewModel;
+            QuickNotesViewModel quickNotesViewModel = new QuickNotesViewModel(dashboardStore);
+            quickNotesViewModel.LoadDataAsyncCommand.Execute(null);
+            return quickNotesViewModel;
+        }
+
+        public void UpdateQuickNotes(IEnumerable<QuickNote> quickNotes)
+        {
+            _quickNotes.Clear();
+            foreach(var quickNote in quickNotes)
+            {
+                _quickNotes.Add(new QuickNoteViewModel(quickNote, _dashboardStore));
+            }
+        }
+
+        public void OnQuickNoteCreated(QuickNote quickNote)
+        {
+            QuickNoteViewModel quickNoteViewModel = new QuickNoteViewModel(quickNote, _dashboardStore);
+            _quickNotes.Add(quickNoteViewModel);
+        }
+
+        public void OnQuickNoteDeleted(QuickNote quickNote)
+        {
+            var q = _quickNotes.First(q => q.Id == quickNote.Id);
+            if(q != null)
+            {
+                _quickNotes.Remove(q);
+            }
         }
     }
 }
