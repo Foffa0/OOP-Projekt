@@ -1,3 +1,5 @@
+using HandyControl.Data;
+using HandyControl.Controls;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -10,7 +12,7 @@ namespace OOP_LernDashboard.ViewModels
         private string _timerName;
         private int _hourInput;
         private int _minuteInput;
-        private int _secondInput = 1;
+        private int _secondInput;
 
         public int Hours
         {
@@ -40,16 +42,6 @@ namespace OOP_LernDashboard.ViewModels
             {
                 _secondInput = value;
                 OnPropertyChanged(nameof(Seconds));
-            }
-        }
-
-        public string TimerName
-        {
-            get => _timerName;
-            set
-            {
-                _timerName = value;
-                OnPropertyChanged(nameof(TimerName));
             }
         }
 

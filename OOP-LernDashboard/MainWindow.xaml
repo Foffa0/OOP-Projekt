@@ -82,21 +82,21 @@
                 <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding DashboardCommand}" IsChecked="{Binding DashboardViewActive}">
                     <Image Width="30">
                         <Image.Source>
-                            <BitmapImage DecodePixelWidth="240" UriSource="/Resources/Images/DashboardIcon.png"/>
+                            <BitmapImage DecodePixelWidth="40" UriSource="/Resources/Images/DashboardIcon.png"/>
                         </Image.Source>
                     </Image>
                 </RadioButton>
                 <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding ToDoCommand}" IsChecked="{Binding ToDoViewActive}" >
                     <Image Width="30">
                         <Image.Source>
-                            <BitmapImage DecodePixelWidth="240" UriSource="/Resources/Images/ToDoIcon.png"/>
+                            <BitmapImage DecodePixelWidth="40" UriSource="/Resources/Images/ToDoIcon.png"/>
                         </Image.Source>
                     </Image>
                 </RadioButton>
                 <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding QuickNotesCommand}" IsChecked="{Binding QuickNotesViewActive}">
                     <Image Width="30">
                         <Image.Source>
-                            <BitmapImage DecodePixelWidth="240" UriSource="/Resources/Images/QuickNotesIcon.png" />
+                            <BitmapImage DecodePixelWidth="40" UriSource="/Resources/Images/QuickNotesIcon.png" />
                         </Image.Source>
                     </Image>
                 </RadioButton>
@@ -117,7 +117,7 @@
                 <RadioButton GroupName="nav" Height="40" Style="{StaticResource SideNavButtonTheme}" Command="{Binding ShortcutsCommand}" IsChecked="{Binding ShortcutsViewActive}">
                     <Image Height="30">
                         <Image.Source>
-                            <BitmapImage DecodePixelWidth="240" UriSource="/Resources/Images/ShortcutsIcon.png" />
+                            <BitmapImage DecodePixelWidth="40" UriSource="/Resources/Images/ShortcutsIcon.png" />
                         </Image.Source>
                     </Image>
                 </RadioButton>
