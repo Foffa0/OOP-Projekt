@@ -24,6 +24,7 @@ namespace OOP_LernDashboard.Commands
             _viewModel.UpdateShortcuts(_dashboardStore.Shortcuts);
             _viewModel.UpdateCountdowns(_dashboardStore.Countdowns);
             _viewModel.UpdateWelcomeName(_dashboardStore.WelcomeName);
+            _viewModel.UpdateQuickNotes(_dashboardStore.QuickNotes);
 
             if (_dashboardStore.GoogleCalendar != null)
             {

@@ -1,4 +1,5 @@
-﻿using OOP_LernDashboard.Models;
+﻿using OOP_LernDashboard.Commands;
+using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Stores;
 using System;
 using System.Collections.Generic;
@@ -18,10 +19,13 @@ namespace OOP_LernDashboard.ViewModels
         public string? Note => _quickNote.Note;
         public Guid Id => _quickNote.Id;
 
+        public ICommand DeleteQuickNoteCommand { get; }
         public QuickNoteViewModel(QuickNote quickNote, DashboardStore dashboardStore)
         {
             _quickNote = quickNote;
             _dashboardStore = dashboardStore;
+
+            DeleteQuickNoteCommand = new DeleteQuickNoteCommand(_quickNote, dashboardStore);
         }
     }
 }

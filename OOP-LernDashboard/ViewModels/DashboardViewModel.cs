@@ -84,10 +84,11 @@ namespace OOP_LernDashboard.ViewModels
         public ICommand CalendarCommand { get; }
         public ICommand CountdownsCommand { get; }
         public ICommand AddToDoCommand { get; }
+        public ICommand QuickNotesCommand { get; }
 
         #endregion
 
-        public DashboardViewModel(Dashboard dashboard, DashboardStore dashboardStore, NavigationService shortcutsNavigationService, NavigationService dashboardNavigationService, NavigationService countdownsNavigationService, NavigationService toDosNavigationService)
+        public DashboardViewModel(Dashboard dashboard, DashboardStore dashboardStore, NavigationService shortcutsNavigationService, NavigationService dashboardNavigationService, NavigationService countdownsNavigationService, NavigationService toDosNavigationService, NavigationService quickNotesNavigationService)
         {
             _dashboardStore = dashboardStore;
 
@@ -98,6 +99,7 @@ namespace OOP_LernDashboard.ViewModels
             CalendarCommand = new NavigateCommand(dashboardNavigationService);
             CountdownsCommand = new NavigateCommand(countdownsNavigationService);
             AddToDoCommand = new NavigateCommand(toDosNavigationService);
+            QuickNotesCommand = new NavigateCommand(quickNotesNavigationService);
 
             _toDos = new ObservableCollection<ToDoViewModel>();
             _calendarEvents = new ObservableCollection<EventViewModel>();
@@ -108,7 +110,7 @@ namespace OOP_LernDashboard.ViewModels
                 "Wiederholendes ToDo"
             };
             _countdowns = new ObservableCollection<CountdownViewModel>();
-
+            _quickNotes = new ObservableCollection<QuickNoteViewModel>();
 
 
             // Listen for changes in the dashboardStore
@@ -126,9 +128,9 @@ namespace OOP_LernDashboard.ViewModels
             base.Dispose();
         }
 
-        public static DashboardViewModel LoadViewModel(Dashboard dashboard, DashboardStore dashboardStore, NavigationService shortcutsNavigationService, NavigationService dashboardNavigationService, NavigationService countdownsNavigationService, NavigationService toDosNavigationService)
+        public static DashboardViewModel LoadViewModel(Dashboard dashboard, DashboardStore dashboardStore, NavigationService shortcutsNavigationService, NavigationService dashboardNavigationService, NavigationService countdownsNavigationService, NavigationService toDosNavigationService, NavigationService quickNotesNavigationService)
         {
-            DashboardViewModel viewModel = new DashboardViewModel(dashboard, dashboardStore, shortcutsNavigationService, dashboardNavigationService, countdownsNavigationService, toDosNavigationService);
+            DashboardViewModel viewModel = new DashboardViewModel(dashboard, dashboardStore, shortcutsNavigationService, dashboardNavigationService, countdownsNavigationService, toDosNavigationService, quickNotesNavigationService);
             //Load data asynchronously
             viewModel.LoadDataAsyncCommand.Execute(null);
             return viewModel;
@@ -199,6 +201,16 @@ namespace OOP_LernDashboard.ViewModels
             foreach (var countdown in countdowns)
             {
                 _countdowns.Add(new CountdownViewModel(countdown));
+            }
+        }
+
+        public void UpdateQuickNotes(IEnumerable<QuickNote> quickNotes)
+        {
+            _quickNotes.Clear();
+
+            foreach (var quickNote in quickNotes)
+            {
+                _quickNotes.Add(new QuickNoteViewModel(quickNote, _dashboardStore));
             }
         }
     }

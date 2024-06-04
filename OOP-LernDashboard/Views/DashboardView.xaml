@@ -37,6 +37,8 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -62,7 +64,7 @@
                                                 <ColumnDefinition Width="auto" />
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
-
+                                           
                                             <Image Grid.Column="0" Source="{Binding BitmapSource}" Width="auto" Height="18" Stretch="Uniform"/>
 
                                             <TextBlock Grid.Column="1" Text="{Binding Name}" Margin="10,0,0,0" VerticalAlignment="Center"/>
@@ -92,6 +94,47 @@
                             </ListView>
 
                             <Button Command="{Binding ShortcutsCommand}" Background="Transparent" BorderThickness="0" Foreground="#f0f0f0" Cursor="Hand">
+                                <Underline>Bearbeiten</Underline>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Row="2" Background="{StaticResource SecondaryColor}" CornerRadius="5" Padding="10">
+                        <StackPanel>
+                            <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Headline}" Margin="0,0,0,10">QuickNotes</TextBlock>
+
+                            <ListView Grid.Row="1" ItemsSource="{Binding QuickNotes}" Background="Transparent" BorderThickness="0" Margin="0" Padding="4,0,4,4" VerticalContentAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VirtualizingPanel.ScrollUnit="Pixel" HorizontalContentAlignment="Stretch">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Background="Transparent" Margin="0" HorizontalAlignment="Stretch" Cursor="Hand">
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" LineHeight="16" Grid.Column="1" Text="{Binding Note}" Margin="10,0,0,0" VerticalAlignment="Center" />
+
+                                        </Grid>
+
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ListViewItem">
+                                                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Margin="0 4 0 4" CornerRadius="5" Padding="5">
+                                                        <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                            </ListView>
+
+                            <Button Command="{Binding QuickNotesCommand}" Background="Transparent" BorderThickness="0" Foreground="#f0f0f0" Cursor="Hand">
                                 <Underline>Bearbeiten</Underline>
                             </Button>
                         </StackPanel>
