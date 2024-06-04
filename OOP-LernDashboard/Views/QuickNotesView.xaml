@@ -75,10 +75,10 @@
                                     <Grid Background="Transparent" Margin="0" HorizontalAlignment="Stretch" Cursor="Hand">
                                         <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="30" MinWidth="20" />
+                                                    <ColumnDefinition Width="50" MinWidth="40" />
                                         </Grid.ColumnDefinitions>
 
-                                        <TextBlock Grid.Column="0" Style="{StaticResource Text}" FontSize="17" LineStackingStrategy="BlockLineHeight" LineHeight="23" Width="auto" MaxWidth="590" Text="{Binding Note}" Margin="10,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left"/>
+                                        <TextBlock Grid.Column="0" Style="{StaticResource Text}" FontSize="17" LineStackingStrategy="BlockLineHeight" LineHeight="23" Width="auto"  Text="{Binding Note}" Margin="10,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left"/>
                         
                                         
                                         <Button Grid.Column="1" Background="#eb4034" Padding="6" Margin="0" BorderThickness="0" Cursor="Hand" HorizontalAlignment="Right" Command="{Binding DeleteQuickNoteCommand}">
