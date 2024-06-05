@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OOP_LernDashboard.Views"
              mc:Ignorable="d" 
+             xmlns:hc="https://handyorg.github.io/handycontrol"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="{StaticResource WindowTheme}">
         <Grid.RowDefinitions>
@@ -65,28 +66,87 @@
             <Border Grid.Column="1" Background="{StaticResource SecondaryColor}" CornerRadius="10" Padding="10">
                 <StackPanel>
                     <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Headline}" Margin="0,0,0,10" Text="ToDo hinzufügen"></TextBlock>
-                  
-                    <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Text}"  Text="Beschreibung" Margin="0, 10, 0, 0"></TextBlock>
+
+                    <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Text}" Text="Beschreibung" Margin="0, 10, 0, 0"></TextBlock>
                     <Border>
                         <TextBox Text="{Binding ToDoDesc, UpdateSourceTrigger=PropertyChanged}" 
-                     Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}"
-                     MinHeight="{Binding ActualHeight, ElementName=Title, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE*2}"
-                                 Margin="0,10,0,10"
-                     VerticalContentAlignment="Top"
-                     TextWrapping="Wrap"
-                     AllowDrop="True"
-                     Padding="5">
+                 Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}"
+                 MinHeight="{Binding ActualHeight, ElementName=Title, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE*2}"
+                 Margin="0,10,0,10"
+                 VerticalContentAlignment="Top"
+                 TextWrapping="Wrap"
+                 AllowDrop="True"
+                 Padding="5">
                         </TextBox>
                     </Border>
+                    <StackPanel Orientation="Vertical" Margin="0,0,0,10">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <ToggleButton IsChecked="{Binding IsRecurringToDo}" Style="{StaticResource ToggleButtonSwitch}" Margin="0, 0, 10, 0"/>
+                            <TextBlock Text="Wiederholendes ToDo" Style="{StaticResource Text}" VerticalAlignment="Center"></TextBlock>
+                        </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                        <ToggleButton IsChecked="{Binding IsRecurringToDo}" Style="{StaticResource ToggleButtonSwitch}" Margin="0, 0, 10, 0"/>
-                        <TextBlock Text="Wiederholendes ToDo" Style="{StaticResource Text}" VerticalAlignment="Center"></TextBlock>
+                        <hc:TransitioningContentControl TransitionMode="Top2BottomWithFade" Visibility="{Binding IsRecurringToDo, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1.2*" />
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="2*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Column="0" Grid.Row="0" Text="Startzeitpunkt" Style="{StaticResource Text}" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0, 5, 0, 5"></TextBlock>
+                                <StackPanel Orientation="Horizontal" Margin="0,5,0,10" Grid.Column="0" Grid.Row="1">
+                                    <ToggleButton Grid.Row="1" Margin="0, 0,10,0" IsChecked="{Binding StartTimeIsNow}" Style="{StaticResource ToggleButtonSwitch}" />
+                                    <TextBlock Text="Jetzt" Style="{StaticResource Text}" VerticalAlignment="Center" Grid.ColumnSpan="2"></TextBlock>
+                                </StackPanel>
+                                <hc:TransitioningContentControl TransitionMode="Top2BottomWithFade" Visibility="{Binding StartTimeIsNow, Converter={StaticResource InvertedBooleanToVisibilityConverter}}" Grid.Row="1" Grid.Column="2">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <hc:TimePicker Grid.Column="0" Margin="0,5,5,5" 
+                                       TimeFormat="HH:mm"
+                                       SelectedTime="{Binding NewToDoStartTime, UpdateSourceTrigger=PropertyChanged}" />
+                                        <hc:DatePicker Grid.Column="1" Margin="0,5,5,5" 
+                                       SelectedDate="{Binding NewToDoDate, UpdateSourceTrigger=PropertyChanged}" Language="de" />
+                                    </Grid>
+                                </hc:TransitioningContentControl>
+
+                                <TextBlock Grid.Column="0" Grid.Row="2" Text="Zeitintervall" Margin="0, 10, 0, 0" Style="{StaticResource Text}" VerticalAlignment="Center" Grid.ColumnSpan="2"></TextBlock>
+                        
+                                <StackPanel Grid.Row="3" Orientation="Vertical" VerticalAlignment="Center" Margin="0,10,0,0">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,5">
+                                        <TextBlock FontSize="15" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="{StaticResource TextColor}">Alle</TextBlock>
+                                        <hc:NumericUpDown FontSize="15" Padding="10,0,10,0" Width="80" Height="20" Value="{Binding IntervalHours}" Minimum="0" Maximum="23" Margin="0,5,0,5"></hc:NumericUpDown>
+                                        <TextBlock FontSize="15" VerticalAlignment="Center" Margin="10,0,10,0" Foreground="{StaticResource TextColor}">Stunden</TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,5">
+                                        <hc:NumericUpDown FontSize="15" Padding="10,0,10,0" Width="80" Height="20" Value="{Binding IntervalDays}" Minimum="0" Maximum="31" Margin="34,5,0,5"></hc:NumericUpDown>
+                                        <TextBlock FontSize="15" VerticalAlignment="Center" Margin="10,0,10,0" Foreground="{StaticResource TextColor}">Tage</TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,5">
+                                        <hc:NumericUpDown FontSize="15" Padding="10,0,10,0" Width="80" Height="20" Value="{Binding IntervalMonths}" Minimum="0" Maximum="11" Margin="34,5,0,5"></hc:NumericUpDown>
+                                        <TextBlock FontSize="15" VerticalAlignment="Center" Margin="10,0,10,0" Foreground="{StaticResource TextColor}">Monate</TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,5">
+                                        <hc:NumericUpDown FontSize="15" Padding="10,0,10,0" Width="80" Height="20" Value="{Binding IntervalYears}" Minimum="0" Maximum="50" Margin="34,5,0,5"></hc:NumericUpDown>
+                                        <TextBlock FontSize="15" VerticalAlignment="Center" Margin="10,0,10,0" Foreground="{StaticResource TextColor}">Jahre</TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </hc:TransitioningContentControl>
                     </StackPanel>
-                    <Button Content="Hinzufügen" Command="{Binding AddToDoCommand}" Style="{StaticResource PrimaryButton}" Cursor="Hand" HorizontalAlignment="Center" Margin="0, 10, 0, 0"></Button>
+                    <Button Content="Hinzufügen" Command="{Binding AddToDoCommand}" Style="{StaticResource PrimaryButton}" Cursor="Hand" HorizontalAlignment="Center" Margin="0, 5, 0, 5"></Button>
                 </StackPanel>
             </Border>
         </Grid>
-
     </Grid>
 </UserControl>
