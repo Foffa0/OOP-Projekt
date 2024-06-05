@@ -28,7 +28,7 @@ namespace OOP_LernDashboard.Commands
             var dateTime = DateTime.Parse(_countdownsViewModel.CountdownInput);
             DateOnly date = DateOnly.FromDateTime(dateTime);
 
-            Countdown countdown = new Countdown(date, _countdownsViewModel.Description);
+            Countdown countdown = new Countdown(date, _countdownsViewModel.Description, false);
 
             await _dashboardStore.AddCountdown(countdown);
 

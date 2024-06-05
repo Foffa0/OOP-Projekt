@@ -201,6 +201,11 @@ namespace OOP_LernDashboard.Stores
             CountdownDeleted?.Invoke(countdown);
         }
 
+        public async Task ModifyCountdown(Countdown countdown)
+        {
+            await ((DatabaseCountdownCreator)_countdownCreator).ModifyModel(countdown);
+        }
+
         /// <summary>
         /// Adds a Shortcut to the database and updates the Shortcuts-List
         /// </summary>
@@ -339,7 +344,7 @@ namespace OOP_LernDashboard.Stores
             string? acccentColor = ReadSetting("AccentColor");
             if (acccentColor != null && acccentColor != "")
             {
-                ThemeManager.Current.AccentColor = (Brush)(new BrushConverter().ConvertFrom(acccentColor) ??  Brushes.Red);
+                ThemeManager.Current.AccentColor = (Brush)(new BrushConverter().ConvertFrom(acccentColor) ?? Brushes.Red);
             }
         }
 
