@@ -59,6 +59,8 @@ namespace OOP_LernDashboard.Stores
         public event Action<QuickNote>? QuickNoteCreated;
         public event Action<QuickNote>? QuickNoteDeleted;
 
+        public event Action? CalendarModified;
+
         public event Action? GoogleLoggedIn;
 
         public GoogleLogin GoogleLogin { set; get; }
@@ -265,6 +267,15 @@ namespace OOP_LernDashboard.Stores
             await _quickNoteCreator.DeleteModel(quickNote);
             _quickNotes.Remove(_quickNotes.Where(i => i.Id == quickNote.Id).Single());
             QuickNoteDeleted?.Invoke(quickNote);
+        }
+
+        public async Task ModifyCalendarEvent(CalendarEvent calendarEvent)
+        {
+            if (this.GoogleCalendar == null)
+                return;
+
+            await this.GoogleCalendar.UpdateEvent(calendarEvent);
+            CalendarModified?.Invoke();
         }
 
         // Loads the data from the database once

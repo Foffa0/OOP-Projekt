@@ -195,6 +195,7 @@ namespace OOP_LernDashboard.ViewModels
             UpdateGoogleReady(dashboardStore.GoogleCalendar != null);
 
             dashboardStore.GoogleLoggedIn += OnGoogleLogin;
+            dashboardStore.CalendarModified += () => LoadCalendarCommand.Execute(null);
         }
 
         public static CalendarViewModel LoadViewModel(Dashboard dashboard, DashboardStore dashboardStore)

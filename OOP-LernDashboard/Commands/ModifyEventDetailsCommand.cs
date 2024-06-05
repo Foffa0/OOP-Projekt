@@ -17,10 +17,9 @@ namespace OOP_LernDashboard.Commands
         public async override Task ExecuteAsync(object? parameter)
         {
             _eventViewModel.ApplyTempData();
-            await _dashboardStore.GoogleCalendar.UpdateEvent(_eventViewModel.Event);
-            _eventViewModel.OnSaved?.Invoke();
 
-            // TODO: Reload events
+            _eventViewModel.OnSaved?.Invoke();
+            await _dashboardStore.ModifyCalendarEvent(_eventViewModel.Event);
         }
     }
 }
