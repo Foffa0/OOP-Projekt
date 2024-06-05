@@ -83,6 +83,8 @@ namespace OOP_LernDashboard
 
             MainWindow.Show();
 
+            _dashboard.CheckForNotifications();
+
             base.OnStartup(e);
         }
 

@@ -3,15 +3,21 @@
     internal class RecurringToDo : ToDo
     {
         public DateTime? NextDate { get; set; }
-        public int Interval { get; set; }
+        public int IntervalHours { get; set; }
+        public int IntervalDays { get; set; }
+        public int IntervalMonths { get; set; }
+        public int IntervalYears { get; set; }
 
-        public RecurringToDo(string description, int interval) : base(description)
+        public RecurringToDo(string description, bool isChecked, int intertervalHours, int intertervalDays, int intertervalMonths, int intertervalYears) : base(description,isChecked)
         {
-            this.Interval = interval;
+            this.IntervalHours = intertervalHours;
+            this.IntervalDays = intertervalDays;
+            this.IntervalMonths = intertervalMonths;
+            this.IntervalYears=intertervalYears;
         }
         public DateTime GenerateNextDate()
         {
-            return DateTime.Now.AddDays(Interval); //Wrong Time
+            return DateTime.Now.AddDays(IntervalDays); //Wrong Time
         }
         public override void check()
         {

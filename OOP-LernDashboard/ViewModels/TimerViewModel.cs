@@ -29,9 +29,14 @@ namespace OOP_LernDashboard.ViewModels
 
         public void ResetTimer()
         {
+            timer.Pause();
             timer.Reset();
         }
 
+        public void DeleteTimer()
+        {
+            
+        }
 
 
         public string Timer

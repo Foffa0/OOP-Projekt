@@ -26,7 +26,7 @@ namespace OOP_LernDashboard.Services.DataProviders
 
         private static Countdown ToCountdown(CountdownDTO countdown)
         {
-            return new Countdown(countdown.Id, countdown.Date, countdown.Description);
+            return new Countdown(countdown.Id, countdown.Date, countdown.Description, countdown.Notification);
         }
     }
 }

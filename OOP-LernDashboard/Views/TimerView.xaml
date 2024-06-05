@@ -36,7 +36,7 @@
         <ItemsControl Grid.Row="2" ItemsSource="{Binding Timers}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal" ItemWidth="250" ItemHeight="300" />
+                    <WrapPanel Orientation="Horizontal" ItemWidth="250" ItemHeight="300" ScrollViewer.VerticalScrollBarVisibility="Visible"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
@@ -50,7 +50,21 @@
                             </Grid.RowDefinitions>
 
 
-                            <TextBlock Grid.Row="0" Style="{StaticResource Headline}" Margin="5,0,5,0" VerticalAlignment="Center" TextAlignment="Center" Foreground="{StaticResource TextColor}" Text="{Binding Name}"></TextBlock>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="30"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="1" Width="40" Height="40" Command="{Binding DeleteTimerCommand}" Padding="0" >
+                                    <Image Source="/Resources/Images/AddIcon.png" Width="25" Height="25" RenderOptions.BitmapScalingMode="HighQuality">
+                                        <Image.LayoutTransform>
+                                            <RotateTransform Angle="45"></RotateTransform>
+                                        </Image.LayoutTransform>
+                                    </Image>
+                                </Button>
+
+                                <TextBox Grid.Column="0" Style="{StaticResource PrimaryTextInput}" BorderThickness="0" FontSize="20" Margin="5,0,5,0" VerticalAlignment="Center" TextAlignment="Left" Foreground="{StaticResource TextColor}" Text="{Binding Name}"></TextBox>
+                            </Grid>
                             <hc:CircleProgressBar Grid.Row="1" Value="{Binding BarValue}" FontSize="20" Text="{Binding Timer}" Width="180" Height="180" ArcThickness="5" />
                             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Button Width="40" Height="40" Margin="5,0,5,0" Command="{Binding pauseTimer}">

@@ -9,5 +9,6 @@ namespace OOP_LernDashboard.DTOs
         public Guid Id { get; set; }
         public DateOnly Date { get; set; }
         public string Description { get; set; }
+        public bool Notification { get; set; }
     }
 }
