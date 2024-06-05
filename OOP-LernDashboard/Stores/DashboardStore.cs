@@ -29,6 +29,8 @@ namespace OOP_LernDashboard.Stores
         private IDataProvider<Countdown> _countdownProvider;
         private IDataCreator<string> _calendarIdCreator;
         private IDataProvider<string> _calendarIdProvider;
+        private IDataCreator<QuickNote> _quickNoteCreator;
+        private IDataProvider<QuickNote> _quickNoteProvidor;
 
         private readonly Models.LinkedList<ToDo> _toDos;
         public IEnumerable<ToDo> ToDos => _toDos;
@@ -42,6 +44,9 @@ namespace OOP_LernDashboard.Stores
         private readonly Models.LinkedList<string> _calendarIds;
         public Models.LinkedList<string> CalendarIds => _calendarIds;
 
+        private readonly Models.LinkedList<QuickNote> _quickNotes;
+        public Models.LinkedList<QuickNote> QuickNotes => _quickNotes;
+
         public event Action<ToDo>? ToDoCreated;
         public event Action<ToDo>? ToDoDeleted;
 
@@ -50,6 +55,9 @@ namespace OOP_LernDashboard.Stores
 
         public event Action<Shortcut>? ShortcutCreated;
         public event Action<Shortcut>? ShortcutDeleted;
+
+        public event Action<QuickNote>? QuickNoteCreated;
+        public event Action<QuickNote>? QuickNoteDeleted;
 
         public event Action? GoogleLoggedIn;
 
@@ -74,7 +82,9 @@ namespace OOP_LernDashboard.Stores
             IDataCreator<Countdown> countdownCreator,
             IDataProvider<Countdown> countdownProvider,
             IDataCreator<string> calendarIdCreator,
-            IDataProvider<string> calendarIdProvider)
+            IDataProvider<string> calendarIdProvider,
+            IDataCreator<QuickNote> quickNoteDataCreator,
+            IDataProvider<QuickNote> quickNoteDataProvider)
         {
             _toDoCreator = toDoDataCreator;
             _toDoProvider = toDoDataProvider;
@@ -88,6 +98,9 @@ namespace OOP_LernDashboard.Stores
             _calendarIdCreator = calendarIdCreator;
             _calendarIdProvider = calendarIdProvider;
 
+            _quickNoteCreator = quickNoteDataCreator;
+            _quickNoteProvidor = quickNoteDataProvider;
+
             // the lazy ensures to only load the data once from the database
             _initializeLazy = new Lazy<Task>(Initialize);
 
@@ -95,6 +108,7 @@ namespace OOP_LernDashboard.Stores
             _shortcuts = new Models.LinkedList<Shortcut>();
             _countdowns = new Models.LinkedList<Countdown>();
             _calendarIds = new Models.LinkedList<string>();
+            _quickNotes = new Models.LinkedList<QuickNote>();
 
             this.GoogleLogin = new GoogleLogin();
             this.GoogleLogin.AuthTokenReceived += GoogleLoginAuthTokenReceived;
@@ -219,9 +233,9 @@ namespace OOP_LernDashboard.Stores
         }
 
         /// <summary>
-        /// Removes a Shortcut from the database and updates the ToDo-List
+        /// Removes a Shortcut from the database and updates the Shortcut-List
         /// </summary>
-        /// <param name="toDo"></param>
+        /// <param name="shortcut"></param>
         /// <returns></returns>
         public async Task DeleteShortcut(Shortcut shortcut)
         {
@@ -233,6 +247,29 @@ namespace OOP_LernDashboard.Stores
         public async Task ModifyShortcut(Shortcut shortcut)
         {
             await ((DatabaseShortcutCreator)_shortcutCreator).ModifyModel(shortcut);
+        }
+
+        /// <summary>
+        /// Adds a QuickNote to the database and updates the QuickNote-List
+        /// </summary>
+        /// <param name="quickNote"></param>
+        /// <returns></returns>
+        public async Task AddQuickNote(QuickNote quickNote)
+        {
+            await _quickNoteCreator.CreateModel(quickNote);
+            _quickNotes.Add(quickNote);
+            QuickNoteCreated?.Invoke(quickNote);
+        }
+        /// <summary>
+        /// Removes a QuickNote from the database and updates the QuickNote-List
+        /// </summary>
+        /// <param name="quickNote"></param>
+        /// <returns></returns>
+        public async Task DeleteQuickNote(QuickNote quickNote)
+        {
+            await _quickNoteCreator.DeleteModel(quickNote);
+            _quickNotes.Remove(_quickNotes.Where(i => i.Id == quickNote.Id).Single());
+            QuickNoteDeleted?.Invoke(quickNote);
         }
 
         // Loads the data from the database once
@@ -265,6 +302,13 @@ namespace OOP_LernDashboard.Stores
             {
                 _calendarIds.Add(id);
                 this.GoogleCalendar?.AddCalendar(id);
+            }
+
+            IEnumerable<QuickNote> quickNotes = await _quickNoteProvidor.GetAllModels();
+            _quickNotes.Clear();
+            foreach(var quickNote in quickNotes)
+            {
+                _quickNotes.Add(quickNote);
             }
         }
 

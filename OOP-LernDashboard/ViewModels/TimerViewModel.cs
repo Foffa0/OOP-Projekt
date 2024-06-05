@@ -29,9 +29,14 @@ namespace OOP_LernDashboard.ViewModels
 
         public void ResetTimer()
         {
+            timer.Pause();
             timer.Reset();
         }
 
+        public void DeleteTimer()
+        {
+            
+        }
 
 
         public string Timer
@@ -75,9 +80,9 @@ namespace OOP_LernDashboard.ViewModels
         }
 
 
-        public TimerViewModel(string _name, TimeSpan endTime)
+        public TimerViewModel(TimeSpan endTime)
         {
-            Name = _name;
+            Name = endTime.ToString();
             _endTime = endTime;
             Timer = endTime.ToString(@"hh\:mm\:ss");
             IconPath = "/Resources/Images/pauseIcon.png";

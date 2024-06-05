@@ -33,13 +33,16 @@ namespace OOP_LernDashboard
             IDataProvider<Countdown> _countdownPriovider = new DatabaseCountdownProvider(_dashboardDbContextFactory);
             IDataCreator<string> _calendarIdCreator = new DatabaseCalendarIdCreator(_dashboardDbContextFactory);
             IDataProvider<string> _calendarIdPriovider = new DatabaseCalendarIdProvider(_dashboardDbContextFactory);
+            IDataCreator<QuickNote> _quickNoteCreator = new DatabaseQuickNoteCreator(_dashboardDbContextFactory);
+            IDataProvider<QuickNote> _quickNoteProvider = new DatabaseQuickNoteProvider(_dashboardDbContextFactory);
 
 
             _dashboardStore = new DashboardStore(
                 _toDoCreator, _toDoProvider,
                 _shortcutCreator, _shortcutProvider,
                 _countdownCreator, _countdownPriovider,
-                _calendarIdCreator, _calendarIdPriovider);
+                _calendarIdCreator, _calendarIdPriovider,
+                _quickNoteCreator, _quickNoteProvider);
             _navigationStore = new NavigationStore();
             _dashboard = new Dashboard(_dashboardStore);
         }
@@ -102,7 +105,7 @@ namespace OOP_LernDashboard
 
         private DashboardViewModel CreateDashboardViewModel()
         {
-            return DashboardViewModel.LoadViewModel(_dashboard, _dashboardStore, new NavigationService(_navigationStore, CreateShortcutsViewModel), new NavigationService(_navigationStore, CreateCalendarViewModel), new NavigationService(_navigationStore, CreateCountdownViewModel), new NavigationService(_navigationStore, CreateToDosViewModel));
+            return DashboardViewModel.LoadViewModel(_dashboard, _dashboardStore, new NavigationService(_navigationStore, CreateShortcutsViewModel), new NavigationService(_navigationStore, CreateCalendarViewModel), new NavigationService(_navigationStore, CreateCountdownViewModel), new NavigationService(_navigationStore, CreateToDosViewModel), new NavigationService(_navigationStore,CreateQuickNotesViewModel));
         }
 
         private CalendarViewModel CreateCalendarViewModel()
@@ -112,7 +115,7 @@ namespace OOP_LernDashboard
 
         private QuickNotesViewModel CreateQuickNotesViewModel()
         {
-            return QuickNotesViewModel.LoadViewModel();
+            return QuickNotesViewModel.LoadViewModel(_dashboardStore);
         }
 
         private SettingsViewModel CreateSettingsViewModel()
