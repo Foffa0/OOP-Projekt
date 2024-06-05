@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OOP_LernDashboard.DbContexts;
 
@@ -10,9 +11,11 @@ using OOP_LernDashboard.DbContexts;
 namespace OOP_LernDashboard.Migrations
 {
     [DbContext(typeof(DashboardDbContext))]
-    partial class DashboardDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240605182016_countdownNotification")]
+    partial class countdownNotification
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.18");
@@ -46,21 +49,6 @@ namespace OOP_LernDashboard.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Countdowns");
-                });
-
-            modelBuilder.Entity("OOP_LernDashboard.DTOs.QuickNoteDTO", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Note")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("QuickNotes");
                 });
 
             modelBuilder.Entity("OOP_LernDashboard.DTOs.ShortcutDTO", b =>
