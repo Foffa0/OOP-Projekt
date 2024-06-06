@@ -14,6 +14,8 @@ namespace OOP_LernDashboard.ViewModels
         private int _minuteInput;
         private int _secondInput;
 
+
+        //save all Timers in 
         public int Hours
         {
             get => this._hourInput;

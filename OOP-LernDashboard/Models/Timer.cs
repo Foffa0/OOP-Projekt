@@ -10,11 +10,11 @@ namespace OOP_LernDashboard.Models
         DispatcherTimer timer;
 
         DateTime startTime;
-        TimeSpan endTime;
-        double elapsedTime;
-        double totalTime;
+        public TimeSpan endTime;
+        public double elapsedTime;
+        public double totalTime;
         private int tickSize = 500;
-        bool isPaused = false;
+        public bool isPaused = false;
 
         public Timer(TimerViewModel timerViewModel, TimeSpan endTime)
         {
