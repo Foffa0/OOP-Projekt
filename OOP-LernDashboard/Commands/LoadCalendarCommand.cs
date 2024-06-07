@@ -37,7 +37,17 @@ namespace OOP_LernDashboard.Commands
                 _viewModel.UpdateCalendars(_dashboardStore.GoogleCalendar.AllCalendars);
                 _viewModel.UpdateSelectedCalendar(_dashboardStore.SelectedCalendarId);
 
-                await _dashboardStore.GoogleCalendar.LoadEvents();
+                if (!_dashboardStore.GoogleCalendar.CalendarIds.IsEmpty)
+                {
+                    await _dashboardStore.GoogleCalendar.LoadEvents();
+                }
+                else
+                {
+                    _dashboardStore.GoogleCalendar.ClearEvents();
+                    MessageBox.Info("Kein Kalender ausgewählt\nGehe in die Einstellungen um dort Kalender auszuwählen.");
+                }
+
+                
 
                 int today = DateTime.Now.Day - 1;
                 bool isCurrentMonth = DateTime.Now.Month == currentMonth.Month

@@ -72,6 +72,11 @@ namespace OOP_LernDashboard.Models
             calendarEvent.Id = @event.Id;
         }
 
+        public void ClearEvents()
+        {
+            this.Events.Clear();
+        }
+
         /// <summary>
         /// Loads events from the calendar into the Events property
         /// </summary>

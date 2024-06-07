@@ -22,6 +22,8 @@ namespace OOP_LernDashboard.Models
 
         public Element? head { get; set; }
 
+        public bool IsEmpty => head == null;
+
         public LinkedList()
         {
         }
