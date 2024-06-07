@@ -117,6 +117,8 @@ namespace OOP_LernDashboard.ViewModels
             _dashboardStore.ToDoCreated += OnToDoCreated;
             _dashboardStore.ToDoDeleted += OnToDoDeleted;
 
+            _dashboardStore.GoogleLoggedIn += () => LoadDataAsyncCommand.Execute(null);
+
             IsGoogleReady = dashboardStore.GoogleCalendar != null;
         }
 
