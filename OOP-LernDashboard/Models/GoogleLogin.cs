@@ -62,7 +62,7 @@ namespace OOP_LernDashboard.Models
 
             // Sends an HTTP response to the browser.
             var response = context.Response;
-            string responseString = string.Format("<html><head><meta http-equiv='content-type' content='text/html; charset=utf-8'><title>Erfolgreich angemeldet</title><style>body{{background-color:#121212;display:flex;justify-content:center;align-items:center;flex-direction:column;color:white;font-family:Arial,sans-serif;height:100%;overflow:hidden;}}</style></head><body><h1>Erfolgreich angemeldet!</h1><p>Du kannst wieder das LernDashboard öffnen und diesen Tab schließen.</p></body></html>");
+            string responseString = string.Format("<html><head><meta http-equiv='content-type' content='text/html; charset=utf-8'><meta http-equiv='refresh' content='5;url=about:blank' /><title>Erfolgreich angemeldet</title><style>body{{background-color:#121212;display:flex;justify-content:center;align-items:center;flex-direction:column;color:white;font-family:Arial,sans-serif;height:100%;overflow:hidden;}}</style></head><body><h1>Erfolgreich angemeldet!</h1><p>Du kannst wieder das LernDashboard öffnen und diesen Tab schließen.</p></body></html>");
             var buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
             response.ContentLength64 = buffer.Length;
             var responseOutput = response.OutputStream;

@@ -94,14 +94,18 @@ namespace OOP_LernDashboard.ViewModels
 
             LoadDataAsyncCommand = new LoadSettingsDataCommand(this, dashboardStore);
             LoginGoogleCommand = new GoogleLoginCommand(dashboardStore);
-            LogoutGoogleCommand = new GoogleLogoutCommand(dashboardStore);
+            LogoutGoogleCommand = new GoogleLogoutCommand(dashboardStore, this);
+
             IsGoogleLoggedIn = dashboardStore.GoogleCalendar != null;
+
             UpdateWelcomeNameCommand = new ModifyWelcomeNameCommand(this, dashboardStore);
             UpdateAccentColorCommand = new UpdateAccentColorCommand(this, dashboardStore);
 
             this.ModifyAutostartCommand = new ModifyAutostartCommand(this, dashboardStore);
 
             _calendars = new ObservableCollection<CalendarSelectViewModel>();
+
+            _dashboardStore.GoogleLoggedIn += () => LoadDataAsyncCommand.Execute(null);
 
             _welcomeName = dashboardStore.WelcomeName;
             AccentColor = (ThemeManager.Current.AccentColor as SolidColorBrush)?.Color ?? new Color();

@@ -25,6 +25,7 @@ namespace OOP_LernDashboard.Commands
             {
                 await _dashboardStore.GoogleCalendar.LoadAllCalendars();
                 _viewModel.UpdateCalendars(_dashboardStore.GoogleCalendar.AllCalendars, _dashboardStore.CalendarIds);
+                _viewModel.IsGoogleLoggedIn = true;
             }
         }
     }
