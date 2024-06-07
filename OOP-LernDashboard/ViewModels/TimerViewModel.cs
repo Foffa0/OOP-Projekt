@@ -35,7 +35,7 @@ namespace OOP_LernDashboard.ViewModels
 
         public void DeleteTimer()
         {
-            
+
         }
 
 

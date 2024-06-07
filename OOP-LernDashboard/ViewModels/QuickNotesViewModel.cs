@@ -30,9 +30,9 @@ namespace OOP_LernDashboard.ViewModels
         public QuickNotesViewModel(DashboardStore dashboardStore)
         {
             _quickNotes = new ObservableCollection<QuickNoteViewModel>();
-            _quickNotes.Add(new QuickNoteViewModel(new QuickNote("sdafjhlöasdlkökjfhölsdalkjfdlkösa"),dashboardStore));
-            _quickNotes.Add(new QuickNoteViewModel(new QuickNote("sdafjhlöasdlkökjssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssfhölsdalkjfdlkösa"),dashboardStore));
-            _quickNotes.Add(new QuickNoteViewModel(new QuickNote("sdafjasdfffffffdddddddddddddddddddddddddddddddddddddddddddddddddddddddddhlöasdlkökjfhölsdalkjfdlkösa"),dashboardStore));
+            _quickNotes.Add(new QuickNoteViewModel(new QuickNote("sdafjhlöasdlkökjfhölsdalkjfdlkösa"), dashboardStore));
+            _quickNotes.Add(new QuickNoteViewModel(new QuickNote("sdafjhlöasdlkökjssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssfhölsdalkjfdlkösa"), dashboardStore));
+            _quickNotes.Add(new QuickNoteViewModel(new QuickNote("sdafjasdfffffffdddddddddddddddddddddddddddddddddddddddddddddddddddddddddhlöasdlkökjfhölsdalkjfdlkösa"), dashboardStore));
 
             _dashboardStore = dashboardStore;
             this.AddQuickNoteCommand = new AddQuickNoteCommand(this, _dashboardStore);
@@ -52,7 +52,7 @@ namespace OOP_LernDashboard.ViewModels
         public void UpdateQuickNotes(IEnumerable<QuickNote> quickNotes)
         {
             _quickNotes.Clear();
-            foreach(var quickNote in quickNotes)
+            foreach (var quickNote in quickNotes)
             {
                 _quickNotes.Add(new QuickNoteViewModel(quickNote, _dashboardStore));
             }
@@ -67,7 +67,7 @@ namespace OOP_LernDashboard.ViewModels
         public void OnQuickNoteDeleted(QuickNote quickNote)
         {
             var q = _quickNotes.First(q => q.Id == quickNote.Id);
-            if(q != null)
+            if (q != null)
             {
                 _quickNotes.Remove(q);
             }

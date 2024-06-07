@@ -317,7 +317,7 @@ namespace OOP_LernDashboard.Stores
 
             IEnumerable<QuickNote> quickNotes = await _quickNoteProvidor.GetAllModels();
             _quickNotes.Clear();
-            foreach(var quickNote in quickNotes)
+            foreach (var quickNote in quickNotes)
             {
                 _quickNotes.Add(quickNote);
             }

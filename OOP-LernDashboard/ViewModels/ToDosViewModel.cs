@@ -42,12 +42,12 @@ namespace OOP_LernDashboard.ViewModels
                 OnPropertyChanged(nameof(StartTimeIsNow));
             }
         }
-        private DateTime _newToDoStartTime= DateTime.Now;
+        private DateTime _newToDoStartTime = DateTime.Now;
         public DateTime NewToDoStartTime
         {
             get { return _newToDoStartTime; }
             set
-            {               
+            {
                 _newToDoStartTime = value;
                 OnPropertyChanged(nameof(NewToDoStartTime));
             }

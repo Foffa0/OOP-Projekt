@@ -1,5 +1,3 @@
-using HandyControl.Data;
-using HandyControl.Controls;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
