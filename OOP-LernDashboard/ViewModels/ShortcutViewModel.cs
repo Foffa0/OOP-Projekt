@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 
 namespace OOP_LernDashboard.ViewModels
 {
-    internal class ShortcutViewModel
+    internal class ShortcutViewModel : ViewModelBase
     {
         private readonly DashboardStore _dashboardStore;
         private readonly Shortcut _shortcut;
@@ -60,7 +60,17 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
-        public BitmapSource BitmapSource { get; private set; }
+        private BitmapSource _bitmapSrc;
+        public BitmapSource BitmapSrc
+        {
+            get => _bitmapSrc;
+            set
+            {
+                _bitmapSrc = value;
+                OnPropertyChanged(nameof(BitmapSrc));
+            }
+        }
+
 
         public ICommand OpenShortcutCommand { get; }
         public ICommand DeleteShortcutCommand { get; }
@@ -75,8 +85,20 @@ namespace OOP_LernDashboard.ViewModels
 
             if (_shortcut.Type == ShortcutType.Link)
             {
-                BitmapImage bitmapImage = new BitmapImage(new Uri(_shortcut.IconPath));
-                this.BitmapSource = bitmapImage;
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.UriSource = new Uri(_shortcut.IconPath);
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+
+                bitmapImage.DownloadFailed += (s, e) =>
+                {
+                    // Handle download failure, set BitmapSource to null or fallback image
+                    // sets the BitmapSource to a fallback image in Resources/Images
+                    this.BitmapSrc = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/FallbackImage.png"));
+                };
+
+                this.BitmapSrc = bitmapImage;
             }
             else if (_shortcut.Type == ShortcutType.Application)
             {
@@ -85,7 +107,7 @@ namespace OOP_LernDashboard.ViewModels
                     Icon? icon = Icon.ExtractAssociatedIcon(_shortcut.IconPath);
 
                     // Convert the Icon to a BitmapSource
-                    this.BitmapSource = Imaging.CreateBitmapSourceFromHIcon(
+                    this.BitmapSrc = Imaging.CreateBitmapSourceFromHIcon(
                                         icon.Handle,
                                         Int32Rect.Empty,
                                         BitmapSizeOptions.FromEmptyOptions());
@@ -93,13 +115,13 @@ namespace OOP_LernDashboard.ViewModels
                 catch
                 {
                     BitmapImage bitmapImage = new();
-                    this.BitmapSource = bitmapImage;
+                    this.BitmapSrc = bitmapImage;
                 }
             }
             else
             {
                 BitmapImage bitmapImage = new();
-                this.BitmapSource = bitmapImage;
+                this.BitmapSrc = bitmapImage;
             }
         }
     }

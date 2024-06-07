@@ -23,7 +23,7 @@
                     <DataGridTemplateColumn Width="50" IsReadOnly="True" CanUserResize="False">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Image Source="{Binding BitmapSource}" Width="auto" Height="32" Stretch="Uniform" 
+                                <Image Source="{Binding BitmapSrc}" Width="auto" Height="32" Stretch="Uniform" 
                                        HorizontalAlignment="Left" VerticalAlignment="Center"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

@@ -64,8 +64,8 @@
                                                 <ColumnDefinition Width="auto" />
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
-                                           
-                                            <Image Grid.Column="0" Source="{Binding BitmapSource}" Width="auto" Height="18" Stretch="Uniform"/>
+                                            
+                                            <Image Grid.Column="0" Source="{Binding BitmapSrc}" Width="auto" Height="18" Stretch="Uniform"/>
 
                                             <TextBlock Grid.Column="1" Text="{Binding Name}" Margin="10,0,0,0" VerticalAlignment="Center"/>
 
