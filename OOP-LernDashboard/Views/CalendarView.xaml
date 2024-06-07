@@ -31,15 +31,16 @@
         </StackPanel>
         <!--#endregion-->
 
-        <Grid Grid.Row="1" Visibility="{Binding IsGoogleReady, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Grid Grid.Row="1" Visibility="{Binding IsGoogleReady, Converter={StaticResource BooleanToVisibilityConverter}}" Name="CalendarGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" MaxWidth="{Binding ActualWidth, ElementName=Calendar}"/>
                 <ColumnDefinition Width="auto"  MinWidth="300"/>
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0" MinHeight="0"
-                        MaxHeight="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Grid}, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE}"
-                        MaxWidth="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Grid}, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE*7/6}">
+                        MaxHeight="{Binding ActualHeight, ElementName=CalendarGrid, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE}"
+                        MaxWidth="{Binding ActualHeight, ElementName=CalendarGrid, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE*7/6}">
+
                 <!--#region Top Calenar Nav Row-->
                 <Grid Margin="0" MaxWidth="{Binding ActualWidth, ElementName=Calendar}">
                     <Grid.ColumnDefinitions>
