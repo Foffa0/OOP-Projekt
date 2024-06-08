@@ -38,12 +38,15 @@ namespace OOP_LernDashboard.Commands
                 return;
             }
 
+
             ShortcutType type;
             string iconPath = "";
 
 
             if (Shortcut.IsValidPath(_shortcutsViewModel.NewShortcutPath, ShortcutType.Link))
             {
+                // web shortcut
+
                 type = ShortcutType.Link;
 
                 iconPath = _shortcutsViewModel.NewShortcutPath;
@@ -56,8 +59,9 @@ namespace OOP_LernDashboard.Commands
             }
             else if (Shortcut.IsValidPath(_shortcutsViewModel.NewShortcutPath, ShortcutType.Application))
             {
-                type = ShortcutType.Application;
+                // local Application shortcut
 
+                type = ShortcutType.Application;
                 iconPath = _shortcutsViewModel.NewShortcutPath;
             }
             else

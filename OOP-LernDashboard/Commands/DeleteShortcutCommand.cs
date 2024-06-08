@@ -27,6 +27,7 @@ namespace OOP_LernDashboard.Commands
                 IconKey = ResourceToken.AskGeometry,
                 IconBrushKey = "PrimaryBrush",
             });
+
             if (result == MessageBoxResult.Yes)
             {
                 _ = _dashboardStore.DeleteShortcut(_shortcut);

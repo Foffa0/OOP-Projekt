@@ -90,8 +90,9 @@ namespace OOP_LernDashboard.Models
             // sort events by start time
             combinedEvents.Sort((e1, e2) => e1.StartTime.CompareTo(e2.StartTime));
 
-            // remove all events that falsely in the list where its datetime is before the start date
-            while (combinedEvents.Count > 0 && combinedEvents[0] != null && combinedEvents[0].StartTime < (start ?? Start))
+            // remove all events that are falsely in the list where its datetime is before the start date
+            // only for leading elements in list
+            while (combinedEvents.Any() && combinedEvents[0] != null && combinedEvents[0].StartTime < (start ?? Start))
             {
                 combinedEvents.RemoveAt(0);
             }
@@ -99,6 +100,12 @@ namespace OOP_LernDashboard.Models
             this.Events = combinedEvents;
         }
 
+        /// <summary>
+        /// Loads all calendars the user has access
+        /// When onlyEditable is set, only those where the user has write access are loaded
+        /// </summary>
+        /// <param name="onlyEditable"></param>
+        /// <returns></returns>
         public async Task LoadAllCalendars(bool onlyEditable = false)
         {
             CalendarListResource.ListRequest request = _calendarService.CalendarList.List();

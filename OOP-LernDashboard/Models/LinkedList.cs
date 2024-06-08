@@ -66,7 +66,7 @@ namespace OOP_LernDashboard.Models
         public T Remove()
         {
             if (head == null)
-                throw new Exception("Cannot remove from empty list");
+                throw new InvalidOperationException("Cannot remove from empty list");
 
             T data = head.data;
             head = head.next;
@@ -77,8 +77,9 @@ namespace OOP_LernDashboard.Models
         /// <summary>
         /// Removes a given Element from List
         /// </summary>
-        /// /// <param name="data">The data to remove</param>
-        public void Remove(T data)  // Returns the next list element
+        /// <param name="data"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public void Remove(T data)
         {
             if (data == null)
             {
@@ -88,6 +89,7 @@ namespace OOP_LernDashboard.Models
             if (head != null && data.Equals(head.data))
             {
                 head = head.next;
+                return;
             }
 
             Element? previous = FindPrevious(data);

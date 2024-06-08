@@ -33,6 +33,12 @@ namespace OOP_LernDashboard.Models
             IconPath = iconPath;
         }
 
+        /// <summary>
+        /// Returns whether the given Path is valid
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static bool IsValidPath(string path, ShortcutType type)
         {
             if (type == ShortcutType.Link)

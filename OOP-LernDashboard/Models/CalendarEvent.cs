@@ -10,17 +10,14 @@
             get => _id;
             set
             {
-                if (_id == null)
-                {
-                    _id = value;
-                }
+                _id ??= value;
             }
         }
 
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime StartTime { get; set; }
-        public DateTime? EndTime { get; set; }
+        public DateTime? EndTime { get; set; } // no EndTime means AllDayEvent
 
         public bool IsAllDayEvent => !EndTime.HasValue;
 

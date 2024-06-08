@@ -16,6 +16,11 @@ namespace OOP_LernDashboard.Commands
             _dashboardStore = dashboardStore;
         }
 
+        public override bool CanExecute(object? parameter)
+        {
+            return _dashboardStore.GoogleCalendar != null && base.CanExecute(parameter);
+        }
+
         public override async Task ExecuteAsync(object? parameter)
         {
             try
@@ -23,12 +28,7 @@ namespace OOP_LernDashboard.Commands
                 _viewModel.IsLoading = true;
                 await _dashboardStore.Load();
 
-                if (_dashboardStore.GoogleCalendar == null)
-                {
-                    return;
-                }
-
-                DateTime currentMonth = _dashboardStore.GoogleCalendar.Start;
+                DateTime currentMonth = _dashboardStore.GoogleCalendar!.Start; // CanExecute ensures GoogleCalendar not null
 
                 _viewModel.UpdateMonth(currentMonth);
                 _viewModel.UpdateGoogleReady(true);
@@ -44,7 +44,7 @@ namespace OOP_LernDashboard.Commands
                 else
                 {
                     _dashboardStore.GoogleCalendar.ClearEvents();
-                    MessageBox.Info("Kein Kalender ausgewählt\nGehe in die Einstellungen um dort Kalender auszuwählen.");
+                    MessageBox.Info("Kein Kalender ausgewählt.\nGehe in die Einstellungen um dort deine Auswahl zu treffen.");
                 }
 
                 
@@ -66,9 +66,9 @@ namespace OOP_LernDashboard.Commands
 
                     dayModel.Events = new ObservableCollection<EventViewModel>(
                         _dashboardStore.GoogleCalendar.Events
-                        .Where(e => e.StartTime.Day - 1 == i)
-                        .OrderBy(e => e.StartTime)
-                        .Select(e => new EventViewModel(_dashboardStore, e))
+                        .Where(e => e.StartTime.Day - 1 == i) // Events for this day
+                        .OrderBy(e => e.StartTime) // Sorted by Starttime
+                        .Select(e => new EventViewModel(_dashboardStore, e)) // convert into ViewModel
                         .ToList());
 
                     _viewModel.Days.Add(dayModel);

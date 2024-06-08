@@ -23,8 +23,6 @@ namespace OOP_LernDashboard.Commands
             {
                 Process.Start(_shortcutviewmodel.Path);
             }
-
-
         }
     }
 }

@@ -20,6 +20,7 @@ namespace OOP_LernDashboard.Commands
             {
                 throw new InvalidOperationException("Cannot delete event on non existing calendar.");
             }
+
             await _dashboardStore.GoogleCalendar.DeleteEvent(_viewModel.Event);
             _viewModel.OnDeleted?.Invoke();
         }

@@ -26,6 +26,7 @@ namespace OOP_LernDashboard.Commands
             _viewModel.UpdateWelcomeName(_dashboardStore.WelcomeName);
             _viewModel.UpdateQuickNotes(_dashboardStore.QuickNotes);
 
+            // load calendar Events when possible
             if (_dashboardStore.GoogleCalendar != null)
             {
                 await _dashboardStore.GoogleCalendar.LoadEvents(

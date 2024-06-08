@@ -11,7 +11,7 @@ namespace OOP_LernDashboard.Commands
         private readonly EventViewModel _eventViewModel;
         private readonly DashboardStore _dashboardStore;
 
-        private PopupWindow _popup;
+        private PopupWindow? _popup;
 
         public ShowEventDetailsCommand(EventViewModel eventViewModel, DashboardStore dashboardStore)
         {
@@ -39,11 +39,13 @@ namespace OOP_LernDashboard.Commands
                 AllowsTransparency = true,
                 WindowStyle = WindowStyle.None
             };
+
             // Binds the DataContext of the PopupWindow to the EventViewModel
             EventDetailsView eventDetailsView = new EventDetailsView()
             {
                 DataContext = _eventViewModel
             };
+
             _popup.PopupElement = eventDetailsView;
             _popup.ShowDialog();
         }
