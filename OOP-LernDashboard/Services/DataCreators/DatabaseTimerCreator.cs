@@ -26,7 +26,7 @@ namespace OOP_LernDashboard.Services.DataCreators
             using (DashboardDbContext context = _dbContextFactory.CreateDbContext())
             {
                 // removes the id from the database
-                // context.Timers.Remove(ToTimerDTO(model));
+                context.Timers.Remove(ToTimerDTO(model));
 
                 await context.SaveChangesAsync();
             }
@@ -36,11 +36,13 @@ namespace OOP_LernDashboard.Services.DataCreators
         {
             return new TimerDTO()
             {
-                //Id = timer.Id,
-                //TimerName = timer.TimerName,
-                //HourInput = timer.HourInput,
-                //MinuteInput = timer.MinuteInput,
-                //SecondInput = timer.SecondInput
+
+                TimerName = timer.timerName,
+                EndTime = timer.endTime,
+                ElapsedTime = timer.elapsedTime,
+                TotalTime = timer.totalTime,
+                TickSize = timer.tickSize,
+                isPaused = timer.isPaused
             };
         }
     }

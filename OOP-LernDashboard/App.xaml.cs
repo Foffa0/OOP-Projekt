@@ -35,6 +35,8 @@ namespace OOP_LernDashboard
             IDataProvider<string> _calendarIdPriovider = new DatabaseCalendarIdProvider(_dashboardDbContextFactory);
             IDataCreator<QuickNote> _quickNoteCreator = new DatabaseQuickNoteCreator(_dashboardDbContextFactory);
             IDataProvider<QuickNote> _quickNoteProvider = new DatabaseQuickNoteProvider(_dashboardDbContextFactory);
+            //IDataCreator<Models.Timer> _timerCreator = new DatabaseTimerCreator(_dashboardDbContextFactory);
+            //IDataProvider<Models.Timer> _timerProvider = new DatabaseTimerProvider(_dashboardDbContextFactory);
 
 
             _dashboardStore = new DashboardStore(
@@ -42,7 +44,8 @@ namespace OOP_LernDashboard
                 _shortcutCreator, _shortcutProvider,
                 _countdownCreator, _countdownPriovider,
                 _calendarIdCreator, _calendarIdPriovider,
-                _quickNoteCreator, _quickNoteProvider);
+                _quickNoteCreator, _quickNoteProvider
+                );
             _navigationStore = new NavigationStore();
             _dashboard = new Dashboard(_dashboardStore);
         }
@@ -125,7 +128,7 @@ namespace OOP_LernDashboard
 
         private TimerCollectionViewModel CreateTimerCollectionViewModel()
         {
-            return TimerCollectionViewModel.LoadViewModel();
+            return TimerCollectionViewModel.LoadViewModel(_dashboardStore);
         }
 
         private ShortcutsViewModel CreateShortcutsViewModel()

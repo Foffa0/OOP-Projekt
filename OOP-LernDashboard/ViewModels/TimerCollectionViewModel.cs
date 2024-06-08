@@ -1,12 +1,20 @@
 using System.Collections.ObjectModel;
+using OOP_LernDashboard.Stores;
 using System.Windows.Input;
+using OOP_LernDashboard.Models;
+using OOP_LernDashboard.Commands;
 
 namespace OOP_LernDashboard.ViewModels
 {
     class TimerCollectionViewModel : ViewModelBase
     {
-        public ObservableCollection<TimerViewModel> Timers { get; } = new ObservableCollection<TimerViewModel>();
+        public ObservableCollection<TimerViewModel> _timers;
         public ICommand AddTimerCommand { get; }
+        public ICommand RemoveTimerCommand { get; }
+        public ICommand LoadTimersCommand { get; }
+
+        private readonly DashboardStore _dashboardStore;
+
         private string _timerName;
         private int _hourInput;
         private int _minuteInput;
@@ -51,14 +59,27 @@ namespace OOP_LernDashboard.ViewModels
         }
 
 
-        public TimerCollectionViewModel()
+        public TimerCollectionViewModel(DashboardStore dashboardStore)
         {
-            AddTimerCommand = new Commands.AddTimerCommand(this);
+            _timers = new ObservableCollection<TimerViewModel>();
+            _dashboardStore = dashboardStore;
+
+            AddTimerCommand = new AddTimerCommand(this);
+            LoadTimersCommand = new LoadTimersCommand(this, _dashboardStore);
         }
 
-        public static TimerCollectionViewModel LoadViewModel()
+        //public void UpdateTimers(IEnumerable<Models.Timer> timers)
+        //{
+        //    _timers.Clear();
+        //    foreach (var timer in timers)
+        //    {
+        //        _timers.Add(new TimerViewModel(timer));
+        //    }
+        //}
+
+        public static TimerCollectionViewModel LoadViewModel(DashboardStore dashboardStore)
         {
-            TimerCollectionViewModel viewModel = new TimerCollectionViewModel();
+            TimerCollectionViewModel viewModel = new TimerCollectionViewModel(dashboardStore);
             return viewModel;
         }
     }

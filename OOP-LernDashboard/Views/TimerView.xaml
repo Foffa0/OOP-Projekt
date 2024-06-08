@@ -65,7 +65,7 @@
 
                                 <TextBox Grid.Column="0" Style="{StaticResource PrimaryTextInput}" BorderThickness="0" FontSize="20" Margin="5,0,5,0" VerticalAlignment="Center" TextAlignment="Left" Foreground="{StaticResource TextColor}" Text="{Binding Name}"></TextBox>
                             </Grid>
-                            <hc:CircleProgressBar Grid.Row="1" Value="{Binding BarValue}" FontSize="20" Text="{Binding Timer}" Width="180" Height="180" ArcThickness="5" />
+                            <hc:CircleProgressBar Grid.Row="1" Value="{Binding BarValue}" FontSize="20" Text="{Binding TimerDisplayText }" Width="180" Height="180" ArcThickness="5" />
                             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Button Width="40" Height="40" Margin="5,0,5,0" Command="{Binding pauseTimer}">
                                     <Image Source="{Binding IconPath}" Width="20" Height="20" RenderOptions.BitmapScalingMode="HighQuality"/>

@@ -10,16 +10,21 @@ namespace OOP_LernDashboard.Models
         DispatcherTimer timer;
 
         DateTime startTime;
+        public string timerName;
         public TimeSpan endTime;
         public double elapsedTime;
         public double totalTime;
-        private int tickSize = 500;
+        public int tickSize = 500;
         public bool isPaused = false;
 
         public Timer(TimerViewModel timerViewModel, TimeSpan endTime)
         {
             _timerViewModel = timerViewModel;
+
             this.endTime = endTime;
+            this.timerName = endTime.ToString();
+            _timerViewModel.IconPath = "/Resources/Images/pauseIcon.png";
+            _timerViewModel.TimerDisplayText = endTime.ToString(@"hh\:mm\:ss");
 
             timer = new DispatcherTimer();
             timer.Tick += new EventHandler(TimerTick);
@@ -33,13 +38,12 @@ namespace OOP_LernDashboard.Models
             endTime = endTime.Subtract(new TimeSpan(0, 0, 0, 0, tickSize));
             elapsedTime += tickSize;
 
-
-            _timerViewModel.Timer = $"{endTime.ToString(@"hh\:mm\:ss")}";
+            _timerViewModel.TimerDisplayText = $"{endTime.ToString(@"hh\:mm\:ss")}";
             _timerViewModel.BarValue = (elapsedTime / totalTime) * 100;
             if (endTime.TotalMilliseconds < 0)
             {
                 timer.Stop();
-                _timerViewModel.Timer = "Ich habe fertig!";
+                _timerViewModel.TimerDisplayText = "Ich habe fertig!";
             }
         }
 
@@ -71,7 +75,7 @@ namespace OOP_LernDashboard.Models
             _timerViewModel.IconPath = "/Resources/Images/playIcon.png";
             elapsedTime = 0;
             endTime = TimeSpan.FromMilliseconds(totalTime);
-            _timerViewModel.Timer = $"{endTime.ToString(@"hh\:mm\:ss")}";
+            _timerViewModel.TimerDisplayText = $"{endTime.ToString(@"hh\:mm\:ss")}";
             _timerViewModel.BarValue = (elapsedTime / totalTime) * 100;
         }
     }

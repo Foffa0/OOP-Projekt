@@ -2,6 +2,7 @@
 using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Services.DataCreators;
 using OOP_LernDashboard.Services.DataProviders;
+using OOP_LernDashboard.Models;
 using System.Configuration;
 using System.Windows.Media;
 
@@ -31,6 +32,8 @@ namespace OOP_LernDashboard.Stores
         private IDataProvider<string> _calendarIdProvider;
         private IDataCreator<QuickNote> _quickNoteCreator;
         private IDataProvider<QuickNote> _quickNoteProvidor;
+        private IDataCreator<Models.Timer> _timerCreator;
+        private IDataProvider<Models.Timer> _timerProvidor;
 
         private readonly Models.LinkedList<ToDo> _toDos;
         public IEnumerable<ToDo> ToDos => _toDos;
@@ -47,6 +50,9 @@ namespace OOP_LernDashboard.Stores
         private readonly Models.LinkedList<QuickNote> _quickNotes;
         public Models.LinkedList<QuickNote> QuickNotes => _quickNotes;
 
+        private readonly Models.LinkedList<Models.Timer> _timers;
+        public Models.LinkedList<Models.Timer> Timers => _timers;
+
         public event Action<ToDo>? ToDoCreated;
         public event Action<ToDo>? ToDoDeleted;
 
@@ -58,6 +64,9 @@ namespace OOP_LernDashboard.Stores
 
         public event Action<QuickNote>? QuickNoteCreated;
         public event Action<QuickNote>? QuickNoteDeleted;
+
+        public event Action<Models.Timer>? TimerCreated;
+        public event Action<Models.Timer>? TimerDeleted;
 
         public event Action? CalendarModified;
 
@@ -86,7 +95,10 @@ namespace OOP_LernDashboard.Stores
             IDataCreator<string> calendarIdCreator,
             IDataProvider<string> calendarIdProvider,
             IDataCreator<QuickNote> quickNoteDataCreator,
-            IDataProvider<QuickNote> quickNoteDataProvider)
+            IDataProvider<QuickNote> quickNoteDataProvider
+            //IDataCreator<Models.Timer> timerDataCreator,
+            //IDataProvider<Models.Timer> timerDataProvider
+            )
         {
             _toDoCreator = toDoDataCreator;
             _toDoProvider = toDoDataProvider;
@@ -102,6 +114,9 @@ namespace OOP_LernDashboard.Stores
 
             _quickNoteCreator = quickNoteDataCreator;
             _quickNoteProvidor = quickNoteDataProvider;
+
+            //_timerCreator = timerDataCreator;
+            //_timerProvidor = timerDataProvider;
 
             // the lazy ensures to only load the data once from the database
             _initializeLazy = new Lazy<Task>(Initialize);
@@ -282,6 +297,20 @@ namespace OOP_LernDashboard.Stores
             await this.GoogleCalendar.UpdateEvent(calendarEvent);
             CalendarModified?.Invoke();
         }
+
+        //public async Task AddTimer(Models.Timer timer)
+        //{
+        //    await _timerCreator.CreateModel(timer);
+        //    _timers.Add(timer);
+        //    TimerCreated?.Invoke(timer);
+        //}
+
+        //public async Task DeleteTimer(Models.Timer timer)
+        //{
+        //    await _timerCreator.DeleteModel(timer);
+        //    _timers.Remove(_timers.Where(i => i.timerName == timer.timerName).Single());
+        //    TimerDeleted?.Invoke(timer);
+        //}
 
         // Loads the data from the database once
         private async Task Initialize()

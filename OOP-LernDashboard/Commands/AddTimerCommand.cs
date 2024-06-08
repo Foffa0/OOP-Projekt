@@ -30,7 +30,8 @@ namespace OOP_LernDashboard.Commands
             }
             else if (TimerCount < maxTimerCount)
             {
-                _viewModel.Timers.Add(new TimerViewModel(_viewModel.EndTime));
+                //Models.Timer timer = new Models.Timer(_viewModel, _viewModel.EndTime);
+                _viewModel._timers.Add(new TimerViewModel(_viewModel.EndTime));
                 TimerCount++;
             }
         }
