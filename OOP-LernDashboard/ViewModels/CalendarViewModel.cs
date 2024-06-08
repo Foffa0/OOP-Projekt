@@ -180,6 +180,8 @@ namespace OOP_LernDashboard.ViewModels
         public ICommand PrevMonthCommand { get; }
         public ICommand NextMonthCommand { get; }
 
+        public ICommand OpenBrowserCommand { get; }
+
         public CalendarViewModel(Dashboard dashboard, DashboardStore dashboardStore)
         {
             Days = new ObservableCollection<DayViewModel>();
@@ -191,6 +193,8 @@ namespace OOP_LernDashboard.ViewModels
 
             PrevMonthCommand = new ModifyCalendarMonth(this, dashboardStore, -1);
             NextMonthCommand = new ModifyCalendarMonth(this, dashboardStore, 1);
+
+            this.OpenBrowserCommand = new OpenBrowserCommand("calendar.google.com");
 
             UpdateGoogleReady(dashboardStore.GoogleCalendar != null);
 

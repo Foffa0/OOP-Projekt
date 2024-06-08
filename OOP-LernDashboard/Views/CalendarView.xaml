@@ -48,6 +48,19 @@
                         <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
 
+                    <Button HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Command="{Binding OpenBrowserCommand}" Background="Transparent" BorderThickness="0" Foreground="#f0f0f0" Cursor="Hand">
+                        <StackPanel Orientation="Horizontal" Margin="0">
+                            <TextBlock VerticalAlignment="Center">
+                                <Underline>Im Browser öffnen</Underline>
+                            </TextBlock>
+                            <Image Width="20" Margin="1, 0">
+                                <Image.Source>
+                                    <BitmapImage DecodePixelWidth="40" UriSource="/Resources/Images/ExternalLink.png" />
+                                </Image.Source>
+                            </Image>
+                        </StackPanel>
+                    </Button>
+
                     <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0, 0, 0, 20">
                         <TextBlock Text="{Binding Month}" Style="{StaticResource Headline}" VerticalAlignment="Center" Margin="0, 0, 10, 0"></TextBlock>
                         <TextBlock Text="{Binding Year}" Style="{StaticResource Headline}" VerticalAlignment="Center" Margin="0, 0, 10, 0"></TextBlock>
