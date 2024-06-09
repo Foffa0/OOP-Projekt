@@ -14,7 +14,7 @@ namespace OOP_LernDashboard.Commands
             _countdownsViewModel = countdownsViewModel;
         }
 
-        public override async Task ExecuteAsync(object parameter)
+        public override async Task ExecuteAsync(object? parameter)
         {
             await _dashboardStore.Load();
             _countdownsViewModel.UpdateCountdowns(_dashboardStore.Countdowns);

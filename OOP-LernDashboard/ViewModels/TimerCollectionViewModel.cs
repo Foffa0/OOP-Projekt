@@ -1,8 +1,7 @@
-using System.Collections.ObjectModel;
-using OOP_LernDashboard.Stores;
-using System.Windows.Input;
-using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Commands;
+using OOP_LernDashboard.Stores;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace OOP_LernDashboard.ViewModels
 {

@@ -1,8 +1,8 @@
 ﻿using HandyControl.Themes;
+using HandyControl.Tools.Extension;
 using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Services.DataCreators;
 using OOP_LernDashboard.Services.DataProviders;
-using OOP_LernDashboard.Models;
 using System.Configuration;
 using System.Windows.Media;
 
@@ -352,7 +352,7 @@ namespace OOP_LernDashboard.Stores
             }
         }
 
-        private void GoogleLoginAuthTokenReceived(object sender, (string authToken, string refreshToken) token)
+        private void GoogleLoginAuthTokenReceived(object? sender, (string authToken, string? refreshToken) token)
         {
             if (token.refreshToken == null)
             {
