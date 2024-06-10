@@ -159,7 +159,7 @@
                         <StackPanel>
                             <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Headline}" Margin="0,0,0,10">Erledigte ToDos</TextBlock>
 
-                            <ListView Padding="0" Background="Transparent" BorderThickness="0" ItemsSource="{Binding ToDos}">
+                            <ListView Padding="0" Background="Transparent" BorderThickness="0" ItemsSource="{Binding CheckedToDos}">
                                 <ListView.Resources>
                                     <Style TargetType="GridViewColumnHeader">
                                         <Setter Property="Template" Value="{x:Null}" />
@@ -182,11 +182,13 @@
                                                     <Grid>
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="*" />
                                                             <ColumnDefinition Width="auto" />
                                                         </Grid.ColumnDefinitions>
                                                         <CheckBox Grid.Column="0" Visibility="{Binding IsChecked}" IsChecked="{Binding IsChecked, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding CheckToDoCommand}">
                                                             <TextBlock Text="{Binding Description}" Margin="0,-2,0,0"/>
                                                         </CheckBox>
+                                                        <TextBlock Text="{Binding NextDate}"></TextBlock>
                                                         <Button  Grid.Column="1" Content="Löschen" Command="{Binding DeleteToDoCommand}" Style="{StaticResource PrimaryButton}" Background="Red" Cursor="Hand" Margin="5, 0, 0, 0" HorizontalAlignment="Right" />
                                                     </Grid>
                                                 </DataTemplate>

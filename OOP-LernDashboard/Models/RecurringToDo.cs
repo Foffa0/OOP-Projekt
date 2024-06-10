@@ -10,10 +10,20 @@
         {   
             StartTime = startTime;
             TimeInterval = timeInterval;
+            NextDate=GenerateNextDate();
         }
         public DateTime GenerateNextDate()
         {
-            return DateTime.Now; //Wrong Time
+            if (!StartTime.HasValue)
+                throw new InvalidOperationException("Keine Startzeit vorhanden.");
+            TimeSpan timeDifference= DateTime.Now - StartTime.Value;
+            double intervalSeconds = TimeInterval.TotalSeconds;
+            double elapsedSeconds = timeDifference.TotalSeconds;
+            double remainderSeconds = elapsedSeconds % intervalSeconds;
+
+            // Calculate the next occurrence
+            DateTime nextDate = DateTime.Now.AddSeconds(intervalSeconds - remainderSeconds);
+            return nextDate;
         }
         public override void check()
         {

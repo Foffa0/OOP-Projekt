@@ -143,9 +143,12 @@ namespace OOP_LernDashboard.ViewModels
             {
                 if(toDo.IsChecked)
                 {
-                    //_checkedtoDos.Add(new)
+                    _checkedtoDos.Add(new ToDoViewModel(toDo, _dashboardStore));
                 }
-                _toDos.Add(new ToDoViewModel(toDo, _dashboardStore));
+                else
+                {
+                    _toDos.Add(new ToDoViewModel(toDo, _dashboardStore));
+                }              
             }
         }
         public static ToDosViewModel LoadViewModel(Dashboard dashboard, DashboardStore dashboardStore)
