@@ -22,12 +22,15 @@ namespace OOP_LernDashboard.ViewModels
                 }
             }
         }
+        public string NextDate => (_toDo as RecurringToDo)?.NextDate.ToString() ?? "";
+        public ICommand DeleteToDoCommand { get; set; }
         public ICommand CheckToDoCommand { get; set; }
 
         public ToDoViewModel(ToDo toDo, DashboardStore dashboardStore)
         {
             _toDo = toDo;
-            CheckToDoCommand = new DeleteToDoCommand(this, dashboardStore);
+            DeleteToDoCommand = new DeleteToDoCommand(this, dashboardStore);
+            CheckToDoCommand =new CheckToDoCommand(this,dashboardStore);
         }
     }
 }

@@ -18,6 +18,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Border Grid.Column="0" Padding="10">
                 <Grid>
@@ -146,6 +147,57 @@
                     </StackPanel>
                     <Button Content="Hinzufügen" Command="{Binding AddToDoCommand}" Style="{StaticResource PrimaryButton}" Cursor="Hand" HorizontalAlignment="Center" Margin="0, 5, 0, 5"></Button>
                 </StackPanel>
+            </Border>
+            <Border Grid.Column="2" Padding="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <Border Background="{StaticResource SecondaryColor}" CornerRadius="5" Padding="10">
+                        <StackPanel>
+                            <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Headline}" Margin="0,0,0,10">Erledigte ToDos</TextBlock>
+
+                            <ListView Padding="0" Background="Transparent" BorderThickness="0" ItemsSource="{Binding ToDos}">
+                                <ListView.Resources>
+                                    <Style TargetType="GridViewColumnHeader">
+                                        <Setter Property="Template" Value="{x:Null}" />
+                                    </Style>
+                                </ListView.Resources>
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                                        <Setter Property="Padding" Value="10"/>
+                                        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="auto" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <CheckBox Grid.Column="0" Visibility="{Binding IsChecked}" IsChecked="{Binding IsChecked, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding CheckToDoCommand}">
+                                                            <TextBlock Text="{Binding Description}" Margin="0,-2,0,0"/>
+                                                        </CheckBox>
+                                                        <Button  Grid.Column="1" Content="Löschen" Command="{Binding DeleteToDoCommand}" Style="{StaticResource PrimaryButton}" Background="Red" Cursor="Hand" Margin="5, 0, 0, 0" HorizontalAlignment="Right" />
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </StackPanel>
+                    </Border>
+                </Grid>
             </Border>
         </Grid>
     </Grid>

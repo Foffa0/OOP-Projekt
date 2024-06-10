@@ -17,7 +17,7 @@ namespace OOP_LernDashboard.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return 
+            return  
                 _calendarViewModel.SelectedCalendar != null 
                 && _dashboardStore.GoogleCalendar != null
                 && base.CanExecute(parameter);

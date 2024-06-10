@@ -27,11 +27,22 @@ namespace OOP_LernDashboard.Commands
         {
             //if (_dashboardViewModel.ToDoDesc == null)
             //    throw new NullReferenceException("Cannot create ToDo with Null as description");
-
-            ToDo toDo = new ToDo(_toDosViewModel.ToDoDesc);
-
-            await _dashboardStore.AddToDo(toDo);
-
+            DateTime? starttime= _toDosViewModel.IsRecurringToDo ? _toDosViewModel.NewToDoStartTime : null;
+            TimeSpan? timeInterval = TimeSpan.FromHours(_toDosViewModel.IntervalHours);
+            if(_toDosViewModel.IsRecurringToDo)
+            {
+                if (!starttime.HasValue || !timeInterval.HasValue) { throw new ArgumentNullException(); }
+                
+                RecurringToDo toDo = new RecurringToDo(_toDosViewModel.ToDoDesc, _toDosViewModel.IsChecked, (DateTime)starttime, (TimeSpan)timeInterval);
+                await _dashboardStore.AddToDo(toDo);
+                
+            }
+            else
+            {
+                ToDo toDo = new ToDo(_toDosViewModel.ToDoDesc);
+                await _dashboardStore.AddToDo(toDo);
+            }
+                  
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)

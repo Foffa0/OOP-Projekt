@@ -195,7 +195,7 @@ namespace OOP_LernDashboard.Stores
             _toDos.Add(toDo);
             ToDoCreated?.Invoke(toDo);
         }
-
+        
         /// <summary>
         /// Removes a ToDo from the database and updates the ToDo-List
         /// </summary>

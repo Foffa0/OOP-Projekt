@@ -11,7 +11,9 @@ namespace OOP_LernDashboard.ViewModels
         private readonly DashboardStore _dashboardStore;
 
         private readonly ObservableCollection<ToDoViewModel> _toDos;
+        private readonly ObservableCollection<ToDoViewModel> _checkedtoDos;
         public IEnumerable<ToDoViewModel> ToDos => _toDos;
+        public IEnumerable<ToDoViewModel> CheckedToDos => _checkedtoDos;
         private string _toDoDesc = "";
         public string ToDoDesc
         {
@@ -40,6 +42,16 @@ namespace OOP_LernDashboard.ViewModels
             {
                 _startTimeIsNow = value;
                 OnPropertyChanged(nameof(StartTimeIsNow));
+            }
+        }
+        private bool _isChecked = false;
+        public bool IsChecked
+        {
+            get { return _isChecked; }
+            set
+            {
+                _isChecked = value;
+                OnPropertyChanged(nameof(IsChecked));
             }
         }
         private DateTime _newToDoStartTime = DateTime.Now;
@@ -117,6 +129,7 @@ namespace OOP_LernDashboard.ViewModels
 
 
             _toDos = new ObservableCollection<ToDoViewModel>();
+            _checkedtoDos = new ObservableCollection<ToDoViewModel>();
 
 
             _dashboardStore.ToDoDeleted += OnToDoDeleted;
@@ -128,6 +141,10 @@ namespace OOP_LernDashboard.ViewModels
 
             foreach (var toDo in todos)
             {
+                if(toDo.IsChecked)
+                {
+                    //_checkedtoDos.Add(new)
+                }
                 _toDos.Add(new ToDoViewModel(toDo, _dashboardStore));
             }
         }
@@ -141,6 +158,7 @@ namespace OOP_LernDashboard.ViewModels
         {
             ToDoViewModel toDoViewModel = new ToDoViewModel(toDo, _dashboardStore);
             _toDos.Add(toDoViewModel);
+            _checkedtoDos.Add(toDoViewModel);
         }
         private void OnToDoDeleted(ToDo toDo)
         {
@@ -148,6 +166,11 @@ namespace OOP_LernDashboard.ViewModels
             if (s != null)
             {
                 _toDos.Remove(s);
+            }
+            var k = _checkedtoDos.Where(s => s.Description == toDo.Description).FirstOrDefault();
+            if (s != null)
+            {
+                _checkedtoDos.Remove(s);
             }
         }
     }

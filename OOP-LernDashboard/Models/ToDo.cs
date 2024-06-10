@@ -21,7 +21,7 @@
 
         public virtual void check()
         {
-
+            IsChecked = true;
         }
     }
 }
