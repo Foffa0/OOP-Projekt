@@ -6,7 +6,9 @@ namespace OOP_LernDashboard.Models
 {
     class Timer
     {
-        TimerViewModel _timerViewModel;
+        public event EventHandler<string> TimerDisplayTextChanged;
+        public event EventHandler<double> BarValueChanged;
+
         DispatcherTimer timer;
 
         DateTime startTime;
@@ -15,16 +17,18 @@ namespace OOP_LernDashboard.Models
         public double elapsedTime;
         public double totalTime;
         public int tickSize = 500;
-        public bool isPaused = false;
+        public bool isPaused = true;
 
-        public Timer(TimerViewModel timerViewModel, TimeSpan endTime)
+        //data fields for EventHandlers
+        public string TimerDisplayText;
+        public double BarValue { get; private set; }
+
+        public Timer(TimeSpan endTime)
         {
-            _timerViewModel = timerViewModel;
-
             this.endTime = endTime;
             this.timerName = endTime.ToString();
-            _timerViewModel.IconPath = "/Resources/Images/pauseIcon.png";
-            _timerViewModel.TimerDisplayText = endTime.ToString(@"hh\:mm\:ss");
+            
+            TimerDisplayText = endTime.ToString(@"hh\:mm\:ss");
 
             timer = new DispatcherTimer();
             timer.Tick += new EventHandler(TimerTick);
@@ -38,13 +42,15 @@ namespace OOP_LernDashboard.Models
             endTime = endTime.Subtract(new TimeSpan(0, 0, 0, 0, tickSize));
             elapsedTime += tickSize;
 
-            _timerViewModel.TimerDisplayText = $"{endTime.ToString(@"hh\:mm\:ss")}";
-            _timerViewModel.BarValue = (elapsedTime / totalTime) * 100;
+            TimerDisplayText = $"{endTime.ToString(@"hh\:mm\:ss")}";
+            BarValue = (elapsedTime / totalTime) * 100;
             if (endTime.TotalMilliseconds < 0)
             {
                 timer.Stop();
-                _timerViewModel.TimerDisplayText = "Ich habe fertig!";
+                TimerDisplayText = "Ich habe fertig!";
             }
+            TimerDisplayTextChanged?.Invoke(this, TimerDisplayText);
+            BarValueChanged?.Invoke(this, BarValue);
         }
 
         public void Start()
@@ -54,29 +60,16 @@ namespace OOP_LernDashboard.Models
 
         public void Pause()
         {
-            if (isPaused)
-            {
-                _timerViewModel.IconPath = "/Resources/Images/pauseIcon.png";
-                timer.Start();
-                isPaused = false;
-
-            }
-            else
-            {
-                _timerViewModel.IconPath = "/Resources/Images/playIcon.png";
-                timer.Stop();
-                isPaused = true;
-            }
+            timer.Stop();
         }
 
         public void Reset()
         {
             timer.Stop();
-            _timerViewModel.IconPath = "/Resources/Images/playIcon.png";
+            
             elapsedTime = 0;
             endTime = TimeSpan.FromMilliseconds(totalTime);
-            _timerViewModel.TimerDisplayText = $"{endTime.ToString(@"hh\:mm\:ss")}";
-            _timerViewModel.BarValue = (elapsedTime / totalTime) * 100;
+            
         }
     }
 }

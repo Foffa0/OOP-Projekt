@@ -8,27 +8,37 @@ namespace OOP_LernDashboard.ViewModels
         public ICommand resetTimer { get; }
         public ICommand pauseTimer { get; }
 
-        private double _barValue;
-        private string _timerText;
-        private TimeSpan _endTime;
-        private string _IconPath;
+        double _barValue;
+        string _timerText;
+        TimeSpan _endTime;
+        string _IconPath;
         Models.Timer timer;
 
 
-        public void StartTimer()
+        public void StartPauseTimer()
         {
-            timer.Start();
-        }
+            if (timer.isPaused)
+            {
+                timer.Start();
+                timer.isPaused = false;
+                IconPath = "/Resources/Images/pauseIcon.png";
+            }
+            else
+            {
+                timer.Pause();
+                timer.isPaused = true;
+                IconPath = "/Resources/Images/playIcon.png";
+            }
 
-        public void PauseTimer()
-        {
-            timer.Pause();
         }
 
         public void ResetTimer()
         {
+            IconPath = "/Resources/Images/playIcon.png";
             timer.Pause();
             timer.Reset();
+            TimerDisplayText = $"{timer.endTime.ToString(@"hh\:mm\:ss")}";
+            BarValue = (timer.elapsedTime / timer.totalTime) * 100;
         }
 
         public void DeleteTimer()
@@ -77,14 +87,26 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
+        
 
         public TimerViewModel(TimeSpan endTime)
         {
-            timer = new Models.Timer(this, endTime);
+            timer = new Models.Timer(endTime);
             resetTimer = new resetTimerCommand(this);
             pauseTimer = new pauseTimerCommand(this);
 
-            StartTimer();
+            timer.TimerDisplayTextChanged += (sender, text) =>
+            {
+                TimerDisplayText = text;
+            };
+
+            timer.BarValueChanged += (sender, value) =>
+            {
+                BarValue = value;
+            };
+
+            IconPath = "/Resources/Images/pauseIcon.png";
+            StartPauseTimer();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace OOP_LernDashboard.ViewModels
 {
     class TimerCollectionViewModel : ViewModelBase
     {
-        public ObservableCollection<TimerViewModel> _timers;
+        public ObservableCollection<TimerViewModel> Timers { get; }
         public ICommand AddTimerCommand { get; }
         public ICommand RemoveTimerCommand { get; }
         public ICommand LoadTimersCommand { get; }
@@ -20,7 +20,6 @@ namespace OOP_LernDashboard.ViewModels
         private int _secondInput;
 
 
-        //save all Timers in 
         public int Hours
         {
             get => this._hourInput;
@@ -60,7 +59,7 @@ namespace OOP_LernDashboard.ViewModels
 
         public TimerCollectionViewModel(DashboardStore dashboardStore)
         {
-            _timers = new ObservableCollection<TimerViewModel>();
+            Timers = new ObservableCollection<TimerViewModel>();
             _dashboardStore = dashboardStore;
 
             AddTimerCommand = new AddTimerCommand(this);
