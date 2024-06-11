@@ -97,15 +97,6 @@ namespace OOP_LernDashboard
             base.OnExit(e);
         }
 
-        private DemoViewModel CreateDemoViewModel()
-        {
-            return DemoViewModel.LoadViewModel(new NavigationService(_navigationStore, CreateDemo2ViewModel));
-        }
-
-        private Demo2ViewModel CreateDemo2ViewModel()
-        {
-            return Demo2ViewModel.LoadViewModel();
-        }
 
         private DashboardViewModel CreateDashboardViewModel()
         {

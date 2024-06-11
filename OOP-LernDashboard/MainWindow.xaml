@@ -36,9 +36,6 @@
     <Window.Resources>
         <ResourceDictionary>
             <!--Add Viewmodel <-> Model binding here-->
-            <DataTemplate DataType="{x:Type vms:DemoViewModel}">
-                <views:DemoView />
-            </DataTemplate>
             <DataTemplate DataType="{x:Type vms:DashboardViewModel}">
                 <views:DashboardView />
             </DataTemplate>
@@ -47,9 +44,6 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type vms:CalendarViewModel}">
                 <views:CalendarView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:Demo2ViewModel}">
-                <views:Demo2View />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vms:SettingsViewModel}">
                 <views:SettingsView />

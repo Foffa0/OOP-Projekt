@@ -42,9 +42,6 @@
 
             <cnv:MathConverter x:Key="MathConverter" />
 
-            <DataTemplate DataType="{x:Type vms:DemoViewModel}">
-                <views:DemoView />
-            </DataTemplate>
             <DataTemplate DataType="{x:Type vms:DashboardViewModel}">
                 <views:DashboardView />
             </DataTemplate>
@@ -53,9 +50,6 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type vms:CalendarViewModel}">
                 <views:CalendarView />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:Demo2ViewModel}">
-                <views:Demo2View />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vms:SettingsViewModel}">
                 <views:SettingsView />
