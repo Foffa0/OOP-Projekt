@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OOP_LernDashboard.DbContexts;
 using OOP_LernDashboard.DTOs;
+using OOP_LernDashboard.Models;
 
 namespace OOP_LernDashboard.Services.DataProviders
 {
-    class DatabaseTimerProvider : IDataProvider<string>
+    class DatabaseTimerProvider : IDataProvider<Models.Timer>
     {
         private readonly DashboardDbContextFactory _dbContextFactory;
 
@@ -13,18 +14,18 @@ namespace OOP_LernDashboard.Services.DataProviders
             _dbContextFactory = dbContextFactory;
         }
 
-        public async Task<IEnumerable<string>> GetAllModels()
+        public async Task<IEnumerable<Models.Timer>> GetAllModels()
         {
             using (DashboardDbContext context = _dbContextFactory.CreateDbContext())
             {
-                IEnumerable<CalendarDTO> calendarDTOs = await context.CalendarIds.ToListAsync();
-                return calendarDTOs.Select(r => ToCalendarInfo(r));
+                IEnumerable<TimerDTO> timerDTOs = await context.Timers.ToListAsync();
+                return timerDTOs.Select(r => ToTimer(r));
             }
         }
 
-        private static string ToCalendarInfo(CalendarDTO calendar)
+        private static Models.Timer ToTimer(TimerDTO timer)
         {
-            return calendar.Id;
+            return new Models.Timer(timer.Id, timer.TimerName, timer.EndTime, timer.ElapsedTime, timer.TotalTime, timer.TickSize, timer.isPaused);
         }
     }
 }

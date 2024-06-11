@@ -1,4 +1,5 @@
-﻿using OOP_LernDashboard.ViewModels;
+﻿using HandyControl.Controls;
+using HandyControl.Data;
 using System.Windows.Threading;
 
 
@@ -11,7 +12,7 @@ namespace OOP_LernDashboard.Models
 
         DispatcherTimer timer;
 
-        DateTime startTime;
+        public Guid Id { get; }
         public string timerName;
         public TimeSpan endTime;
         public double elapsedTime;
@@ -37,6 +38,23 @@ namespace OOP_LernDashboard.Models
             totalTime = endTime.TotalMilliseconds;
         }
 
+        public Timer(Guid id, string timerName, TimeSpan endTime, double elapsedTime, double totalTime, int tickSize, bool isPaused)
+        {
+            this.Id = id;
+            this.timerName = timerName;
+            this.endTime = endTime;
+            this.elapsedTime = elapsedTime;
+            this.totalTime = totalTime;
+            this.tickSize = tickSize;
+            this.isPaused = isPaused;
+
+            TimerDisplayText = endTime.ToString(@"hh\:mm\:ss");
+
+            timer = new DispatcherTimer();
+            timer.Tick += new EventHandler(TimerTick);
+            timer.Interval = TimeSpan.FromMilliseconds(tickSize);
+        }
+
         void TimerTick(object sender, EventArgs e)
         {
             endTime = endTime.Subtract(new TimeSpan(0, 0, 0, 0, tickSize));
@@ -47,6 +65,7 @@ namespace OOP_LernDashboard.Models
             if (endTime.TotalMilliseconds < 0)
             {
                 timer.Stop();
+                NotifyIcon.ShowBalloonTip("Timer abgelaufen", timerName, NotifyIconInfoType.None, "DemoToken");
                 TimerDisplayText = "Ich habe fertig!";
             }
             TimerDisplayTextChanged?.Invoke(this, TimerDisplayText);

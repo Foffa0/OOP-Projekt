@@ -36,7 +36,7 @@ namespace OOP_LernDashboard.Services.DataCreators
         {
             return new TimerDTO()
             {
-
+                Id = timer.Id,
                 TimerName = timer.timerName,
                 EndTime = timer.endTime,
                 ElapsedTime = timer.elapsedTime,

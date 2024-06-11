@@ -12,7 +12,7 @@ namespace OOP_LernDashboard.ViewModels
         public ICommand RemoveTimerCommand { get; }
         public ICommand LoadTimersCommand { get; }
 
-        private readonly DashboardStore _dashboardStore;
+        private DashboardStore _dashboardStore;
 
         private string _timerName;
         private int _hourInput;
@@ -62,18 +62,42 @@ namespace OOP_LernDashboard.ViewModels
             Timers = new ObservableCollection<TimerViewModel>();
             _dashboardStore = dashboardStore;
 
-            AddTimerCommand = new AddTimerCommand(this);
+            AddTimerCommand = new AddTimerCommand(this, _dashboardStore);
             LoadTimersCommand = new LoadTimersCommand(this, _dashboardStore);
+
+            _dashboardStore.TimerCreated += OnTimerCreated;
+            _dashboardStore.TimerDeleted += OnTimerDeleted;
         }
 
-        //public void UpdateTimers(IEnumerable<Models.Timer> timers)
-        //{
-        //    _timers.Clear();
-        //    foreach (var timer in timers)
-        //    {
-        //        _timers.Add(new TimerViewModel(timer));
-        //    }
-        //}
+        public override void Dispose()
+        {
+            _dashboardStore.TimerCreated -= OnTimerCreated;
+            _dashboardStore.TimerDeleted -= OnTimerDeleted;
+
+            base.Dispose();
+        }
+
+
+        private void OnTimerCreated(Models.Timer timer) 
+        {
+            TimerViewModel timerViewModel = new TimerViewModel(timer);
+            Timers.Add(timerViewModel);
+        }
+
+        private void OnTimerDeleted(Models.Timer timer)
+        {
+            TimerViewModel timerViewModel = new TimerViewModel(timer);
+            Timers.Remove(Timers.Where(i => i.Id == timerViewModel.Id).Single());
+        }
+        
+        public void UpdateTimers(IEnumerable<Models.Timer> timers)
+        {
+            Timers.Clear();
+            foreach (var timer in timers)
+            {
+                Timers.Add(new TimerViewModel(timer));
+            }
+        }
 
         public static TimerCollectionViewModel LoadViewModel(DashboardStore dashboardStore)
         {

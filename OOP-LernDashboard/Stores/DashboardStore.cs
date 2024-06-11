@@ -95,9 +95,9 @@ namespace OOP_LernDashboard.Stores
             IDataCreator<string> calendarIdCreator,
             IDataProvider<string> calendarIdProvider,
             IDataCreator<QuickNote> quickNoteDataCreator,
-            IDataProvider<QuickNote> quickNoteDataProvider
-            //IDataCreator<Models.Timer> timerDataCreator,
-            //IDataProvider<Models.Timer> timerDataProvider
+            IDataProvider<QuickNote> quickNoteDataProvider,
+            IDataCreator<Models.Timer> timerDataCreator,
+            IDataProvider<Models.Timer> timerDataProvider
             )
         {
             _toDoCreator = toDoDataCreator;
@@ -115,8 +115,8 @@ namespace OOP_LernDashboard.Stores
             _quickNoteCreator = quickNoteDataCreator;
             _quickNoteProvidor = quickNoteDataProvider;
 
-            //_timerCreator = timerDataCreator;
-            //_timerProvidor = timerDataProvider;
+            _timerCreator = timerDataCreator;
+            _timerProvidor = timerDataProvider;
 
             // the lazy ensures to only load the data once from the database
             _initializeLazy = new Lazy<Task>(Initialize);
@@ -126,6 +126,7 @@ namespace OOP_LernDashboard.Stores
             _countdowns = new Models.LinkedList<Countdown>();
             _calendarIds = new Models.LinkedList<string>();
             _quickNotes = new Models.LinkedList<QuickNote>();
+            _timers = new Models.LinkedList<Models.Timer>();
 
             this.GoogleLogin = new GoogleLogin();
             this.GoogleLogin.AuthTokenReceived += GoogleLoginAuthTokenReceived;
@@ -298,19 +299,19 @@ namespace OOP_LernDashboard.Stores
             CalendarModified?.Invoke();
         }
 
-        //public async Task AddTimer(Models.Timer timer)
-        //{
-        //    await _timerCreator.CreateModel(timer);
-        //    _timers.Add(timer);
-        //    TimerCreated?.Invoke(timer);
-        //}
+        public async Task AddTimer(Models.Timer timer)
+        {
+            await _timerCreator.CreateModel(timer);
+            _timers.Add(timer);
+            TimerCreated?.Invoke(timer);
+        }
 
-        //public async Task DeleteTimer(Models.Timer timer)
-        //{
-        //    await _timerCreator.DeleteModel(timer);
-        //    _timers.Remove(_timers.Where(i => i.timerName == timer.timerName).Single());
-        //    TimerDeleted?.Invoke(timer);
-        //}
+        public async Task DeleteTimer(Models.Timer timer)
+        {
+            await _timerCreator.DeleteModel(timer);
+            _timers.Remove(_timers.Where(i => i.timerName == timer.timerName).Single());
+            TimerDeleted?.Invoke(timer);
+        }
 
         // Loads the data from the database once
         private async Task Initialize()
@@ -350,6 +351,14 @@ namespace OOP_LernDashboard.Stores
             {
                 _quickNotes.Add(quickNote);
             }
+
+            IEnumerable<Models.Timer> timers = await _timerProvidor.GetAllModels();
+            _timers.Clear();
+            foreach (var timer in timers)
+            {
+                _timers.Add(timer);
+            }
+
         }
 
         private void GoogleLoginAuthTokenReceived(object? sender, (string authToken, string? refreshToken) token)

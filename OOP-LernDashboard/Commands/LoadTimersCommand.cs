@@ -17,7 +17,7 @@ namespace OOP_LernDashboard.Commands
         public override async Task ExecuteAsync(object? parameter)
         {
             await _dashboardStore.Load();
-            //_timerCollectionViewModel.UpdateTimers(_dashboardStore.Timers);
+            _timerCollectionViewModel.UpdateTimers(_dashboardStore.Timers);
         }
     }
 }

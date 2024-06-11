@@ -8,6 +8,7 @@ namespace OOP_LernDashboard.ViewModels
         public ICommand resetTimer { get; }
         public ICommand pauseTimer { get; }
 
+        public Guid Id => timer.Id;
         double _barValue;
         string _timerText;
         TimeSpan _endTime;
@@ -89,9 +90,9 @@ namespace OOP_LernDashboard.ViewModels
 
         
 
-        public TimerViewModel(TimeSpan endTime)
+        public TimerViewModel(Models.Timer timer)
         {
-            timer = new Models.Timer(endTime);
+            this.timer = timer;
             resetTimer = new resetTimerCommand(this);
             pauseTimer = new pauseTimerCommand(this);
 
