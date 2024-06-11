@@ -29,7 +29,10 @@ namespace OOP_LernDashboard.Commands
                 _viewModel.IsLoading = true;
                 await _dashboardStore.Load();
 
-                DateTime currentMonth = _dashboardStore.GoogleCalendar!.Start; // CanExecute ensures GoogleCalendar not null
+                if (_dashboardStore.GoogleCalendar == null)
+                    return;
+
+                DateTime currentMonth = _dashboardStore.GoogleCalendar.Start;
 
                 _viewModel.UpdateMonth(currentMonth);
                 _viewModel.UpdateGoogleReady(true);
