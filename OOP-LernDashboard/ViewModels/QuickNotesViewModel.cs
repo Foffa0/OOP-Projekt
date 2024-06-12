@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace OOP_LernDashboard.ViewModels
 {
-    internal class QuickNotesViewModel : ViewModelBase
+    internal class QuickNotesViewModel : ViewModelBase,INoteViewModel
     {
         private readonly ObservableCollection<QuickNoteViewModel> _quickNotes;
         public IEnumerable<QuickNoteViewModel> QuickNotes => _quickNotes;
@@ -30,10 +30,7 @@ namespace OOP_LernDashboard.ViewModels
         public QuickNotesViewModel(DashboardStore dashboardStore)
         {
             _quickNotes = new ObservableCollection<QuickNoteViewModel>();
-            _quickNotes.Add(new QuickNoteViewModel(new QuickNote("sdafjhlöasdlkökjfhölsdalkjfdlkösa"), dashboardStore));
-            _quickNotes.Add(new QuickNoteViewModel(new QuickNote("sdafjhlöasdlkökjssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssfhölsdalkjfdlkösa"), dashboardStore));
-            _quickNotes.Add(new QuickNoteViewModel(new QuickNote("sdafjasdfffffffdddddddddddddddddddddddddddddddddddddddddddddddddddddddddhlöasdlkökjfhölsdalkjfdlkösa"), dashboardStore));
-
+            
             _dashboardStore = dashboardStore;
             this.AddQuickNoteCommand = new AddQuickNoteCommand(this, _dashboardStore);
             LoadDataAsyncCommand = new LoadQuickNotesCommand(this, _dashboardStore);

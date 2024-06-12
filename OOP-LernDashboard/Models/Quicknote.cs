@@ -7,7 +7,7 @@
 
         public QuickNote(string note)
         {
-            Id = new Guid();
+            Id = Guid.NewGuid();
             Note = note;
         }
         public QuickNote(Guid id, string note)

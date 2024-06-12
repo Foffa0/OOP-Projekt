@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace OOP_LernDashboard.ViewModels
 {
-    internal class DashboardViewModel : ViewModelBase
+    internal class DashboardViewModel : ViewModelBase,INoteViewModel
     {
         private readonly DashboardStore _dashboardStore;
 
@@ -51,6 +51,17 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
+        private string _note = "";
+        public string Note
+        {
+            get { return _note; }
+            set
+            {
+                _note = value;
+                OnPropertyChanged(nameof(Note));
+            }
+        }
+
         #endregion
 
         #region ObservableCollections
@@ -85,6 +96,7 @@ namespace OOP_LernDashboard.ViewModels
         public ICommand CountdownsCommand { get; }
         public ICommand AddToDoCommand { get; }
         public ICommand QuickNotesCommand { get; }
+        public ICommand AddQuickNoteCommand { get; }
 
         #endregion
 
@@ -100,6 +112,7 @@ namespace OOP_LernDashboard.ViewModels
             CountdownsCommand = new NavigateCommand(countdownsNavigationService);
             AddToDoCommand = new NavigateCommand(toDosNavigationService);
             QuickNotesCommand = new NavigateCommand(quickNotesNavigationService);
+            AddQuickNoteCommand = new AddQuickNoteCommand(this, _dashboardStore);
 
             _toDos = new ObservableCollection<ToDoViewModel>();
             _calendarEvents = new ObservableCollection<EventViewModel>();
@@ -116,6 +129,8 @@ namespace OOP_LernDashboard.ViewModels
             // Listen for changes in the dashboardStore
             _dashboardStore.ToDoCreated += OnToDoCreated;
             _dashboardStore.ToDoDeleted += OnToDoDeleted;
+
+            _dashboardStore.QuickNoteCreated += OnQuickNoteCreated;
 
             _dashboardStore.GoogleLoggedIn += () => LoadDataAsyncCommand.Execute(null);
 
@@ -169,6 +184,12 @@ namespace OOP_LernDashboard.ViewModels
             {
                 _toDos.Add(new ToDoViewModel(toDo, _dashboardStore));
             }
+        }
+
+        public void OnQuickNoteCreated(QuickNote quickNote)
+        {
+            QuickNoteViewModel quickNoteViewModel = new QuickNoteViewModel(quickNote, _dashboardStore);
+            _quickNotes.Add(quickNoteViewModel);
         }
 
         public void UpdateWelcomeName(string name)
