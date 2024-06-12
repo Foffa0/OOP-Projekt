@@ -9,7 +9,7 @@ namespace OOP_LernDashboard.ViewModels
     {
         public ObservableCollection<TimerViewModel> Timers { get; }
         public ICommand AddTimerCommand { get; }
-        public ICommand RemoveTimerCommand { get; }
+        public ICommand DeleteTimerCommand { get; }
         public ICommand LoadTimersCommand { get; }
 
         private DashboardStore _dashboardStore;
@@ -64,6 +64,7 @@ namespace OOP_LernDashboard.ViewModels
 
             AddTimerCommand = new AddTimerCommand(this, _dashboardStore);
             LoadTimersCommand = new LoadTimersCommand(this, _dashboardStore);
+            DeleteTimerCommand = new DeleteTimerCommand(_dashboardStore);
 
             _dashboardStore.TimerCreated += OnTimerCreated;
             _dashboardStore.TimerDeleted += OnTimerDeleted;
@@ -87,6 +88,7 @@ namespace OOP_LernDashboard.ViewModels
         private void OnTimerDeleted(Models.Timer timer)
         {
             TimerViewModel timerViewModel = new TimerViewModel(timer);
+            //timerViewModel.DeleteTimer();
             Timers.Remove(Timers.Where(i => i.Id == timerViewModel.Id).Single());
         }
         
@@ -102,6 +104,7 @@ namespace OOP_LernDashboard.ViewModels
         public static TimerCollectionViewModel LoadViewModel(DashboardStore dashboardStore)
         {
             TimerCollectionViewModel viewModel = new TimerCollectionViewModel(dashboardStore);
+            viewModel.LoadTimersCommand.Execute(null);
             return viewModel;
         }
     }

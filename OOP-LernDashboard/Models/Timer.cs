@@ -26,6 +26,7 @@ namespace OOP_LernDashboard.Models
 
         public Timer(TimeSpan endTime)
         {
+            this.Id = Guid.NewGuid();
             this.endTime = endTime;
             this.timerName = endTime.ToString();
             
