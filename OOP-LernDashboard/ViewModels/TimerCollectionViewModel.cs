@@ -14,7 +14,6 @@ namespace OOP_LernDashboard.ViewModels
 
         private DashboardStore _dashboardStore;
 
-        private string _timerName;
         private int _hourInput;
         private int _minuteInput;
         private int _secondInput;

@@ -105,8 +105,8 @@ namespace OOP_LernDashboard.ViewModels
             this.timer = timer;
             TimerDisplayText = timer.TimerDisplayText;
             BarValue = timer.BarValue;
-            resetTimer = new resetTimerCommand(this);
-            pauseTimer = new pauseTimerCommand(this);
+            resetTimer = new ResetTimerCommand(this);
+            pauseTimer = new PauseTimerCommand(this);
 
             timer.TimerDisplayTextChanged += changeTimerDisplayText;
             timer.BarValueChanged += changeBarValue;

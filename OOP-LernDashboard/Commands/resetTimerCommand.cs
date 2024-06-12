@@ -2,12 +2,12 @@
 
 namespace OOP_LernDashboard.Commands
 {
-    class resetTimerCommand : CommandBase
+    class ResetTimerCommand : CommandBase
     {
         TimerViewModel _viewModel;
 
 
-        public resetTimerCommand(TimerViewModel viewModel)
+        public ResetTimerCommand(TimerViewModel viewModel)
         {
             _viewModel = viewModel;
         }

@@ -22,9 +22,7 @@ namespace OOP_LernDashboard.ViewModels
                 }
             }
         }
-        public string NextDate => (_toDo as RecurringToDo)?.NextDate != null
-        ? ToDateText((DateTime)(_toDo as RecurringToDo).NextDate)
-        : "";
+        public string NextDate { get; set; }        
 
         public ICommand DeleteToDoCommand { get; set; }
         public ICommand CheckToDoCommand { get; set; }
@@ -34,11 +32,13 @@ namespace OOP_LernDashboard.ViewModels
             _toDo = toDo;
             DeleteToDoCommand = new DeleteToDoCommand(this, dashboardStore);
             CheckToDoCommand =new CheckToDoCommand(this,dashboardStore);
+            NextDate = (_toDo as RecurringToDo)?.NextDate != null
+            ? ToDateText((DateTime)(_toDo as RecurringToDo).NextDate)
+            : "";            
         }
         private string ToDateText(DateTime date)
         {
-            var timeSpan = date - DateTime.Now;
-
+            var timeSpan = date - DateTime.Now;           
             if (timeSpan.TotalDays < 1)
             {
                 if (timeSpan.TotalHours < 1)

@@ -45,6 +45,9 @@ namespace OOP_LernDashboard.Services.DataCreators
                 Id = toDo.Id,
                 Description = toDo.Description,
                 IsChecked = toDo.IsChecked,
+                IsRecurringToDo = toDo is RecurringToDo,
+                StartTime = (toDo as RecurringToDo)?.StartTime,
+                IntervalTime = (toDo as RecurringToDo)?.TimeInterval,
                 //StartTime=toDo.
 
             };
