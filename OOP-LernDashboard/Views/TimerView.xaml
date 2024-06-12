@@ -55,7 +55,7 @@
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                     <ColumnDefinition Width="30"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Column="1" Width="40" Height="40" Command="{Binding DeleteTimerCommand}" Padding="0" >
+                                <Button Grid.Column="1" Width="40" Height="40" Command="{Binding DataContext.DeleteTimerCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}" Padding="0" >
                                     <Image Source="/Resources/Images/AddIcon.png" Width="25" Height="25" RenderOptions.BitmapScalingMode="HighQuality">
                                         <Image.LayoutTransform>
                                             <RotateTransform Angle="45"></RotateTransform>
@@ -78,6 +78,13 @@
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
+            <ItemsControl.Template>
+                <ControlTemplate TargetType="ItemsControl">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ItemsPresenter />
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ItemsControl.Template>
         </ItemsControl>
 
     </Grid>

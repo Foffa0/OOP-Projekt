@@ -1,20 +1,24 @@
-﻿using OOP_LernDashboard.ViewModels;
+﻿using OOP_LernDashboard.Stores;
+using OOP_LernDashboard.ViewModels;
 
 namespace OOP_LernDashboard.Commands
 {
     class DeleteTimerCommand : CommandBase
     {
-        TimerViewModel _viewModel;
+        DashboardStore _dashboardStore;
 
 
-        public DeleteTimerCommand(TimerViewModel viewModel)
+        public DeleteTimerCommand(DashboardStore dashboardStore)
         {
-            _viewModel = viewModel;
+           _dashboardStore = dashboardStore;
         }
 
         public override void Execute(object? parameter)
         {
-            _viewModel.DeleteTimer();
+            if (parameter != null)
+            {
+                _ = _dashboardStore.DeleteTimer(_dashboardStore.Timers.Where(i => i.Id == ((TimerViewModel)parameter).Id).Single());
+            }
         }
     }
 }
