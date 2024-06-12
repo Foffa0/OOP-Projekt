@@ -1,4 +1,5 @@
 ﻿using HandyControl.Controls;
+using HandyControl.Data;
 using HandyControl.Tools.Extension;
 using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Stores;
@@ -24,7 +25,18 @@ namespace OOP_LernDashboard.Commands
         public override async void Execute(object? parameter)
         {
             
-            if (!_viewModel.Note.IsNullOrEmpty())
+            if (String.IsNullOrWhiteSpace(_viewModel.Note))
+            {
+                Growl.Error(new GrowlInfo
+                {
+                    Message = "Notiz darf nicht leer sein",
+                    ShowDateTime = false,
+                    WaitTime = 1,
+                    StaysOpen = false
+                });
+                _viewModel.Note = "";
+            }
+            else
             {
                 QuickNote quickNote = new QuickNote(_viewModel.Note);
                 _viewModel.Note = "";

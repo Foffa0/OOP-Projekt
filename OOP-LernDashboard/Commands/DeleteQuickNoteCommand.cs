@@ -24,11 +24,12 @@ namespace OOP_LernDashboard.Commands
             {
                 Message = $"Möchtest du diese Notiz ({notePreview}) wirklich löschen?",
                 Button = MessageBoxButton.YesNo,
-                ConfirmContent = "Ja",
+                //ConfirmContent = "Ja",
+                YesContent = "Ja",
                 NoContent = "Nein",
                 IconKey = ResourceToken.AskGeometry,
                 IconBrushKey = "PrimaryBrush",
-            });
+            }); ;
             if (result == MessageBoxResult.Yes)
             {
                 await _dashboardStore.DeleteQuickNote(_quickNote);
