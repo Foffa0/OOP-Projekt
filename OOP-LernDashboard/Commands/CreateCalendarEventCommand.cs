@@ -17,9 +17,8 @@ namespace OOP_LernDashboard.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return  
-                _calendarViewModel.SelectedCalendar != null 
-                && _dashboardStore.GoogleCalendar != null
+            return
+                _dashboardStore.GoogleCalendar != null
                 && base.CanExecute(parameter);
         }
 
@@ -29,7 +28,7 @@ namespace OOP_LernDashboard.Commands
             DateTime? end = _calendarViewModel.IsWholeDay ? null : _calendarViewModel.NewEventDate.AddHours(_calendarViewModel.NewEventEndTime.Hour).AddMinutes(_calendarViewModel.NewEventEndTime.Minute);
 
             var calendarEvent = new CalendarEvent(
-                _calendarViewModel.SelectedCalendar!.Id, // CanExecute ensures that SelectedCalendar is not null
+                _calendarViewModel.SelectedCalendar!.Id, 
                 _calendarViewModel.NewEventTitle,
                 _calendarViewModel.NewEventDescription,
                 true,

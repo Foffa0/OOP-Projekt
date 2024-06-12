@@ -1,4 +1,5 @@
 ﻿using HandyControl.Controls;
+using HandyControl.Tools.Extension;
 using OOP_LernDashboard.Stores;
 using OOP_LernDashboard.ViewModels;
 using System.Collections.ObjectModel;
@@ -28,12 +29,24 @@ namespace OOP_LernDashboard.Commands
                 _viewModel.IsLoading = true;
                 await _dashboardStore.Load();
 
-                DateTime currentMonth = _dashboardStore.GoogleCalendar!.Start; // CanExecute ensures GoogleCalendar not null
+                if (_dashboardStore.GoogleCalendar == null)
+                    return;
+
+                DateTime currentMonth = _dashboardStore.GoogleCalendar.Start;
 
                 _viewModel.UpdateMonth(currentMonth);
                 _viewModel.UpdateGoogleReady(true);
 
                 await _dashboardStore.GoogleCalendar.LoadAllCalendars(onlyEditable: true);
+
+                // check if a single editable calendar exists
+                if (_dashboardStore.GoogleCalendar.AllCalendars.IsEmpty)
+                {
+                    MessageBox.Warning("Keine bearbeitbaren Kalender gefunden.", "Warnung");
+                }
+                else if (_dashboardStore.SelectedCalendarId.IsNullOrEmpty()) 
+                    _dashboardStore.SetSelectedCalendar(_dashboardStore.GoogleCalendar.AllCalendars.First().Id);
+
                 _viewModel.UpdateCalendars(_dashboardStore.GoogleCalendar.AllCalendars);
                 _viewModel.UpdateSelectedCalendar(_dashboardStore.SelectedCalendarId);
 
@@ -47,7 +60,7 @@ namespace OOP_LernDashboard.Commands
                     MessageBox.Info("Kein Kalender ausgewählt.\nGehe in die Einstellungen um dort deine Auswahl zu treffen.");
                 }
 
-                
+
 
                 int today = DateTime.Now.Day - 1;
                 bool isCurrentMonth = DateTime.Now.Month == currentMonth.Month

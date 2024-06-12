@@ -13,7 +13,7 @@ namespace OOP_LernDashboard.Commands
 
         public override void Execute(object? parameter)
         {
-            _viewModel.PauseTimer();
+            _viewModel.StartPauseTimer();
         }
     }
 }

@@ -6,6 +6,7 @@ namespace OOP_LernDashboard.DTOs
     {
         [Key]
 
+        public Guid Id { get; set; }
         public string TimerName { get; set; }
         public TimeSpan EndTime { get; set; }
         public double ElapsedTime { get; set; }

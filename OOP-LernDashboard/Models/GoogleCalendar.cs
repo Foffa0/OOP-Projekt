@@ -212,6 +212,9 @@ namespace OOP_LernDashboard.Models
             }
             else
             {
+                if (e.Start.DateTimeDateTimeOffset == null || e.End.DateTimeDateTimeOffset == null)
+                    throw new NullReferenceException("Event does not have sufficiant data");
+
                 // event with start and end time
                 return new CalendarEvent(
                     calendarId,

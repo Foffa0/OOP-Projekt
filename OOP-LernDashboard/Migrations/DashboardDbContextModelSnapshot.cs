@@ -98,18 +98,24 @@ namespace OOP_LernDashboard.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("HourInput")
-                        .HasColumnType("INTEGER");
+                    b.Property<double>("ElapsedTime")
+                        .HasColumnType("REAL");
 
-                    b.Property<int>("MinuteInput")
-                        .HasColumnType("INTEGER");
+                    b.Property<TimeSpan>("EndTime")
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("SecondInput")
+                    b.Property<int>("TickSize")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("TimerName")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<double>("TotalTime")
+                        .HasColumnType("REAL");
+
+                    b.Property<bool>("isPaused")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

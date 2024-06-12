@@ -1,5 +1,6 @@
 ﻿using HandyControl.Controls;
 using HandyControl.Data;
+using OOP_LernDashboard.Stores;
 using OOP_LernDashboard.ViewModels;
 
 namespace OOP_LernDashboard.Commands
@@ -9,14 +10,16 @@ namespace OOP_LernDashboard.Commands
         private readonly TimerCollectionViewModel _viewModel;
         private int TimerCount = 0;
         private int maxTimerCount = 8;
+        private readonly DashboardStore _dashboardStore;
 
 
-        public AddTimerCommand(TimerCollectionViewModel viewModel)
+        public AddTimerCommand(TimerCollectionViewModel viewModel, DashboardStore dashboardStore)
         {
             _viewModel = viewModel;
+            _dashboardStore = dashboardStore;
         }
 
-        public override void Execute(object? parameter)
+        public override async void Execute(object? parameter)
         {
 
             if (_viewModel.Seconds == 0 && _viewModel.Minutes == 0 && _viewModel.Hours == 0)
@@ -30,8 +33,9 @@ namespace OOP_LernDashboard.Commands
             }
             else if (TimerCount < maxTimerCount)
             {
-                //Models.Timer timer = new Models.Timer(_viewModel, _viewModel.EndTime);
-                _viewModel._timers.Add(new TimerViewModel(_viewModel.EndTime));
+                
+                Models.Timer timer = new (_viewModel.EndTime);
+                await _dashboardStore.AddTimer(timer);
                 TimerCount++;
             }
         }

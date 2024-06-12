@@ -1,19 +1,18 @@
-using System.Collections.ObjectModel;
-using OOP_LernDashboard.Stores;
-using System.Windows.Input;
-using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Commands;
+using OOP_LernDashboard.Stores;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace OOP_LernDashboard.ViewModels
 {
     class TimerCollectionViewModel : ViewModelBase
     {
-        public ObservableCollection<TimerViewModel> _timers;
+        public ObservableCollection<TimerViewModel> Timers { get; }
         public ICommand AddTimerCommand { get; }
         public ICommand RemoveTimerCommand { get; }
         public ICommand LoadTimersCommand { get; }
 
-        private readonly DashboardStore _dashboardStore;
+        private DashboardStore _dashboardStore;
 
         private string _timerName;
         private int _hourInput;
@@ -21,7 +20,6 @@ namespace OOP_LernDashboard.ViewModels
         private int _secondInput;
 
 
-        //save all Timers in 
         public int Hours
         {
             get => this._hourInput;
@@ -61,21 +59,45 @@ namespace OOP_LernDashboard.ViewModels
 
         public TimerCollectionViewModel(DashboardStore dashboardStore)
         {
-            _timers = new ObservableCollection<TimerViewModel>();
+            Timers = new ObservableCollection<TimerViewModel>();
             _dashboardStore = dashboardStore;
 
-            AddTimerCommand = new AddTimerCommand(this);
+            AddTimerCommand = new AddTimerCommand(this, _dashboardStore);
             LoadTimersCommand = new LoadTimersCommand(this, _dashboardStore);
+
+            _dashboardStore.TimerCreated += OnTimerCreated;
+            _dashboardStore.TimerDeleted += OnTimerDeleted;
         }
 
-        //public void UpdateTimers(IEnumerable<Models.Timer> timers)
-        //{
-        //    _timers.Clear();
-        //    foreach (var timer in timers)
-        //    {
-        //        _timers.Add(new TimerViewModel(timer));
-        //    }
-        //}
+        public override void Dispose()
+        {
+            _dashboardStore.TimerCreated -= OnTimerCreated;
+            _dashboardStore.TimerDeleted -= OnTimerDeleted;
+
+            base.Dispose();
+        }
+
+
+        private void OnTimerCreated(Models.Timer timer) 
+        {
+            TimerViewModel timerViewModel = new TimerViewModel(timer);
+            Timers.Add(timerViewModel);
+        }
+
+        private void OnTimerDeleted(Models.Timer timer)
+        {
+            TimerViewModel timerViewModel = new TimerViewModel(timer);
+            Timers.Remove(Timers.Where(i => i.Id == timerViewModel.Id).Single());
+        }
+        
+        public void UpdateTimers(IEnumerable<Models.Timer> timers)
+        {
+            Timers.Clear();
+            foreach (var timer in timers)
+            {
+                Timers.Add(new TimerViewModel(timer));
+            }
+        }
 
         public static TimerCollectionViewModel LoadViewModel(DashboardStore dashboardStore)
         {
