@@ -11,7 +11,7 @@ using OOP_LernDashboard.DbContexts;
 namespace OOP_LernDashboard.Migrations
 {
     [DbContext(typeof(DashboardDbContext))]
-    [Migration("20240611074531_Timer")]
+    [Migration("20240612190300_Timer")]
     partial class Timer
     {
         /// <inheritdoc />
