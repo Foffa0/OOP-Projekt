@@ -2,11 +2,11 @@
 
 namespace OOP_LernDashboard.Commands
 {
-    class pauseTimerCommand : CommandBase
+    class PauseTimerCommand : CommandBase
     {
         TimerViewModel _viewModel;
 
-        public pauseTimerCommand(TimerViewModel viewModel)
+        public PauseTimerCommand(TimerViewModel viewModel)
         {
             _viewModel = viewModel;
         }
