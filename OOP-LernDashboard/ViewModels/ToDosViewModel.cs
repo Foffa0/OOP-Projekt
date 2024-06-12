@@ -141,7 +141,7 @@ namespace OOP_LernDashboard.ViewModels
 
             foreach (var toDo in todos)
             {
-                if(toDo.IsChecked)
+                if(toDo.IsChecked||toDo is RecurringToDo)
                 {
                     _checkedtoDos.Add(new ToDoViewModel(toDo, _dashboardStore));
                 }
@@ -169,12 +169,8 @@ namespace OOP_LernDashboard.ViewModels
             if (s != null)
             {
                 _toDos.Remove(s);
-            }
-            var k = _checkedtoDos.Where(s => s.Description == toDo.Description).FirstOrDefault();
-            if (s != null)
-            {
                 _checkedtoDos.Remove(s);
-            }
+            }           
         }
     }
 }

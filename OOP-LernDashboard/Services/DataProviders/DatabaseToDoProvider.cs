@@ -29,7 +29,10 @@ namespace OOP_LernDashboard.Services.DataProviders
 
         private static ToDo ToToDo(ToDoDTO r)
         {
-            return new ToDo(r.Id, r.Description, r.IsChecked);
+            if(!r.IsRecurringToDo)
+                return new ToDo(r.Id, r.Description, r.IsChecked);
+            else
+                return new RecurringToDo(r.Id,r.Description, r.IsChecked,r.StartTime??DateTime.Now,r.IntervalTime??TimeSpan.Zero);
         }
     }
 }
