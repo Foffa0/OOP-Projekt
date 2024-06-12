@@ -133,7 +133,21 @@
                                     </Style>
                                 </ListView.ItemContainerStyle>
                             </ListView>
+                            <Border Margin="5 10 5 10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="40" />
+                                </Grid.ColumnDefinitions>
 
+                                <TextBox Text="{Binding Note, UpdateSourceTrigger=PropertyChanged}" Margin="0 0 5 0" Style="{StaticResource PrimaryTextInput}" TextWrapping="Wrap"/>
+
+                                <Button Grid.Column="1" Background="{DynamicResource PrimaryBrush}" BorderThickness="0" Margin="5 0 0 0" Cursor="Hand" HorizontalAlignment="Right" Command="{Binding AddQuickNoteCommand}">
+                                    <Image Source="/Resources/Images/onlyCheckIcon.png" Width="40" Height="22" Stretch="Uniform" />
+                                </Button>
+                                
+                            </Grid>
+                            </Border>
                             <Button Command="{Binding QuickNotesCommand}" Background="Transparent" BorderThickness="0" Foreground="#f0f0f0" Cursor="Hand">
                                 <Underline>Bearbeiten</Underline>
                             </Button>

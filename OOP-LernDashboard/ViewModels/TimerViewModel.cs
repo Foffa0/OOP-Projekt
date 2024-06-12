@@ -15,6 +15,15 @@ namespace OOP_LernDashboard.ViewModels
         string _IconPath;
         Models.Timer timer;
 
+        public void changeTimerDisplayText(object sender, string text)
+        {
+            TimerDisplayText = text;
+        }
+        public void changeBarValue(object sender, double value)
+        {
+            BarValue = value;
+        }
+
 
         public void StartPauseTimer()
         {
@@ -42,11 +51,12 @@ namespace OOP_LernDashboard.ViewModels
             BarValue = (timer.elapsedTime / timer.totalTime) * 100;
         }
 
+
         public void DeleteTimer()
         {
-
+            timer.TimerDisplayTextChanged -= changeTimerDisplayText;
+            timer.BarValueChanged -= changeBarValue;
         }
-
 
         public string TimerDisplayText
         {
@@ -93,21 +103,16 @@ namespace OOP_LernDashboard.ViewModels
         public TimerViewModel(Models.Timer timer)
         {
             this.timer = timer;
+            TimerDisplayText = timer.TimerDisplayText;
+            BarValue = timer.BarValue;
             resetTimer = new resetTimerCommand(this);
             pauseTimer = new pauseTimerCommand(this);
 
-            timer.TimerDisplayTextChanged += (sender, text) =>
-            {
-                TimerDisplayText = text;
-            };
+            timer.TimerDisplayTextChanged += changeTimerDisplayText;
+            timer.BarValueChanged += changeBarValue;
 
-            timer.BarValueChanged += (sender, value) =>
-            {
-                BarValue = value;
-            };
-
-            IconPath = "/Resources/Images/pauseIcon.png";
-            StartPauseTimer();
+            IconPath = "/Resources/Images/playIcon.png";
+            
         }
     }
 }

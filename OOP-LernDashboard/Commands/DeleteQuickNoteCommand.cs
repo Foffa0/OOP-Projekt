@@ -1,5 +1,8 @@
-﻿using OOP_LernDashboard.Models;
+﻿using HandyControl.Data;
+using OOP_LernDashboard.Migrations;
+using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Stores;
+using System.Windows;
 
 namespace OOP_LernDashboard.Commands
 {
@@ -16,7 +19,20 @@ namespace OOP_LernDashboard.Commands
 
         public override async void Execute(object? parameter)
         {
-            await _dashboardStore.DeleteQuickNote(_quickNote);
+            string notePreview = _quickNote.Note.Length > 10 ? _quickNote.Note.Substring(0, 10) + "..." : _quickNote.Note;
+            MessageBoxResult result = HandyControl.Controls.MessageBox.Show(new HandyControl.Data.MessageBoxInfo
+            {
+                Message = $"Möchtest du diese Notiz ({notePreview}) wirklich löschen?",
+                Button = MessageBoxButton.YesNo,
+                ConfirmContent = "Ja",
+                NoContent = "Nein",
+                IconKey = ResourceToken.AskGeometry,
+                IconBrushKey = "PrimaryBrush",
+            });
+            if (result == MessageBoxResult.Yes)
+            {
+                await _dashboardStore.DeleteQuickNote(_quickNote);
+            }
         }
     }
 }
