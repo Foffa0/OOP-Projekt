@@ -5,12 +5,19 @@
         public DateTime? NextDate { get; set; }
         public DateTime? StartTime { get; set; }
         public TimeSpan TimeInterval { get; set; }
+        
 
         public RecurringToDo(string description, bool isChecked, DateTime startTime, TimeSpan timeInterval) : base(description, isChecked)
         {   
             StartTime = startTime;
             TimeInterval = timeInterval;
-            NextDate=GenerateNextDate();
+            NextDate=GenerateNextDate();           
+        }
+        public RecurringToDo(Guid id,string description, bool isChecked, DateTime startTime, TimeSpan timeInterval) : base(id,description, isChecked)
+        {
+            StartTime = startTime;
+            TimeInterval = timeInterval;
+            NextDate = GenerateNextDate();
         }
         public DateTime GenerateNextDate()
         {

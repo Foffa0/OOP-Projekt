@@ -23,6 +23,7 @@ namespace OOP_LernDashboard.Commands
                 Message = $"Möchtest du diesen Shortcut ({_shortcut.Name}) wirklich löschen?",
                 Button = MessageBoxButton.YesNo,
                 ConfirmContent = "Ja",
+                YesContent = "Ja",
                 NoContent = "Nein",
                 IconKey = ResourceToken.AskGeometry,
                 IconBrushKey = "PrimaryBrush",

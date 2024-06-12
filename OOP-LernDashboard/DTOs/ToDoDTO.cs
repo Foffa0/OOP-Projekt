@@ -8,7 +8,9 @@ namespace OOP_LernDashboard.DTOs
         public Guid Id { get; set; }
         public string Description { get; set; }
         public Boolean IsChecked { get; set; }
-        //public DateTime StartTime { get; set; }
-        //public DateTime IntervalTime { get; set; }
+
+        public Boolean IsRecurringToDo { get; set; }
+        public DateTime? StartTime { get; set; }
+        public TimeSpan? IntervalTime { get; set; }
     }
 }
