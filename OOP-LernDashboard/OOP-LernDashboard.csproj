@@ -23,6 +23,7 @@
     <None Remove="Resources\Images\FileIcon.png" />
     <None Remove="Resources\Images\GoogleLogo.png" />
     <None Remove="Resources\Images\leftArrow.png" />
+    <None Remove="Resources\Images\onlyCheckIcon.png" />
     <None Remove="Resources\Images\pauseIcon.png" />
     <None Remove="Resources\Images\playIcon.png" />
     <None Remove="Resources\Images\QuickNotesIcon.png" />
@@ -34,6 +35,10 @@
     <None Remove="Resources\Images\TimerIcon.png" />
     <None Remove="Resources\Images\ToDoIcon.png" />
     <None Remove="logo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\onlyCheckIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
