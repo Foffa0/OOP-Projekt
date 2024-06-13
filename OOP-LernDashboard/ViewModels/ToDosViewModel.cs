@@ -165,12 +165,17 @@ namespace OOP_LernDashboard.ViewModels
         }
         private void OnToDoDeleted(ToDo toDo)
         {
-            var s = _toDos.First(s => s.ToDo.Id == toDo.Id);
-            if (s != null)
+            var s = _toDos.FirstOrDefault(s => s.ToDo.Id == toDo.Id);
+            if (s != default)
             {
                 _toDos.Remove(s);
+            }
+
+            s = _checkedtoDos.FirstOrDefault(s => s.ToDo.Id == toDo.Id);
+            if (s != default)
+            {
                 _checkedtoDos.Remove(s);
-            }           
+            }
         }
     }
 }
