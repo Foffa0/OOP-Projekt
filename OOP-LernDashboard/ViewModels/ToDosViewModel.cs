@@ -165,7 +165,7 @@ namespace OOP_LernDashboard.ViewModels
         }
         private void OnToDoDeleted(ToDo toDo)
         {
-            var s = _toDos.Where(s => s.Description == toDo.Description).FirstOrDefault();
+            var s = _toDos.First(s => s.ToDo.Id == toDo.Id);
             if (s != null)
             {
                 _toDos.Remove(s);
