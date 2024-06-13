@@ -139,7 +139,7 @@
         <ContentControl Grid.Column="1" Content="{Binding CurrentViewModel}" Margin="20 0 20 20" />
 
 
-        <hc:NotifyIcon Token="DemoToken" Text="HandyControl" IsBlink="False" Visibility="{Binding ContextMenuIsShow,Converter={StaticResource Boolean2VisibilityConverter}}">
+        <hc:NotifyIcon Token="NotifyIconToken" Text="HandyControl" IsBlink="False" Visibility="{Binding ContextMenuIsShow,Converter={StaticResource Boolean2VisibilityConverter}}">
             <hc:NotifyIcon.ContextMenu>
                 <ContextMenu>
                     <MenuItem Command="{Binding SendNotificationCmd}" Header="Send Notification"/>

@@ -66,7 +66,7 @@ namespace OOP_LernDashboard.Models
             if (endTime.TotalMilliseconds < 0)
             {
                 timer.Stop();
-                NotifyIcon.ShowBalloonTip("Timer abgelaufen", timerName, NotifyIconInfoType.None, "DemoToken");
+                NotifyIcon.ShowBalloonTip("Timer abgelaufen", timerName, NotifyIconInfoType.None, "NotifyIconToken");
                 TimerDisplayText = "Ich habe fertig!";
             }
             TimerDisplayTextChanged?.Invoke(this, TimerDisplayText);

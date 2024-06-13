@@ -22,9 +22,19 @@ namespace OOP_LernDashboard.Models
                 int daysLeft = c.Date.DayNumber - today.DayNumber;
                 if (daysLeft <= 0 && c.Notification == false)
                 {
-                    NotifyIcon.ShowBalloonTip("Countdown abgelaufen", c.Description, NotifyIconInfoType.None, "DemoToken");
+                    NotifyIcon.ShowBalloonTip("Countdown abgelaufen", c.Description, NotifyIconInfoType.None, "NotifyIconToken");
                     Countdown newCountdown = new Countdown(c.Id, c.Date, c.Description, true);
                     _ = _dashboardStore.ModifyCountdown(newCountdown);
+                }
+            }
+
+            foreach (ToDo toDo in _dashboardStore.ToDos)
+            {
+                DateTime now = DateTime.Now;
+                
+                if (toDo is RecurringToDo && ((RecurringToDo)toDo).NextDate.Value.Date == now.Date)
+                {
+                    NotifyIcon.ShowBalloonTip("ToDo heute fällig!", toDo.Description, NotifyIconInfoType.None, "NotifyIconToken");
                 }
             }
 
