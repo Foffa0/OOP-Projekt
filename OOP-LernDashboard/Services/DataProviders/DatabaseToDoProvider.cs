@@ -11,28 +11,38 @@ namespace OOP_LernDashboard.Services.DataProviders
     internal class DatabaseToDoProvider : IDataProvider<ToDo>
     {
         private readonly DashboardDbContextFactory _dbContextFactory;
+        private readonly Models.LinkedList<RecurringToDo> _updatedRecurringToDoList;
+        public Models.LinkedList<RecurringToDo> UpdatedRecurringToDoList => _updatedRecurringToDoList;
 
         public DatabaseToDoProvider(DashboardDbContextFactory dbContextFactory)
         {
             _dbContextFactory = dbContextFactory;
+            _updatedRecurringToDoList = new Models.LinkedList<RecurringToDo>();
         }
 
         public async Task<IEnumerable<ToDo>> GetAllModels()
         {
             using (DashboardDbContext context = _dbContextFactory.CreateDbContext())
             {
-                IEnumerable<ToDoDTO> videoDTOs = await context.ToDos.ToListAsync();
-
-                return videoDTOs.Select(r => ToToDo(r));
+                IEnumerable<ToDoDTO> toDoDTOs = await context.ToDos.ToListAsync();
+                _updatedRecurringToDoList.Clear();
+                return toDoDTOs.Select(r => ToToDo(r));
             }
         }
 
-        private static ToDo ToToDo(ToDoDTO r)
+        private ToDo ToToDo(ToDoDTO r)
         {
             if(!r.IsRecurringToDo)
                 return new ToDo(r.Id, r.Description, r.IsChecked);
             else
-                return new RecurringToDo(r.Id,r.Description, r.IsChecked,r.StartTime??DateTime.Now,r.IntervalTime??TimeSpan.Zero);
+            {
+                RecurringToDo reToDo = new RecurringToDo(r.Id, r.Description, r.IsChecked, r.StartTime ?? DateTime.Now, r.IntervalTime ?? TimeSpan.Zero);
+                if(r.IsChecked!=reToDo.IsChecked)
+                {
+                    _updatedRecurringToDoList.Add(reToDo);
+                }
+                return reToDo;
+            }         
         }
     }
 }

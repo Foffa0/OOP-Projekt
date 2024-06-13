@@ -46,7 +46,7 @@
 
                                             <TextBlock Grid.Column="1" Text="{Binding Description}" Margin="10,0,10,0" VerticalAlignment="Center" TextWrapping="Wrap" />
 
-                                            <TextBlock Grid.Column="2" Text="{Binding NextDate}" Margin="10,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap" />
+                                            <TextBlock Grid.Column="2" Text="{Binding DateText}" Margin="10,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap" />
                                         </Grid>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
@@ -187,32 +187,19 @@
                                         <GridViewColumn>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <!--<Grid>
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="*" />
-                                                            <ColumnDefinition Width="*" />
-                                                            <ColumnDefinition Width="auto" />
-                                                        </Grid.ColumnDefinitions>
-                                                        <CheckBox Grid.Column="0" Visibility="{Binding IsChecked}" IsChecked="{Binding IsChecked, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding CheckToDoCommand}">
-                                                            <TextBlock Text="{Binding Description}" Margin="0,-2,0,0"/>
-                                                        </CheckBox>
-                                                        <TextBlock Text="{Binding NextDate}"></TextBlock>
-                                                        <Button  Grid.Column="1" Content="Löschen" Command="{Binding DeleteToDoCommand}" Style="{StaticResource PrimaryButton}" Background="Red" Cursor="Hand" Margin="5, 0, 0, 0" HorizontalAlignment="Right" />
-                                                    </Grid>-->
                                                     <Grid Background="Transparent" Margin="0" HorizontalAlignment="Stretch" Cursor="Hand">
                                                         <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="60" />
+                                                            <ColumnDefinition Width="30" />
                                                             <ColumnDefinition Width="*" />
                                                             <ColumnDefinition Width="auto" />
                                                         </Grid.ColumnDefinitions>
-
-                                                        <Button Grid.Column="0" Style="{StaticResource PrimaryButton}" BorderThickness="0" Margin="0,0,0,0" Cursor="Hand" Width="60" Height="30" Content="Löschen" Background="Red" Command="{Binding DeleteToDoCommand}" HorizontalAlignment="Right">
-                                                   
+                                                        <Button Grid.Column="0" Background="#eb4034" Padding="6" Margin="0" BorderThickness="0" Cursor="Hand" HorizontalAlignment="Left" Command="{Binding DeleteToDoCommand}">
+                                                            <Image Source="/Resources/Images/DeleteIcon.png" Width="auto" Height="18" Stretch="Uniform" />
                                                         </Button>
 
                                                         <TextBlock Grid.Column="1" Text="{Binding Description}" Margin="10,0,10,0" VerticalAlignment="Center" TextWrapping="Wrap" />
 
-                                                        <TextBlock Grid.Column="2" Text="{Binding NextDate}" Margin="10,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap" />
+                                                        <TextBlock Grid.Column="2" Text="{Binding DateText}" Margin="10,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap" />
                                                     </Grid>
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>

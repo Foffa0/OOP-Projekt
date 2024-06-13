@@ -196,7 +196,13 @@ namespace OOP_LernDashboard.Stores
             _toDos.Add(toDo);
             ToDoCreated?.Invoke(toDo);
         }
+        public async Task CheckToDo (ToDo toDo)
+        {
+            toDo.check();
+            await ((DatabaseToDoCreator)_toDoCreator).ModifyModel(toDo);
+        }
         
+
         /// <summary>
         /// Removes a ToDo from the database and updates the ToDo-List
         /// </summary>
@@ -322,7 +328,10 @@ namespace OOP_LernDashboard.Stores
             {
                 _toDos.Add(toDo);
             }
-
+            foreach(RecurringToDo retoDo in ((DatabaseToDoProvider)_toDoProvider).UpdatedRecurringToDoList)
+            {
+                (_toDoCreator as DatabaseToDoCreator)?.ModifyModel(retoDo);
+            }
             IEnumerable<Shortcut> shortcuts = await _shortcutProvider.GetAllModels();
             _shortcuts.Clear();
             foreach (var shortcut in shortcuts)

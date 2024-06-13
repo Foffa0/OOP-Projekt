@@ -97,6 +97,7 @@ namespace OOP_LernDashboard.ViewModels
         public ICommand AddToDoCommand { get; }
         public ICommand QuickNotesCommand { get; }
         public ICommand AddQuickNoteCommand { get; }
+        
 
         #endregion
 
@@ -113,6 +114,7 @@ namespace OOP_LernDashboard.ViewModels
             AddToDoCommand = new NavigateCommand(toDosNavigationService);
             QuickNotesCommand = new NavigateCommand(quickNotesNavigationService);
             AddQuickNoteCommand = new AddQuickNoteCommand(this, _dashboardStore);
+            
 
             _toDos = new ObservableCollection<ToDoViewModel>();
             _calendarEvents = new ObservableCollection<EventViewModel>();

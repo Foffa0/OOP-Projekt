@@ -37,7 +37,28 @@ namespace OOP_LernDashboard.Services.DataCreators
                 await context.SaveChangesAsync();
             }
         }
+        public async Task ModifyModel(ToDo model)
+        {
+            using (DashboardDbContext context = _dbContextFactory.CreateDbContext())
+            {
+                ToDoDTO toDoDTO = ToToDoDTO(model);
+                // sets the toDoDTO with the same id as the model to the new values
+                ToDoDTO? existingToDo = await context.ToDos.FindAsync(model.Id);
 
+                if (existingToDo == null)
+                {
+                    throw new Exception("ToDo not found");
+                }
+
+                // Update the properties of the existing ToDoDTO with the new values
+                existingToDo.IsChecked = model.IsChecked;
+                existingToDo.StartTime = (model as RecurringToDo)?.StartTime;
+                
+
+                // Save the changes to the database
+                await context.SaveChangesAsync();
+            }
+        }
         private ToDoDTO ToToDoDTO(ToDo toDo)
         {
             return new ToDoDTO()

@@ -32,7 +32,7 @@ namespace OOP_LernDashboard.Models
             {
                 DateTime now = DateTime.Now;
                 
-                if (toDo is RecurringToDo && ((RecurringToDo)toDo).NextDate.Value.Date == now.Date && !((RecurringToDo)toDo).IsChecked)
+                if (toDo is RecurringToDo && (((RecurringToDo)toDo).StartTime+ ((RecurringToDo)toDo).TimeInterval).Value.Date == now.Date && !((RecurringToDo)toDo).IsChecked)
                 {
                     NotifyIcon.ShowBalloonTip("ToDo heute fällig!", toDo.Description, NotifyIconInfoType.None, "NotifyIconToken");
                 }

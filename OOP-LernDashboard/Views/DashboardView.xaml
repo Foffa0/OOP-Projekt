@@ -163,46 +163,60 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
-
                     <Border Background="{StaticResource SecondaryColor}" CornerRadius="5" Padding="10">
-                        <StackPanel>
-                            <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Headline}" Margin="0,0,0,10">ToDos</TextBlock>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                
+                            </Grid.RowDefinitions>
+                            <Border Background="{StaticResource SecondaryColor}" CornerRadius="5" Padding="10">
+                                <StackPanel>
+                                    <TextBlock Foreground="{StaticResource TextColor}" Style="{StaticResource Headline}" Margin="0,0,0,5">ToDos</TextBlock>
+                                    <ListView Grid.Row="1" ItemsSource="{Binding ToDos}" Background="Transparent" BorderThickness="0" Margin="0" Padding="4,0,4,4" VerticalContentAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VirtualizingPanel.ScrollUnit="Pixel" HorizontalContentAlignment="Stretch">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Background="Transparent" Margin="0" HorizontalAlignment="Stretch" Cursor="Hand">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="30" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="auto" />
+                                                    </Grid.ColumnDefinitions>
 
-                            <ListView Padding="0" Background="Transparent" BorderThickness="0" ItemsSource="{Binding ToDos}">
-                                <ListView.Resources>
-                                    <Style TargetType="GridViewColumnHeader">
-                                        <Setter Property="Template" Value="{x:Null}" />
-                                    </Style>
-                                </ListView.Resources>
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="BorderThickness" Value="0"/>
-                                        <Setter Property="Margin" Value="0, 0, 0, 10"/>
-                                        <Setter Property="Padding" Value="10"/>
-                                        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
-                                    </Style>
-                                </ListView.ItemContainerStyle>
+                                                    <Button Grid.Column="0" Style="{StaticResource PrimaryButton}" BorderThickness="0" Margin="0,0,0,0" Cursor="Hand" Width="30" Height="30" Command="{Binding CheckToDoCommand}">
+                                                        <Image Source="\Resources\Images\check.png" Stretch="Uniform" />
+                                                    </Button>
 
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn>
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <CheckBox IsChecked="{Binding IsChecked, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding CheckToDoCommand}">
-                                                        <TextBlock Text="{Binding Description}"  Margin="0,-2,0,0"/>
-                                                    </CheckBox>
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                            <StackPanel>
-                                <Button Command="{Binding AddToDoCommand}" Background="Transparent" BorderThickness="0" Foreground="#f0f0f0" Cursor="Hand">
-                                    <Underline>Bearbeiten</Underline>
-                                </Button>
-                            </StackPanel>
-                        </StackPanel>
+                                                    <TextBlock Grid.Column="1" Text="{Binding Description}" Margin="10,0,10,0" VerticalAlignment="Center" TextWrapping="Wrap" />
+
+                                                    <TextBlock Grid.Column="2" Text="{Binding NextDate}" Margin="10,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="ListViewItem">
+                                                <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="ListViewItem">
+                                                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Margin="0,4,0,4" CornerRadius="5" Padding="5">
+                                                                <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
+                                    </ListView>
+                                    <StackPanel>
+                                        <Button Command="{Binding AddToDoCommand}" Background="Transparent" BorderThickness="0" Foreground="#f0f0f0" Cursor="Hand">
+                                            <Underline>Bearbeiten</Underline>
+                                        </Button>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
                     </Border>
                 </Grid>
             </Border>

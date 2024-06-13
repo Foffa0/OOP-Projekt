@@ -26,7 +26,7 @@ namespace OOP_LernDashboard.Commands
         //}
         public override void Execute(object? parameter)
         {
-            _toDoViewModel.ToDo.check(); //check Methodenaufruf?
+             _dashboardStore.CheckToDo(_toDoViewModel.ToDo);
         }
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
