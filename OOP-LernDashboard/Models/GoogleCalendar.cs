@@ -148,7 +148,7 @@ namespace OOP_LernDashboard.Models
         {
             EventsResource.ListRequest request = _calendarService.Events.List(calendarId);
             request.TimeMinDateTimeOffset = start ?? Start;
-            request.TimeMaxDateTimeOffset = end ?? Start.AddMonths(1).AddDays(-1);
+            request.TimeMaxDateTimeOffset = end ?? Start.AddMonths(1);
             request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
             request.SingleEvents = true;
             request.MaxResults = max;
