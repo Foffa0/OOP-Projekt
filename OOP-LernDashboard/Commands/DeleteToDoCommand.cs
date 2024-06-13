@@ -17,7 +17,7 @@ namespace OOP_LernDashboard.Commands
         }
         public override bool CanExecute(object? parameter)
         {
-            return _toDoViewModel.IsChecked == false;
+            return base.CanExecute(parameter);
         }
         public override async void Execute(object? parameter)
         {
