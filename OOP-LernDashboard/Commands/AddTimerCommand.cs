@@ -33,8 +33,8 @@ namespace OOP_LernDashboard.Commands
             }
             else if (TimerCount < maxTimerCount)
             {
-                
-                Models.Timer timer = new (_viewModel.EndTime);
+
+                Models.Timer timer = new(_viewModel.EndTime);
                 await _dashboardStore.AddTimer(timer);
                 TimerCount++;
             }

@@ -53,7 +53,7 @@ namespace OOP_LernDashboard.Services.DataCreators
                 // Update the properties of the existing ToDoDTO with the new values
                 existingToDo.IsChecked = model.IsChecked;
                 existingToDo.StartTime = (model as RecurringToDo)?.StartTime;
-                
+
 
                 // Save the changes to the database
                 await context.SaveChangesAsync();

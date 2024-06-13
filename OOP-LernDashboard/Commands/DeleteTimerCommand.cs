@@ -10,7 +10,7 @@ namespace OOP_LernDashboard.Commands
 
         public DeleteTimerCommand(DashboardStore dashboardStore)
         {
-           _dashboardStore = dashboardStore;
+            _dashboardStore = dashboardStore;
         }
 
         public override void Execute(object? parameter)

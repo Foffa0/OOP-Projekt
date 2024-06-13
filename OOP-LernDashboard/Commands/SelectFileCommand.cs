@@ -14,7 +14,7 @@ namespace OOP_LernDashboard.Commands
 
         public override void Execute(object? parameter)
         {
-            
+
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu);
             _shortcutsViewModel.NewShortcutPath = openFileDialog.ShowDialog() == true ? openFileDialog.FileName : _shortcutsViewModel.NewShortcutPath;

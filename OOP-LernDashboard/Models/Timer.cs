@@ -29,7 +29,7 @@ namespace OOP_LernDashboard.Models
             this.Id = Guid.NewGuid();
             this.endTime = endTime;
             this.timerName = endTime.ToString();
-            
+
             TimerDisplayText = endTime.ToString(@"hh\:mm\:ss");
 
             timer = new DispatcherTimer();
@@ -86,10 +86,10 @@ namespace OOP_LernDashboard.Models
         public void Reset()
         {
             timer.Stop();
-            
+
             elapsedTime = 0;
             endTime = TimeSpan.FromMilliseconds(totalTime);
-            
+
         }
     }
 }

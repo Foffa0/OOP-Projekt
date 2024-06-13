@@ -1,5 +1,4 @@
 ﻿using HandyControl.Themes;
-using HandyControl.Tools.Extension;
 using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Services.DataCreators;
 using OOP_LernDashboard.Services.DataProviders;
@@ -197,13 +196,13 @@ namespace OOP_LernDashboard.Stores
             _toDos.Add(toDo);
             ToDoCreated?.Invoke(toDo);
         }
-        public async Task CheckToDo (ToDo toDo)
+        public async Task CheckToDo(ToDo toDo)
         {
             toDo.check();
             await ((DatabaseToDoCreator)_toDoCreator).ModifyModel(toDo);
             ToDoChecked?.Invoke(toDo);
         }
-        
+
 
         /// <summary>
         /// Removes a ToDo from the database and updates the ToDo-List
@@ -330,7 +329,7 @@ namespace OOP_LernDashboard.Stores
             {
                 _toDos.Add(toDo);
             }
-            foreach(RecurringToDo retoDo in ((DatabaseToDoProvider)_toDoProvider).UpdatedRecurringToDoList)
+            foreach (RecurringToDo retoDo in ((DatabaseToDoProvider)_toDoProvider).UpdatedRecurringToDoList)
             {
                 (_toDoCreator as DatabaseToDoCreator)?.ModifyModel(retoDo);
             }

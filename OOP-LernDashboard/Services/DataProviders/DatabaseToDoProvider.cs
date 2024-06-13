@@ -32,17 +32,17 @@ namespace OOP_LernDashboard.Services.DataProviders
 
         private ToDo ToToDo(ToDoDTO r)
         {
-            if(!r.IsRecurringToDo)
+            if (!r.IsRecurringToDo)
                 return new ToDo(r.Id, r.Description, r.IsChecked);
             else
             {
                 RecurringToDo reToDo = new RecurringToDo(r.Id, r.Description, r.IsChecked, r.StartTime ?? DateTime.Now, r.IntervalTime ?? TimeSpan.Zero);
-                if(r.IsChecked!=reToDo.IsChecked)
+                if (r.IsChecked != reToDo.IsChecked)
                 {
                     _updatedRecurringToDoList.Add(reToDo);
                 }
                 return reToDo;
-            }         
+            }
         }
     }
 }

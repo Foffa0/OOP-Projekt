@@ -1,9 +1,7 @@
 ﻿using HandyControl.Controls;
 using HandyControl.Data;
-using HandyControl.Tools.Extension;
 using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Stores;
-using OOP_LernDashboard.ViewModels;
 
 namespace OOP_LernDashboard.Commands
 {
@@ -24,7 +22,7 @@ namespace OOP_LernDashboard.Commands
 
         public override async void Execute(object? parameter)
         {
-            
+
             if (String.IsNullOrWhiteSpace(_viewModel.Note))
             {
                 Growl.Error(new GrowlInfo
@@ -42,7 +40,7 @@ namespace OOP_LernDashboard.Commands
                 _viewModel.Note = "";
                 await _dashboardStore.AddQuickNote(quickNote);
             }
-            
+
         }
     }
 }

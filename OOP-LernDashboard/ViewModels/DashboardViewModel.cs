@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace OOP_LernDashboard.ViewModels
 {
-    internal class DashboardViewModel : ViewModelBase,INoteViewModel
+    internal class DashboardViewModel : ViewModelBase, INoteViewModel
     {
         private readonly DashboardStore _dashboardStore;
 
@@ -36,7 +36,6 @@ namespace OOP_LernDashboard.ViewModels
                 OnPropertyChanged(nameof(ToDoDesc));
             }
         }
-
 
         private bool _isGoogleReady = false;
         public bool IsGoogleReady
@@ -98,7 +97,7 @@ namespace OOP_LernDashboard.ViewModels
         public ICommand AddToDoCommand { get; }
         public ICommand QuickNotesCommand { get; }
         public ICommand AddQuickNoteCommand { get; }
-        
+
 
         #endregion
 
@@ -115,7 +114,7 @@ namespace OOP_LernDashboard.ViewModels
             AddToDoCommand = new NavigateCommand(toDosNavigationService);
             QuickNotesCommand = new NavigateCommand(quickNotesNavigationService);
             AddQuickNoteCommand = new AddQuickNoteCommand(this, _dashboardStore);
-            
+
 
             _toDos = new ObservableCollection<ToDoViewModel>();
             _calendarEvents = new ObservableCollection<EventViewModel>();
@@ -132,13 +131,12 @@ namespace OOP_LernDashboard.ViewModels
             // Listen for changes in the dashboardStore
             _dashboardStore.ToDoCreated += OnToDoCreated;
             _dashboardStore.ToDoDeleted += OnToDoDeleted;
-            _dashboardStore.ToDoChecked += OnToDoChecked;
 
             _dashboardStore.QuickNoteCreated += OnQuickNoteCreated;
 
             _dashboardStore.GoogleLoggedIn += () => LoadDataAsyncCommand.Execute(null);
 
-            IsGoogleReady = dashboardStore.GoogleCalendar != null;           
+            IsGoogleReady = dashboardStore.GoogleCalendar != null;
         }
 
         public override void Dispose()
@@ -173,16 +171,6 @@ namespace OOP_LernDashboard.ViewModels
         /// <param name="toDo"></param>
         private void OnToDoDeleted(ToDo toDo)
         {
-            var s = _toDos.Where(s => s.ToDo.Id == toDo.Id).FirstOrDefault();
-            if (s != null)
-            {
-                _toDos.Remove(s);
-            }
-        }
-        private void OnToDoChecked(ToDo toDo)
-        {
-            if (toDo is RecurringToDo)
-                return;
             var s = _toDos.Where(s => s.ToDo.Id == toDo.Id).FirstOrDefault();
             if (s != null)
             {

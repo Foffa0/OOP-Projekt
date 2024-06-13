@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OOP_LernDashboard.DbContexts;
 using OOP_LernDashboard.DTOs;
-using OOP_LernDashboard.Models;
 
 namespace OOP_LernDashboard.Services.DataProviders
 {

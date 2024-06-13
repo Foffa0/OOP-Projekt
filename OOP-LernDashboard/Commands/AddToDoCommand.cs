@@ -27,25 +27,25 @@ namespace OOP_LernDashboard.Commands
         {
             //if (_dashboardViewModel.ToDoDesc == null)
             //    throw new NullReferenceException("Cannot create ToDo with Null as description");
-            DateTime? starttime= _toDosViewModel.IsRecurringToDo ? _toDosViewModel.NewToDoDate.AddHours(_toDosViewModel.NewToDoStartTime.Hour).AddMinutes(_toDosViewModel.NewToDoStartTime.Minute) : null;
+            DateTime? starttime = _toDosViewModel.IsRecurringToDo ? _toDosViewModel.NewToDoDate.AddHours(_toDosViewModel.NewToDoStartTime.Hour).AddMinutes(_toDosViewModel.NewToDoStartTime.Minute) : null;
             TimeSpan? timeInterval = TimeSpan.FromHours(_toDosViewModel.IntervalHours) + TimeSpan.FromDays(_toDosViewModel.IntervalDays + 30 * _toDosViewModel.IntervalMonths + 365 * _toDosViewModel.IntervalYears);
-            if(_toDosViewModel.IsRecurringToDo)
+            if (_toDosViewModel.IsRecurringToDo)
             {
                 if (!starttime.HasValue || !timeInterval.HasValue) { throw new ArgumentNullException(); }
 
                 if ((TimeSpan)timeInterval.Value <= TimeSpan.Zero)
                     return;
-                
+
                 RecurringToDo toDo = new RecurringToDo(_toDosViewModel.ToDoDesc, _toDosViewModel.IsChecked, (DateTime)starttime, (TimeSpan)timeInterval);
                 await _dashboardStore.AddToDo(toDo);
-                
+
             }
             else
             {
                 ToDo toDo = new ToDo(_toDosViewModel.ToDoDesc);
                 await _dashboardStore.AddToDo(toDo);
             }
-                  
+
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)

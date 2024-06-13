@@ -98,7 +98,7 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
-        
+
 
         public TimerViewModel(Models.Timer timer)
         {
@@ -112,7 +112,7 @@ namespace OOP_LernDashboard.ViewModels
             timer.BarValueChanged += changeBarValue;
 
             IconPath = "/Resources/Images/playIcon.png";
-            
+
         }
     }
 }

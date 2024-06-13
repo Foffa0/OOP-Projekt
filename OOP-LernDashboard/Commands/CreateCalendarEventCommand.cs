@@ -30,7 +30,7 @@ namespace OOP_LernDashboard.Commands
             DateTime? end = _calendarViewModel.IsWholeDay ? null : _calendarViewModel.NewEventDate.AddHours(_calendarViewModel.NewEventEndTime.Hour).AddMinutes(_calendarViewModel.NewEventEndTime.Minute);
 
             var calendarEvent = new CalendarEvent(
-                _calendarViewModel.SelectedCalendar!.Id, 
+                _calendarViewModel.SelectedCalendar!.Id,
                 _calendarViewModel.NewEventTitle,
                 _calendarViewModel.NewEventDescription,
                 true,

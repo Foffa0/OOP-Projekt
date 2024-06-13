@@ -31,8 +31,8 @@ namespace OOP_LernDashboard.Models
             foreach (ToDo toDo in _dashboardStore.ToDos)
             {
                 DateTime now = DateTime.Now;
-                
-                if (toDo is RecurringToDo && (((RecurringToDo)toDo).StartTime+ ((RecurringToDo)toDo).TimeInterval).Value.Date == now.Date && !((RecurringToDo)toDo).IsChecked)
+
+                if (toDo is RecurringToDo && (((RecurringToDo)toDo).StartTime + ((RecurringToDo)toDo).TimeInterval).Value.Date == now.Date && !((RecurringToDo)toDo).IsChecked)
                 {
                     NotifyIcon.ShowBalloonTip("ToDo heute fällig!", toDo.Description, NotifyIconInfoType.None, "NotifyIconToken");
                 }

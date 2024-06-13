@@ -142,21 +142,21 @@ namespace OOP_LernDashboard.ViewModels
 
             foreach (var toDo in todos)
             {
-                if(toDo is RecurringToDo)
+                if (toDo is RecurringToDo)
                 {
                     _checkedtoDos.Add(new ToDoViewModel(toDo, _dashboardStore));
                     _toDos.Add(new ToDoViewModel(toDo, _dashboardStore));
                     continue;
                 }
-                if(toDo.IsChecked)
+                if (toDo.IsChecked)
                 {
                     _checkedtoDos.Add(new ToDoViewModel(toDo, _dashboardStore));
                 }
                 else
                 {
                     _toDos.Add(new ToDoViewModel(toDo, _dashboardStore));
-                }  
-                
+                }
+
             }
         }
         public static ToDosViewModel LoadViewModel(Dashboard dashboard, DashboardStore dashboardStore)
@@ -168,18 +168,18 @@ namespace OOP_LernDashboard.ViewModels
         private void OnToDoCreated(ToDo toDo)
         {
             ToDoViewModel toDoViewModel = new ToDoViewModel(toDo, _dashboardStore);
-            if (toDo is  RecurringToDo)
+            if (toDo is RecurringToDo)
             {
                 _checkedtoDos.Add(toDoViewModel);
                 _toDos.Add(toDoViewModel);
                 return;
             }
-            if(!toDo.IsChecked)
+            if (!toDo.IsChecked)
             {
                 _toDos.Add(toDoViewModel);
             }
             else
-            _checkedtoDos.Add(toDoViewModel);
+                _checkedtoDos.Add(toDoViewModel);
         }
         private void OnToDoChecked(ToDo toDo)
         {

@@ -78,7 +78,7 @@ namespace OOP_LernDashboard.ViewModels
         }
 
 
-        private void OnTimerCreated(Models.Timer timer) 
+        private void OnTimerCreated(Models.Timer timer)
         {
             TimerViewModel timerViewModel = new TimerViewModel(timer);
             Timers.Add(timerViewModel);
@@ -90,7 +90,7 @@ namespace OOP_LernDashboard.ViewModels
             //timerViewModel.DeleteTimer();
             Timers.Remove(Timers.Where(i => i.Id == timerViewModel.Id).Single());
         }
-        
+
         public void UpdateTimers(IEnumerable<Models.Timer> timers)
         {
             Timers.Clear();

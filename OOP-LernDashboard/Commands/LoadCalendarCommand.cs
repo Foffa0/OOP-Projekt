@@ -44,7 +44,7 @@ namespace OOP_LernDashboard.Commands
                 {
                     MessageBox.Warning("Keine bearbeitbaren Kalender gefunden.", "Warnung");
                 }
-                else if (_dashboardStore.SelectedCalendarId.IsNullOrEmpty()) 
+                else if (_dashboardStore.SelectedCalendarId.IsNullOrEmpty())
                     _dashboardStore.SetSelectedCalendar(_dashboardStore.GoogleCalendar.AllCalendars.First().Id);
 
                 _viewModel.UpdateCalendars(_dashboardStore.GoogleCalendar.AllCalendars);
