@@ -17,7 +17,7 @@ namespace OOP_LernDashboard.Models
         public TimeSpan endTime;
         public double elapsedTime;
         public double totalTime;
-        public int tickSize = 500;
+        public int tickSize = 100;
         public bool isPaused = true;
 
         //data fields for EventHandlers

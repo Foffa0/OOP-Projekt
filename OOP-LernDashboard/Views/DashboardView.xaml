@@ -276,6 +276,7 @@
                                                             BorderBrush="{TemplateBinding BorderBrush}" 
                                                             BorderThickness="{TemplateBinding BorderThickness}" 
                                                             CornerRadius="5" 
+                                                            Margin="0 4 0 4"
                                                             Padding="5">
                                                         <ContentPresenter HorizontalAlignment="Stretch" 
                                     VerticalAlignment="Stretch"/>
