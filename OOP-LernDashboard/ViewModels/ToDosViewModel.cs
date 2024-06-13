@@ -134,6 +134,7 @@ namespace OOP_LernDashboard.ViewModels
 
             _dashboardStore.ToDoDeleted += OnToDoDeleted;
             _dashboardStore.ToDoCreated += OnToDoCreated;
+            _dashboardStore.ToDoChecked += OnToDoChecked;
         }
         public void UpdateToDos(IEnumerable<ToDo> todos)
         {
@@ -141,14 +142,21 @@ namespace OOP_LernDashboard.ViewModels
 
             foreach (var toDo in todos)
             {
-                if(toDo.IsChecked||toDo is RecurringToDo)
+                if(toDo is RecurringToDo)
+                {
+                    _checkedtoDos.Add(new ToDoViewModel(toDo, _dashboardStore));
+                    _toDos.Add(new ToDoViewModel(toDo, _dashboardStore));
+                    continue;
+                }
+                if(toDo.IsChecked)
                 {
                     _checkedtoDos.Add(new ToDoViewModel(toDo, _dashboardStore));
                 }
                 else
                 {
                     _toDos.Add(new ToDoViewModel(toDo, _dashboardStore));
-                }              
+                }  
+                
             }
         }
         public static ToDosViewModel LoadViewModel(Dashboard dashboard, DashboardStore dashboardStore)
@@ -160,8 +168,28 @@ namespace OOP_LernDashboard.ViewModels
         private void OnToDoCreated(ToDo toDo)
         {
             ToDoViewModel toDoViewModel = new ToDoViewModel(toDo, _dashboardStore);
-            _toDos.Add(toDoViewModel);
+            if (toDo is  RecurringToDo)
+            {
+                _checkedtoDos.Add(toDoViewModel);
+                _toDos.Add(toDoViewModel);
+                return;
+            }
+            if(!toDo.IsChecked)
+            {
+                _toDos.Add(toDoViewModel);
+            }
+            else
             _checkedtoDos.Add(toDoViewModel);
+        }
+        private void OnToDoChecked(ToDo toDo)
+        {
+            ToDoViewModel toDoViewModel = new ToDoViewModel(toDo, _dashboardStore);
+            _checkedtoDos.Add(toDoViewModel);
+            var s = _toDos.FirstOrDefault(s => s.ToDo.Id == toDo.Id);
+            if (s != default)
+            {
+                _toDos.Remove(s);
+            }
         }
         private void OnToDoDeleted(ToDo toDo)
         {

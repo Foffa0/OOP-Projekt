@@ -24,9 +24,10 @@ namespace OOP_LernDashboard.Commands
         //{
         //    return _toDoViewModel.ToDo.IsChecked = false;
         //}
-        public override void Execute(object? parameter)
+        public override async void Execute(object? parameter)
         {
-             _dashboardStore.CheckToDo(_toDoViewModel.ToDo);
+            await _dashboardStore.CheckToDo(_toDoViewModel.ToDo);
+            _toDoViewModel.UpdateDateText();
         }
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {

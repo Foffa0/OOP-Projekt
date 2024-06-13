@@ -23,7 +23,16 @@ namespace OOP_LernDashboard.ViewModels
                 }
             }
         }
-        public string DateText { get; set; }        
+        private string _dateText;
+        public string DateText
+        {
+            get=> _dateText;
+            set
+            {
+                _dateText = value;
+                OnPropertyChanged(nameof(DateText));
+            }
+        }
 
         public ICommand DeleteToDoCommand { get; set; }
         public ICommand CheckToDoCommand { get; set; }
@@ -37,12 +46,22 @@ namespace OOP_LernDashboard.ViewModels
             ? ToDateText(_toDo as RecurringToDo)
             : "";            
         }
+        public void UpdateDateText()
+        {
+            DateText = (_toDo is RecurringToDo)
+            ? ToDateText(_toDo as RecurringToDo)
+            : "";
+        }
         private string ToDateText(RecurringToDo reToDo)
         {
             if (reToDo.IsChecked)
                 return "bereits erledigt";
 
             TimeSpan timeSpan = reToDo.StartTime + reToDo.TimeInterval - DateTime.Now??TimeSpan.Zero;
+            if(timeSpan<TimeSpan.FromHours(1))
+            {
+                return "in " + timeSpan.Minutes + " Minuten";
+            }
             if(timeSpan<TimeSpan.FromDays(1))
             {
                 return "in " + timeSpan.Hours + " Stunden";
@@ -53,7 +72,7 @@ namespace OOP_LernDashboard.ViewModels
             }
             if (timeSpan < TimeSpan.FromDays(365))
             {
-                return "in " + timeSpan.Days + " Tagen";
+                return "in " + Math.Floor((double)(timeSpan.Days/30)) + " Monaten";
             }
             return "";
         }

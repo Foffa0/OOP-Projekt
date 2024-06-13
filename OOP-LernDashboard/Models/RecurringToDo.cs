@@ -32,8 +32,7 @@
         }
         public override void check()
         {
-             
-            
+             IsChecked = true;            
         }
     }
 }

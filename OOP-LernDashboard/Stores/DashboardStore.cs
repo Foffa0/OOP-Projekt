@@ -55,6 +55,7 @@ namespace OOP_LernDashboard.Stores
 
         public event Action<ToDo>? ToDoCreated;
         public event Action<ToDo>? ToDoDeleted;
+        public event Action<ToDo>? ToDoChecked;
 
         public event Action<Countdown>? CountdownCreated;
         public event Action<Countdown>? CountdownDeleted;
@@ -200,6 +201,7 @@ namespace OOP_LernDashboard.Stores
         {
             toDo.check();
             await ((DatabaseToDoCreator)_toDoCreator).ModifyModel(toDo);
+            ToDoChecked?.Invoke(toDo);
         }
         
 

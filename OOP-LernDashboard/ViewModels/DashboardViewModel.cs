@@ -37,6 +37,7 @@ namespace OOP_LernDashboard.ViewModels
             }
         }
 
+
         private bool _isGoogleReady = false;
         public bool IsGoogleReady
         {
@@ -131,12 +132,13 @@ namespace OOP_LernDashboard.ViewModels
             // Listen for changes in the dashboardStore
             _dashboardStore.ToDoCreated += OnToDoCreated;
             _dashboardStore.ToDoDeleted += OnToDoDeleted;
+            _dashboardStore.ToDoChecked += OnToDoChecked;
 
             _dashboardStore.QuickNoteCreated += OnQuickNoteCreated;
 
             _dashboardStore.GoogleLoggedIn += () => LoadDataAsyncCommand.Execute(null);
 
-            IsGoogleReady = dashboardStore.GoogleCalendar != null;
+            IsGoogleReady = dashboardStore.GoogleCalendar != null;           
         }
 
         public override void Dispose()
@@ -171,6 +173,16 @@ namespace OOP_LernDashboard.ViewModels
         /// <param name="toDo"></param>
         private void OnToDoDeleted(ToDo toDo)
         {
+            var s = _toDos.Where(s => s.ToDo.Id == toDo.Id).FirstOrDefault();
+            if (s != null)
+            {
+                _toDos.Remove(s);
+            }
+        }
+        private void OnToDoChecked(ToDo toDo)
+        {
+            if (toDo is RecurringToDo)
+                return;
             var s = _toDos.Where(s => s.ToDo.Id == toDo.Id).FirstOrDefault();
             if (s != null)
             {
