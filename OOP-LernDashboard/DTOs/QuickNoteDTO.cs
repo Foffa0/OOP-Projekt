@@ -7,5 +7,6 @@ namespace OOP_LernDashboard.DTOs
         [Key]
         public Guid Id { get; set; }
         public string Note { get; set; }
+        public DateTime CurrentDateTime { get; set; }
     }
 }
