@@ -24,7 +24,7 @@ namespace OOP_LernDashboard.Services.DataProviders
         }
         private static QuickNote ToQuickNote(QuickNoteDTO r)
         {
-            return new QuickNote(r.Id, r.Note);
+            return new QuickNote(r.Id, r.Note, r.CurrentDateTime);
         }
     }
 }

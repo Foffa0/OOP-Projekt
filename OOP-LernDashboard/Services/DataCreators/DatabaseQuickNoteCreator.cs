@@ -40,7 +40,8 @@ namespace OOP_LernDashboard.Services.DataCreators
             return new QuickNoteDTO
             {
                 Id = quickNote.Id,
-                Note = quickNote.Note
+                Note = quickNote.Note,
+                CurrentDateTime = quickNote.CurrentDateTime
             };
         }
     }
