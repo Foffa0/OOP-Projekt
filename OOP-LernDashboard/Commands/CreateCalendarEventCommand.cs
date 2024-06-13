@@ -17,13 +17,15 @@ namespace OOP_LernDashboard.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return
-                _dashboardStore.GoogleCalendar != null
-                && base.CanExecute(parameter);
+            return base.CanExecute(parameter);
         }
 
         public override void Execute(object? parameter)
         {
+            if (_dashboardStore.GoogleCalendar == null)
+            {
+                return;
+            }
             DateTime start = _calendarViewModel.IsWholeDay ? _calendarViewModel.NewEventDate : _calendarViewModel.NewEventDate.AddHours(_calendarViewModel.NewEventStartTime.Hour).AddMinutes(_calendarViewModel.NewEventStartTime.Minute);
             DateTime? end = _calendarViewModel.IsWholeDay ? null : _calendarViewModel.NewEventDate.AddHours(_calendarViewModel.NewEventEndTime.Hour).AddMinutes(_calendarViewModel.NewEventEndTime.Minute);
 
