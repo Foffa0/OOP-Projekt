@@ -131,7 +131,7 @@
 
                                 <TextBlock Grid.Column="0" Grid.Row="2" Text="Zeitintervall" Margin="0, 10, 0, 0" Style="{StaticResource Text}" VerticalAlignment="Center" Grid.ColumnSpan="2"></TextBlock>
                         
-                                <StackPanel Grid.Row="3" Orientation="Vertical" VerticalAlignment="Center" Margin="0,10,0,0">
+                                <StackPanel Grid.ColumnSpan="3" Grid.Row="3" Orientation="Vertical" VerticalAlignment="Center" Margin="0,10,0,0">
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,5,0,5">
                                         <TextBlock FontSize="15" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="{StaticResource TextColor}">Alle</TextBlock>
                                         <hc:NumericUpDown FontSize="15" Padding="10,0,10,0" Width="80" Height="20" Value="{Binding IntervalHours}" Minimum="0" Maximum="23" Margin="0,5,0,5"></hc:NumericUpDown>
