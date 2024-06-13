@@ -5,19 +5,22 @@
         public DateTime? NextDate { get; set; }
         public DateTime? StartTime { get; set; }
         public TimeSpan TimeInterval { get; set; }
+        public int IsCheckedCounter { get; set; }
         
 
         public RecurringToDo(string description, bool isChecked, DateTime startTime, TimeSpan timeInterval) : base(description, isChecked)
         {   
             StartTime = startTime;
             TimeInterval = timeInterval;
-            NextDate=GenerateNextDate();           
+            NextDate=GenerateNextDate();
+            IsCheckedCounter = 0;
         }
         public RecurringToDo(Guid id,string description, bool isChecked, DateTime startTime, TimeSpan timeInterval) : base(id,description, isChecked)
         {
             StartTime = startTime;
             TimeInterval = timeInterval;
             NextDate = GenerateNextDate();
+            IsCheckedCounter = 0;
         }
         public DateTime GenerateNextDate()
         {
@@ -34,8 +37,8 @@
         }
         public override void check()
         {
-            NextDate = GenerateNextDate();
-            IsChecked = false;
+            NextDate = GenerateNextDate(); 
+            IsCheckedCounter++;
         }
     }
 }

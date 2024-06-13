@@ -20,10 +20,10 @@ namespace OOP_LernDashboard.Commands
 
             _toDoViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
-        public override bool CanExecute(object? parameter)
-        {
-            return _toDoViewModel.IsChecked=false;
-        }
+        //public override bool CanExecute(object? parameter)
+        //{
+        //    return _toDoViewModel.ToDo.IsChecked = false;
+        //}
         public override void Execute(object? parameter)
         {
             _toDoViewModel.ToDo.check(); //check Methodenaufruf?

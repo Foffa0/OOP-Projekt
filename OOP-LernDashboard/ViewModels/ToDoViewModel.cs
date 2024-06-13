@@ -1,6 +1,7 @@
 ﻿using OOP_LernDashboard.Commands;
 using OOP_LernDashboard.Models;
 using OOP_LernDashboard.Stores;
+using System.Net.Http.Headers;
 using System.Windows.Input;
 
 namespace OOP_LernDashboard.ViewModels
@@ -31,13 +32,17 @@ namespace OOP_LernDashboard.ViewModels
         {
             _toDo = toDo;
             DeleteToDoCommand = new DeleteToDoCommand(this, dashboardStore);
-            CheckToDoCommand =new CheckToDoCommand(this,dashboardStore);
+            CheckToDoCommand = new CheckToDoCommand(this,dashboardStore);
             NextDate = (_toDo as RecurringToDo)?.NextDate != null
-            ? ToDateText((DateTime)(_toDo as RecurringToDo).NextDate)
+            ? ToDateText((DateTime)(_toDo as RecurringToDo).NextDate, (_toDo as RecurringToDo).IsCheckedCounter)
             : "";            
         }
-        private string ToDateText(DateTime date)
+        private string ToDateText(DateTime date, int isCheckedCounter)
         {
+            if (isCheckedCounter !=0)
+            {
+                return "vorerst erledigt";
+            }
             var timeSpan = date - DateTime.Now;           
             if (timeSpan.TotalDays < 1)
             {
