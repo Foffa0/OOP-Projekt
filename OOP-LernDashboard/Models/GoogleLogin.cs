@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using HandyControl.Tools.Extension;
+using Newtonsoft.Json;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
@@ -213,9 +214,12 @@ namespace OOP_LernDashboard.Models
 
                 this.AuthToken = accessToken;
 
-                // Raise the event when the token is received
-                AuthTokenReceived?.Invoke(this, (accessToken, null));
-
+                if (!accessToken.IsNullOrEmpty())
+                {
+                    // Raise the event when the token is received
+                    AuthTokenReceived?.Invoke(this, (accessToken, null));
+                }
+                    
                 return accessToken;
             }
 
